@@ -88,6 +88,8 @@ function createWindow() {
   return win;
 }
 
+app.setName('Voca');
+
 app.whenReady().then(() => {
   // Set dock icon on macOS (dev mode uses Electron's default otherwise)
   if (process.platform === 'darwin') {
