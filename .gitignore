@@ -11,3 +11,6 @@ uploads/
 
 # Electron
 release/
+
+# Claude Code personal settings
+.claude/settings.json
