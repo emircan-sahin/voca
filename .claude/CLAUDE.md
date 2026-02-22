@@ -4,13 +4,13 @@
 An Electron desktop app that records audio, transcribes it to text via Groq Whisper API, and stores transcripts in MongoDB. The pnpm monorepo contains three packages:
 
 - `@voca/shared` — TypeScript types and Zod schemas
-- `@voca/backend` — Express.js API server (port 3001)
+- `@voca/backend` — Express.js API server (port 3100)
 - `@voca/app` — Electron + React application
 
 ## Communication Flow
 ```
 Electron Renderer (React)
-  → axiosInstance (http://localhost:3001/api)
+  → axiosInstance (http://localhost:3100/api)
   → Express Routes
   → Controller
   → Groq Service (Whisper API)

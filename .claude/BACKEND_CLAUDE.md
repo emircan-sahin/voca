@@ -27,7 +27,10 @@ return sendSuccess(res, 'Success', transcript);
 ```
 **Never** expose internal fields like `audioPath`, `__v`, `createdAt` (Date).
 
-## Groq SDK Usage
+## Transcription Providers
+Two providers are supported. The controller selects based on the `provider` query param.
+
+### Groq SDK
 ```typescript
 import Groq from 'groq-sdk';
 import fs from 'fs';
@@ -36,11 +39,41 @@ const groq = new Groq({ apiKey: env.GROQ_API_KEY });
 
 const transcription = await groq.audio.transcriptions.create({
   file: fs.createReadStream(filePath),
-  model: 'whisper-large-v3',
+  model: 'whisper-large-v3-turbo',
   response_format: 'verbose_json',
 });
 ```
-Model: `whisper-large-v3` only.
+Model: `whisper-large-v3-turbo` only. Cost: $0.111/hour.
+
+### Deepgram SDK
+```typescript
+import { createClient } from '@deepgram/sdk';
+
+const deepgram = createClient(env.DEEPGRAM_API_KEY);
+
+const { result } = await deepgram.listen.prerecorded.transcribeFile(buffer, {
+  model: 'nova-3',
+  smart_format: true,
+  language,
+});
+```
+Model: `nova-3` only. Cost: $0.0077/min ($0.462/hour).
+
+## Hallucination Detection
+Both services return a `hallucination: boolean` flag. If true, the controller deletes the audio file and returns a 422 error.
+
+Detection signals:
+- **Groq**: segment end time > 3x actual duration, high `no_speech_prob` across all segments, known false patterns (e.g. Turkish subtitle artifacts)
+- **Deepgram**: empty transcript text or confidence < 0.3
+
+## Language Support
+The controller validates `language` against 35 supported codes:
+```
+en, tr, de, fr, es, pt, ja, ko, zh, ar, ru, it, nl, pl, hi,
+bg, ca, cs, da, el, et, fi, hu, id, lv, lt, ms, no, ro, sk,
+sl, sv, th, uk, vi
+```
+Default: `en`. Passed to the transcription service for better accuracy.
 
 ## Multer — Audio File Handling
 - `upload.single('audio')` middleware is added to the route
@@ -66,9 +99,10 @@ For each new resource:
 ```typescript
 // src/config/env.ts
 const envSchema = z.object({
-  PORT: z.string().default('3001'),
+  PORT: z.string().default('3100'),
   MONGODB_URI: z.string(),
   GROQ_API_KEY: z.string(),
+  DEEPGRAM_API_KEY: z.string().default(''),
 });
 export const env = envSchema.parse(process.env);
 ```

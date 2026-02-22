@@ -53,6 +53,25 @@
 └────────────────────────────────────┘
 ```
 
+## Key Components
+
+### ProviderSelect
+Dropdown to switch between transcription providers. Uses `useProviderStore` (Zustand) to persist selection.
+- Options: `Groq Whisper` (whisper-large-v3-turbo) | `Deepgram Nova` (nova-3)
+- Displayed as a compact `<select>` styled with gray-800 surface tokens
+
+### LanguageSelect
+Dropdown to select transcription language. Uses `useLanguageStore` (Zustand) to persist selection.
+- 35+ language options (en, tr, de, fr, es, ...)
+- Default: English
+- Language code passed as query param to backend
+
+### ShortcutsPanel
+Fixed bottom-right button that opens a keyboard shortcuts overlay.
+- Toggle with `?` key or click
+- Close with `Escape`
+- Platform-aware: shows `Right ⌘` on macOS, `Right ⊞` on Windows via `window.electronAPI.platform`
+
 ## New Component Rules
 1. Define props interface at the top of the file
 2. Use `clsx` for conditional classes
