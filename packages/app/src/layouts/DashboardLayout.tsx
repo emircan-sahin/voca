@@ -9,7 +9,7 @@ import { useNavigationStore } from '~/stores/navigation.store';
 
 export const DashboardLayout = () => {
   const { view } = useNavigationStore();
-  const { isRecording, isProcessing, handleToggle, transcripts, deleteMutation } =
+  const { isRecording, isProcessing, handleToggle, handleDelete, transcripts } =
     useTranscription();
 
   return (
@@ -24,13 +24,13 @@ export const DashboardLayout = () => {
               isProcessing={isProcessing}
               onToggle={handleToggle}
               transcripts={transcripts}
-              onDelete={(id: string) => deleteMutation.mutate(id)}
+              onDelete={handleDelete}
             />
           )}
           {view === 'history' && (
             <HistoryView
               transcripts={transcripts}
-              onDelete={(id: string) => deleteMutation.mutate(id)}
+              onDelete={handleDelete}
             />
           )}
           {view === 'settings' && <SettingsView />}

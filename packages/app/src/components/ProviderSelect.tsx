@@ -17,13 +17,13 @@ export const ProviderSelect = () => {
 
   return (
     <Select value={provider} onValueChange={(v) => setProvider(v as Provider)}>
-      <SelectTrigger className="w-auto text-sm">
+      <SelectTrigger className="w-64 text-sm">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {providers.map((p) => (
           <SelectItem key={p.value} value={p.value}>
-            {p.label} — {p.description}
+            {p.label}
           </SelectItem>
         ))}
       </SelectContent>

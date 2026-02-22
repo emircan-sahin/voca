@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { clsx } from 'clsx';
 import { Mic } from 'lucide-react';
 import { useMicrophoneStore } from '~/stores/microphone.store';
 import { Button } from 'poyraz-ui/atoms';
@@ -93,7 +94,7 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
   };
 
   return (
-    <div className={`flex items-center gap-2 ${className ?? ''}`}>
+    <div className={clsx('flex items-center gap-2', className)}>
       <div className="relative w-64">
         <Select value={selectValue} onValueChange={handleValueChange}>
           <SelectTrigger className="w-64 text-sm">

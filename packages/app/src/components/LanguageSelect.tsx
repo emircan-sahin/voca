@@ -12,13 +12,13 @@ export const LanguageSelect = () => {
 
   return (
     <Select value={language} onValueChange={setLanguage}>
-      <SelectTrigger className="w-auto text-sm">
+      <SelectTrigger className="w-64 text-sm">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {LANGUAGES.map((l) => (
           <SelectItem key={l.code} value={l.code}>
-            {l.name} ({l.code})
+            {l.name}
           </SelectItem>
         ))}
       </SelectContent>

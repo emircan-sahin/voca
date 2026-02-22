@@ -64,12 +64,12 @@ function createWindow() {
   const iconPath = join(__dirname, '../../../../assets/icon.png');
 
   const win = new BrowserWindow({
-    width: 1000,
-    height: 700,
-    minWidth: 1000,
-    minHeight: 700,
-    maxWidth: 1000,
-    maxHeight: 700,
+    width: 1050,
+    height: 740,
+    minWidth: 1050,
+    minHeight: 740,
+    maxWidth: 1050,
+    maxHeight: 740,
     resizable: false,
     icon: iconPath,
     webPreferences: {

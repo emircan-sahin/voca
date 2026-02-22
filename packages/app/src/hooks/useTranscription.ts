@@ -55,6 +55,11 @@ export const useTranscription = () => {
     },
   });
 
+  const handleDelete = useCallback(
+    (id: string) => deleteMutation.mutate(id),
+    [deleteMutation]
+  );
+
   const handleToggle = useCallback(async () => {
     if (isProcessing) return;
 
@@ -85,7 +90,7 @@ export const useTranscription = () => {
     isRecording,
     isProcessing,
     handleToggle,
+    handleDelete,
     transcripts,
-    deleteMutation,
   };
 };
