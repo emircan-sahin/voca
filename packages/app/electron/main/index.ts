@@ -64,8 +64,13 @@ function createWindow() {
   const iconPath = join(__dirname, '../../../../assets/icon.png');
 
   const win = new BrowserWindow({
-    width: 900,
-    height: 680,
+    width: 1000,
+    height: 700,
+    minWidth: 1000,
+    minHeight: 700,
+    maxWidth: 1000,
+    maxHeight: 700,
+    resizable: false,
     icon: iconPath,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),

@@ -1,12 +1,6 @@
 import { useCallback, useRef } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { RecordButton } from '~/components/RecordButton';
-import { TranscriptCard } from '~/components/TranscriptCard';
-import { ShortcutsPanel } from '~/components/ShortcutsPanel';
-import { ProviderSelect } from '~/components/ProviderSelect';
-import { LanguageSelect } from '~/components/LanguageSelect';
-import { MicrophoneSelect } from '~/components/MicrophoneSelect';
 import { useRecorder } from '~/hooks/useRecorder';
 import { useGlobalShortcut } from '~/hooks/useGlobalShortcut';
 import { useRecordingOverlay } from '~/hooks/useRecordingOverlay';
@@ -17,7 +11,7 @@ import { useMicrophoneStore } from '~/stores/microphone.store';
 import { transcriptService } from '~/services/transcript.service';
 import { ApiResponse, ITranscript } from '@voca/shared';
 
-export const HomePage = () => {
+export const useTranscription = () => {
   const queryClient = useQueryClient();
   const { deviceId } = useMicrophoneStore();
   const { isRecording, stream, start, stop } = useRecorder(deviceId);
@@ -87,56 +81,11 @@ export const HomePage = () => {
 
   const transcripts = transcriptsResponse?.data ?? [];
 
-  return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <ShortcutsPanel />
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        <header className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-white">Voca</h1>
-          <p className="text-gray-400 text-sm mt-1">Record voice, transcribe to text</p>
-        </header>
-
-        <div className="flex flex-col items-center gap-4 mb-10">
-          <div className="flex items-center gap-2">
-            <ProviderSelect />
-            <LanguageSelect />
-            <MicrophoneSelect />
-          </div>
-          <RecordButton
-            isRecording={isRecording}
-            isProcessing={isProcessing}
-            onClick={handleToggle}
-          />
-          <p className="text-gray-400 text-sm">
-            {isProcessing
-              ? 'Processing...'
-              : isRecording
-              ? 'Click to stop recording'
-              : 'Click to start recording'}
-          </p>
-        </div>
-
-        <section>
-          <h2 className="text-gray-300 text-sm font-medium mb-3">
-            Transcripts ({transcripts.length})
-          </h2>
-          {transcripts.length === 0 ? (
-            <p className="text-gray-600 text-sm text-center py-8">
-              No transcripts yet. Start recording!
-            </p>
-          ) : (
-            <div className="flex flex-col gap-3">
-              {transcripts.map((t: ITranscript) => (
-                <TranscriptCard
-                  key={t.id}
-                  transcript={t}
-                  onDelete={(id: string) => deleteMutation.mutate(id)}
-                />
-              ))}
-            </div>
-          )}
-        </section>
-      </div>
-    </div>
-  );
+  return {
+    isRecording,
+    isProcessing,
+    handleToggle,
+    transcripts,
+    deleteMutation,
+  };
 };

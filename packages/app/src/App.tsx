@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
-import { HomePage } from '~/pages/Home';
+import { DashboardLayout } from '~/layouts/DashboardLayout';
 import { SetupPage } from '~/pages/Setup';
 
 const queryClient = new QueryClient({
@@ -38,10 +38,16 @@ const App = () => {
       <Toaster
         position="top-right"
         toastOptions={{
-          style: { background: '#1f2937', color: '#f9fafb', border: '1px solid #374151' },
+          style: {
+            background: '#ffffff',
+            color: '#171717',
+            border: '1px dashed #e5e5e5',
+            boxShadow: 'none',
+            borderRadius: '0',
+          },
         }}
       />
-      {ready ? <HomePage /> : <SetupPage onGranted={() => setReady(true)} />}
+      {ready ? <DashboardLayout /> : <SetupPage onGranted={() => setReady(true)} />}
     </QueryClientProvider>
   );
 };

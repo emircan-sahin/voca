@@ -1,8 +1,22 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { ChevronDown, Mic } from 'lucide-react';
+import { Mic } from 'lucide-react';
 import { useMicrophoneStore } from '~/stores/microphone.store';
+import { Button } from 'poyraz-ui/atoms';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from 'poyraz-ui/molecules';
 
-export const MicrophoneSelect = () => {
+const DEFAULT_SENTINEL = 'default';
+
+interface MicrophoneSelectProps {
+  className?: string;
+}
+
+export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
   const { deviceId, setDeviceId } = useMicrophoneStore();
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const [testing, setTesting] = useState(false);
@@ -14,7 +28,7 @@ export const MicrophoneSelect = () => {
   useEffect(() => {
     const loadDevices = async () => {
       const all = await navigator.mediaDevices.enumerateDevices();
-      setDevices(all.filter((d) => d.kind === 'audioinput'));
+      setDevices(all.filter((d) => d.kind === 'audioinput' && d.deviceId !== 'default'));
     };
 
     loadDevices();
@@ -72,51 +86,50 @@ export const MicrophoneSelect = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deviceId]);
 
+  const selectValue = deviceId || DEFAULT_SENTINEL;
+
+  const handleValueChange = (value: string) => {
+    setDeviceId(value === DEFAULT_SENTINEL ? '' : value);
+  };
+
   return (
-    <div className="flex flex-col items-center gap-1.5">
-      <div className="relative inline-block">
-        <select
-          value={deviceId}
-          onChange={(e) => setDeviceId(e.target.value)}
-          className="appearance-none bg-gray-800/80 text-sm text-gray-300 border border-gray-700/50 rounded-lg pl-3 pr-8 py-1.5 cursor-pointer hover:bg-gray-700/80 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-gray-600"
-        >
-          <option value="">Default</option>
-          {devices.map((d) => (
-            <option key={d.deviceId} value={d.deviceId}>
-              {d.label || `Microphone (${d.deviceId.slice(0, 8)}…)`}
-            </option>
-          ))}
-        </select>
-        <ChevronDown
-          size={14}
-          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
-        />
+    <div className={`flex items-center gap-2 ${className ?? ''}`}>
+      <div className="relative w-64">
+        <Select value={selectValue} onValueChange={handleValueChange}>
+          <SelectTrigger className="w-64 text-sm">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={DEFAULT_SENTINEL}>Default</SelectItem>
+            {devices.map((d) => (
+              <SelectItem key={d.deviceId} value={d.deviceId}>
+                {d.label || `Microphone (${d.deviceId.slice(0, 8)}…)`}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {testing && (
+          <div className="absolute left-0 right-0 top-full mt-0.5 h-1.5 bg-[#e5e5e5] rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full transition-[width] duration-75"
+              style={{
+                width: `${level * 100}%`,
+                backgroundColor: level > 0.7 ? '#ef4444' : level > 0.35 ? '#eab308' : '#22c55e',
+              }}
+            />
+          </div>
+        )}
       </div>
 
-      <button
-        type="button"
+      <Button
+        variant="ghost"
         onClick={testing ? stopTest : startTest}
-        className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded transition-colors ${
-          testing
-            ? 'text-red-400 hover:text-red-300'
-            : 'text-gray-500 hover:text-gray-300'
-        }`}
+        className={testing ? 'text-red-600 hover:text-red-700' : 'text-[#737373]'}
       >
-        <Mic size={10} />
+        <Mic size={14} />
         {testing ? 'Stop' : 'Test'}
-      </button>
-
-      {testing && (
-        <div className="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full transition-[width] duration-75"
-            style={{
-              width: `${level * 100}%`,
-              backgroundColor: level > 0.7 ? '#ef4444' : level > 0.35 ? '#eab308' : '#22c55e',
-            }}
-          />
-        </div>
-      )}
+      </Button>
     </div>
   );
 };
