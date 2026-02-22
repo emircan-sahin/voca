@@ -52,7 +52,7 @@ ipcMain.on('transcript:paste-text', (_event, text: string) => {
 // Recording overlay
 ipcMain.on('overlay:show', () => {
   const shouldRefocus = !mainWin?.isFocused();
-  showOverlay(shouldRefocus);
+  showOverlay(shouldRefocus, mainWin ?? undefined);
 });
 ipcMain.on('overlay:hide', () => hideOverlay());
 ipcMain.on('overlay:audio-data', (_, data: number[]) => sendAudioDataToOverlay(data));
