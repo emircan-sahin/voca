@@ -6,18 +6,21 @@ import { TranscriptCard } from '~/components/TranscriptCard';
 import { ShortcutsPanel } from '~/components/ShortcutsPanel';
 import { ProviderSelect } from '~/components/ProviderSelect';
 import { LanguageSelect } from '~/components/LanguageSelect';
+import { MicrophoneSelect } from '~/components/MicrophoneSelect';
 import { useRecorder } from '~/hooks/useRecorder';
 import { useGlobalShortcut } from '~/hooks/useGlobalShortcut';
 import { useRecordingOverlay } from '~/hooks/useRecordingOverlay';
 import { useRecordingStore } from '~/stores/recording.store';
 import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
+import { useMicrophoneStore } from '~/stores/microphone.store';
 import { transcriptService } from '~/services/transcript.service';
 import { ApiResponse, ITranscript } from '@voca/shared';
 
 export const HomePage = () => {
   const queryClient = useQueryClient();
-  const { isRecording, stream, start, stop } = useRecorder();
+  const { deviceId } = useMicrophoneStore();
+  const { isRecording, stream, start, stop } = useRecorder(deviceId);
   const { isProcessing, setProcessing } = useRecordingStore();
   const { provider } = useProviderStore();
   const { language } = useLanguageStore();
@@ -97,6 +100,7 @@ export const HomePage = () => {
           <div className="flex items-center gap-2">
             <ProviderSelect />
             <LanguageSelect />
+            <MicrophoneSelect />
           </div>
           <RecordButton
             isRecording={isRecording}
