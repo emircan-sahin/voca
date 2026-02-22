@@ -1,0 +1,38 @@
+{
+  "name": "@voca/app",
+  "version": "0.0.1",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "lint": "eslint .",
+    "postinstall": "node scripts/patch-electron-plist.mjs"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.49.2",
+    "@voca/shared": "workspace:*",
+    "axios": "^1.7.2",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.11",
+    "lucide-react": "^0.400.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "tailwind-merge": "^2.3.0",
+    "uiohook-napi": "^1.5.4",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "electron": "^31.1.0",
+    "electron-vite": "^2.3.0",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5"
+  }
+}

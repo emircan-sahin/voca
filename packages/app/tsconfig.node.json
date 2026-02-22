@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@voca/shared": ["../shared/src/index.ts"],
+      "@voca/shared/*": ["../shared/src/*"],
+      "~/*": ["electron/main/*"]
+    },
+    "noEmit": true
+  },
+  "include": ["electron/**/*", "electron.vite.config.ts"]
+}

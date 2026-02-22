@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@voca/shared": ["../shared/src/index.ts"],
+      "@voca/shared/*": ["../shared/src/*"],
+      "~/*": ["src/*"]
+    }
+  },
+  "include": ["src", "../shared/src"]
+}

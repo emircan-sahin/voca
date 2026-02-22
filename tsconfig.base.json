@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@voca/shared": ["packages/shared/src/index.ts"],
+      "@voca/shared/*": ["packages/shared/src/*"]
+    }
+  }
+}
