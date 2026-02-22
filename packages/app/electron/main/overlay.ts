@@ -195,7 +195,7 @@ const OVERLAY_HTML = /* html */ `<!DOCTYPE html>
 </script>
 </body></html>`;
 
-export function showOverlay(refocusPreviousApp: boolean) {
+export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWindow) {
   if (overlayWin) return;
 
   // Capture the frontmost app before we create any window
@@ -226,7 +226,11 @@ export function showOverlay(refocusPreviousApp: boolean) {
     }
   }
 
-  const { workArea } = screen.getPrimaryDisplay();
+  // Use the display where the main window is, falling back to primary
+  const display = parentWin
+    ? screen.getDisplayMatching(parentWin.getBounds())
+    : screen.getPrimaryDisplay();
+  const { workArea } = display;
   const width = 340;
   const height = 210;
 
