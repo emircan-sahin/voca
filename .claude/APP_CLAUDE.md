@@ -1,5 +1,41 @@
 # App Rules — @voca/app (Electron + React)
 
+## UI Kit — Poyraz UI
+- **Docs**: https://ui.poyrazavsever.com
+- **Repo**: https://github.com/poyrazavsever/poyraz-ui
+- Atoms: `Button`, `Card`, `CardContent`, `Badge` → `import from 'poyraz-ui/atoms'`
+- Molecules: `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem` → `import from 'poyraz-ui/molecules'`
+- Organisms: `Sidebar`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuItem`, `SidebarFooter` → `import from 'poyraz-ui/organisms'`
+- **Tailwind v4 caveat**: Poyraz lives in `node_modules` which Tailwind v4 excludes from `@source`. Interactive-state classes (hover, focus, active) are safelisted via `@source inline(...)` in `globals.css`.
+
+## App Layout
+```
+┌─────────────┬──────────────────────────────┐
+│  Sidebar    │  TopHeader (mic select)      │
+│             ├──────────────────────────────│
+│  Dashboard  │                              │
+│  History    │     <Active View>            │
+│  Settings   │                              │
+│             │                              │
+│  ─────────  │                              │
+│  Voca v0.1  │                              │
+└─────────────┴──────────────────────────────┘
+```
+- **Navigation**: Zustand store (`navigation.store.ts`), no router — conditional rendering
+- **Recording hook** (`useTranscription`) lives in `DashboardLayout` so recording persists across view switches
+- **Window**: Fixed 1050×740, non-resizable
+
+## Design Tokens (light theme)
+| Token | Value | Usage |
+|-------|-------|-------|
+| Background | `#fafafa` | Page background |
+| Surface | `#ffffff` | Cards, sidebar |
+| Border | `#e5e5e5` | Card borders (solid) |
+| Sidebar border | `border-dashed border-slate-300` | Sidebar & header dividers |
+| Accent | `#dc2626` | Red accent (recording) |
+| Text | `#171717` | Primary text |
+| Muted | `#737373` | Secondary text |
+
 ## Electron Preload
 Expose only safe APIs via `contextBridge`:
 ```typescript
@@ -36,22 +72,12 @@ Use the `message` field returned from the API:
 onSuccess: (res) => toast.success(res.message),
 onError: (err: { message: string }) => toast.error(err.message),
 ```
-Hardcoded messages are **forbidden**.
-
-## TailwindCSS Design Tokens
-Color palette (dark theme):
-- Background: `bg-gray-900`
-- Card: `bg-gray-800` + `border-gray-700`
-- Text primary: `text-gray-100`
-- Text secondary: `text-gray-400`
-- Text muted: `text-gray-600`
-- Accent: `indigo-600` (hover: `indigo-700`)
-- Danger: `red-500` (hover: `red-600`)
+Hardcoded messages are **forbidden** (exception: client-only toasts like "Copied to clipboard").
 
 ## RecordButton States
 | State | Appearance |
 |-------|------------|
-| idle | Indigo background, Mic icon |
+| idle | Red background, Mic icon |
 | recording | Red + pulse animation, Square icon |
 | processing | Gray, Loader2 spin icon, disabled |
 

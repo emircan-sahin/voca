@@ -1,7 +1,7 @@
 # Voca — Master Guide
 
 ## Project Overview
-An Electron desktop app that records audio, transcribes it to text via Groq Whisper API, and stores transcripts in MongoDB. The pnpm monorepo contains three packages:
+An Electron desktop app that records audio, transcribes it to text via Groq/Deepgram APIs, and stores transcripts in MongoDB. The pnpm monorepo contains three packages:
 
 - `@voca/shared` — TypeScript types and Zod schemas
 - `@voca/backend` — Express.js API server (port 3100)
