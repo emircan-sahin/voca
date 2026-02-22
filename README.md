@@ -18,6 +18,12 @@
 
 ---
 
+<p align="center">
+  <img src="app_screenshot.png" alt="Voca App Screenshot" width="700" />
+</p>
+
+---
+
 Press a shortcut, speak, and the transcript is automatically pasted wherever your cursor is. That's it.
 
 **Stop paying $8/month for transcription apps.** Deepgram gives every new account **$200 in free credits** — that's essentially a lifetime of personal use. And since Voca is fully open-source, your audio never leaves your machine for any third party. You own your data.
@@ -79,7 +85,7 @@ voca/
 │       │   ├── main/    # App lifecycle, shortcuts, overlay window
 │       │   └── preload/ # Secure IPC bridge
 │       └── src/
-│           ├── pages/   # Home (recording UI) & Setup (permissions)
+│           ├── pages/   # Dashboard, History, Settings & Setup views
 │           ├── components/
 │           ├── hooks/   # useRecorder, useGlobalShortcut, useRecordingOverlay
 │           ├── stores/  # Zustand stores (provider, language, recording state)
@@ -172,7 +178,7 @@ You can switch between providers in the app at any time.
 ## Roadmap
 
 - [ ] Verify Windows build and end-to-end functionality
-- [ ] Click-to-copy on transcript cards
+- [x] Click-to-copy on transcript cards
 - [ ] Relative timestamps ("20 minutes ago" instead of "22 Feb ...")
 - [ ] Multi-language UI with localized content
 - [ ] Rewrite recording overlay with React (currently plain HTML)
