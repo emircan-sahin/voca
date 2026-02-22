@@ -11,7 +11,7 @@ interface ProviderState {
 export const useProviderStore = create<ProviderState>()(
   persist(
     (set) => ({
-      provider: 'groq',
+      provider: 'deepgram',
       setProvider: (provider) => set({ provider }),
     }),
     { name: 'voice-provider' }

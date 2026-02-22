@@ -2,8 +2,8 @@ import { ChevronDown } from 'lucide-react';
 import { Provider, useProviderStore } from '~/stores/provider.store';
 
 const providers: { value: Provider; label: string; description: string }[] = [
-  { value: 'groq', label: 'Groq Whisper', description: 'whisper-large-v3-turbo' },
   { value: 'deepgram', label: 'Deepgram Nova', description: 'nova-3' },
+  { value: 'groq', label: 'Groq Whisper', description: 'whisper-large-v3-turbo' },
 ];
 
 export const ProviderSelect = () => {
