@@ -1,17 +1,17 @@
 # Skill: API Design
 
-Her yeni route eklendiğinde bu kontrol listesini uygula.
+Apply this checklist whenever a new route is added.
 
-## Zorunlu Adımlar
+## Required Steps
 
-### 1. Route Tanımı (`src/routes/`)
+### 1. Route Definition (`src/routes/`)
 ```typescript
 import { Router } from 'express';
 import { upload } from '~/middleware/multer.middleware';
 import { createFoo, getFoos, deleteFoo } from '~/controllers/foo.controller';
 
 const router = Router();
-router.post('/', upload.single('file'), createFoo); // Dosya yükleme varsa
+router.post('/', upload.single('file'), createFoo); // If file upload is needed
 router.get('/', getFoos);
 router.delete('/:id', deleteFoo);
 export default router;
@@ -24,40 +24,40 @@ import { sendSuccess, sendError } from '~/utils/response';
 import { IFoo } from '@voca/shared';
 
 export const createFoo = async (req: Request, res: Response) => {
-  // Validasyon
+  // Validation
   if (!req.file) return sendError(res, 'File required', 400);
 
-  // İş mantığı
+  // Business logic
   const doc = await FooModel.create({ ... });
 
-  // Shared type'a map et (_id → id, Date → Unix ms)
+  // Map to shared type (_id → id, Date → Unix ms)
   const foo: IFoo = {
     id: doc._id.toString(),
-    // ... diğer alanlar
+    // ... other fields
     createdAt: dayjs(doc.createdAt).valueOf(),
   };
 
-  return sendSuccess(res, 'Başarılı', foo);
+  return sendSuccess(res, 'Success', foo);
 };
 ```
 
-### 3. Service (Dış API varsa `src/services/`)
-- Groq, S3, vs. entegrasyonları service'e taşı
-- Controller iş mantığından bağımsız olmalı
+### 3. Service (if external API is involved — `src/services/`)
+- Move Groq, S3, etc. integrations into a service
+- Must be independent from controller business logic
 
 ### 4. Mongoose Model (`src/models/`)
-- Internal alanlar eklenebilir (`audioPath`, vs.)
-- Shared type'taki alanlar dışındakileri controller'a yansıtma
+- Internal fields can be added (`audioPath`, etc.)
+- Do not expose fields outside the shared type to the controller
 
-### 5. Route Kaydı (`src/index.ts`)
+### 5. Route Registration (`src/index.ts`)
 ```typescript
 app.use('/api/foos', fooRoutes);
 ```
 
-## Kontrol Listesi
-- [ ] `sendSuccess` / `sendError` kullanıldı
-- [ ] `_id → id` dönüşümü yapıldı
-- [ ] `Date → Unix ms` dönüşümü yapıldı
-- [ ] Internal alanlar response'a dahil edilmedi
-- [ ] Shared type import edildi (`@voca/shared`)
-- [ ] Route `index.ts`'e eklendi
+## Checklist
+- [ ] Used `sendSuccess` / `sendError`
+- [ ] Applied `_id → id` mapping
+- [ ] Applied `Date → Unix ms` mapping
+- [ ] Internal fields excluded from response
+- [ ] Shared type imported from `@voca/shared`
+- [ ] Route registered in `index.ts`

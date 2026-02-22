@@ -1,46 +1,46 @@
 # Skill: Shared Types Security
 
-## Kritik Kural
-`@voca/shared` sadece **API contract** içerir. İstemci ile sunucu arasındaki veri yapısını tanımlar.
+## Critical Rule
+`@voca/shared` contains only the **API contract**. It defines the data structure between client and server.
 
-## Asla Ekleme
-- `_id` (MongoDB ObjectId) — sadece `id: string` kullan
+## Never Add
+- `_id` (MongoDB ObjectId) — use `id: string` only
 - `__v` (Mongoose version key)
-- `audioPath`, `filePath`, `internalNote` gibi sunucu-internal alanlar
-- `createdAt: Date` — sadece `createdAt: number` (Unix ms)
-- Mongoose `Document` türleri
+- Server-internal fields like `audioPath`, `filePath`, `internalNote`
+- `createdAt: Date` — use `createdAt: number` (Unix ms) only
+- Mongoose `Document` types
 
-## Her Zaman Kullan
+## Always Use
 ```typescript
-// ✅ Doğru
+// Correct
 export interface ITranscript {
-  id: string;           // string, ObjectId değil
+  id: string;           // string, not ObjectId
   text: string;
   duration: number;
   language: string;
-  createdAt: number;    // Unix ms, Date değil
+  createdAt: number;    // Unix ms, not Date
 }
 
-// ❌ Yanlış
+// Wrong
 export interface ITranscript {
   _id: string;          // MongoDB internal
   audioPath: string;    // Server internal
-  createdAt: Date;      // Date objesi
+  createdAt: Date;      // Date object
 }
 ```
 
-## Yeni Tip Eklerken
-1. `packages/shared/src/types/` altına ekle
-2. Zod şemasını `packages/shared/src/schemas/` altına ekle
-3. `packages/shared/src/index.ts`'e export ekle
-4. `pnpm --filter @voca/shared build` ile derle
+## Adding a New Type
+1. Add it under `packages/shared/src/types/`
+2. Add Zod schema under `packages/shared/src/schemas/`
+3. Export it from `packages/shared/src/index.ts`
+4. Build with `pnpm --filter @voca/shared build`
 
-## Controller'da Mapping
+## Controller Mapping
 ```typescript
 // Mongoose doc → Shared type
 const item: IFoo = {
   id: doc._id.toString(),        // ObjectId → string
   createdAt: dayjs(doc.createdAt).valueOf(), // Date → Unix ms
-  // sadece shared type'taki alanlar
+  // only fields from the shared type
 };
 ```
