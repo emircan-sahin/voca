@@ -1,13 +1,15 @@
 import { useState, useRef, useCallback } from 'react';
 
-export const useRecorder = () => {
+export const useRecorder = (deviceId: string) => {
   const [isRecording, setIsRecording] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
 
   const start = useCallback(async () => {
-    const s = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const s = await navigator.mediaDevices.getUserMedia({
+      audio: deviceId ? { deviceId: { exact: deviceId } } : true,
+    });
     setStream(s);
     mediaRecorder.current = new MediaRecorder(s);
     mediaRecorder.current.ondataavailable = (e) => {
@@ -15,7 +17,7 @@ export const useRecorder = () => {
     };
     mediaRecorder.current.start();
     setIsRecording(true);
-  }, []);
+  }, [deviceId]);
 
   const stop = useCallback(
     (): Promise<Blob> =>
