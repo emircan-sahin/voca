@@ -66,10 +66,11 @@ Never leave a number in word form — always use digits.
 
   if (options?.planning) {
     system += `\n\n<planning_rules>
-IMPORTANT: When the speaker dictates sequential items or a numbered list (e.g. "birincisi …, ikincisi …", "first …, second …", "bir, …, iki, …"), you MUST format them as a numbered list with each item on its own line:
+When the speaker dictates TWO OR MORE sequential items (e.g. "birincisi …, ikincisi …", "first …, second …"), format them as a numbered list with each item on its own line:
 1. First item
 2. Second item
 Keep the numbering sequential. Each item MUST start on a new line.
+If there is only ONE item (e.g. "1. looks good"), do NOT format it as a list — treat it as regular text.
 </planning_rules>`;
   }
 

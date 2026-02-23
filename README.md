@@ -194,7 +194,7 @@ Two optional formatting checkboxes are available when translation is enabled:
 
 | Option | What it does |
 |--------|-------------|
-| **Numeric** | Converts spoken numbers to digits ("iki nokta beş" → 2.5, "yüz elli" → 150). |
+| **Numeric** | Converts spoken numbers to digits ("two point five" → 2.5, "one hundred fifty" → 150). |
 | **Planning** | Formats numbered lists with line breaks (dictate "first … second …" and get a clean 1. 2. 3. list). |
 
 These options work even when the source and target language are the same — useful for reformatting speech without translating.

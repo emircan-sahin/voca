@@ -5,6 +5,10 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
 } from 'poyraz-ui/molecules';
 import { LANGUAGES, TranslationTone } from '@voca/shared';
 import { useTranslationStore } from '~/stores/translation.store';
@@ -69,28 +73,52 @@ export const TranslationSettings = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id="numeric-toggle"
-                checked={numeric}
-                onCheckedChange={(v) => setNumeric(v === true)}
-              />
-              <Label htmlFor="numeric-toggle" className="text-sm cursor-pointer">
-                Numeric
-              </Label>
+          <TooltipProvider delayDuration={300}>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="numeric-toggle"
+                  checked={numeric}
+                  onCheckedChange={(v) => setNumeric(v === true)}
+                />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Label
+                      htmlFor="numeric-toggle"
+                      className="text-sm cursor-pointer border-b border-dashed border-[#a3a3a3]"
+                    >
+                      Numeric
+                    </Label>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Converts spoken numbers to digits</p>
+                    <p className="text-[#a3a3a3]">"two hundred fifty" → 250</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="planning-toggle"
+                  checked={planning}
+                  onCheckedChange={(v) => setPlanning(v === true)}
+                />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Label
+                      htmlFor="planning-toggle"
+                      className="text-sm cursor-pointer border-b border-dashed border-[#a3a3a3]"
+                    >
+                      Planning
+                    </Label>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Formats numbered lists with line breaks</p>
+                    <p className="text-[#a3a3a3]">"first … second …" → 1. 2. 3.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id="planning-toggle"
-                checked={planning}
-                onCheckedChange={(v) => setPlanning(v === true)}
-              />
-              <Label htmlFor="planning-toggle" className="text-sm cursor-pointer">
-                Planning
-              </Label>
-            </div>
-          </div>
+          </TooltipProvider>
 
           <p className="text-xs text-[#a3a3a3]">
             Automatically translate transcriptions using Gemini 2.0 Flash
