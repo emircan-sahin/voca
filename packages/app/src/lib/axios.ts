@@ -75,6 +75,14 @@ axiosInstance.interceptors.response.use(
       }
     }
 
+    // Rate limit exceeded
+    if (status === 429) {
+      const body = error.response?.data;
+      const message = body?.message || 'Too many requests, please slow down';
+      toast.error(message);
+      return Promise.reject(new ApiError(message, body?.data, status));
+    }
+
     // Redirect to billing on 402 (no plan or insufficient credits)
     if (status === 402) {
       const body = error.response?.data;

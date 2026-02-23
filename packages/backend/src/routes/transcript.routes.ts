@@ -7,10 +7,11 @@ import {
   getTranscripts,
   deleteTranscript,
 } from '~/controllers/transcript.controller';
+import { transcriptLimiter } from '~/middleware/rateLimit.middleware';
 
 const router = Router();
 
-router.post('/', authenticate, requireCredits, upload.single('audio'), createTranscript);
+router.post('/', authenticate, transcriptLimiter, requireCredits, upload.single('audio'), createTranscript);
 router.get('/', authenticate, getTranscripts);
 router.delete('/:id', authenticate, deleteTranscript);
 

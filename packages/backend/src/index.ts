@@ -8,11 +8,13 @@ import transcriptRoutes from '~/routes/transcript.routes';
 import billingRoutes from '~/routes/billing.routes';
 import { errorMiddleware } from '~/middleware/error.middleware';
 import { sendError } from '~/utils/response';
+import { globalLimiter, authLimiter } from '~/middleware/rateLimit.middleware';
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }));
+app.use(cors({ origin: env.CORS_ORIGIN.split(',') }));
 app.use(express.json());
+app.use(globalLimiter);
 
 // Request/Response logging
 app.use((req, res, next) => {
@@ -26,7 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/transcripts', transcriptRoutes);
 app.use('/api/billing', billingRoutes);
 

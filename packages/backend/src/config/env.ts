@@ -9,6 +9,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string().default(''),
   GOOGLE_CLIENT_ID: z.string().default(''),
   GOOGLE_CLIENT_SECRET: z.string().default(''),
+  CORS_ORIGIN: z.string().default('http://localhost:5173'),
 });
 
 export const env = envSchema.parse(process.env);
