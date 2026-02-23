@@ -21,11 +21,11 @@ const transcript: ITranscript = {
   text: doc.text,
   duration: doc.duration,
   language: doc.language,
-  createdAt: dayjs(doc.createdAt).valueOf(), // Unix ms
+  createdAt: doc.createdAt.toISOString(), // ISO 8601
 };
 return sendSuccess(res, 'Success', transcript);
 ```
-**Never** expose internal fields like `audioPath`, `__v`, `createdAt` (Date).
+**Never** expose internal fields like `audioPath`, `__v`. Use `doc.createdAt.toISOString()` for dates.
 
 ## Transcription Providers
 Two providers are supported. The controller selects based on the `provider` query param.

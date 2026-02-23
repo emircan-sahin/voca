@@ -14,7 +14,7 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
   const [copied, setCopied] = useState(false);
   const [showTranslated, setShowTranslated] = useState(false);
   const duration = dayjs.duration(transcript.duration, 'seconds').format('m:ss');
-  const date = dayjs(transcript.createdAt).format('DD MMM YYYY, HH:mm');
+  const date = dayjs(transcript.createdAt).fromNow();
 
   const hasTranslation = !!transcript.translatedText;
   const displayText = hasTranslation && showTranslated

@@ -11,7 +11,7 @@ export const transcriptSchema = z.object({
   text: z.string().min(1),
   duration: z.number().nonnegative(),
   language: z.string().min(1),
-  createdAt: z.number().int().positive(),
+  createdAt: z.string().datetime(),
   translatedText: z.string().optional(),
   targetLanguage: z.string().optional(),
   tokenUsage: tokenUsageSchema.optional(),

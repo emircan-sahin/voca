@@ -9,7 +9,7 @@ export interface ITranscript {
   text: string;
   duration: number;   // seconds
   language: string;
-  createdAt: number;  // Unix ms (dayjs().valueOf())
+  createdAt: string;  // ISO 8601
   translatedText?: string;
   targetLanguage?: string;
   tokenUsage?: ITokenUsage;

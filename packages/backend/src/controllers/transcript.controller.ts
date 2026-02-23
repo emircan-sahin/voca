@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import fs from 'fs';
-import dayjs from 'dayjs';
 import { z } from 'zod';
 import { TranscriptModel } from '~/models/transcript.model';
 import { transcribeAudio as groqTranscribe } from '~/services/groq.service';
@@ -64,7 +63,7 @@ export const createTranscript = async (req: Request, res: Response) => {
       text: doc.text,
       duration: doc.duration,
       language: doc.language,
-      createdAt: dayjs(doc.createdAt).valueOf(),
+      createdAt: doc.createdAt.toISOString(),
       ...(doc.translatedText && { translatedText: doc.translatedText }),
       ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
       ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
@@ -85,7 +84,7 @@ export const getTranscripts = async (_req: Request, res: Response) => {
     text: doc.text,
     duration: doc.duration,
     language: doc.language,
-    createdAt: dayjs(doc.createdAt).valueOf(),
+    createdAt: doc.createdAt.toISOString(),
     ...(doc.translatedText && { translatedText: doc.translatedText }),
     ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
     ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
