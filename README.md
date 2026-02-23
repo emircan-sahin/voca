@@ -190,6 +190,15 @@ Voca can automatically translate your transcriptions using **Gemini 2.0 Flash**.
 | **Developer** (default) | Keeps technical terms in English (component, API, deploy, middleware). Fixes misheard jargon from STT (e.g. "nahbar" → navbar, "reakt" → React). |
 | **Personal** | General-purpose translation with natural phrasing. |
 
+Two optional formatting checkboxes are available when translation is enabled:
+
+| Option | What it does |
+|--------|-------------|
+| **Numeric** | Converts spoken numbers to digits ("iki nokta beş" → 2.5, "yüz elli" → 150). |
+| **Planning** | Formats numbered lists with line breaks (dictate "first … second …" and get a clean 1. 2. 3. list). |
+
+These options work even when the source and target language are the same — useful for reformatting speech without translating.
+
 When translation is active, the shortcut-paste workflow sends the translated text directly. In History, you can toggle between original and translated text on each card. Token usage (input/output/cached) is displayed per transcript.
 
 Translation is fully optional — it requires a free [Google AI Studio](https://aistudio.google.com) API key and can be toggled on/off at any time.
@@ -197,12 +206,13 @@ Translation is fully optional — it requires a free [Google AI Studio](https://
 ## Roadmap
 
 - [x] AI-powered translation with tone support (Developer / Personal)
-- [ ] Verify Windows build and end-to-end functionality
 - [x] Click-to-copy on transcript cards
 - [x] Relative timestamps ("20 minutes ago" instead of "22 Feb ...")
-- [ ] Cancel button on recording overlay (discard and re-record)
+- [x] Cancel button on recording overlay (discard and re-record)
+- [x] Rewrite recording overlay with React
+- [x] Numeric & Planning formatting options for translation
+- [ ] Verify Windows build and end-to-end functionality
 - [ ] Multi-language UI with localized content
-- [ ] Rewrite recording overlay with React (currently plain HTML)
 - [ ] Audio-reactive waveform visualization (bars respond to microphone input levels)
 
 ## Contributing

@@ -3,7 +3,7 @@
 ## UI Kit — Poyraz UI
 - **Docs**: https://ui.poyrazavsever.com
 - **Repo**: https://github.com/poyrazavsever/poyraz-ui
-- Atoms: `Button`, `Card`, `CardContent`, `Badge` → `import from 'poyraz-ui/atoms'`
+- Atoms: `Button`, `Card`, `CardContent`, `Badge`, `Checkbox` → `import from 'poyraz-ui/atoms'`
 - Molecules: `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem` → `import from 'poyraz-ui/molecules'`
 - Organisms: `Sidebar`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuItem`, `SidebarFooter` → `import from 'poyraz-ui/organisms'`
 - **Tailwind v4 caveat**: Poyraz lives in `node_modules` which Tailwind v4 excludes from `@source`. Interactive-state classes (hover, focus, active) are safelisted via `@source inline(...)` in `globals.css`.
