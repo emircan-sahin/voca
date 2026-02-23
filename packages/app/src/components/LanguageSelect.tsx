@@ -1,4 +1,5 @@
-import { LANGUAGES, useLanguageStore } from '~/stores/language.store';
+import { LANGUAGES } from '@voca/shared';
+import { useLanguageStore } from '~/stores/language.store';
 import {
   Select,
   SelectTrigger,

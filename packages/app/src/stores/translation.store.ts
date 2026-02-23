@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export type TranslationTone = 'developer' | 'personal';
+import { TranslationTone } from '@voca/shared';
 
 interface TranslationState {
   enabled: boolean;

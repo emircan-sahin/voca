@@ -34,6 +34,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '~': resolve(__dirname, 'src'),
+        '@voca/shared': resolve(__dirname, '../shared/src'),
       },
     },
     plugins: [react()],

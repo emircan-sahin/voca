@@ -8,22 +8,13 @@ import { transcribeAudio as deepgramTranscribe } from '~/services/deepgram.servi
 import { translateText } from '~/services/translation.service';
 import { sendSuccess, sendError } from '~/utils/response';
 import { env } from '~/config/env';
-import { ITranscript } from '@voca/shared';
-
-const SUPPORTED_LANGUAGES = [
-  'en', 'tr', 'de', 'fr', 'es', 'pt', 'ja', 'ko', 'zh', 'ar',
-  'ru', 'it', 'nl', 'pl', 'hi', 'bg', 'ca', 'cs', 'da', 'el',
-  'et', 'fi', 'hu', 'id', 'lv', 'lt', 'ms', 'no', 'ro', 'sk',
-  'sl', 'sv', 'th', 'uk', 'vi',
-] as const;
-
-const SUPPORTED_TONES = ['developer', 'personal'] as const;
+import { ITranscript, LANGUAGE_CODES, TONES } from '@voca/shared';
 
 const transcribeQuerySchema = z.object({
   provider: z.enum(['groq', 'deepgram']).default('groq'),
-  language: z.enum(SUPPORTED_LANGUAGES).default('en'),
-  translateTo: z.enum(SUPPORTED_LANGUAGES).optional(),
-  tone: z.enum(SUPPORTED_TONES).default('developer'),
+  language: z.enum(LANGUAGE_CODES).default('en'),
+  translateTo: z.enum(LANGUAGE_CODES).optional(),
+  tone: z.enum(TONES).default('developer'),
 });
 
 export const createTranscript = async (req: Request, res: Response) => {

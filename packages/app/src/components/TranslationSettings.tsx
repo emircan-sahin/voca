@@ -6,8 +6,8 @@ import {
   SelectContent,
   SelectItem,
 } from 'poyraz-ui/molecules';
-import { useTranslationStore, TranslationTone } from '~/stores/translation.store';
-import { LANGUAGES } from '~/stores/language.store';
+import { LANGUAGES, TranslationTone } from '@voca/shared';
+import { useTranslationStore } from '~/stores/translation.store';
 
 const TONES: { value: TranslationTone; label: string }[] = [
   { value: 'developer', label: 'Developer' },
