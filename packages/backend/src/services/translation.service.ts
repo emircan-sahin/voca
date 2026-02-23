@@ -51,18 +51,25 @@ export const translateText = async (
 
   if (options?.numeric) {
     system += `\n\n<numeric_rules>
-Convert numbers expressed as words into their numeric/digit form.
-Examples: "iki nokta beş" → "2.5", "yüz elli" → "150", "üç bin" → "3000", "two hundred" → "200".
-Apply this to all languages present in the text.
+IMPORTANT: You MUST convert ALL numbers expressed as words into their numeric digit form in the final output.
+This applies to numbers in ANY language (source or target).
+Examples:
+- "iki nokta beş" → "2.5"
+- "yüz elli" → "150"
+- "üç bin" → "3000"
+- "two hundred" → "200"
+- "on iki" → "12"
+- "sıfır nokta yedi beş" → "0.75"
+Never leave a number in word form — always use digits.
 </numeric_rules>`;
   }
 
   if (options?.planning) {
     system += `\n\n<planning_rules>
-When the speaker dictates a numbered list (e.g. "birincisi …, ikincisi …" or "first …, second …"), format each item on its own line as a numbered list:
+IMPORTANT: When the speaker dictates sequential items or a numbered list (e.g. "birincisi …, ikincisi …", "first …, second …", "bir, …, iki, …"), you MUST format them as a numbered list with each item on its own line:
 1. First item
 2. Second item
-Keep the numbering sequential and add line breaks between items.
+Keep the numbering sequential. Each item MUST start on a new line.
 </planning_rules>`;
   }
 
@@ -72,8 +79,13 @@ Keep the numbering sequential and add line breaks between items.
     prompt: `Translate the following text from ${sourceLang} to ${targetLang}:\n\n${text}`,
   });
 
+  const flags = [
+    options?.numeric && 'numeric',
+    options?.planning && 'planning',
+  ].filter(Boolean);
+
   console.log(
-    `[Translation] ${sourceLang} → ${targetLang} (${tone}) | in:${usage.inputTokens} out:${usage.outputTokens} cached:${(usage as any).inputTokenDetails?.cacheReadTokens ?? 0}`
+    `[Translation] ${sourceLang} → ${targetLang} (${tone}${flags.length ? `, ${flags.join(', ')}` : ''}) | in:${usage.inputTokens} out:${usage.outputTokens} cached:${(usage as any).inputTokenDetails?.cacheReadTokens ?? 0}`
   );
 
   return {
