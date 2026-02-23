@@ -2,6 +2,8 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { Request, Response, NextFunction } from 'express';
+import { BillingPlan, PLAN_UPLOAD_LIMIT } from '@voca/shared';
+import { UserModel } from '~/models/user.model';
 import { sendError } from '~/utils/response';
 
 const uploadDir = path.join(process.cwd(), 'uploads');
@@ -50,12 +52,23 @@ const multerUpload = multer({
 
 export const upload = {
   single: (field: string) => (req: Request, res: Response, next: NextFunction) => {
-    multerUpload.single(field)(req, res, (err) => {
+    multerUpload.single(field)(req, res, async (err) => {
       if (err) return next(err);
+      if (!req.file) return next();
 
-      if (req.file && !isValidAudioFile(req.file.path)) {
+      if (!isValidAudioFile(req.file.path)) {
         fs.unlink(req.file.path, () => {});
         return sendError(res, 'Invalid audio file content', 400);
+      }
+
+      // Plan-based file size limit
+      const user = await UserModel.findById(req.user!.id).select('plan').lean();
+      const plan = (user?.plan ?? 'pro') as BillingPlan;
+      const limit = PLAN_UPLOAD_LIMIT[plan];
+      if (req.file.size > limit) {
+        fs.unlink(req.file.path, () => {});
+        const limitMB = limit / (1024 * 1024);
+        return sendError(res, `File too large (max ${limitMB} MB for ${plan} plan)`, 400);
       }
 
       next();

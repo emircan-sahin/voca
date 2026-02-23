@@ -34,11 +34,13 @@ return sendSuccess(res, 'Success', transcript);
 - `requireAuthConfig()` guard checks `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `JWT_SECRET` (min 32 chars)
 
 ## Billing & Credits
-- Plans: `pro` ($3, 300¢ credits) and `max` ($10, 1000¢ credits), 30-day expiry
+- Plans: `pro` ($3, 300¢ credits, 10 MB upload) and `max` ($10, 1000¢ credits, 25 MB upload), 30-day expiry
+- Upload size enforced in multer middleware via `PLAN_UPLOAD_LIMIT` from `@voca/shared`
 - `requireCredits` middleware gates `POST /api/transcripts`
 - Credits deducted **before** transcript creation (STT cost + Gemini cost + 25% markup)
 - `$set` for fresh activation, `$inc` for upgrades to preserve existing credits
 - `checkPlanExpiry()` called in auth middleware on each authenticated request
+- Both plans include: AI-enhanced tone & translation, Numeric & Planning formatting add-ons
 
 ## Rate Limiting
 Three tiers via `express-rate-limit` (`src/middleware/rateLimit.middleware.ts`):

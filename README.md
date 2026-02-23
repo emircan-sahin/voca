@@ -210,6 +210,18 @@ When translation is active, the shortcut-paste workflow sends the translated tex
 
 Translation is fully optional — it requires a free [Google AI Studio](https://aistudio.google.com) API key and can be toggled on/off at any time.
 
+## Plans
+
+| Feature | Pro ($3/mo) | Max ($10/mo) |
+|---------|-------------|--------------|
+| Monthly free credits | $3 | $10 |
+| Groq & Deepgram transcription | Yes | Yes |
+| AI-enhanced tone & translation | Yes | Yes |
+| Numeric & Planning add-ons | Yes | Yes |
+| Max audio upload | 10 MB | 25 MB |
+
+Both plans include all AI features — tone-aware translation (Developer / Personal), Numeric formatting (spoken numbers → digits), and Planning mode (dictated lists → clean numbered output). Credits are deducted based on real API usage (STT + translation + 25% markup), so light users get months of value from a single plan.
+
 ## Security
 
 - **Authentication** — Google OAuth 2.0 with JWT access tokens (15min) and refresh tokens (7 days)

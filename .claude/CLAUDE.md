@@ -39,6 +39,15 @@ User activates plan (Pro $3 / Max $10)
   → Plan expires after 30 days, cancel stops renewal
 ```
 
+### Plan Features
+| Feature | Pro ($3/mo) | Max ($10/mo) |
+|---------|-------------|--------------|
+| Free credits | $3/mo | $10/mo |
+| STT providers | Groq & Deepgram | Groq & Deepgram |
+| AI tone & translation | Yes | Yes |
+| Numeric & Planning add-ons | Yes | Yes |
+| Max upload size | 10 MB | 25 MB |
+
 ## Mandatory Rules
 
 ### ApiResponse<T>

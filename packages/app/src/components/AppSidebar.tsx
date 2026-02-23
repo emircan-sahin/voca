@@ -35,12 +35,12 @@ export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
 
   return (
     <Sidebar variant="bordered" className="border-0 border-r-2 border-dashed border-slate-300">
-      <SidebarHeader className="h-16 py-0 px-4">
+      <SidebarHeader className="h-16 py-0 px-3">
         <img src={vocaLogo} alt="Voca" className="w-11 h-11 rounded-full" />
         <h1 className="text-lg font-bold text-[#171717]">Voca</h1>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="px-3">
         <SidebarMenu>
           {menuItems.map((item) => (
             <SidebarMenuItem
@@ -61,7 +61,7 @@ export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
       </SidebarContent>
 
       <SidebarFooter>
-        <div className="px-4 py-3">
+        <div className="px-0 py-0">
           <div className="flex items-center gap-2">
             {user?.avatarUrl ? (
               <img

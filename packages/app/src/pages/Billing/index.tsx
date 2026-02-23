@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Check } from 'lucide-react';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
-import { BillingPlan, PLAN_CREDITS, PLAN_RANK, IUser } from '@voca/shared';
+import { BillingPlan, PLAN_RANK, IUser } from '@voca/shared';
 import dayjs from '~/lib/dayjs';
 import { api } from '~/lib/axios';
 import { useAuthStore } from '~/stores/auth.store';
@@ -19,11 +19,11 @@ const plans: {
     description: 'For personal use',
     price: 3,
     features: [
-      `$${PLAN_CREDITS.pro} credits`,
+      '$3/mo free credits included',
       'Groq & Deepgram transcription',
-      'Multi-language support',
-      'Translation support',
-      'Ideal for notes & memos',
+      'AI-enhanced tone & translation',
+      'Numeric & Planning add-ons',
+      'Up to 10 MB audio uploads',
     ],
   },
   {
@@ -32,11 +32,11 @@ const plans: {
     description: 'For heavy usage',
     price: 10,
     features: [
-      `$${PLAN_CREDITS.max} credits`,
+      '$10/mo free credits included',
       'Groq & Deepgram transcription',
-      'Multi-language support',
-      'Translation support',
-      'Great for articles & long-form',
+      'AI-enhanced tone & translation',
+      'Numeric & Planning add-ons',
+      'Up to 25 MB audio uploads',
     ],
   },
 ];

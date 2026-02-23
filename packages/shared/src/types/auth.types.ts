@@ -7,6 +7,12 @@ export const PLAN_CREDITS: Record<BillingPlan, number> = {
 
 export const PLAN_RANK: Record<BillingPlan, number> = { pro: 1, max: 2 };
 
+/** Max audio upload size in bytes per plan */
+export const PLAN_UPLOAD_LIMIT: Record<BillingPlan, number> = {
+  pro: 10 * 1024 * 1024,  // 10 MB
+  max: 25 * 1024 * 1024,  // 25 MB
+};
+
 export interface IUser {
   id: string;
   email: string;
