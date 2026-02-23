@@ -199,7 +199,8 @@ Translation is fully optional — it requires a free [Google AI Studio](https://
 - [x] AI-powered translation with tone support (Developer / Personal)
 - [ ] Verify Windows build and end-to-end functionality
 - [x] Click-to-copy on transcript cards
-- [ ] Relative timestamps ("20 minutes ago" instead of "22 Feb ...")
+- [x] Relative timestamps ("20 minutes ago" instead of "22 Feb ...")
+- [ ] Cancel button on recording overlay (discard and re-record)
 - [ ] Multi-language UI with localized content
 - [ ] Rewrite recording overlay with React (currently plain HTML)
 - [ ] Audio-reactive waveform visualization (bars respond to microphone input levels)
