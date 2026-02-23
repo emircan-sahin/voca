@@ -35,5 +35,15 @@ export const useRecorder = (deviceId: string) => {
     []
   );
 
-  return { isRecording, stream, start, stop };
+  const cancel = useCallback(() => {
+    if (!mediaRecorder.current) return;
+    mediaRecorder.current.onstop = null;
+    mediaRecorder.current.stop();
+    mediaRecorder.current.stream.getTracks().forEach((t) => t.stop());
+    chunks.current = [];
+    setStream(null);
+    setIsRecording(false);
+  }, []);
+
+  return { isRecording, stream, start, stop, cancel };
 };

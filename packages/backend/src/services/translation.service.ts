@@ -44,9 +44,27 @@ export const translateText = async (
   text: string,
   sourceLang: string,
   targetLang: string,
-  tone: 'developer' | 'personal' = 'developer'
+  tone: 'developer' | 'personal' = 'developer',
+  options?: { numeric?: boolean; planning?: boolean }
 ): Promise<TranslationResult> => {
-  const system = tone === 'developer' ? DEVELOPER_PROMPT : BASE_PROMPT;
+  let system = tone === 'developer' ? DEVELOPER_PROMPT : BASE_PROMPT;
+
+  if (options?.numeric) {
+    system += `\n\n<numeric_rules>
+Convert numbers expressed as words into their numeric/digit form.
+Examples: "iki nokta beş" → "2.5", "yüz elli" → "150", "üç bin" → "3000", "two hundred" → "200".
+Apply this to all languages present in the text.
+</numeric_rules>`;
+  }
+
+  if (options?.planning) {
+    system += `\n\n<planning_rules>
+When the speaker dictates a numbered list (e.g. "birincisi …, ikincisi …" or "first …, second …"), format each item on its own line as a numbered list:
+1. First item
+2. Second item
+Keep the numbering sequential and add line breaks between items.
+</planning_rules>`;
+  }
 
   const { text: translatedText, usage } = await generateText({
     model: google('gemini-2.0-flash'),

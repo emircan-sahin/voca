@@ -1,4 +1,4 @@
-import { Switch, Label } from 'poyraz-ui/atoms';
+import { Switch, Label, Checkbox } from 'poyraz-ui/atoms';
 import {
   Select,
   SelectTrigger,
@@ -15,8 +15,10 @@ const TONES: { value: TranslationTone; label: string }[] = [
 ];
 
 export const TranslationSettings = () => {
-  const { enabled, targetLanguage, tone, setEnabled, setTargetLanguage, setTone } =
-    useTranslationStore();
+  const {
+    enabled, targetLanguage, tone, numeric, planning,
+    setEnabled, setTargetLanguage, setTone, setNumeric, setPlanning,
+  } = useTranslationStore();
 
   return (
     <div className="space-y-4">
@@ -64,6 +66,29 @@ export const TranslationSettings = () => {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="numeric-toggle"
+                checked={numeric}
+                onCheckedChange={(v) => setNumeric(v === true)}
+              />
+              <Label htmlFor="numeric-toggle" className="text-sm cursor-pointer">
+                Numeric
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="planning-toggle"
+                checked={planning}
+                onCheckedChange={(v) => setPlanning(v === true)}
+              />
+              <Label htmlFor="planning-toggle" className="text-sm cursor-pointer">
+                Planning
+              </Label>
             </div>
           </div>
 

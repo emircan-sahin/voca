@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useRecorder } from '~/hooks/useRecorder';
@@ -16,11 +16,11 @@ import { ApiResponse, ITranscript } from '@voca/shared';
 export const useTranscription = () => {
   const queryClient = useQueryClient();
   const { deviceId } = useMicrophoneStore();
-  const { isRecording, stream, start, stop } = useRecorder(deviceId);
+  const { isRecording, stream, start, stop, cancel } = useRecorder(deviceId);
   const { isProcessing, setProcessing } = useRecordingStore();
   const { provider } = useProviderStore();
   const { language } = useLanguageStore();
-  const { enabled: translationEnabled, targetLanguage, tone } = useTranslationStore();
+  const { enabled: translationEnabled, targetLanguage, tone, numeric, planning } = useTranslationStore();
   const triggeredByShortcut = useRef(false);
 
   useRecordingOverlay(stream);
@@ -34,7 +34,12 @@ export const useTranscription = () => {
     mutationFn: (blob) => {
       const translateTo = translationEnabled && targetLanguage !== language
         ? targetLanguage : undefined;
-      return transcriptService.transcribe(blob, provider, language, translateTo, translateTo ? tone : undefined);
+      return transcriptService.transcribe(
+        blob, provider, language, translateTo,
+        translateTo ? tone : undefined,
+        translateTo ? numeric : undefined,
+        translateTo ? planning : undefined
+      );
     },
     onSuccess: (res) => {
       toast.success(res.message);
@@ -90,6 +95,17 @@ export const useTranscription = () => {
   }, [handleToggle]);
 
   useGlobalShortcut(handleShortcutToggle);
+
+  // Listen for cancel from overlay
+  useEffect(() => {
+    const cleanup = window.electronAPI.onCancelRecording(() => {
+      if (isRecording) {
+        cancel();
+        triggeredByShortcut.current = false;
+      }
+    });
+    return cleanup;
+  }, [isRecording, cancel]);
 
   const transcripts = transcriptsResponse?.data ?? [];
 

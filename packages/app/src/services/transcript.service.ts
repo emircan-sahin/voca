@@ -8,7 +8,9 @@ export const transcriptService = {
     provider: Provider,
     language: string,
     translateTo?: string,
-    tone?: string
+    tone?: string,
+    numeric?: boolean,
+    planning?: boolean
   ): Promise<ApiResponse<ITranscript>> {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.webm');
@@ -16,6 +18,8 @@ export const transcriptService = {
     const params = new URLSearchParams({ provider, language });
     if (translateTo) params.set('translateTo', translateTo);
     if (tone) params.set('tone', tone);
+    if (numeric) params.set('numeric', 'true');
+    if (planning) params.set('planning', 'true');
 
     return api.post<ITranscript>(`/transcripts?${params.toString()}`, formData);
   },

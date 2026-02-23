@@ -22,6 +22,8 @@ declare global {
       sendAudioData: (data: number[]) => void;
       onAudioData: (callback: (data: number[]) => void) => () => void;
       requestStopRecording: () => void;
+      requestCancelRecording: () => void;
+      onCancelRecording: (callback: () => void) => () => void;
     };
   }
 }

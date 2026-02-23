@@ -59,6 +59,9 @@ ipcMain.on('overlay:audio-data', (_, data: number[]) => sendAudioDataToOverlay(d
 ipcMain.on('overlay:stop', () => {
   mainWin?.webContents.send('shortcut:toggle-recording');
 });
+ipcMain.on('overlay:cancel', () => {
+  mainWin?.webContents.send('recording:cancel');
+});
 
 function createWindow() {
   const iconPath = join(__dirname, '../../../../assets/icon.png');

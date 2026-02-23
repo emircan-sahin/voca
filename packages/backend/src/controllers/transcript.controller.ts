@@ -14,6 +14,8 @@ const transcribeQuerySchema = z.object({
   language: z.enum(LANGUAGE_CODES).default('en'),
   translateTo: z.enum(LANGUAGE_CODES).optional(),
   tone: z.enum(TONES).default('developer'),
+  numeric: z.coerce.boolean().default(false),
+  planning: z.coerce.boolean().default(false),
 });
 
 export const createTranscript = async (req: Request, res: Response) => {
@@ -22,7 +24,7 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
 
   const filePath = req.file.path;
-  const { provider, language, translateTo, tone } = transcribeQuerySchema.parse(req.query);
+  const { provider, language, translateTo, tone, numeric, planning } = transcribeQuerySchema.parse(req.query);
 
   if (translateTo && !env.GEMINI_API_KEY) {
     return sendError(res, 'Translation requires a Gemini API key. Set GEMINI_API_KEY in your environment.', 400);
@@ -42,7 +44,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     let tokenUsage: { inputTokens: number; outputTokens: number; cacheReadTokens: number } | undefined;
 
     if (translateTo && translateTo !== result.language) {
-      const translation = await translateText(result.text, result.language, translateTo, tone);
+      const translation = await translateText(result.text, result.language, translateTo, tone, { numeric, planning });
       translatedText = translation.translatedText;
       targetLanguage = translateTo;
       tokenUsage = translation.tokenUsage;
