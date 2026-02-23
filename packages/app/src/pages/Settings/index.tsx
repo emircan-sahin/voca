@@ -2,11 +2,13 @@ import { Card, CardContent } from 'poyraz-ui/atoms';
 import { ProviderSelect } from '~/components/ProviderSelect';
 import { LanguageSelect } from '~/components/LanguageSelect';
 import { MicrophoneSelect } from '~/components/MicrophoneSelect';
+import { TranslationSettings } from '~/components/TranslationSettings';
 
 const sections = [
   { label: 'Transcription Provider', component: <ProviderSelect /> },
   { label: 'Language', component: <LanguageSelect /> },
   { label: 'Microphone', component: <MicrophoneSelect /> },
+  { label: 'Translation', component: <TranslationSettings /> },
 ];
 
 export const SettingsView = () => {

@@ -3,11 +3,22 @@ import { ApiResponse, ITranscript } from '@voca/shared';
 import { Provider } from '~/stores/provider.store';
 
 export const transcriptService = {
-  async transcribe(audioBlob: Blob, provider: Provider, language: string): Promise<ApiResponse<ITranscript>> {
+  async transcribe(
+    audioBlob: Blob,
+    provider: Provider,
+    language: string,
+    translateTo?: string,
+    tone?: string
+  ): Promise<ApiResponse<ITranscript>> {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.webm');
+
+    const params = new URLSearchParams({ provider, language });
+    if (translateTo) params.set('translateTo', translateTo);
+    if (tone) params.set('tone', tone);
+
     const res = await axiosInstance.post<ApiResponse<ITranscript>>(
-      `/transcripts?provider=${provider}&language=${language}`,
+      `/transcripts?${params.toString()}`,
       formData
     );
     return res.data;

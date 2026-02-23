@@ -8,6 +8,7 @@ import { useRecordingStore } from '~/stores/recording.store';
 import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
 import { useMicrophoneStore } from '~/stores/microphone.store';
+import { useTranslationStore } from '~/stores/translation.store';
 import { transcriptService } from '~/services/transcript.service';
 import { ApiResponse, ITranscript } from '@voca/shared';
 
@@ -18,6 +19,7 @@ export const useTranscription = () => {
   const { isProcessing, setProcessing } = useRecordingStore();
   const { provider } = useProviderStore();
   const { language } = useLanguageStore();
+  const { enabled: translationEnabled, targetLanguage, tone } = useTranslationStore();
   const triggeredByShortcut = useRef(false);
 
   useRecordingOverlay(stream);
@@ -28,12 +30,16 @@ export const useTranscription = () => {
   });
 
   const transcribeMutation = useMutation<ApiResponse<ITranscript>, { message: string }, Blob>({
-    mutationFn: (blob) => transcriptService.transcribe(blob, provider, language),
+    mutationFn: (blob) => {
+      const translateTo = translationEnabled && targetLanguage !== language
+        ? targetLanguage : undefined;
+      return transcriptService.transcribe(blob, provider, language, translateTo, translateTo ? tone : undefined);
+    },
     onSuccess: (res) => {
       toast.success(res.message);
       queryClient.invalidateQueries({ queryKey: ['transcripts'] });
       if (triggeredByShortcut.current && res.data?.text) {
-        window.electronAPI.pasteTranscript(res.data.text);
+        window.electronAPI.pasteTranscript(res.data.translatedText ?? res.data.text);
         triggeredByShortcut.current = false;
       }
     },

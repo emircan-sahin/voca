@@ -5,7 +5,9 @@ import { z } from 'zod';
 import { TranscriptModel } from '~/models/transcript.model';
 import { transcribeAudio as groqTranscribe } from '~/services/groq.service';
 import { transcribeAudio as deepgramTranscribe } from '~/services/deepgram.service';
+import { translateText } from '~/services/translation.service';
 import { sendSuccess, sendError } from '~/utils/response';
+import { env } from '~/config/env';
 import { ITranscript } from '@voca/shared';
 
 const SUPPORTED_LANGUAGES = [
@@ -15,9 +17,13 @@ const SUPPORTED_LANGUAGES = [
   'sl', 'sv', 'th', 'uk', 'vi',
 ] as const;
 
+const SUPPORTED_TONES = ['developer', 'personal'] as const;
+
 const transcribeQuerySchema = z.object({
   provider: z.enum(['groq', 'deepgram']).default('groq'),
   language: z.enum(SUPPORTED_LANGUAGES).default('en'),
+  translateTo: z.enum(SUPPORTED_LANGUAGES).optional(),
+  tone: z.enum(SUPPORTED_TONES).default('developer'),
 });
 
 export const createTranscript = async (req: Request, res: Response) => {
@@ -26,7 +32,11 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
 
   const filePath = req.file.path;
-  const { provider, language } = transcribeQuerySchema.parse(req.query);
+  const { provider, language, translateTo, tone } = transcribeQuerySchema.parse(req.query);
+
+  if (translateTo && !env.GEMINI_API_KEY) {
+    return sendError(res, 'Translation requires a Gemini API key. Set GEMINI_API_KEY in your environment.', 400);
+  }
 
   try {
     const transcribe = provider === 'deepgram' ? deepgramTranscribe : groqTranscribe;
@@ -37,11 +47,25 @@ export const createTranscript = async (req: Request, res: Response) => {
       return sendError(res, 'No speech detected, please try again.', 422);
     }
 
+    let translatedText: string | undefined;
+    let targetLanguage: string | undefined;
+    let tokenUsage: { inputTokens: number; outputTokens: number; cacheReadTokens: number } | undefined;
+
+    if (translateTo && translateTo !== result.language) {
+      const translation = await translateText(result.text, result.language, translateTo, tone);
+      translatedText = translation.translatedText;
+      targetLanguage = translateTo;
+      tokenUsage = translation.tokenUsage;
+    }
+
     const doc = await TranscriptModel.create({
       text: result.text,
       duration: result.duration,
       language: result.language,
       audioPath: filePath,
+      translatedText,
+      targetLanguage,
+      tokenUsage,
     });
 
     const transcript: ITranscript = {
@@ -50,6 +74,9 @@ export const createTranscript = async (req: Request, res: Response) => {
       duration: doc.duration,
       language: doc.language,
       createdAt: dayjs(doc.createdAt).valueOf(),
+      ...(doc.translatedText && { translatedText: doc.translatedText }),
+      ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
+      ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
     };
 
     return sendSuccess(res, 'Transcription successful', transcript);
@@ -68,6 +95,9 @@ export const getTranscripts = async (_req: Request, res: Response) => {
     duration: doc.duration,
     language: doc.language,
     createdAt: dayjs(doc.createdAt).valueOf(),
+    ...(doc.translatedText && { translatedText: doc.translatedText }),
+    ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
+    ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
   }));
 
   return sendSuccess(res, 'Transcripts fetched', transcripts);

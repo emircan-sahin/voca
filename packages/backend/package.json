@@ -8,8 +8,10 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.30",
     "@deepgram/sdk": "^4.11.3",
     "@voca/shared": "workspace:*",
+    "ai": "^6.0.97",
     "cors": "^2.8.5",
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",

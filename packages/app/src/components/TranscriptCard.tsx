@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Trash2, Copy, Check } from 'lucide-react';
+import { Trash2, Copy, Check, Languages } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ITranscript } from '@voca/shared';
 import { Card, CardContent, Badge } from 'poyraz-ui/atoms';
@@ -12,11 +12,17 @@ interface TranscriptCardProps {
 
 export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) => {
   const [copied, setCopied] = useState(false);
+  const [showTranslated, setShowTranslated] = useState(false);
   const duration = dayjs.duration(transcript.duration, 'seconds').format('m:ss');
   const date = dayjs(transcript.createdAt).format('DD MMM YYYY, HH:mm');
 
+  const hasTranslation = !!transcript.translatedText;
+  const displayText = hasTranslation && showTranslated
+    ? transcript.translatedText!
+    : transcript.text;
+
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(transcript.text);
+    await navigator.clipboard.writeText(displayText);
     setCopied(true);
     toast.success('Copied to clipboard');
     setTimeout(() => setCopied(false), 1500);
@@ -30,7 +36,7 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
     >
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-3">
-          <p className="text-[#171717] text-sm leading-relaxed flex-1">{transcript.text}</p>
+          <p className="text-[#171717] text-sm leading-relaxed flex-1">{displayText}</p>
           <span className="text-[#737373] group-hover:text-[#171717] transition-colors flex-shrink-0 mt-0.5">
             {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
           </span>
@@ -43,16 +49,40 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
             <Badge variant="outline" className="text-xs uppercase">
               {transcript.language}
             </Badge>
+            {hasTranslation && (
+              <>
+                <Badge variant="outline" className="text-xs uppercase">
+                  {transcript.language} → {transcript.targetLanguage}
+                </Badge>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowTranslated((prev) => !prev);
+                  }}
+                  className="text-[#737373] hover:text-[#171717] transition-colors"
+                  title={showTranslated ? 'Show original' : 'Show translation'}
+                >
+                  <Languages className="w-4 h-4" />
+                </button>
+              </>
+            )}
           </div>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(transcript.id);
-            }}
-            className="text-[#737373] hover:text-red-600 transition-colors"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            {transcript.tokenUsage && (
+              <span className="font-mono text-[10px] text-[#a3a3a3]">
+                {transcript.tokenUsage.inputTokens}in · {transcript.tokenUsage.outputTokens}out · {transcript.tokenUsage.cacheReadTokens}cached
+              </span>
+            )}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(transcript.id);
+              }}
+              className="text-[#737373] hover:text-red-600 transition-colors"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </CardContent>
     </Card>
