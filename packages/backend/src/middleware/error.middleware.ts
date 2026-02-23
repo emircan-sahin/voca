@@ -21,6 +21,10 @@ export const errorMiddleware = (
     return sendError(res, message, 400);
   }
 
+  if (err.message?.startsWith('Unsupported audio format')) {
+    return sendError(res, err.message, 400);
+  }
+
   if (err.name === 'CastError') {
     return sendError(res, 'Invalid ID format', 400);
   }

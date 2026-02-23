@@ -2,82 +2,127 @@
 
 Apply this checklist whenever a new route is added.
 
+## Middleware Chain
+Every request passes through this pipeline (order matters):
+```
+cors → express.json → globalLimiter → logging → routes → 404 → errorMiddleware
+```
+Per-route middleware:
+```
+authenticate → [rateLimiter] → [requireCredits] → [multer] → controller
+```
+
 ## Required Steps
 
 ### 1. Route Definition (`src/routes/`)
 ```typescript
 import { Router } from 'express';
+import { authenticate } from '~/middleware/auth.middleware';
 import { upload } from '~/middleware/multer.middleware';
 import { createFoo, getFoos, deleteFoo } from '~/controllers/foo.controller';
 
 const router = Router();
-router.post('/', upload.single('audio'), createFoo); // 'audio' field name for file uploads
-router.get('/', getFoos);
-router.delete('/:id', deleteFoo);
+router.post('/', authenticate, upload.single('audio'), createFoo);
+router.get('/', authenticate, getFoos);
+router.delete('/:id', authenticate, deleteFoo);
 export default router;
 ```
 
 ### 2. Controller (`src/controllers/`)
 ```typescript
 import { Request, Response } from 'express';
+import fs from 'fs';
 import { z } from 'zod';
 import { sendSuccess, sendError } from '~/utils/response';
-import { IFoo } from '@voca/shared';
+import { IFoo, LANGUAGE_CODES } from '@voca/shared';
 
-// Validate query params with Zod
+// Validate query params with Zod — use safeParse, not parse
 const querySchema = z.object({
   provider: z.enum(['groq', 'deepgram']).default('groq'),
-  language: z.enum(SUPPORTED_LANGUAGES).default('en'),
+  language: z.enum(LANGUAGE_CODES).default('en'),
 });
 
 export const createFoo = async (req: Request, res: Response) => {
-  // Validation
   if (!req.file) return sendError(res, 'File required', 400);
-  const { provider, language } = querySchema.parse(req.query);
 
-  // Transcribe via selected provider
-  const result = await transcribeAudio(req.file.path, language);
-
-  // Hallucination check — return 422 if detected
-  if (result.hallucination) {
-    fs.unlink(req.file.path, () => {});
-    return sendError(res, 'No speech detected, please try again.', 422);
+  const filePath = req.file.path;
+  const parsed = querySchema.safeParse(req.query);
+  if (!parsed.success) {
+    fs.unlink(filePath, () => {});
+    const message = parsed.error.errors.map((e) => e.message).join(', ');
+    return sendError(res, message, 400);
   }
+  const { provider, language } = parsed.data;
 
-  // Business logic
-  const doc = await FooModel.create({ ... });
+  try {
+    const result = await transcribeAudio(filePath, language);
 
-  // Map to shared type (_id → id, Date → Unix ms)
-  const foo: IFoo = {
-    id: doc._id.toString(),
-    // ... other fields
-    createdAt: dayjs(doc.createdAt).valueOf(),
-  };
+    // Hallucination check — return 422 if detected
+    if (result.hallucination) {
+      fs.unlink(filePath, () => {});
+      return sendError(res, 'No speech detected, please try again.', 422);
+    }
 
-  return sendSuccess(res, 'Success', foo);
+    const doc = await FooModel.create({ ...data, userId: req.user!.id });
+
+    // Map to shared type (_id → id, Date → ISO 8601)
+    const foo: IFoo = {
+      id: doc._id.toString(),
+      createdAt: doc.createdAt.toISOString(),
+    };
+
+    return sendSuccess(res, 'Success', foo);
+  } catch (err) {
+    fs.unlink(filePath, () => {});
+    throw err;
+  }
 };
 ```
 
 ### 3. Service (if external API is involved — `src/services/`)
-- Move Groq, Deepgram, S3, etc. integrations into a service
+- Move Groq, Deepgram, Gemini, etc. integrations into a service
 - Must be independent from controller business logic
 - Return a typed result (e.g. `TranscriptionResult`) including a `hallucination` flag
 
 ### 4. Mongoose Model (`src/models/`)
-- Internal fields can be added (`audioPath`, etc.)
+- Internal fields can be added (`audioPath`, `userId`, etc.)
 - Do not expose fields outside the shared type to the controller
 
 ### 5. Route Registration (`src/index.ts`)
 ```typescript
+import fooRoutes from '~/routes/foo.routes';
 app.use('/api/foos', fooRoutes);
 ```
 
+### 6. Rate Limiting (if needed — `src/middleware/rateLimit.middleware.ts`)
+Add a route-specific limiter for expensive operations:
+```typescript
+export const fooLimiter = rateLimit({
+  windowMs: 60_000,
+  limit: 10,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  handler: (_req, res) => sendError(res, 'Too many requests', 429),
+});
+```
+
+## Existing Routes
+| Route | Middleware | Rate Limit |
+|-------|-----------|------------|
+| `/api/auth` | authLimiter | 10/min |
+| `/api/transcripts` POST | authenticate, transcriptLimiter, requireCredits, multer | 10/min |
+| `/api/transcripts` GET/DELETE | authenticate | global only |
+| `/api/billing` | authenticate | global only |
+
 ## Checklist
-- [ ] Used `sendSuccess` / `sendError`
+- [ ] Used `sendSuccess` / `sendError` (never `res.json()` directly)
 - [ ] Applied `_id → id` mapping
-- [ ] Applied `Date → Unix ms` mapping
+- [ ] Applied `Date → ISO 8601` mapping
 - [ ] Internal fields excluded from response
 - [ ] Shared type imported from `@voca/shared`
-- [ ] Query params validated with Zod
+- [ ] Query/body params validated with Zod `safeParse()`
+- [ ] Language fields use `z.enum(LANGUAGE_CODES)`, not `z.string()`
 - [ ] Hallucination / error cases handled with file cleanup
+- [ ] `authenticate` middleware added for protected routes
+- [ ] Rate limiter added for expensive operations
 - [ ] Route registered in `index.ts`

@@ -63,4 +63,27 @@ set('CFBundleName', 'Voca');
 set('CFBundleDisplayName', 'Voca');
 set('NSMicrophoneUsageDescription', 'Voca needs microphone access to record audio.');
 set('NSAccessibilityUsageDescription', 'Voca needs accessibility access to auto-paste transcripts.');
+
+// Register voca:// deep link protocol
+try {
+  execFileSync(buddy, ['-c', 'Add :CFBundleURLTypes array', plistPath]);
+} catch { /* already exists */ }
+try {
+  execFileSync(buddy, ['-c', 'Add :CFBundleURLTypes:0 dict', plistPath]);
+} catch { /* already exists */ }
+try {
+  execFileSync(buddy, ['-c', 'Add :CFBundleURLTypes:0:CFBundleURLSchemes array', plistPath]);
+} catch { /* already exists */ }
+try {
+  execFileSync(buddy, ['-c', 'Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string voca', plistPath]);
+} catch {
+  execFileSync(buddy, ['-c', 'Set :CFBundleURLTypes:0:CFBundleURLSchemes:0 voca', plistPath]);
+}
+try {
+  execFileSync(buddy, ['-c', 'Add :CFBundleURLTypes:0:CFBundleURLName string "Voca Deep Link"', plistPath]);
+} catch {
+  execFileSync(buddy, ['-c', 'Set :CFBundleURLTypes:0:CFBundleURLName "Voca Deep Link"', plistPath]);
+}
+console.log('  ✓ CFBundleURLTypes (voca://)');
+
 console.log('Done.');

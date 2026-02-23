@@ -37,6 +37,7 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
     text,
     language,
     duration,
+    cost,
     hallucination,
   };
 };

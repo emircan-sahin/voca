@@ -47,7 +47,7 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
     width,
     height,
     x: Math.round(workArea.x + workArea.width / 2 - width / 2),
-    y: workArea.y + 12,
+    y: workArea.y + workArea.height - height - 12,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -107,4 +107,8 @@ export function hideOverlay() {
 
 export function sendAudioDataToOverlay(data: number[]) {
   overlayWin?.webContents.send('overlay:audio-data', data);
+}
+
+export function sendLoadingToOverlay(loading: boolean) {
+  overlayWin?.webContents.send('overlay:loading', loading);
 }

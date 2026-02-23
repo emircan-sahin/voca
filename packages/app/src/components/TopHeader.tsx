@@ -5,6 +5,7 @@ const viewTitles: Record<View, string> = {
   dashboard: 'Dashboard',
   history: 'History',
   settings: 'Settings',
+  billing: 'Billing',
 };
 
 export const TopHeader = () => {

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type View = 'dashboard' | 'history' | 'settings';
+export type View = 'dashboard' | 'history' | 'settings' | 'billing';
 
 interface NavigationState {
   view: View;

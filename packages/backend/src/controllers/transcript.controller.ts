@@ -5,6 +5,7 @@ import { TranscriptModel } from '~/models/transcript.model';
 import { transcribeAudio as groqTranscribe } from '~/services/groq.service';
 import { transcribeAudio as deepgramTranscribe } from '~/services/deepgram.service';
 import { translateText } from '~/services/translation.service';
+import { calculateCost, deductCredits } from '~/services/billing.service';
 import { sendSuccess, sendError } from '~/utils/response';
 import { env } from '~/config/env';
 import { ITranscript, LANGUAGE_CODES, TONES } from '@voca/shared';
@@ -24,7 +25,13 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
 
   const filePath = req.file.path;
-  const { provider, language, translateTo, tone, numeric, planning } = transcribeQuerySchema.parse(req.query);
+  const parsed = transcribeQuerySchema.safeParse(req.query);
+  if (!parsed.success) {
+    fs.unlink(filePath, () => {});
+    const message = parsed.error.errors.map((e) => e.message).join(', ');
+    return sendError(res, message, 400);
+  }
+  const { provider, language, translateTo, tone, numeric, planning } = parsed.data;
 
   if (translateTo && !env.GEMINI_API_KEY) {
     return sendError(res, 'Translation requires a Gemini API key. Set GEMINI_API_KEY in your environment.', 400);
@@ -50,11 +57,22 @@ export const createTranscript = async (req: Request, res: Response) => {
       tokenUsage = translation.tokenUsage;
     }
 
+    const cost = calculateCost(result.cost, tokenUsage);
+    console.log(
+      `[Billing] stt:$${result.cost.toFixed(6)} gemini:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`
+    );
+    const deducted = await deductCredits(req.user!.id, cost);
+    if (!deducted) {
+      fs.unlink(filePath, () => {});
+      return sendError(res, 'Insufficient credits', 402);
+    }
+
     const doc = await TranscriptModel.create({
       text: result.text,
       duration: result.duration,
       language: result.language,
       audioPath: filePath,
+      userId: req.user!.id,
       translatedText,
       targetLanguage,
       tokenUsage,
@@ -78,8 +96,8 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
 };
 
-export const getTranscripts = async (_req: Request, res: Response) => {
-  const docs = await TranscriptModel.find().sort({ createdAt: -1 });
+export const getTranscripts = async (req: Request, res: Response) => {
+  const docs = await TranscriptModel.find({ userId: req.user!.id }).sort({ createdAt: -1 });
 
   const transcripts: ITranscript[] = docs.map((doc: typeof docs[number]) => ({
     id: (doc._id as unknown as { toString(): string }).toString(),
@@ -97,7 +115,7 @@ export const getTranscripts = async (_req: Request, res: Response) => {
 
 export const deleteTranscript = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const doc = await TranscriptModel.findByIdAndDelete(id);
+  const doc = await TranscriptModel.findOneAndDelete({ _id: id, userId: req.user!.id });
 
   if (!doc) {
     return sendError(res, 'Transcript not found', 404);

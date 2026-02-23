@@ -24,6 +24,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
   showOverlay: () => ipcRenderer.send('overlay:show'),
   hideOverlay: () => ipcRenderer.send('overlay:hide'),
   sendAudioData: (data: number[]) => ipcRenderer.send('overlay:audio-data', data),
+  setOverlayLoading: (loading: boolean) => ipcRenderer.send('overlay:loading', loading),
+  onOverlayLoading: (callback: (loading: boolean) => void) => {
+    const handler = (_: unknown, loading: boolean) => callback(loading);
+    ipcRenderer.on('overlay:loading', handler);
+    return () => {
+      ipcRenderer.removeListener('overlay:loading', handler);
+    };
+  },
   onAudioData: (callback: (data: number[]) => void) => {
     const handler = (_: unknown, data: number[]) => callback(data);
     ipcRenderer.on('overlay:audio-data', handler);
@@ -39,5 +47,20 @@ contextBridge.exposeInMainWorld('electronAPI', {
     return () => {
       ipcRenderer.removeListener('recording:cancel', handler);
     };
+  },
+
+  // Auth
+  auth: {
+    get: () => ipcRenderer.invoke('auth:get'),
+    set: (data: unknown) => ipcRenderer.invoke('auth:set', data),
+    clear: () => ipcRenderer.invoke('auth:clear'),
+    openProvider: (url: string) => ipcRenderer.invoke('auth:open-provider', url),
+    onAuthCallback: (cb: (data: { token: string; refreshToken: string }) => void) => {
+      const handler = (_: unknown, data: { token: string; refreshToken: string }) => cb(data);
+      ipcRenderer.on('auth:deep-link', handler);
+      return () => {
+        ipcRenderer.removeListener('auth:deep-link', handler);
+      };
+    },
   },
 });

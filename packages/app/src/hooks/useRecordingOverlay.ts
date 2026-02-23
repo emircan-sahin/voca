@@ -4,10 +4,7 @@ export function useRecordingOverlay(stream: MediaStream | null) {
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
-    if (!stream) {
-      window.electronAPI.hideOverlay();
-      return;
-    }
+    if (!stream) return;
 
     window.electronAPI.showOverlay();
 
@@ -30,7 +27,6 @@ export function useRecordingOverlay(stream: MediaStream | null) {
       cancelAnimationFrame(rafRef.current);
       source.disconnect();
       audioCtx.close();
-      window.electronAPI.hideOverlay();
     };
   }, [stream]);
 }

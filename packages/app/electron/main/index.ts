@@ -1,10 +1,31 @@
 import { app, BrowserWindow, shell, ipcMain, systemPreferences, clipboard, nativeImage } from 'electron';
-import { join } from 'path';
+import path, { join } from 'path';
 import { exec } from 'child_process';
 import { registerShortcuts, unregisterShortcuts } from './shortcuts';
-import { showOverlay, hideOverlay, sendAudioDataToOverlay } from './overlay';
+import { showOverlay, hideOverlay, sendAudioDataToOverlay, sendLoadingToOverlay } from './overlay';
+import { getAuthData, setAuthData, clearAuthData, openAuthProvider } from './auth';
 
 let mainWin: BrowserWindow | null = null;
+let bufferedDeepLinkUrl: string | null = null;
+
+function handleAuthDeepLink(url: string) {
+  if (!url.startsWith('voca://auth/callback')) return;
+
+  const parsed = new URL(url);
+  const token = parsed.searchParams.get('token');
+  const refreshToken = parsed.searchParams.get('refreshToken');
+  if (!token || !refreshToken) return;
+
+  const data = { token, refreshToken };
+
+  if (mainWin && !mainWin.isDestroyed()) {
+    mainWin.webContents.send('auth:deep-link', data);
+    if (mainWin.isMinimized()) mainWin.restore();
+    mainWin.focus();
+  } else {
+    bufferedDeepLinkUrl = url;
+  }
+}
 
 // Microphone
 ipcMain.handle('permissions:getMicrophoneStatus', () => {
@@ -49,6 +70,12 @@ ipcMain.on('transcript:paste-text', (_event, text: string) => {
   }, 100);
 });
 
+// Auth
+ipcMain.handle('auth:get', () => getAuthData());
+ipcMain.handle('auth:set', (_, data) => setAuthData(data));
+ipcMain.handle('auth:clear', () => clearAuthData());
+ipcMain.handle('auth:open-provider', (_, url: string) => openAuthProvider(url));
+
 // Recording overlay
 ipcMain.on('overlay:show', () => {
   const shouldRefocus = !mainWin?.isFocused();
@@ -56,6 +83,7 @@ ipcMain.on('overlay:show', () => {
 });
 ipcMain.on('overlay:hide', () => hideOverlay());
 ipcMain.on('overlay:audio-data', (_, data: number[]) => sendAudioDataToOverlay(data));
+ipcMain.on('overlay:loading', (_, loading: boolean) => sendLoadingToOverlay(loading));
 ipcMain.on('overlay:stop', () => {
   mainWin?.webContents.send('shortcut:toggle-recording');
 });
@@ -98,6 +126,36 @@ function createWindow() {
 
 app.setName('Voca');
 
+// Register voca:// protocol — dev mode needs execPath + project path
+if (process.defaultApp && process.argv.length >= 2) {
+  app.setAsDefaultProtocolClient('voca', process.execPath, [path.resolve(process.argv[1])]);
+} else {
+  app.setAsDefaultProtocolClient('voca');
+}
+
+// macOS: deep link while app is running
+app.on('open-url', (event, url) => {
+  event.preventDefault();
+  handleAuthDeepLink(url);
+});
+
+// Ensure single instance (focus existing window if second instance launched)
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', (_event, argv) => {
+    // Windows/Linux: deep link URL passed as argv
+    const deepLinkUrl = argv.find((arg) => arg.startsWith('voca://'));
+    if (deepLinkUrl) handleAuthDeepLink(deepLinkUrl);
+
+    if (mainWin) {
+      if (mainWin.isMinimized()) mainWin.restore();
+      mainWin.focus();
+    }
+  });
+}
+
 app.whenReady().then(() => {
   // Set dock icon on macOS (dev mode uses Electron's default otherwise)
   if (process.platform === 'darwin') {
@@ -109,6 +167,14 @@ app.whenReady().then(() => {
 
   mainWin = createWindow();
   registerShortcuts(mainWin);
+
+  // Process buffered deep link after window is ready
+  mainWin.webContents.once('did-finish-load', () => {
+    if (bufferedDeepLinkUrl) {
+      handleAuthDeepLink(bufferedDeepLinkUrl);
+      bufferedDeepLinkUrl = null;
+    }
+  });
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

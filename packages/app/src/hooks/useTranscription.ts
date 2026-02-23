@@ -53,7 +53,10 @@ export const useTranscription = () => {
       toast.error(err.message);
       triggeredByShortcut.current = false;
     },
-    onSettled: () => setProcessing(false),
+    onSettled: () => {
+      setProcessing(false);
+      window.electronAPI.hideOverlay();
+    },
   });
 
   const deleteMutation = useMutation<ApiResponse<null>, ApiError, string>({
@@ -80,9 +83,12 @@ export const useTranscription = () => {
       if (blob.size < 2000) {
         toast.error('No microphone audio detected. Check if your mic is on.');
         triggeredByShortcut.current = false;
+        window.electronAPI.hideOverlay();
         return;
       }
       setProcessing(true);
+      window.electronAPI.showOverlay();
+      window.electronAPI.setOverlayLoading(true);
       transcribeMutation.mutate(blob);
     } else {
       await start();
@@ -96,12 +102,13 @@ export const useTranscription = () => {
 
   useGlobalShortcut(handleShortcutToggle);
 
-  // Listen for cancel from overlay
+  // Listen for cancel from overlay or shortcut
   useEffect(() => {
     const cleanup = window.electronAPI.onCancelRecording(() => {
       if (isRecording) {
         cancel();
         triggeredByShortcut.current = false;
+        window.electronAPI.hideOverlay();
       }
     });
     return cleanup;

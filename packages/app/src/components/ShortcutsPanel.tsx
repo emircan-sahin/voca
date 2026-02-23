@@ -2,10 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { Keyboard, X } from 'lucide-react';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
 
-const recordingKey = window.electronAPI.platform === 'darwin' ? 'Right ⌘' : 'Right ⊞';
+const isMac = window.electronAPI.platform === 'darwin';
+const recordingKey = isMac ? 'Right ⌘ (Cmd)' : 'Right ⊞ (Win)';
+const cancelKey = isMac ? 'Right ⌥ (Opt)' : 'Right Alt';
 
 const shortcuts = [
   { action: 'Start / Stop Recording', keys: [recordingKey] },
+  { action: 'Cancel Recording', keys: [cancelKey] },
   { action: 'Show Shortcuts', keys: ['?'] },
 ];
 

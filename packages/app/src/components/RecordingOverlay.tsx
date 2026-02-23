@@ -12,6 +12,7 @@ export function RecordingOverlay() {
   const rafRef = useRef(0);
   const startTime = useRef(Date.now());
   const [timer, setTimer] = useState('00:00');
+  const [loading, setLoading] = useState(false);
 
   // Timer
   useEffect(() => {
@@ -29,6 +30,14 @@ export function RecordingOverlay() {
   useEffect(() => {
     const cleanup = window.electronAPI.onAudioData((data) => {
       latestData.current = data;
+    });
+    return cleanup;
+  }, []);
+
+  // Loading state listener
+  useEffect(() => {
+    const cleanup = window.electronAPI.onOverlayLoading((value) => {
+      setLoading(value);
     });
     return cleanup;
   }, []);
@@ -93,9 +102,9 @@ export function RecordingOverlay() {
   }, []);
 
   return (
-    <div className="animate-slide-down mx-auto mt-2 w-[320px] rounded-2xl border border-gray-700/50 p-4 shadow-2xl"
+    <div className="animate-slide-up mx-auto mb-2 w-[320px] rounded-2xl border border-[#e5e5e5] p-4 shadow-2xl"
       style={{
-        background: 'rgba(17, 24, 39, 0.92)',
+        background: 'rgba(255, 255, 255, 0.92)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
         WebkitAppRegion: 'drag',
@@ -104,36 +113,49 @@ export function RecordingOverlay() {
       {/* Header */}
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="h-2 w-2 animate-pulse rounded-full bg-red-600" />
-          <span className="text-[13px] font-semibold text-white">Recording</span>
+          <div className={`h-2 w-2 rounded-full ${loading ? 'bg-neutral-400 animate-pulse' : 'animate-pulse bg-red-600'}`} />
+          <span className="text-[13px] font-semibold text-[#171717]">
+            {loading ? 'Processing...' : 'Recording'}
+          </span>
         </div>
-        <span className="font-mono text-[13px] text-gray-400">{timer}</span>
+        <span className="font-mono text-[13px] text-[#737373]">{timer}</span>
       </div>
 
-      {/* Waveform */}
-      <div className="mb-3 rounded-xl bg-gray-800/60 p-2">
-        <canvas ref={canvasRef} className="block h-9 w-full" />
+      {/* Waveform / Loading */}
+      <div className="mb-3 rounded-xl bg-[#fafafa] border border-[#e5e5e5] p-2">
+        {loading ? (
+          <div className="flex h-9 items-center justify-center">
+            <svg className="h-5 w-5 animate-spin text-[#737373]" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+          </div>
+        ) : (
+          <canvas ref={canvasRef} className="block h-9 w-full" />
+        )}
       </div>
 
       {/* Buttons */}
-      <div className="relative flex items-center justify-center"
-        style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
-      >
-        <button
-          onClick={handleStop}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-700/50 bg-gray-800 transition-colors hover:bg-gray-700"
-          title="Stop & Transcribe"
+      {!loading && (
+        <div className="relative flex items-center justify-center"
+          style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
         >
-          <div className="h-4 w-4 rounded-sm bg-red-600" />
-        </button>
-        <button
-          onClick={handleCancel}
-          className="absolute right-0 text-[13px] text-gray-400 transition-colors hover:text-white"
-          title="Cancel Recording"
-        >
-          Cancel
-        </button>
-      </div>
+          <button
+            onClick={handleStop}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e5e5e5] bg-white transition-colors hover:bg-[#fafafa]"
+            title="Stop & Transcribe"
+          >
+            <div className="h-4 w-4 rounded-sm bg-red-600" />
+          </button>
+          <button
+            onClick={handleCancel}
+            className="absolute right-0 text-[13px] text-[#737373] transition-colors hover:text-[#171717]"
+            title="Cancel Recording"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
     </div>
   );
 }

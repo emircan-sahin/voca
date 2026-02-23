@@ -2,6 +2,11 @@ export {};
 
 type MicrophoneStatus = 'not-determined' | 'granted' | 'denied' | 'restricted';
 
+interface AuthData {
+  token: string;
+  refreshToken: string;
+}
+
 declare global {
   interface Window {
     electronAPI: {
@@ -20,10 +25,21 @@ declare global {
       showOverlay: () => void;
       hideOverlay: () => void;
       sendAudioData: (data: number[]) => void;
+      setOverlayLoading: (loading: boolean) => void;
+      onOverlayLoading: (callback: (loading: boolean) => void) => () => void;
       onAudioData: (callback: (data: number[]) => void) => () => void;
       requestStopRecording: () => void;
       requestCancelRecording: () => void;
       onCancelRecording: (callback: () => void) => () => void;
+
+      // Auth
+      auth: {
+        get: () => Promise<AuthData | null>;
+        set: (data: AuthData) => Promise<void>;
+        clear: () => Promise<void>;
+        openProvider: (url: string) => Promise<void>;
+        onAuthCallback: (cb: (data: AuthData) => void) => () => void;
+      };
     };
   }
 }
