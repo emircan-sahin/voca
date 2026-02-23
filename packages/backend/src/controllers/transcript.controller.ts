@@ -5,6 +5,7 @@ import { TranscriptModel } from '~/models/transcript.model';
 import { transcribeAudio as groqTranscribe } from '~/services/groq.service';
 import { transcribeAudio as deepgramTranscribe } from '~/services/deepgram.service';
 import { translateText } from '~/services/translation.service';
+import { calculateCost, deductCredits } from '~/services/billing.service';
 import { sendSuccess, sendError } from '~/utils/response';
 import { env } from '~/config/env';
 import { ITranscript, LANGUAGE_CODES, TONES } from '@voca/shared';
@@ -60,6 +61,15 @@ export const createTranscript = async (req: Request, res: Response) => {
       targetLanguage,
       tokenUsage,
     });
+
+    const cost = calculateCost(result.cost, tokenUsage);
+    console.log(
+      `[Billing] stt:$${result.cost.toFixed(6)} gemini:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`
+    );
+    const deducted = await deductCredits(req.user!.id, cost);
+    if (!deducted) {
+      return sendError(res, 'Insufficient credits', 402);
+    }
 
     const transcript: ITranscript = {
       id: (doc._id as unknown as { toString(): string }).toString(),

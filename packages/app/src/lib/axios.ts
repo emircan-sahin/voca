@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
+import toast from 'react-hot-toast';
 import { ApiResponse } from '@voca/shared';
 import { useAuthStore } from '~/stores/auth.store';
+import { useNavigationStore } from '~/stores/navigation.store';
 
 export class ApiError extends Error {
   data: unknown;
@@ -71,6 +73,15 @@ axiosInstance.interceptors.response.use(
       } finally {
         isRefreshing = false;
       }
+    }
+
+    // Redirect to billing on 402 (no plan or insufficient credits)
+    if (status === 402) {
+      const body = error.response?.data;
+      const message = body?.message || 'Payment required';
+      toast.error(message);
+      useNavigationStore.setState({ view: 'billing' });
+      return Promise.reject(new ApiError(message, body?.data, status));
     }
 
     const body = error.response?.data;

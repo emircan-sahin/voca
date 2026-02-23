@@ -6,7 +6,14 @@ export const userSchema = z.object({
   name: z.string().min(1),
   avatarUrl: z.string().url().optional(),
   provider: z.enum(['google', 'apple']),
+  credits: z.number().min(0),
+  plan: z.enum(['pro', 'max']).nullable(),
+  planExpiresAt: z.string().datetime().nullable(),
   createdAt: z.string().datetime(),
+});
+
+export const activatePlanSchema = z.object({
+  plan: z.enum(['pro', 'max']),
 });
 
 export const authResponseSchema = z.object({

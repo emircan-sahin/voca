@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import { env } from '~/config/env';
 import authRoutes from '~/routes/auth.routes';
 import transcriptRoutes from '~/routes/transcript.routes';
+import billingRoutes from '~/routes/billing.routes';
 import { errorMiddleware } from '~/middleware/error.middleware';
 import { sendError } from '~/utils/response';
 
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/transcripts', transcriptRoutes);
+app.use('/api/billing', billingRoutes);
 
 app.use((_req, res) => sendError(res, 'Route not found', 404));
 

@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
-import { IUserSettings } from '@voca/shared';
+import { IUserSettings, BillingPlan } from '@voca/shared';
 
 export interface IUserDocument extends Document {
   email: string;
@@ -9,6 +9,9 @@ export interface IUserDocument extends Document {
   providerId: string;
   refreshToken?: string;
   settings: IUserSettings;
+  credits: number;
+  plan: BillingPlan | null;
+  planExpiresAt: Date | null;
   createdAt: Date;
 }
 
@@ -41,6 +44,9 @@ const userSchema = new Schema<IUserDocument>(
     providerId: { type: String, required: true },
     refreshToken: { type: String },
     settings: { type: settingsSchema, default: () => ({}) },
+    credits: { type: Number, default: 0, min: 0 },
+    plan: { type: String, enum: ['pro', 'max'], default: null },
+    planExpiresAt: { type: Date, default: null },
   },
   { timestamps: true }
 );

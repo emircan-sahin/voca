@@ -1,4 +1,4 @@
-import { LayoutDashboard, Clock, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Clock, Settings, CreditCard, LogOut } from 'lucide-react';
 import { Badge } from 'poyraz-ui/atoms';
 import {
   Sidebar,
@@ -20,7 +20,14 @@ const menuItems: { key: View; label: string; icon: React.ReactNode }[] = [
   { key: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
   { key: 'history', label: 'History', icon: <Clock size={18} /> },
   { key: 'settings', label: 'Settings', icon: <Settings size={18} /> },
+  { key: 'billing', label: 'Billing', icon: <CreditCard size={18} /> },
 ];
+
+function planBadgeStyle(plan: string | null): { label: string; bg: string; text: string } {
+  if (plan === 'max') return { label: 'Max', bg: '#dc2626', text: '#fff' };
+  if (plan === 'pro') return { label: 'Pro', bg: '#f59e0b', text: '#fff' };
+  return { label: 'Free', bg: '#e5e5e5', text: '#737373' };
+}
 
 export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
   const { view, setView } = useNavigationStore();
@@ -69,6 +76,12 @@ export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
               </div>
             )}
             <div className="flex-1 min-w-0">
+              <span
+                className="inline-block text-[10px] font-semibold uppercase tracking-wide leading-none px-1.5 py-0.5 rounded mb-0.5"
+                style={{ backgroundColor: planBadgeStyle(user?.plan ?? null).bg, color: planBadgeStyle(user?.plan ?? null).text }}
+              >
+                {planBadgeStyle(user?.plan ?? null).label}
+              </span>
               <p className="text-sm font-medium text-[#171717] truncate">{user?.name}</p>
               <p className="text-xs text-[#737373] truncate">{user?.email}</p>
             </div>

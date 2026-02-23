@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { upload } from '~/middleware/multer.middleware';
 import { authenticate } from '~/middleware/auth.middleware';
+import { requireCredits } from '~/middleware/billing.middleware';
 import {
   createTranscript,
   getTranscripts,
@@ -9,7 +10,7 @@ import {
 
 const router = Router();
 
-router.post('/', authenticate, upload.single('audio'), createTranscript);
+router.post('/', authenticate, requireCredits, upload.single('audio'), createTranscript);
 router.get('/', authenticate, getTranscripts);
 router.delete('/:id', authenticate, deleteTranscript);
 

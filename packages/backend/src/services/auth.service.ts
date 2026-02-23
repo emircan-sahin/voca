@@ -13,6 +13,9 @@ export function toIUser(doc: IUserDocument): IUser {
     name: doc.name,
     avatarUrl: doc.avatarUrl,
     provider: doc.provider,
+    credits: doc.credits,
+    plan: doc.plan,
+    planExpiresAt: doc.planExpiresAt?.toISOString() ?? null,
     createdAt: doc.createdAt.toISOString(),
   };
 }

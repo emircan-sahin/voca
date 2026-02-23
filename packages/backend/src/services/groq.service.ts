@@ -24,6 +24,7 @@ export interface TranscriptionResult {
   text: string;
   language: string;
   duration: number;
+  cost: number;
   hallucination: boolean;
 }
 
@@ -50,6 +51,7 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
     text: transcription.text,
     language: transcription.language ?? 'unknown',
     duration,
+    cost,
     hallucination,
   };
 };

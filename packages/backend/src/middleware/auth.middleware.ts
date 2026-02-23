@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '~/services/auth.service';
+import { checkPlanExpiry } from '~/services/billing.service';
 import { sendError } from '~/utils/response';
 
 declare global {
@@ -22,10 +23,11 @@ function extractUser(req: Request): { id: string; email: string } | null {
   }
 }
 
-export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   const user = extractUser(req);
   if (!user) return sendError(res, 'Unauthorized', 401);
   req.user = user;
+  await checkPlanExpiry(user.id).catch(() => {});
   next();
 };
 
