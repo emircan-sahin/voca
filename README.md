@@ -36,6 +36,7 @@ Press a shortcut, speak, and the transcript is automatically pasted wherever you
 - **Instant translation** — Speak in one language, get the translation in another. Powered by Gemini 2.0 Flash.
 - **AI-powered corrections** — Developer tone fixes misheard technical jargon (e.g. "reakt" → React, "nahbar" → navbar) and keeps terms like API, middleware, deploy in English.
 - **Numeric & Planning add-ons** — Convert spoken numbers to digits ("two point five" → 2.5) and dictated steps into clean numbered lists.
+- **Noise suppression** — Toggle built-in noise suppression to filter out fans, AC, and traffic. Keep it off in quiet rooms for unaltered voice quality.
 - **One-shortcut workflow** — Press a key, speak, done. The transcript (or translation) lands right where your cursor was.
 - **macOS & Windows** — Works on both platforms out of the box.
 

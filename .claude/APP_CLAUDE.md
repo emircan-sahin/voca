@@ -67,7 +67,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
 ## MediaRecorder
 - Format: `audio/webm`
-- Request mic permission with `getUserMedia({ audio: true })`
+- Noise suppression: `getUserMedia({ audio: { noiseSuppression } })` — controlled by `noiseSuppression.store.ts`, synced to backend
 - Stop stream tracks after stopping: `stream.getTracks().forEach(t => t.stop())`
 - Create blob: `new Blob(chunks, { type: 'audio/webm' })`
 
