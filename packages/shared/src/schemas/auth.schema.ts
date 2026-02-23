@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { LANGUAGE_CODES } from '../constants/languages';
 
 export const userSchema = z.object({
   id: z.string(),
@@ -28,10 +29,10 @@ export const refreshBodySchema = z.object({
 
 export const userSettingsSchema = z.object({
   provider: z.enum(['groq', 'deepgram']),
-  language: z.string().min(1),
+  language: z.enum(LANGUAGE_CODES),
   translation: z.object({
     enabled: z.boolean(),
-    targetLanguage: z.string().min(1),
+    targetLanguage: z.enum(LANGUAGE_CODES),
     tone: z.enum(['developer', 'personal']),
     numeric: z.boolean(),
     planning: z.boolean(),

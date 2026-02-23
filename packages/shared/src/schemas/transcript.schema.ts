@@ -17,8 +17,4 @@ export const transcriptSchema = z.object({
   tokenUsage: tokenUsageSchema.optional(),
 });
 
-export const createTranscriptSchema = z.object({
-  audio: z.any(),
-});
-
 export type TranscriptDto = z.infer<typeof transcriptSchema>;

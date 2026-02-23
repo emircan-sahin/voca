@@ -25,7 +25,13 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
 
   const filePath = req.file.path;
-  const { provider, language, translateTo, tone, numeric, planning } = transcribeQuerySchema.parse(req.query);
+  const parsed = transcribeQuerySchema.safeParse(req.query);
+  if (!parsed.success) {
+    fs.unlink(filePath, () => {});
+    const message = parsed.error.errors.map((e) => e.message).join(', ');
+    return sendError(res, message, 400);
+  }
+  const { provider, language, translateTo, tone, numeric, planning } = parsed.data;
 
   if (translateTo && !env.GEMINI_API_KEY) {
     return sendError(res, 'Translation requires a Gemini API key. Set GEMINI_API_KEY in your environment.', 400);
