@@ -35,12 +35,13 @@ export async function activatePlan(userId: string, plan: BillingPlan): Promise<I
 
   const credits = PLAN_CREDITS[plan];
   const expiresAt = dayjs().add(30, 'day').toDate();
+  const isUpgrade = !!existing.plan;
 
-  const user = await UserModel.findByIdAndUpdate(
-    userId,
-    { $inc: { credits }, $set: { plan, planExpiresAt: expiresAt } },
-    { new: true }
-  );
+  const update = isUpgrade
+    ? { $inc: { credits }, $set: { plan, planExpiresAt: expiresAt } }
+    : { $set: { credits, plan, planExpiresAt: expiresAt } };
+
+  const user = await UserModel.findByIdAndUpdate(userId, update, { new: true });
   return user!;
 }
 

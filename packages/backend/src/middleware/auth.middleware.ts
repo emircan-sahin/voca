@@ -27,7 +27,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
   const user = extractUser(req);
   if (!user) return sendError(res, 'Unauthorized', 401);
   req.user = user;
-  await checkPlanExpiry(user.id).catch(() => {});
+  await checkPlanExpiry(user.id).catch((err) => console.error('[PlanExpiry]', err));
   next();
 };
 

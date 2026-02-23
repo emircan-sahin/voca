@@ -51,6 +51,16 @@ export const createTranscript = async (req: Request, res: Response) => {
       tokenUsage = translation.tokenUsage;
     }
 
+    const cost = calculateCost(result.cost, tokenUsage);
+    console.log(
+      `[Billing] stt:$${result.cost.toFixed(6)} gemini:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`
+    );
+    const deducted = await deductCredits(req.user!.id, cost);
+    if (!deducted) {
+      fs.unlink(filePath, () => {});
+      return sendError(res, 'Insufficient credits', 402);
+    }
+
     const doc = await TranscriptModel.create({
       text: result.text,
       duration: result.duration,
@@ -61,15 +71,6 @@ export const createTranscript = async (req: Request, res: Response) => {
       targetLanguage,
       tokenUsage,
     });
-
-    const cost = calculateCost(result.cost, tokenUsage);
-    console.log(
-      `[Billing] stt:$${result.cost.toFixed(6)} gemini:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`
-    );
-    const deducted = await deductCredits(req.user!.id, cost);
-    if (!deducted) {
-      return sendError(res, 'Insufficient credits', 402);
-    }
 
     const transcript: ITranscript = {
       id: (doc._id as unknown as { toString(): string }).toString(),

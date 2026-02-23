@@ -10,6 +10,7 @@ export const activate = async (req: Request, res: Response) => {
 
   try {
     const user = await activatePlan(req.user!.id, parsed.data.plan);
+    console.log(`[Billing] plan activated: ${parsed.data.plan} for user ${req.user!.id}`);
     return sendSuccess(res, 'Plan activated', toIUser(user));
   } catch (err) {
     return sendError(res, (err as Error).message, 400);
@@ -19,6 +20,7 @@ export const activate = async (req: Request, res: Response) => {
 export const cancel = async (req: Request, res: Response) => {
   try {
     const user = await cancelRenewal(req.user!.id);
+    console.log(`[Billing] renewal cancelled for user ${req.user!.id}`);
     return sendSuccess(res, 'Renewal cancelled', toIUser(user));
   } catch (err) {
     return sendError(res, (err as Error).message, 400);
