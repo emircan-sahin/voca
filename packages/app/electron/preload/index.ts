@@ -47,5 +47,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
     set: (data: unknown) => ipcRenderer.invoke('auth:set', data),
     clear: () => ipcRenderer.invoke('auth:clear'),
     openProvider: (url: string) => ipcRenderer.invoke('auth:open-provider', url),
+    onAuthCallback: (cb: (data: { token: string; refreshToken: string }) => void) => {
+      const handler = (_: unknown, data: { token: string; refreshToken: string }) => cb(data);
+      ipcRenderer.on('auth:deep-link', handler);
+      return () => {
+        ipcRenderer.removeListener('auth:deep-link', handler);
+      };
+    },
   },
 });

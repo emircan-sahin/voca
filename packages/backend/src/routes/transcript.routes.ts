@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { upload } from '~/middleware/multer.middleware';
-import { optionalAuth } from '~/middleware/auth.middleware';
+import { authenticate } from '~/middleware/auth.middleware';
 import {
   createTranscript,
   getTranscripts,
@@ -9,8 +9,8 @@ import {
 
 const router = Router();
 
-router.post('/', optionalAuth, upload.single('audio'), createTranscript);
-router.get('/', optionalAuth, getTranscripts);
-router.delete('/:id', optionalAuth, deleteTranscript);
+router.post('/', authenticate, upload.single('audio'), createTranscript);
+router.get('/', authenticate, getTranscripts);
+router.delete('/:id', authenticate, deleteTranscript);
 
 export default router;

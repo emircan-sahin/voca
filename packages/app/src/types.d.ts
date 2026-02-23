@@ -5,14 +5,6 @@ type MicrophoneStatus = 'not-determined' | 'granted' | 'denied' | 'restricted';
 interface AuthData {
   token: string;
   refreshToken: string;
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    avatarUrl?: string;
-    provider: string;
-    createdAt: string;
-  };
 }
 
 declare global {
@@ -44,6 +36,7 @@ declare global {
         set: (data: AuthData) => Promise<void>;
         clear: () => Promise<void>;
         openProvider: (url: string) => Promise<void>;
+        onAuthCallback: (cb: (data: AuthData) => void) => () => void;
       };
     };
   }

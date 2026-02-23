@@ -5,14 +5,6 @@ import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'fs';
 interface AuthData {
   token: string;
   refreshToken: string;
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    avatarUrl?: string;
-    provider: string;
-    createdAt: string;
-  };
 }
 
 const getStorePath = () => join(app.getPath('userData'), 'auth.json');

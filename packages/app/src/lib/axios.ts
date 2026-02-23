@@ -83,6 +83,8 @@ export const api = {
     axiosInstance.get(url, config) as unknown as Promise<ApiResponse<T>>,
   post: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) =>
     axiosInstance.post(url, data, config) as unknown as Promise<ApiResponse<T>>,
+  put: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) =>
+    axiosInstance.put(url, data, config) as unknown as Promise<ApiResponse<T>>,
   delete: <T>(url: string, config?: AxiosRequestConfig) =>
     axiosInstance.delete(url, config) as unknown as Promise<ApiResponse<T>>,
 };

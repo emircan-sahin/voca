@@ -3,7 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { DashboardLayout } from '~/layouts/DashboardLayout';
 import { SetupPage } from '~/pages/Setup';
+import { WelcomePage } from '~/pages/Welcome';
 import { useAuthStore } from '~/stores/auth.store';
+import { useSettingsSync } from '~/hooks/useSettingsSync';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,11 +18,13 @@ const queryClient = new QueryClient({
 
 const App = () => {
   const [ready, setReady] = useState<boolean | null>(null);
-  const { hydrate } = useAuthStore();
+  const { user, isLoading, hydrate } = useAuthStore();
 
   useEffect(() => {
     hydrate();
   }, [hydrate]);
+
+  useSettingsSync();
 
   useEffect(() => {
     const isMac = window.electronAPI.platform === 'darwin';
@@ -37,7 +41,13 @@ const App = () => {
     });
   }, []);
 
-  if (ready === null) return null;
+  if (ready === null || isLoading) return null;
+
+  const content = !ready
+    ? <SetupPage onGranted={() => setReady(true)} />
+    : !user
+      ? <WelcomePage />
+      : <DashboardLayout />;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -53,7 +63,7 @@ const App = () => {
           },
         }}
       />
-      {ready ? <DashboardLayout /> : <SetupPage onGranted={() => setReady(true)} />}
+      {content}
     </QueryClientProvider>
   );
 };

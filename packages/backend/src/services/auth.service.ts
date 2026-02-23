@@ -18,11 +18,11 @@ export function toIUser(doc: IUserDocument): IUser {
 }
 
 function signAccessToken(userId: string, email: string): string {
-  return jwt.sign({ sub: userId, email }, env.JWT_SECRET, { expiresIn: '7d' });
+  return jwt.sign({ sub: userId, email }, env.JWT_SECRET, { expiresIn: '1m' });
 }
 
 function signRefreshToken(userId: string): string {
-  return jwt.sign({ sub: userId, type: 'refresh' }, env.JWT_SECRET, { expiresIn: '30d' });
+  return jwt.sign({ sub: userId, type: 'refresh' }, env.JWT_SECRET, { expiresIn: '3m' });
 }
 
 export async function loginWithGoogleCode(authCode: string, redirectUri: string): Promise<IAuthResponse> {
@@ -84,27 +84,3 @@ export async function refreshAccessToken(rt: string): Promise<IAuthResponse> {
   return { user: toIUser(user), token: newAccessToken, refreshToken: newRefreshToken };
 }
 
-// Pending auth sessions: state → auth data (null = still waiting)
-const pendingSessions = new Map<string, { data: IAuthResponse | null; expiresAt: number }>();
-
-export function createPendingSession(state: string): void {
-  pendingSessions.set(state, { data: null, expiresAt: Date.now() + 5 * 60_000 }); // 5 min
-}
-
-export function completePendingSession(state: string, data: IAuthResponse): void {
-  const entry = pendingSessions.get(state);
-  if (entry) entry.data = data;
-}
-
-export function pollPendingSession(state: string): IAuthResponse | null | 'pending' {
-  const entry = pendingSessions.get(state);
-  if (!entry) return null;
-  if (Date.now() > entry.expiresAt) {
-    pendingSessions.delete(state);
-    return null;
-  }
-  if (!entry.data) return 'pending';
-  const data = entry.data;
-  pendingSessions.delete(state);
-  return data;
-}

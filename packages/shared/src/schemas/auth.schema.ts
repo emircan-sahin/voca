@@ -18,3 +18,15 @@ export const authResponseSchema = z.object({
 export const refreshBodySchema = z.object({
   refreshToken: z.string().min(1),
 });
+
+export const userSettingsSchema = z.object({
+  provider: z.enum(['groq', 'deepgram']),
+  language: z.string().min(1),
+  translation: z.object({
+    enabled: z.boolean(),
+    targetLanguage: z.string().min(1),
+    tone: z.enum(['developer', 'personal']),
+    numeric: z.boolean(),
+    planning: z.boolean(),
+  }),
+});

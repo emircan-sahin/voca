@@ -12,3 +12,15 @@ export interface IAuthResponse {
   token: string;
   refreshToken: string;
 }
+
+export interface IUserSettings {
+  provider: 'groq' | 'deepgram';
+  language: string;
+  translation: {
+    enabled: boolean;
+    targetLanguage: string;
+    tone: 'developer' | 'personal';
+    numeric: boolean;
+    planning: boolean;
+  };
+}

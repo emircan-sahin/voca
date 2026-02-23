@@ -29,7 +29,3 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
   next();
 };
 
-export const optionalAuth = (req: Request, _res: Response, next: NextFunction) => {
-  req.user = extractUser(req) ?? undefined;
-  next();
-};
