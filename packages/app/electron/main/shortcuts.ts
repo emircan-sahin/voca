@@ -2,6 +2,7 @@ import { BrowserWindow } from 'electron';
 import { uIOhook, UiohookKey } from 'uiohook-napi';
 
 let rightMetaDown = false;
+let rightAltDown = false;
 let otherKeyPressed = false;
 
 export function registerShortcuts(win: BrowserWindow) {
@@ -9,7 +10,10 @@ export function registerShortcuts(win: BrowserWindow) {
     if (e.keycode === UiohookKey.MetaRight) {
       rightMetaDown = true;
       otherKeyPressed = false;
-    } else if (rightMetaDown) {
+    } else if (e.keycode === UiohookKey.AltRight) {
+      rightAltDown = true;
+      otherKeyPressed = false;
+    } else if (rightMetaDown || rightAltDown) {
       otherKeyPressed = true;
     }
   });
@@ -20,6 +24,12 @@ export function registerShortcuts(win: BrowserWindow) {
         win.webContents.send('shortcut:toggle-recording');
       }
       rightMetaDown = false;
+      otherKeyPressed = false;
+    } else if (e.keycode === UiohookKey.AltRight && rightAltDown) {
+      if (!otherKeyPressed) {
+        win.webContents.send('recording:cancel');
+      }
+      rightAltDown = false;
       otherKeyPressed = false;
     }
   });
