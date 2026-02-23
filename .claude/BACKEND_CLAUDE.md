@@ -95,6 +95,11 @@ For each new resource:
 - `errorMiddleware` is added as the last middleware via `app.use()`
 - Async controllers can use `express-async-errors` or try-catch + next(err) for automatic error handling
 
+## Import Rules
+- `~/` alias is mandatory, relative imports (`../../`) are **forbidden**
+- dayjs: `import dayjs from 'dayjs'` directly (no lib wrapper)
+- Shared: `import { ITranscript } from '@voca/shared'`
+
 ## Env Validation
 ```typescript
 // src/config/env.ts

@@ -86,8 +86,9 @@ onError: (err: ApiError) => toast.error(err.message),
 | processing | Gray, Loader2 spin icon, disabled |
 
 ## Import Rules
-- `~/` alias is mandatory, `../../` is forbidden
-- dayjs: `import dayjs from '~/lib/dayjs'`
+- `~/` alias is mandatory, relative imports (`../../`) are **forbidden**
+- `fetch()` is **forbidden** — use `api` from `~/lib/axios`
+- dayjs: `import dayjs from '~/lib/dayjs'` (plugins pre-loaded)
 - axios: `import { api } from '~/lib/axios'`
 - Shared: `import { ITranscript } from '@voca/shared'`
 
