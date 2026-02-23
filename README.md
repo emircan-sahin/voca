@@ -33,7 +33,9 @@ Press a shortcut, speak, and the transcript is automatically pasted wherever you
 - **Free forever (practically)** — $200 free Deepgram credits covers hundreds of hours of transcription. No subscriptions, no hidden fees.
 - **Private by design** — 100% open-source. Audio is processed through your own API keys. No data collection, no analytics, no third-party servers storing your recordings.
 - **Blazing fast & accurate** — Powered by Deepgram Nova-3, one of the best speech-to-text models available. Supports **35+ languages** with automatic language detection.
-- **Instant translation** — Speak in one language, get the translation in another. Powered by Gemini 2.0 Flash with tone-aware prompts (Developer mode keeps your technical terms intact).
+- **Instant translation** — Speak in one language, get the translation in another. Powered by Gemini 2.0 Flash.
+- **AI-powered corrections** — Developer tone fixes misheard technical jargon (e.g. "reakt" → React, "nahbar" → navbar) and keeps terms like API, middleware, deploy in English.
+- **Numeric & Planning add-ons** — Convert spoken numbers to digits ("two point five" → 2.5) and dictated steps into clean numbered lists.
 - **One-shortcut workflow** — Press a key, speak, done. The transcript (or translation) lands right where your cursor was.
 - **macOS & Windows** — Works on both platforms out of the box.
 
