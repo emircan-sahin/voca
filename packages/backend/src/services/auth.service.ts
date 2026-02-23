@@ -18,11 +18,11 @@ export function toIUser(doc: IUserDocument): IUser {
 }
 
 function signAccessToken(userId: string, email: string): string {
-  return jwt.sign({ sub: userId, email }, env.JWT_SECRET, { expiresIn: '1m' });
+  return jwt.sign({ sub: userId, email }, env.JWT_SECRET, { expiresIn: '15m' });
 }
 
 function signRefreshToken(userId: string): string {
-  return jwt.sign({ sub: userId, type: 'refresh' }, env.JWT_SECRET, { expiresIn: '3m' });
+  return jwt.sign({ sub: userId, type: 'refresh' }, env.JWT_SECRET, { expiresIn: '7d' });
 }
 
 export async function loginWithGoogleCode(authCode: string, redirectUri: string): Promise<IAuthResponse> {
