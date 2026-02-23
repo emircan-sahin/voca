@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
 const envSchema = z.object({
-  PORT: z.string().default('3100'),
-  MONGODB_URI: z.string(),
-  GROQ_API_KEY: z.string(),
+  PORT: z.coerce.number().positive().default(3100),
+  MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
+  GROQ_API_KEY: z.string().min(1, 'GROQ_API_KEY is required'),
   DEEPGRAM_API_KEY: z.string().default(''),
   GEMINI_API_KEY: z.string().default(''),
 });

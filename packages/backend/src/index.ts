@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import { env } from '~/config/env';
 import transcriptRoutes from '~/routes/transcript.routes';
 import { errorMiddleware } from '~/middleware/error.middleware';
+import { sendError } from '~/utils/response';
 
 const app = express();
 
@@ -25,15 +26,30 @@ app.use((req, res, next) => {
 
 app.use('/api/transcripts', transcriptRoutes);
 
+app.use((_req, res) => sendError(res, 'Route not found', 404));
+
 app.use(errorMiddleware);
 
 mongoose
   .connect(env.MONGODB_URI)
   .then(() => {
     console.log('[MongoDB] Connected');
-    app.listen(Number(env.PORT), () => {
+    const server = app.listen(env.PORT, () => {
       console.log(`[Server] Running on http://localhost:${env.PORT}`);
     });
+
+    const shutdown = () => {
+      console.log('[Server] Shutting down...');
+      server.close(() => {
+        mongoose.disconnect().then(() => {
+          console.log('[MongoDB] Disconnected');
+          process.exit(0);
+        });
+      });
+    };
+
+    process.on('SIGINT', shutdown);
+    process.on('SIGTERM', shutdown);
   })
   .catch((err) => {
     console.error('[MongoDB] Connection failed:', err.message);

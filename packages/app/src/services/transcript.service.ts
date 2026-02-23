@@ -1,4 +1,4 @@
-import axiosInstance from '~/lib/axios';
+import { api } from '~/lib/axios';
 import { ApiResponse, ITranscript } from '@voca/shared';
 import { Provider } from '~/stores/provider.store';
 
@@ -17,20 +17,14 @@ export const transcriptService = {
     if (translateTo) params.set('translateTo', translateTo);
     if (tone) params.set('tone', tone);
 
-    const res = await axiosInstance.post<ApiResponse<ITranscript>>(
-      `/transcripts?${params.toString()}`,
-      formData
-    );
-    return res.data;
+    return api.post<ITranscript>(`/transcripts?${params.toString()}`, formData);
   },
 
   async getAll(): Promise<ApiResponse<ITranscript[]>> {
-    const res = await axiosInstance.get<ApiResponse<ITranscript[]>>('/transcripts');
-    return res.data;
+    return api.get<ITranscript[]>('/transcripts');
   },
 
   async remove(id: string): Promise<ApiResponse<null>> {
-    const res = await axiosInstance.delete<ApiResponse<null>>(`/transcripts/${id}`);
-    return res.data;
+    return api.delete<null>(`/transcripts/${id}`);
   },
 };

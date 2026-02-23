@@ -10,6 +10,7 @@ import { useLanguageStore } from '~/stores/language.store';
 import { useMicrophoneStore } from '~/stores/microphone.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { transcriptService } from '~/services/transcript.service';
+import { ApiError } from '~/lib/axios';
 import { ApiResponse, ITranscript } from '@voca/shared';
 
 export const useTranscription = () => {
@@ -29,7 +30,7 @@ export const useTranscription = () => {
     queryFn: transcriptService.getAll,
   });
 
-  const transcribeMutation = useMutation<ApiResponse<ITranscript>, { message: string }, Blob>({
+  const transcribeMutation = useMutation<ApiResponse<ITranscript>, ApiError, Blob>({
     mutationFn: (blob) => {
       const translateTo = translationEnabled && targetLanguage !== language
         ? targetLanguage : undefined;
@@ -50,7 +51,7 @@ export const useTranscription = () => {
     onSettled: () => setProcessing(false),
   });
 
-  const deleteMutation = useMutation<ApiResponse<null>, { message: string }, string>({
+  const deleteMutation = useMutation<ApiResponse<null>, ApiError, string>({
     mutationFn: transcriptService.remove,
     onSuccess: (res) => {
       toast.success(res.message);

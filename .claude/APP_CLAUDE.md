@@ -61,18 +61,22 @@ const res = await axiosInstance.post('/transcripts', formData);
 ```
 
 ## React Query Usage
-- Use `useMutation` for transcription
-- Use `useQuery({ queryKey: ['transcripts'] })` for the list
-- Get success/error messages from the API: `res.message`
+- Use `useMutation<ApiResponse<T>, ApiError, TVar>` for mutations
+- Use `useQuery<ApiResponse<T>>` for queries
+- Access response: `res.message`, `res.data`
+- Access error: `err.message`, `err.data` (structured validation errors)
 - Refresh the list after mutation with `queryClient.invalidateQueries`
 
 ## Toast Notifications
-Use the `message` field returned from the API:
+Toast calls belong in hooks/components — **not** in the interceptor:
 ```typescript
 onSuccess: (res) => toast.success(res.message),
-onError: (err: { message: string }) => toast.error(err.message),
+onError: (err: ApiError) => toast.error(err.message),
 ```
-Hardcoded messages are **forbidden** (exception: client-only toasts like "Copied to clipboard").
+- Success: use `res.message` from `ApiResponse<T>`
+- Error: use `err.message` from `ApiError`, access `err.data` for structured validation errors
+- Show toasts selectively — not every request needs a toast
+- Hardcoded messages are **forbidden** (exception: client-only toasts like "Copied to clipboard")
 
 ## RecordButton States
 | State | Appearance |
@@ -84,9 +88,10 @@ Hardcoded messages are **forbidden** (exception: client-only toasts like "Copied
 ## Import Rules
 - `~/` alias is mandatory, `../../` is forbidden
 - dayjs: `import dayjs from '~/lib/dayjs'`
-- axios: `import axiosInstance from '~/lib/axios'`
+- axios: `import { api } from '~/lib/axios'`
 - Shared: `import { ITranscript } from '@voca/shared'`
 
 ## Service Files
 - `try-catch` is **forbidden** — the axios interceptor catches errors via `Promise.reject`
-- Return type: `Promise<ApiResponse<T>>`
+- Return type: `Promise<T>` (interceptor unwraps `ApiResponse<T>` automatically)
+- Use `api.get`, `api.post`, `api.delete` — not `axiosInstance` directly
