@@ -55,6 +55,7 @@ export const createTranscript = async (req: Request, res: Response) => {
       duration: result.duration,
       language: result.language,
       audioPath: filePath,
+      userId: req.user?.id,
       translatedText,
       targetLanguage,
       tokenUsage,
@@ -78,8 +79,9 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
 };
 
-export const getTranscripts = async (_req: Request, res: Response) => {
-  const docs = await TranscriptModel.find().sort({ createdAt: -1 });
+export const getTranscripts = async (req: Request, res: Response) => {
+  const filter = req.user?.id ? { userId: req.user.id } : { userId: { $exists: false } };
+  const docs = await TranscriptModel.find(filter).sort({ createdAt: -1 });
 
   const transcripts: ITranscript[] = docs.map((doc: typeof docs[number]) => ({
     id: (doc._id as unknown as { toString(): string }).toString(),
@@ -97,7 +99,9 @@ export const getTranscripts = async (_req: Request, res: Response) => {
 
 export const deleteTranscript = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const doc = await TranscriptModel.findByIdAndDelete(id);
+  const filter: Record<string, unknown> = { _id: id };
+  if (req.user?.id) filter.userId = req.user.id;
+  const doc = await TranscriptModel.findOneAndDelete(filter);
 
   if (!doc) {
     return sendError(res, 'Transcript not found', 404);

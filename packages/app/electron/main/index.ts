@@ -3,6 +3,7 @@ import { join } from 'path';
 import { exec } from 'child_process';
 import { registerShortcuts, unregisterShortcuts } from './shortcuts';
 import { showOverlay, hideOverlay, sendAudioDataToOverlay } from './overlay';
+import { getAuthData, setAuthData, clearAuthData, openAuthProvider } from './auth';
 
 let mainWin: BrowserWindow | null = null;
 
@@ -48,6 +49,12 @@ ipcMain.on('transcript:paste-text', (_event, text: string) => {
     }
   }, 100);
 });
+
+// Auth
+ipcMain.handle('auth:get', () => getAuthData());
+ipcMain.handle('auth:set', (_, data) => setAuthData(data));
+ipcMain.handle('auth:clear', () => clearAuthData());
+ipcMain.handle('auth:open-provider', (_, url: string) => openAuthProvider(url));
 
 // Recording overlay
 ipcMain.on('overlay:show', () => {
@@ -97,6 +104,19 @@ function createWindow() {
 }
 
 app.setName('Voca');
+
+// Ensure single instance (focus existing window if second instance launched)
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    if (mainWin) {
+      if (mainWin.isMinimized()) mainWin.restore();
+      mainWin.focus();
+    }
+  });
+}
 
 app.whenReady().then(() => {
   // Set dock icon on macOS (dev mode uses Electron's default otherwise)

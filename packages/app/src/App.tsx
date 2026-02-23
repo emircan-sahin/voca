@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { DashboardLayout } from '~/layouts/DashboardLayout';
 import { SetupPage } from '~/pages/Setup';
+import { useAuthStore } from '~/stores/auth.store';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,6 +16,11 @@ const queryClient = new QueryClient({
 
 const App = () => {
   const [ready, setReady] = useState<boolean | null>(null);
+  const { hydrate } = useAuthStore();
+
+  useEffect(() => {
+    hydrate();
+  }, [hydrate]);
 
   useEffect(() => {
     const isMac = window.electronAPI.platform === 'darwin';

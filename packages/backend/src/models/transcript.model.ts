@@ -5,6 +5,7 @@ export interface ITranscriptDocument extends Document {
   duration: number;
   language: string;
   audioPath?: string;
+  userId?: string;
   translatedText?: string;
   targetLanguage?: string;
   tokenUsage?: {
@@ -21,6 +22,7 @@ const transcriptSchema = new Schema<ITranscriptDocument>(
     duration: { type: Number, required: true },
     language: { type: String, required: true },
     audioPath: { type: String },
+    userId: { type: String, index: true },
     translatedText: { type: String },
     targetLanguage: { type: String },
     tokenUsage: {

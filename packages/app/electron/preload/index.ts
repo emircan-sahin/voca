@@ -40,4 +40,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
       ipcRenderer.removeListener('recording:cancel', handler);
     };
   },
+
+  // Auth
+  auth: {
+    get: () => ipcRenderer.invoke('auth:get'),
+    set: (data: unknown) => ipcRenderer.invoke('auth:set', data),
+    clear: () => ipcRenderer.invoke('auth:clear'),
+    openProvider: (url: string) => ipcRenderer.invoke('auth:open-provider', url),
+  },
 });

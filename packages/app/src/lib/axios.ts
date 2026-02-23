@@ -1,11 +1,14 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { ApiResponse } from '@voca/shared';
+import { useAuthStore } from '~/stores/auth.store';
 
 export class ApiError extends Error {
   data: unknown;
-  constructor(message: string, data: unknown = null) {
+  status?: number;
+  constructor(message: string, data: unknown = null, status?: number) {
     super(message);
     this.data = data;
+    this.status = status;
   }
 }
 
@@ -13,12 +16,65 @@ const axiosInstance = axios.create({
   baseURL: 'http://localhost:3100/api',
 });
 
+// Attach Bearer token to every request
+axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  const token = useAuthStore.getState().token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+let isRefreshing = false;
+let failedQueue: Array<{ resolve: (v: unknown) => void; reject: (e: unknown) => void }> = [];
+
+function processQueue(error: unknown) {
+  failedQueue.forEach((p) => (error ? p.reject(error) : p.resolve(undefined)));
+  failedQueue = [];
+}
+
 axiosInstance.interceptors.response.use(
   (res) => res.data,
-  (error) => {
+  async (error) => {
+    const original = error.config;
+    const status = error.response?.status;
+
+    // Try refresh on 401 (but not for auth endpoints themselves)
+    if (status === 401 && !original._retry && !original.url?.startsWith('/auth/')) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        }).then(() => axiosInstance(original));
+      }
+
+      original._retry = true;
+      isRefreshing = true;
+
+      const { refreshToken, setAuth, clearAuth } = useAuthStore.getState();
+      if (!refreshToken) {
+        isRefreshing = false;
+        clearAuth();
+        return Promise.reject(new ApiError('Unauthorized', null, 401));
+      }
+
+      try {
+        const res = await axios.post('http://localhost:3100/api/auth/refresh', { refreshToken });
+        const data = res.data.data;
+        setAuth(data);
+        processQueue(null);
+        return axiosInstance(original);
+      } catch (refreshError) {
+        processQueue(refreshError);
+        clearAuth();
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    }
+
     const body = error.response?.data;
     const message = body?.message || 'An unexpected error occurred';
-    return Promise.reject(new ApiError(message, body?.data));
+    return Promise.reject(new ApiError(message, body?.data, status));
   }
 );
 
