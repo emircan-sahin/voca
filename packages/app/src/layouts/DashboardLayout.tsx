@@ -15,7 +15,9 @@ import { api } from '~/lib/axios';
 function refreshUser() {
   api.get<IUser>('/auth/me').then((res) => {
     if (res.data) useAuthStore.setState({ user: res.data });
-  }).catch(() => {});
+  }).catch((err) => {
+    console.warn('[PlanExpiry] Failed to refresh user:', err.message ?? err);
+  });
 }
 
 function usePlanExpiryWatcher() {

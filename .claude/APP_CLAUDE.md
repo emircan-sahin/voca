@@ -115,3 +115,60 @@ onError: (err: ApiError) => toast.error(err.message),
 - `try-catch` is **forbidden** — the axios interceptor catches errors via `Promise.reject`
 - Return type: `Promise<T>` (interceptor unwraps `ApiResponse<T>` automatically)
 - Use `api.get`, `api.post`, `api.delete` — not `axiosInstance` directly
+
+## Frontend Code Quality
+
+### IPC Listener Hooks
+Use `useRef` pattern to prevent listener re-registration on every state change:
+```typescript
+// Wrong — re-registers on every callback change
+useEffect(() => {
+  return window.electronAPI.onToggleRecording(callback);
+}, [callback]);
+
+// Right — stable listener, always calls latest callback
+const callbackRef = useRef(callback);
+callbackRef.current = callback;
+useEffect(() => {
+  return window.electronAPI.onToggleRecording(() => callbackRef.current());
+}, []);
+```
+
+### Null Safety in JSX
+Always guard against null user/data before accessing properties:
+```typescript
+// Wrong — crashes if user is null
+{user?.name.charAt(0).toUpperCase()}
+
+// Right — guard with && or ternary
+{user && user.name.charAt(0).toUpperCase()}
+```
+
+### No Redundant Calculations in JSX
+Cache function results when called multiple times:
+```typescript
+// Wrong — called 3 times
+style={{ bg: planBadge(user.plan).bg, color: planBadge(user.plan).text }}>
+  {planBadge(user.plan).label}
+
+// Right — called once
+const badge = planBadge(user.plan);
+style={{ bg: badge.bg, color: badge.text }}>{badge.label}
+```
+
+### No Silent Catch
+Always log errors with context:
+```typescript
+// Wrong
+.catch(() => {});
+
+// Right
+.catch((err) => console.warn('[Context]', err.message ?? err));
+```
+
+### Shell Command Safety (Electron)
+When executing shell commands from user-derived input:
+- Sanitize with strict character whitelist
+- Add length limits
+- Add execution timeout
+- Always provide error callback to `exec()`

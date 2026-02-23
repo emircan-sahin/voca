@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function useGlobalShortcut(callback: () => void) {
+  const callbackRef = useRef(callback);
+  callbackRef.current = callback;
+
   useEffect(() => {
-    const cleanup = window.electronAPI.onToggleRecording(callback);
-    return cleanup;
-  }, [callback]);
+    return window.electronAPI.onToggleRecording(() => callbackRef.current());
+  }, []);
 }

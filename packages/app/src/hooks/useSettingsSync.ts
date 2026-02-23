@@ -35,7 +35,9 @@ export function useSettingsSync() {
           language,
           translation: { enabled, targetLanguage, tone, numeric, planning },
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.warn('[SettingsSync] Failed to save settings:', err.message ?? err);
+        });
     }, 1000);
 
     return () => clearTimeout(timer);

@@ -71,17 +71,23 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
     if (process.platform === 'darwin') {
       if (previousApp && previousApp !== 'Electron') {
         const sanitized = previousApp.replace(/[^a-zA-Z0-9 .\-_]/g, '');
-        if (sanitized) {
+        if (sanitized && sanitized.length <= 100) {
           setTimeout(() => {
-            exec(`osascript -e 'tell application "${sanitized}" to activate'`);
+            exec(
+              `osascript -e 'tell application "${sanitized}" to activate'`,
+              { timeout: 2000 },
+              (err) => { if (err) console.warn('[Overlay] Failed to refocus app:', err.message); }
+            );
           }, 150);
         }
       }
     } else {
-      if (previousPid) {
+      if (previousPid && Number.isFinite(previousPid)) {
         setTimeout(() => {
           exec(
-            `powershell -Command "(New-Object -ComObject WScript.Shell).AppActivate(${previousPid})"`
+            `powershell -Command "(New-Object -ComObject WScript.Shell).AppActivate(${previousPid})"`,
+            { timeout: 2000 },
+            (err) => { if (err) console.warn('[Overlay] Failed to refocus app:', err.message); }
           );
         }, 150);
       }

@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import { BillingPlan, PLAN_UPLOAD_LIMIT } from '@voca/shared';
 import { UserModel } from '~/models/user.model';
 import { sendError } from '~/utils/response';
+import { safeUnlink } from '~/utils/fs';
 
 const uploadDir = path.join(process.cwd(), 'uploads');
 if (!fs.existsSync(uploadDir)) {
@@ -12,14 +13,15 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 const ALLOWED_MIME = ['audio/webm', 'audio/mp4', 'audio/mpeg', 'audio/wav', 'audio/ogg'];
+const ALLOWED_EXTS = ['.webm', '.mp4', '.mpeg', '.mp3', '.wav', '.ogg', '.m4a'];
 
 // Magic byte signatures for audio formats
-const AUDIO_SIGNATURES: { mime: string; check: (buf: Buffer) => boolean }[] = [
-  { mime: 'audio/wav', check: (b) => b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 },
-  { mime: 'audio/mpeg', check: (b) => (b[0] === 0xff && (b[1] & 0xe0) === 0xe0) || (b[0] === 0x49 && b[1] === 0x44 && b[2] === 0x33) },
-  { mime: 'audio/ogg', check: (b) => b[0] === 0x4f && b[1] === 0x67 && b[2] === 0x67 && b[3] === 0x53 },
-  { mime: 'audio/webm', check: (b) => b[0] === 0x1a && b[1] === 0x45 && b[2] === 0xdf && b[3] === 0xa3 },
-  { mime: 'audio/mp4', check: (b) => b.length >= 8 && b.slice(4, 8).toString() === 'ftyp' },
+const AUDIO_SIGNATURES: { check: (buf: Buffer) => boolean }[] = [
+  { check: (b) => b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 },  // WAV (RIFF)
+  { check: (b) => (b[0] === 0xff && (b[1] & 0xe0) === 0xe0) || (b[0] === 0x49 && b[1] === 0x44 && b[2] === 0x33) },  // MP3
+  { check: (b) => b[0] === 0x4f && b[1] === 0x67 && b[2] === 0x67 && b[3] === 0x53 },  // OGG
+  { check: (b) => b[0] === 0x1a && b[1] === 0x45 && b[2] === 0xdf && b[3] === 0xa3 },  // WebM (EBML)
+  { check: (b) => b.length >= 8 && b.slice(4, 8).toString() === 'ftyp' },  // MP4
 ];
 
 function isValidAudioFile(filePath: string): boolean {
@@ -33,8 +35,9 @@ function isValidAudioFile(filePath: string): boolean {
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname) || '.webm';
-    cb(null, `audio-${Date.now()}${ext}`);
+    const ext = path.extname(file.originalname).toLowerCase();
+    const safeExt = ALLOWED_EXTS.includes(ext) ? ext : '.webm';
+    cb(null, `audio-${Date.now()}${safeExt}`);
   },
 });
 
@@ -57,7 +60,7 @@ export const upload = {
       if (!req.file) return next();
 
       if (!isValidAudioFile(req.file.path)) {
-        fs.unlink(req.file.path, () => {});
+        safeUnlink(req.file.path);
         return sendError(res, 'Invalid audio file content', 400);
       }
 
@@ -66,7 +69,7 @@ export const upload = {
       const plan = (user?.plan ?? 'pro') as BillingPlan;
       const limit = PLAN_UPLOAD_LIMIT[plan];
       if (req.file.size > limit) {
-        fs.unlink(req.file.path, () => {});
+        safeUnlink(req.file.path);
         const limitMB = limit / (1024 * 1024);
         return sendError(res, `File too large (max ${limitMB} MB for ${plan} plan)`, 400);
       }

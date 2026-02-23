@@ -1,23 +1,36 @@
 import { Request, Response } from 'express';
-import fs from 'fs';
 import { z } from 'zod';
-import { TranscriptModel } from '~/models/transcript.model';
+import { TranscriptModel, ITranscriptDocument } from '~/models/transcript.model';
 import { transcribeAudio as groqTranscribe } from '~/services/groq.service';
 import { transcribeAudio as deepgramTranscribe } from '~/services/deepgram.service';
 import { translateText } from '~/services/translation.service';
 import { calculateCost, deductCredits } from '~/services/billing.service';
 import { sendSuccess, sendError } from '~/utils/response';
+import { safeUnlink } from '~/utils/fs';
 import { env } from '~/config/env';
-import { ITranscript, LANGUAGE_CODES, TONES } from '@voca/shared';
+import { ITranscript, LANGUAGE_CODES, TONES, STT_PROVIDERS } from '@voca/shared';
 
 const transcribeQuerySchema = z.object({
-  provider: z.enum(['groq', 'deepgram']).default('groq'),
+  provider: z.enum(STT_PROVIDERS).default('groq'),
   language: z.enum(LANGUAGE_CODES).default('en'),
   translateTo: z.enum(LANGUAGE_CODES).optional(),
   tone: z.enum(TONES).default('developer'),
   numeric: z.coerce.boolean().default(false),
   planning: z.coerce.boolean().default(false),
 });
+
+function toITranscript(doc: ITranscriptDocument): ITranscript {
+  return {
+    id: doc._id.toString(),
+    text: doc.text,
+    duration: doc.duration,
+    language: doc.language,
+    createdAt: doc.createdAt.toISOString(),
+    ...(doc.translatedText && { translatedText: doc.translatedText }),
+    ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
+    ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
+  };
+}
 
 export const createTranscript = async (req: Request, res: Response) => {
   if (!req.file) {
@@ -27,7 +40,7 @@ export const createTranscript = async (req: Request, res: Response) => {
   const filePath = req.file.path;
   const parsed = transcribeQuerySchema.safeParse(req.query);
   if (!parsed.success) {
-    fs.unlink(filePath, () => {});
+    safeUnlink(filePath);
     const message = parsed.error.errors.map((e) => e.message).join(', ');
     return sendError(res, message, 400);
   }
@@ -42,7 +55,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     const result = await transcribe(filePath, language);
 
     if (result.hallucination) {
-      fs.unlink(filePath, () => {});
+      safeUnlink(filePath);
       return sendError(res, 'No speech detected, please try again.', 422);
     }
 
@@ -63,7 +76,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     );
     const deducted = await deductCredits(req.user!.id, cost);
     if (!deducted) {
-      fs.unlink(filePath, () => {});
+      safeUnlink(filePath);
       return sendError(res, 'Insufficient credits', 402);
     }
 
@@ -78,39 +91,16 @@ export const createTranscript = async (req: Request, res: Response) => {
       tokenUsage,
     });
 
-    const transcript: ITranscript = {
-      id: (doc._id as unknown as { toString(): string }).toString(),
-      text: doc.text,
-      duration: doc.duration,
-      language: doc.language,
-      createdAt: doc.createdAt.toISOString(),
-      ...(doc.translatedText && { translatedText: doc.translatedText }),
-      ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
-      ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
-    };
-
-    return sendSuccess(res, 'Transcription successful', transcript);
+    return sendSuccess(res, 'Transcription successful', toITranscript(doc));
   } catch (err) {
-    fs.unlink(filePath, () => {});
+    safeUnlink(filePath);
     throw err;
   }
 };
 
 export const getTranscripts = async (req: Request, res: Response) => {
   const docs = await TranscriptModel.find({ userId: req.user!.id }).sort({ createdAt: -1 });
-
-  const transcripts: ITranscript[] = docs.map((doc: typeof docs[number]) => ({
-    id: (doc._id as unknown as { toString(): string }).toString(),
-    text: doc.text,
-    duration: doc.duration,
-    language: doc.language,
-    createdAt: doc.createdAt.toISOString(),
-    ...(doc.translatedText && { translatedText: doc.translatedText }),
-    ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
-    ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
-  }));
-
-  return sendSuccess(res, 'Transcripts fetched', transcripts);
+  return sendSuccess(res, 'Transcripts fetched', docs.map(toITranscript));
 };
 
 export const deleteTranscript = async (req: Request, res: Response) => {
@@ -122,7 +112,7 @@ export const deleteTranscript = async (req: Request, res: Response) => {
   }
 
   if (doc.audioPath) {
-    fs.unlink(doc.audioPath, () => {});
+    safeUnlink(doc.audioPath);
   }
 
   return sendSuccess(res, 'Transcript deleted', null);

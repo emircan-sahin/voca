@@ -14,17 +14,27 @@ return sendError(res, 'Error message', 400);
 Using `res.json()` or `res.send()` directly is **forbidden** (exception: OAuth callback HTML pages).
 
 ## Mongoose → Controller Mapping
-Never return a Mongoose document directly. `_id → id` mapping is mandatory:
+Never return a Mongoose document directly. Use `toIX()` mapping helpers:
 ```typescript
-const transcript: ITranscript = {
-  id: doc._id.toString(),
-  text: doc.text,
-  duration: doc.duration,
-  language: doc.language,
-  createdAt: doc.createdAt.toISOString(), // ISO 8601
-};
-return sendSuccess(res, 'Success', transcript);
+// Extract a helper when mapping is used 2+ times
+function toITranscript(doc: ITranscriptDocument): ITranscript {
+  return {
+    id: doc._id.toString(),
+    text: doc.text,
+    duration: doc.duration,
+    language: doc.language,
+    createdAt: doc.createdAt.toISOString(),
+    ...(doc.translatedText && { translatedText: doc.translatedText }),
+    ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
+    ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
+  };
+}
+
+// Usage
+return sendSuccess(res, 'Success', toITranscript(doc));
+return sendSuccess(res, 'Fetched', docs.map(toITranscript));
 ```
+Existing helpers: `toIUser()` in `auth.service.ts`, `toITranscript()` in `transcript.controller.ts`.
 **Never** expose internal fields like `audioPath`, `__v`. Use `doc.createdAt.toISOString()` for dates.
 
 ## Authentication
@@ -43,14 +53,17 @@ return sendSuccess(res, 'Success', transcript);
 - Both plans include: AI-enhanced tone & translation, Numeric & Planning formatting add-ons
 
 ## Rate Limiting
-Three tiers via `express-rate-limit` (`src/middleware/rateLimit.middleware.ts`):
+Three tiers via `createLimiter()` factory in `src/middleware/rateLimit.middleware.ts`:
 | Limiter | Scope | Limit |
 |---------|-------|-------|
 | `globalLimiter` | All endpoints | 60 req/min per IP |
 | `authLimiter` | `/api/auth/*` | 10 req/min per IP |
 | `transcriptLimiter` | `POST /api/transcripts` | 10 req/min per IP |
 
-Rate limit responses use `sendError(res, '...', 429)` to maintain `ApiResponse` format.
+New limiters must use the factory:
+```typescript
+export const fooLimiter = createLimiter(10, 'Too many foo requests, please try again later');
+```
 
 ## CORS
 Configurable via `CORS_ORIGIN` env var (comma-separated origins). Default: `http://localhost:5173`.
@@ -99,10 +112,10 @@ The controller validates `language` against `LANGUAGE_CODES` from `@voca/shared`
 ## Multer — Audio File Handling
 - `upload.single('audio')` middleware wraps multer with post-upload magic bytes check
 - Field name: `audio` (must match frontend)
-- Max size: 25 MB
+- Max size: 25 MB (hard limit), Pro: 10 MB, Max: 25 MB (plan-based)
 - Allowed MIME types: `audio/webm`, `audio/mp4`, `audio/mpeg`, `audio/wav`, `audio/ogg`
+- Allowed extensions: `.webm`, `.mp4`, `.mpeg`, `.mp3`, `.wav`, `.ogg`, `.m4a` (whitelist, defaults to `.webm`)
 - Magic bytes verified after disk write — invalid content returns 400 and deletes file
-- Delete the uploaded file on failure: `fs.unlink(filePath, () => {})`
 
 ## Route Structure
 ```
@@ -149,3 +162,43 @@ const envSchema = z.object({
 export const env = envSchema.parse(process.env);
 ```
 Using `process.env.X` directly is **forbidden** — always use `env.X`.
+
+## Backend Code Quality
+
+### File Cleanup
+Use `safeUnlink()` from `~/utils/fs` — never `fs.unlink(path, () => {})`. Silent failures cause orphaned files.
+```typescript
+import { safeUnlink } from '~/utils/fs';
+safeUnlink(filePath); // Logs warning on failure
+```
+
+### Error Extraction
+Use `getErrorMessage()` from `~/utils/error` — never `(err as Error).message`.
+```typescript
+import { getErrorMessage } from '~/utils/error';
+catch (err) {
+  return sendError(res, getErrorMessage(err), 400);
+}
+```
+
+### No Silent Catch
+Always log errors with context:
+```typescript
+// Wrong
+.catch(() => {});
+
+// Right
+.catch((err) => console.warn('[Context]', err.message ?? err));
+```
+
+### External API Results
+Always validate external API responses before accessing nested properties:
+```typescript
+// Wrong
+const text = result.results.channels[0].alternatives[0].transcript;
+
+// Right
+const alt = result?.results?.channels?.[0]?.alternatives?.[0];
+if (!alt) throw new Error('Provider returned empty result');
+const text = alt.transcript;
+```

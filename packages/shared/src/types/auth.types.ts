@@ -1,4 +1,7 @@
-export type BillingPlan = 'pro' | 'max';
+import { LANGUAGE_CODES, TranslationTone } from '../constants/languages';
+
+export const BILLING_PLANS = ['pro', 'max'] as const;
+export type BillingPlan = (typeof BILLING_PLANS)[number];
 
 export const PLAN_CREDITS: Record<BillingPlan, number> = {
   pro: 3,
@@ -13,12 +16,20 @@ export const PLAN_UPLOAD_LIMIT: Record<BillingPlan, number> = {
   max: 25 * 1024 * 1024,  // 25 MB
 };
 
+export const OAUTH_PROVIDERS = ['google', 'apple'] as const;
+export type OAuthProvider = (typeof OAUTH_PROVIDERS)[number];
+
+export const STT_PROVIDERS = ['groq', 'deepgram'] as const;
+export type SttProvider = (typeof STT_PROVIDERS)[number];
+
+export type LanguageCode = (typeof LANGUAGE_CODES)[number];
+
 export interface IUser {
   id: string;
   email: string;
   name: string;
   avatarUrl?: string;
-  provider: 'google' | 'apple';
+  provider: OAuthProvider;
   credits: number;
   plan: BillingPlan | null;
   planExpiresAt: string | null;
@@ -32,12 +43,12 @@ export interface IAuthResponse {
 }
 
 export interface IUserSettings {
-  provider: 'groq' | 'deepgram';
-  language: string;
+  provider: SttProvider;
+  language: LanguageCode;
   translation: {
     enabled: boolean;
-    targetLanguage: string;
-    tone: 'developer' | 'personal';
+    targetLanguage: LanguageCode;
+    tone: TranslationTone;
     numeric: boolean;
     planning: boolean;
   };

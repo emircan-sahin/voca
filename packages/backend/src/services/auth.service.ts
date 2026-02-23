@@ -8,7 +8,7 @@ const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SE
 
 export function toIUser(doc: IUserDocument): IUser {
   return {
-    id: (doc._id as unknown as { toString(): string }).toString(),
+    id: doc._id.toString(),
     email: doc.email,
     name: doc.name,
     avatarUrl: doc.avatarUrl,
@@ -55,7 +55,7 @@ export async function loginWithGoogleCode(authCode: string, redirectUri: string)
     { upsert: true, new: true }
   );
 
-  const userId = (user._id as unknown as { toString(): string }).toString();
+  const userId = user._id.toString();
   const token = signAccessToken(userId, user.email);
   const refreshToken = signRefreshToken(userId);
 

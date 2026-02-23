@@ -61,39 +61,44 @@ export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
       </SidebarContent>
 
       <SidebarFooter>
-        <div className="px-0 py-0">
-          <div className="flex items-center gap-2">
-            {user?.avatarUrl ? (
-              <img
-                src={user.avatarUrl}
-                alt={user.name}
-                className="w-8 h-8 rounded-full"
-                referrerPolicy="no-referrer"
-              />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center text-sm font-medium text-neutral-600">
-                {user?.name.charAt(0).toUpperCase()}
+        {user && (() => {
+          const badge = planBadgeStyle(user.plan ?? null);
+          return (
+            <div className="px-0 py-0">
+              <div className="flex items-center gap-2">
+                {user.avatarUrl ? (
+                  <img
+                    src={user.avatarUrl}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center text-sm font-medium text-neutral-600">
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <span
+                    className="inline-block text-[10px] font-semibold uppercase tracking-wide leading-none px-1.5 py-0.5 rounded mb-0.5"
+                    style={{ backgroundColor: badge.bg, color: badge.text }}
+                  >
+                    {badge.label}
+                  </span>
+                  <p className="text-sm font-medium text-[#171717] truncate">{user.name}</p>
+                  <p className="text-xs text-[#737373] truncate">{user.email}</p>
+                </div>
+                <button
+                  onClick={clearAuth}
+                  className="p-1 text-[#737373] hover:text-[#171717] transition-colors"
+                  title="Sign out"
+                >
+                  <LogOut size={16} />
+                </button>
               </div>
-            )}
-            <div className="flex-1 min-w-0">
-              <span
-                className="inline-block text-[10px] font-semibold uppercase tracking-wide leading-none px-1.5 py-0.5 rounded mb-0.5"
-                style={{ backgroundColor: planBadgeStyle(user?.plan ?? null).bg, color: planBadgeStyle(user?.plan ?? null).text }}
-              >
-                {planBadgeStyle(user?.plan ?? null).label}
-              </span>
-              <p className="text-sm font-medium text-[#171717] truncate">{user?.name}</p>
-              <p className="text-xs text-[#737373] truncate">{user?.email}</p>
             </div>
-            <button
-              onClick={clearAuth}
-              className="p-1 text-[#737373] hover:text-[#171717] transition-colors"
-              title="Sign out"
-            >
-              <LogOut size={16} />
-            </button>
-          </div>
-        </div>
+          );
+        })()}
       </SidebarFooter>
     </Sidebar>
   );

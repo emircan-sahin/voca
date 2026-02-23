@@ -31,16 +31,26 @@ export default router;
 ### 2. Controller (`src/controllers/`)
 ```typescript
 import { Request, Response } from 'express';
-import fs from 'fs';
 import { z } from 'zod';
 import { sendSuccess, sendError } from '~/utils/response';
-import { IFoo, LANGUAGE_CODES } from '@voca/shared';
+import { safeUnlink } from '~/utils/fs';
+import { getErrorMessage } from '~/utils/error';
+import { IFoo, LANGUAGE_CODES, STT_PROVIDERS } from '@voca/shared';
 
 // Validate query params with Zod — use safeParse, not parse
+// Use shared constants for enums — never hardcode
 const querySchema = z.object({
-  provider: z.enum(['groq', 'deepgram']).default('groq'),
+  provider: z.enum(STT_PROVIDERS).default('groq'),
   language: z.enum(LANGUAGE_CODES).default('en'),
 });
+
+// Extract mapping helper when used 2+ times
+function toIFoo(doc: IFooDocument): IFoo {
+  return {
+    id: doc._id.toString(),
+    createdAt: doc.createdAt.toISOString(),
+  };
+}
 
 export const createFoo = async (req: Request, res: Response) => {
   if (!req.file) return sendError(res, 'File required', 400);
@@ -48,7 +58,7 @@ export const createFoo = async (req: Request, res: Response) => {
   const filePath = req.file.path;
   const parsed = querySchema.safeParse(req.query);
   if (!parsed.success) {
-    fs.unlink(filePath, () => {});
+    safeUnlink(filePath);
     const message = parsed.error.errors.map((e) => e.message).join(', ');
     return sendError(res, message, 400);
   }
@@ -57,23 +67,15 @@ export const createFoo = async (req: Request, res: Response) => {
   try {
     const result = await transcribeAudio(filePath, language);
 
-    // Hallucination check — return 422 if detected
     if (result.hallucination) {
-      fs.unlink(filePath, () => {});
+      safeUnlink(filePath);
       return sendError(res, 'No speech detected, please try again.', 422);
     }
 
     const doc = await FooModel.create({ ...data, userId: req.user!.id });
-
-    // Map to shared type (_id → id, Date → ISO 8601)
-    const foo: IFoo = {
-      id: doc._id.toString(),
-      createdAt: doc.createdAt.toISOString(),
-    };
-
-    return sendSuccess(res, 'Success', foo);
+    return sendSuccess(res, 'Success', toIFoo(doc));
   } catch (err) {
-    fs.unlink(filePath, () => {});
+    safeUnlink(filePath);
     throw err;
   }
 };
@@ -95,15 +97,9 @@ app.use('/api/foos', fooRoutes);
 ```
 
 ### 6. Rate Limiting (if needed — `src/middleware/rateLimit.middleware.ts`)
-Add a route-specific limiter for expensive operations:
+Add a route-specific limiter using the `createLimiter()` factory:
 ```typescript
-export const fooLimiter = rateLimit({
-  windowMs: 60_000,
-  limit: 10,
-  standardHeaders: 'draft-7',
-  legacyHeaders: false,
-  handler: (_req, res) => sendError(res, 'Too many requests', 429),
-});
+export const fooLimiter = createLimiter(10, 'Too many foo requests, please try again later');
 ```
 
 ## Existing Routes
@@ -116,13 +112,14 @@ export const fooLimiter = rateLimit({
 
 ## Checklist
 - [ ] Used `sendSuccess` / `sendError` (never `res.json()` directly)
-- [ ] Applied `_id → id` mapping
-- [ ] Applied `Date → ISO 8601` mapping
+- [ ] Extracted `toIX()` mapping helper (never inline doc → type mapping 2+ times)
+- [ ] Applied `_id → id` and `Date → ISO 8601` mapping
 - [ ] Internal fields excluded from response
 - [ ] Shared type imported from `@voca/shared`
+- [ ] Enums use shared constants (`STT_PROVIDERS`, `LANGUAGE_CODES`, `TONES`, `BILLING_PLANS`)
 - [ ] Query/body params validated with Zod `safeParse()`
-- [ ] Language fields use `z.enum(LANGUAGE_CODES)`, not `z.string()`
-- [ ] Hallucination / error cases handled with file cleanup
+- [ ] File cleanup uses `safeUnlink()` (never `fs.unlink(path, () => {})`)
+- [ ] Error extraction uses `getErrorMessage()` (never `(err as Error).message`)
 - [ ] `authenticate` middleware added for protected routes
-- [ ] Rate limiter added for expensive operations
+- [ ] Rate limiter uses `createLimiter()` factory
 - [ ] Route registered in `index.ts`

@@ -63,6 +63,22 @@ Every API response must follow the `ApiResponse<T>` format:
 ### Path Alias
 - `~/` is mandatory, relative imports are **forbidden** (exception: `@voca/shared` uses relative `../` for internal refs)
 
+### Single Source of Truth
+Enum values live as `as const` arrays in `@voca/shared`. Types derive from them, schemas reference them. Never hardcode the same union in multiple places.
+```
+BILLING_PLANS  → BillingPlan type  + z.enum(BILLING_PLANS)
+STT_PROVIDERS  → SttProvider type  + z.enum(STT_PROVIDERS)
+OAUTH_PROVIDERS → OAuthProvider type + z.enum(OAUTH_PROVIDERS)
+TONES          → TranslationTone   + z.enum(TONES)
+LANGUAGE_CODES → LanguageCode type + z.enum(LANGUAGE_CODES)
+```
+
+### No Dead Imports
+Every `import` must be used. After editing a file, verify no unused imports remain.
+
+### No `unknown` Cast Hacks
+Use direct calls (`doc._id.toString()`) or proper type narrowing. Never cast through `unknown`.
+
 ## Package Commands
 ```bash
 pnpm dev:backend     # Start the backend
@@ -81,12 +97,29 @@ pnpm build           # Build all packages
 - Ask yourself: "Would a staff engineer approve this?"
 - Diff behavior between main and your changes when relevant.
 
-## Documentation Sync
-When features are added, updated, or removed:
-- Update the relevant `.claude/` docs (`CLAUDE.md`, `BACKEND_CLAUDE.md`, `APP_CLAUDE.md`) to reflect the change.
-- If the change is user-facing and documented in `README.md`, update that too.
-- Do this **after** the user approves and asks to commit — not during implementation.
+## AI Behavior Rules
+
+### Self-Review
+After every implementation, re-read each changed file with fresh eyes. Check for: dead imports, stale references, missing null checks, silent error swallowing, off-by-one errors.
+
+### Learning from Mistakes
+When you make a mistake that you or the user catches (bug, wrong pattern, missed edge case), immediately log it to `.claude/LESSONS.md`:
+```markdown
+### [Category] Short description
+- **Wrong**: what was done incorrectly
+- **Right**: what the correct approach is
+- **Why**: why the mistake happened
+```
+Review `LESSONS.md` at the start of every session to avoid repeating past mistakes.
+
+### Documentation Sync on Push
+When the user asks to commit/push, **before creating the commit**:
+1. Check if the changes affect patterns documented in `.claude/` docs or skills
+2. Update `BACKEND_CLAUDE.md`, `APP_CLAUDE.md`, or skill files if implementation changed
+3. Update `README.md` only if the change is user-facing
+4. Never update docs during implementation — only at commit time
 
 ## Detailed Rules
 - Backend: `.claude/BACKEND_CLAUDE.md`
 - App: `.claude/APP_CLAUDE.md`
+- Lessons: `.claude/LESSONS.md`

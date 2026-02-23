@@ -17,4 +17,3 @@ export const transcriptSchema = z.object({
   tokenUsage: tokenUsageSchema.optional(),
 });
 
-export type TranscriptDto = z.infer<typeof transcriptSchema>;

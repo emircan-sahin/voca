@@ -20,10 +20,13 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
     }
   );
 
-  if (error) throw error;
+  if (error) throw new Error(`Deepgram transcription failed: ${error.message}`);
 
-  const text = result.results.channels[0].alternatives[0].transcript;
-  const confidence = result.results.channels[0].alternatives[0].confidence;
+  const alt = result?.results?.channels?.[0]?.alternatives?.[0];
+  if (!alt) throw new Error('Deepgram returned empty result');
+
+  const text = alt.transcript;
+  const confidence = alt.confidence;
   const duration = result.metadata.duration;
   const cost = (duration / 3600) * COST_PER_HOUR;
 
