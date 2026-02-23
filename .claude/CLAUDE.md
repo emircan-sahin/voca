@@ -1,9 +1,9 @@
 # Voca — Master Guide
 
 ## Project Overview
-An Electron desktop app that records audio, transcribes it to text via Groq/Deepgram APIs, and stores transcripts in MongoDB. The pnpm monorepo contains three packages:
+An Electron desktop app that records audio, transcribes it to text via Groq/Deepgram APIs, translates with Gemini, and stores transcripts in MongoDB. Users authenticate via Google OAuth. The pnpm monorepo contains three packages:
 
-- `@voca/shared` — TypeScript types and Zod schemas
+- `@voca/shared` — TypeScript types, Zod schemas, and language constants
 - `@voca/backend` — Express.js API server (port 3100)
 - `@voca/app` — Electron + React application
 
@@ -11,11 +11,32 @@ An Electron desktop app that records audio, transcribes it to text via Groq/Deep
 ```
 Electron Renderer (React)
   → api wrapper (http://localhost:3100/api)
-  → Express Routes
+  → Express Routes (rate limited, CORS)
+  → authenticate middleware (JWT)
+  → requireCredits middleware (billing)
   → Controller
-  → Groq Service (Whisper API)
+  → Groq/Deepgram Service (STT) + Gemini (translation)
   → MongoDB (Mongoose)
   → Returns ApiResponse<ITranscript>
+```
+
+## Authentication Flow
+```
+App → Opens browser → Google OAuth consent
+  → Callback → voca:// deep link with tokens
+  → Electron registers protocol handler
+  → Stores JWT (15m access) + refresh token (7d)
+  → Axios interceptor auto-refreshes on 401
+```
+
+## Billing Flow
+```
+User activates plan (Pro $3 / Max $10)
+  → Credits allocated (300¢ / 1000¢)
+  → Each transcription deducts real API cost (STT + Gemini + 25% markup)
+  → requireCredits middleware gates POST /api/transcripts
+  → 402 → frontend redirects to billing page
+  → Plan expires after 30 days, cancel stops renewal
 ```
 
 ## Mandatory Rules
@@ -27,11 +48,11 @@ Every API response must follow the `ApiResponse<T>` format:
 ```
 
 ### Shared Types
-- `@voca/shared` contains only the API contract: `ITranscript`, `ApiResponse<T>`
+- `@voca/shared` contains the API contract: `IUser`, `ITranscript`, `ApiResponse<T>`, Zod schemas, `LANGUAGE_CODES`
 - Internal fields (`_id`, `__v`, `audioPath`) must **never** be added to shared types
 
 ### Path Alias
-- `~/` is mandatory, relative imports are **forbidden**
+- `~/` is mandatory, relative imports are **forbidden** (exception: `@voca/shared` uses relative `../` for internal refs)
 
 ## Package Commands
 ```bash

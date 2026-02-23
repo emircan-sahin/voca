@@ -12,11 +12,11 @@
 ```
 ┌─────────────┬──────────────────────────────┐
 │  Sidebar    │  TopHeader (mic select)      │
-│             ├──────────────────────────────│
+│  (profile)  ├──────────────────────────────│
 │  Dashboard  │                              │
 │  History    │     <Active View>            │
 │  Settings   │                              │
-│             │                              │
+│  Billing    │                              │
 │  ─────────  │                              │
 │  Voca v0.1  │                              │
 └─────────────┴──────────────────────────────┘
@@ -24,6 +24,23 @@
 - **Navigation**: Zustand store (`navigation.store.ts`), no router — conditional rendering
 - **Recording hook** (`useTranscription`) lives in `DashboardLayout` so recording persists across view switches
 - **Window**: Fixed 1050×740, non-resizable
+
+## Authentication
+- Google OAuth opens system browser → `voca://auth/callback` deep link returns tokens
+- `auth.store.ts` (Zustand + electron-store persistence) holds `user`, `token`, `refreshToken`
+- Sidebar shows login button (unauthenticated) or user profile avatar + name (authenticated)
+- `onAuthCallback` IPC listener in preload receives deep link tokens
+
+## Axios Interceptors
+The interceptor chain in `~/lib/axios.ts` handles:
+| Status | Behavior |
+|--------|----------|
+| 401 | Auto-refresh token via `/auth/refresh`, queue concurrent requests, retry original |
+| 402 | Toast error + redirect to billing view |
+| 429 | Toast error ("Too many requests") |
+| Other | Reject with `ApiError(message, data, status)` |
+
+Interceptor skips refresh for `/auth/refresh` and `/auth/google*` to avoid loops.
 
 ## Design Tokens (light theme)
 | Token | Value | Usage |
@@ -41,10 +58,12 @@ Expose only safe APIs via `contextBridge`:
 ```typescript
 contextBridge.exposeInMainWorld('electronAPI', {
   platform: process.platform,
+  onAuthCallback: (cb) => ipcRenderer.on('auth-callback', cb),
   // Only add what's necessary
 });
 ```
 `nodeIntegration: false` and `contextIsolation: true` are mandatory.
+`voca://` protocol handler registered in main process (dev: plist patch, prod: app bundle).
 
 ## MediaRecorder
 - Format: `audio/webm`
@@ -68,7 +87,7 @@ const res = await axiosInstance.post('/transcripts', formData);
 - Refresh the list after mutation with `queryClient.invalidateQueries`
 
 ## Toast Notifications
-Toast calls belong in hooks/components — **not** in the interceptor:
+Toast calls belong in hooks/components — **not** in the interceptor (exception: 402 and 429 are handled in interceptor for global UX consistency):
 ```typescript
 onSuccess: (res) => toast.success(res.message),
 onError: (err: ApiError) => toast.error(err.message),
@@ -90,7 +109,7 @@ onError: (err: ApiError) => toast.error(err.message),
 - `fetch()` is **forbidden** — use `api` from `~/lib/axios`
 - dayjs: `import dayjs from '~/lib/dayjs'` (plugins pre-loaded)
 - axios: `import { api } from '~/lib/axios'`
-- Shared: `import { ITranscript } from '@voca/shared'`
+- Shared: `import { ITranscript, IUser } from '@voca/shared'`
 
 ## Service Files
 - `try-catch` is **forbidden** — the axios interceptor catches errors via `Promise.reject`

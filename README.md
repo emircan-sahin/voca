@@ -67,7 +67,8 @@ All transcripts are also saved locally in MongoDB so you can search and revisit 
 |-------|-----------|
 | Desktop | Electron 31 + electron-vite |
 | Frontend | React 18, Tailwind CSS, Zustand, TanStack Query |
-| Backend | Express.js, Mongoose, Multer |
+| Backend | Express.js, Mongoose, Multer, express-rate-limit |
+| Auth | Google OAuth 2.0, JWT (access + refresh tokens) |
 | STT | Deepgram Nova-3, Groq Whisper Large v3 Turbo |
 | Translation | Google Gemini 2.0 Flash (via Vercel AI SDK) |
 | Database | MongoDB |
@@ -78,21 +79,22 @@ All transcripts are also saved locally in MongoDB so you can search and revisit 
 ```
 voca/
 ├── packages/
-│   ├── shared/          # TypeScript types & Zod schemas (API contract)
+│   ├── shared/          # TypeScript types, Zod schemas & language constants
 │   ├── backend/         # Express API server (port 3100)
 │   │   ├── controllers/ # Request handling & response mapping
-│   │   ├── services/    # Deepgram, Groq & Gemini translation services
-│   │   ├── models/      # Mongoose schemas
+│   │   ├── services/    # Deepgram, Groq, Gemini, auth & billing services
+│   │   ├── middleware/  # Auth, billing, rate limiting, multer, error handling
+│   │   ├── models/      # Mongoose schemas (Transcript, User)
 │   │   └── uploads/     # Temporary audio storage
 │   └── app/             # Electron + React application
 │       ├── electron/
-│       │   ├── main/    # App lifecycle, shortcuts, overlay window
+│       │   ├── main/    # App lifecycle, shortcuts, overlay, voca:// protocol
 │       │   └── preload/ # Secure IPC bridge
 │       └── src/
-│           ├── pages/   # Dashboard, History, Settings & Setup views
+│           ├── pages/   # Dashboard, History, Settings, Billing & Welcome views
 │           ├── components/
 │           ├── hooks/   # useRecorder, useGlobalShortcut, useRecordingOverlay
-│           ├── stores/  # Zustand stores (provider, language, recording state)
+│           ├── stores/  # Zustand stores (auth, navigation, recording state)
 │           └── services/# API calls via Axios
 ├── assets/              # Logo and static assets
 ├── .env.example
@@ -110,6 +112,7 @@ voca/
 - **API Key** — at least one of:
   - [Deepgram](https://deepgram.com) — **$200 free credit** on signup (recommended)
   - [Groq](https://console.groq.com) — free tier available
+- **Google OAuth** — [Google Cloud Console](https://console.cloud.google.com) — create OAuth 2.0 credentials for authentication
 - **Translation (optional)** — [Google AI Studio](https://aistudio.google.com) — free Gemini API key for translation
 
 ### Installation
@@ -133,7 +136,11 @@ PORT=3100
 MONGODB_URI=mongodb://localhost:27017/voca
 GROQ_API_KEY=your_groq_api_key_here
 DEEPGRAM_API_KEY=your_deepgram_api_key_here
-GEMINI_API_KEY=your_gemini_api_key_here    # optional, for translation
+GEMINI_API_KEY=your_gemini_api_key_here          # optional, for translation
+JWT_SECRET=your_jwt_secret_min_32_chars_here
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+CORS_ORIGIN=http://localhost:5173                # comma-separated origins
 ```
 
 ### macOS — Grant Permissions First
@@ -203,6 +210,14 @@ When translation is active, the shortcut-paste workflow sends the translated tex
 
 Translation is fully optional — it requires a free [Google AI Studio](https://aistudio.google.com) API key and can be toggled on/off at any time.
 
+## Security
+
+- **Authentication** — Google OAuth 2.0 with JWT access tokens (15min) and refresh tokens (7 days)
+- **Rate Limiting** — IP-based limits: 60 req/min global, 10 req/min for auth and transcription endpoints
+- **Input Validation** — Zod schemas for all inputs, `LANGUAGE_CODES` enum for language fields, magic bytes verification for audio uploads
+- **CORS** — Configurable via `CORS_ORIGIN` env var, not hardcoded
+- **Billing Protection** — Credit deduction before transcript creation, atomic MongoDB operations
+
 ## Roadmap
 
 - [x] AI-powered translation with tone support (Developer / Personal)
@@ -211,6 +226,9 @@ Translation is fully optional — it requires a free [Google AI Studio](https://
 - [x] Cancel button on recording overlay (discard and re-record)
 - [x] Rewrite recording overlay with React
 - [x] Numeric & Planning formatting options for translation
+- [x] Google OAuth authentication with deep link callback
+- [x] Credit-based billing system (Pro / Max plans)
+- [x] Rate limiting and CORS hardening
 - [ ] Verify Windows build and end-to-end functionality
 - [ ] Multi-language UI with localized content
 - [ ] Audio-reactive waveform visualization (bars respond to microphone input levels)
