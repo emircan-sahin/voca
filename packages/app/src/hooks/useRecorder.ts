@@ -1,6 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
+import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
 
 export const useRecorder = (deviceId: string) => {
+  const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
   const [isRecording, setIsRecording] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
@@ -8,7 +10,10 @@ export const useRecorder = (deviceId: string) => {
 
   const start = useCallback(async () => {
     const s = await navigator.mediaDevices.getUserMedia({
-      audio: deviceId ? { deviceId: { exact: deviceId } } : true,
+      audio: {
+        ...(deviceId && { deviceId: { exact: deviceId } }),
+        noiseSuppression,
+      },
     });
     setStream(s);
     mediaRecorder.current = new MediaRecorder(s);
@@ -17,7 +22,7 @@ export const useRecorder = (deviceId: string) => {
     };
     mediaRecorder.current.start();
     setIsRecording(true);
-  }, [deviceId]);
+  }, [deviceId, noiseSuppression]);
 
   const stop = useCallback(
     (): Promise<Blob> =>

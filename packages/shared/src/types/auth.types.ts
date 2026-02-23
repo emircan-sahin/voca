@@ -45,6 +45,7 @@ export interface IAuthResponse {
 export interface IUserSettings {
   provider: SttProvider;
   language: LanguageCode;
+  noiseSuppression: boolean;
   translation: {
     enabled: boolean;
     targetLanguage: LanguageCode;

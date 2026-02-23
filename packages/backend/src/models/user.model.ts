@@ -30,6 +30,7 @@ const settingsSchema = new Schema(
   {
     provider: { type: String, enum: ['groq', 'deepgram'], default: 'deepgram' },
     language: { type: String, default: 'en' },
+    noiseSuppression: { type: Boolean, default: false },
     translation: { type: translationSettingsSchema, default: () => ({}) },
   },
   { _id: false }

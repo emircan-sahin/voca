@@ -31,6 +31,7 @@ export const refreshBodySchema = z.object({
 export const userSettingsSchema = z.object({
   provider: z.enum(STT_PROVIDERS),
   language: z.enum(LANGUAGE_CODES),
+  noiseSuppression: z.boolean(),
   translation: z.object({
     enabled: z.boolean(),
     targetLanguage: z.enum(LANGUAGE_CODES),

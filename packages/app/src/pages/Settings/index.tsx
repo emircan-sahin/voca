@@ -3,11 +3,13 @@ import { ProviderSelect } from '~/components/ProviderSelect';
 import { LanguageSelect } from '~/components/LanguageSelect';
 import { MicrophoneSelect } from '~/components/MicrophoneSelect';
 import { TranslationSettings } from '~/components/TranslationSettings';
+import { NoiseSuppression } from '~/components/NoiseSuppression';
 
 const sections = [
   { label: 'Transcription Provider', component: <ProviderSelect /> },
   { label: 'Language', component: <LanguageSelect /> },
   { label: 'Microphone', component: <MicrophoneSelect /> },
+  { label: 'Audio Processing', component: <NoiseSuppression /> },
   { label: 'Translation', component: <TranslationSettings /> },
 ];
 
