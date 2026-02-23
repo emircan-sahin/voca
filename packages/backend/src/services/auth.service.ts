@@ -6,7 +6,7 @@ import { IUser, IAuthResponse } from '@voca/shared';
 
 const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SECRET);
 
-function toIUser(doc: IUserDocument): IUser {
+export function toIUser(doc: IUserDocument): IUser {
   return {
     id: (doc._id as unknown as { toString(): string }).toString(),
     email: doc.email,
@@ -17,8 +17,8 @@ function toIUser(doc: IUserDocument): IUser {
   };
 }
 
-function signAccessToken(userId: string): string {
-  return jwt.sign({ sub: userId }, env.JWT_SECRET, { expiresIn: '7d' });
+function signAccessToken(userId: string, email: string): string {
+  return jwt.sign({ sub: userId, email }, env.JWT_SECRET, { expiresIn: '7d' });
 }
 
 function signRefreshToken(userId: string): string {
@@ -40,24 +40,21 @@ export async function loginWithGoogleCode(authCode: string, redirectUri: string)
     throw new Error('Invalid Google ID token');
   }
 
-  let user = await UserModel.findOne({ provider: 'google', providerId: payload.sub });
-
-  if (!user) {
-    user = await UserModel.create({
+  const user = await UserModel.findOneAndUpdate(
+    { provider: 'google', providerId: payload.sub },
+    {
       email: payload.email,
       name: payload.name || payload.email,
       avatarUrl: payload.picture,
       provider: 'google',
       providerId: payload.sub,
-    });
-  } else {
-    user.name = payload.name || user.name;
-    user.avatarUrl = payload.picture || user.avatarUrl;
-    await user.save();
-  }
+    },
+    { upsert: true, new: true }
+  );
 
-  const token = signAccessToken(user._id as unknown as string);
-  const refreshToken = signRefreshToken(user._id as unknown as string);
+  const userId = (user._id as unknown as { toString(): string }).toString();
+  const token = signAccessToken(userId, user.email);
+  const refreshToken = signRefreshToken(userId);
 
   user.refreshToken = refreshToken;
   await user.save();
@@ -65,8 +62,8 @@ export async function loginWithGoogleCode(authCode: string, redirectUri: string)
   return { user: toIUser(user), token, refreshToken };
 }
 
-export function verifyToken(token: string): { sub: string } {
-  return jwt.verify(token, env.JWT_SECRET) as { sub: string };
+export function verifyToken(token: string): { sub: string; email: string } {
+  return jwt.verify(token, env.JWT_SECRET) as { sub: string; email: string };
 }
 
 export async function refreshAccessToken(rt: string): Promise<IAuthResponse> {
@@ -78,7 +75,7 @@ export async function refreshAccessToken(rt: string): Promise<IAuthResponse> {
     throw new Error('Invalid refresh token');
   }
 
-  const newAccessToken = signAccessToken(decoded.sub);
+  const newAccessToken = signAccessToken(decoded.sub, user.email);
   const newRefreshToken = signRefreshToken(decoded.sub);
 
   user.refreshToken = newRefreshToken;

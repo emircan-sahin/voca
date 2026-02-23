@@ -11,6 +11,7 @@ import {
 import { View, useNavigationStore } from '~/stores/navigation.store';
 import { useAuthStore } from '~/stores/auth.store';
 import { authService } from '~/services/auth.service';
+import axiosInstance from '~/lib/axios';
 import vocaLogo from '~/assets/voca_logo.png';
 
 interface AppSidebarProps {
@@ -29,7 +30,7 @@ export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
 
   const handleGoogleLogin = () => {
     const state = crypto.randomUUID();
-    window.electronAPI.auth.openProvider(`http://localhost:3100/api/auth/google?state=${state}`);
+    window.electronAPI.auth.openProvider(`${axiosInstance.defaults.baseURL}/auth/google?state=${state}`);
     authService.pollForAuth(state).then((data) => {
       if (data) setAuth(data);
     });

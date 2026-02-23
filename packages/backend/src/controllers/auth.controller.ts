@@ -6,12 +6,24 @@ import {
   createPendingSession,
   completePendingSession,
   pollPendingSession,
+  toIUser,
 } from '~/services/auth.service';
 import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
-import { IUser, refreshBodySchema } from '@voca/shared';
+import { refreshBodySchema } from '@voca/shared';
 
 const REDIRECT_URI = `http://localhost:${env.PORT}/api/auth/google/callback`;
+
+function htmlPage(title: string, subtitle: string, color = '#171717') {
+  return `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Voca</title></head>
+<body style="font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fafafa">
+<div style="text-align:center">
+  <p style="font-size:18px;color:${color}">${title}</p>
+  <p style="font-size:14px;color:#737373">${subtitle}</p>
+</div>
+</body></html>`;
+}
 
 function requireAuthConfig(res: Response): boolean {
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || env.JWT_SECRET.length < 32) {
@@ -52,25 +64,10 @@ export const googleCallback = async (req: Request, res: Response) => {
   try {
     const authResponse = await loginWithGoogleCode(code, REDIRECT_URI);
     completePendingSession(state, authResponse);
-
-    return res.send(`<!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Voca</title></head>
-<body style="font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fafafa">
-<div style="text-align:center">
-  <p style="font-size:18px;color:#171717">Authentication successful!</p>
-  <p style="font-size:14px;color:#737373">You can close this tab and return to Voca.</p>
-</div>
-</body></html>`);
+    return res.send(htmlPage('Authentication successful!', 'You can close this tab and return to Voca.'));
   } catch (err) {
     console.error('[Auth] Google callback error:', (err as Error).message);
-    return res.status(401).send(`<!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Voca</title></head>
-<body style="font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fafafa">
-<div style="text-align:center">
-  <p style="font-size:18px;color:#dc2626">Authentication failed</p>
-  <p style="font-size:14px;color:#737373">Please close this tab and try again.</p>
-</div>
-</body></html>`);
+    return res.status(401).send(htmlPage('Authentication failed', 'Please close this tab and try again.', '#dc2626'));
   }
 };
 
@@ -106,17 +103,7 @@ export const refresh = async (req: Request, res: Response) => {
 };
 
 export const getMe = async (req: Request, res: Response) => {
-  const user = await UserModel.findById(req.user!.id).lean();
+  const user = await UserModel.findById(req.user!.id);
   if (!user) return sendError(res, 'User not found', 404);
-
-  const data: IUser = {
-    id: (user._id as unknown as { toString(): string }).toString(),
-    email: user.email,
-    name: user.name,
-    avatarUrl: user.avatarUrl,
-    provider: user.provider,
-    createdAt: user.createdAt.toISOString(),
-  };
-
-  return sendSuccess(res, 'User fetched', data);
+  return sendSuccess(res, 'User fetched', toIUser(user));
 };

@@ -58,7 +58,7 @@ axiosInstance.interceptors.response.use(
       }
 
       try {
-        const res = await axios.post('http://localhost:3100/api/auth/refresh', { refreshToken });
+        const res = await axios.post(`${axiosInstance.defaults.baseURL}/auth/refresh`, { refreshToken });
         const data = res.data.data;
         setAuth(data);
         processQueue(null);
