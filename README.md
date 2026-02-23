@@ -5,7 +5,7 @@
 <h1 align="center">Voca</h1>
 
 <p align="center">
-  AI-powered voice-to-text, right where you type.
+  AI-powered voice-to-text and translation, right where you type.
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
 
 ---
 
-Press a shortcut, speak, and the transcript is automatically pasted wherever your cursor is. That's it.
+Press a shortcut, speak, and the transcript is automatically pasted wherever your cursor is. Need it in another language? Voca translates it on the fly with Gemini 2.0 Flash — with a Developer tone that understands your technical jargon.
 
 **Stop paying $8/month for transcription apps.** Deepgram gives every new account **$200 in free credits** — that's essentially a lifetime of personal use. And since Voca is fully open-source, your audio never leaves your machine for any third party. You own your data.
 
@@ -33,7 +33,8 @@ Press a shortcut, speak, and the transcript is automatically pasted wherever you
 - **Free forever (practically)** — $200 free Deepgram credits covers hundreds of hours of transcription. No subscriptions, no hidden fees.
 - **Private by design** — 100% open-source. Audio is processed through your own API keys. No data collection, no analytics, no third-party servers storing your recordings.
 - **Blazing fast & accurate** — Powered by Deepgram Nova-3, one of the best speech-to-text models available. Supports **35+ languages** with automatic language detection.
-- **One-shortcut workflow** — Press a key, speak, done. The transcript lands right where your cursor was.
+- **Instant translation** — Speak in one language, get the translation in another. Powered by Gemini 2.0 Flash with tone-aware prompts (Developer mode keeps your technical terms intact).
+- **One-shortcut workflow** — Press a key, speak, done. The transcript (or translation) lands right where your cursor was.
 - **macOS & Windows** — Works on both platforms out of the box.
 
 ## How It Works
@@ -48,7 +49,9 @@ Press Right ⌘ (Mac) or Right ⊞ (Win)
         ↓
   Audio → Deepgram Nova-3 / Groq Whisper
         ↓
-  Transcript auto-pasted into your app
+  Translation enabled? → Gemini 2.0 Flash
+        ↓
+  Transcript (or translation) auto-pasted into your app
 ```
 
 1. **Trigger** — Hit the global shortcut from anywhere. A small floating overlay confirms recording has started.
@@ -65,7 +68,8 @@ All transcripts are also saved locally in MongoDB so you can search and revisit 
 | Desktop | Electron 31 + electron-vite |
 | Frontend | React 18, Tailwind CSS, Zustand, TanStack Query |
 | Backend | Express.js, Mongoose, Multer |
-| AI | Deepgram Nova-3, Groq Whisper Large v3 Turbo |
+| STT | Deepgram Nova-3, Groq Whisper Large v3 Turbo |
+| Translation | Google Gemini 2.0 Flash (via Vercel AI SDK) |
 | Database | MongoDB |
 | Language | TypeScript (monorepo with pnpm) |
 
@@ -77,7 +81,7 @@ voca/
 │   ├── shared/          # TypeScript types & Zod schemas (API contract)
 │   ├── backend/         # Express API server (port 3100)
 │   │   ├── controllers/ # Request handling & response mapping
-│   │   ├── services/    # Deepgram & Groq transcription services
+│   │   ├── services/    # Deepgram, Groq & Gemini translation services
 │   │   ├── models/      # Mongoose schemas
 │   │   └── uploads/     # Temporary audio storage
 │   └── app/             # Electron + React application
@@ -106,6 +110,7 @@ voca/
 - **API Key** — at least one of:
   - [Deepgram](https://deepgram.com) — **$200 free credit** on signup (recommended)
   - [Groq](https://console.groq.com) — free tier available
+- **Translation (optional)** — [Google AI Studio](https://aistudio.google.com) — free Gemini API key for translation
 
 ### Installation
 
@@ -128,6 +133,7 @@ PORT=3100
 MONGODB_URI=mongodb://localhost:27017/voca
 GROQ_API_KEY=your_groq_api_key_here
 DEEPGRAM_API_KEY=your_deepgram_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here    # optional, for translation
 ```
 
 ### macOS — Grant Permissions First
@@ -175,8 +181,22 @@ Deepgram's Nova-3 model excels at multilingual detection — it can identify and
 
 You can switch between providers in the app at any time.
 
+## Translation
+
+Voca can automatically translate your transcriptions using **Gemini 2.0 Flash**. Enable it in Settings, pick a target language, and choose a tone:
+
+| Tone | What it does |
+|------|-------------|
+| **Developer** (default) | Keeps technical terms in English (component, API, deploy, middleware). Fixes misheard jargon from STT (e.g. "nahbar" → navbar, "reakt" → React). |
+| **Personal** | General-purpose translation with natural phrasing. |
+
+When translation is active, the shortcut-paste workflow sends the translated text directly. In History, you can toggle between original and translated text on each card. Token usage (input/output/cached) is displayed per transcript.
+
+Translation is fully optional — it requires a free [Google AI Studio](https://aistudio.google.com) API key and can be toggled on/off at any time.
+
 ## Roadmap
 
+- [x] AI-powered translation with tone support (Developer / Personal)
 - [ ] Verify Windows build and end-to-end functionality
 - [x] Click-to-copy on transcript cards
 - [ ] Relative timestamps ("20 minutes ago" instead of "22 Feb ...")

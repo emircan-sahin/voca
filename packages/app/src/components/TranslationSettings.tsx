@@ -68,7 +68,7 @@ export const TranslationSettings = () => {
           </div>
 
           <p className="text-xs text-[#a3a3a3]">
-            Automatically translate transcriptions using Gemini 2.5 Flash
+            Automatically translate transcriptions using Gemini 2.0 Flash
           </p>
         </>
       )}
