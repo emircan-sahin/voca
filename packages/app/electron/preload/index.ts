@@ -24,6 +24,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
   showOverlay: () => ipcRenderer.send('overlay:show'),
   hideOverlay: () => ipcRenderer.send('overlay:hide'),
   sendAudioData: (data: number[]) => ipcRenderer.send('overlay:audio-data', data),
+  setOverlayLoading: (loading: boolean) => ipcRenderer.send('overlay:loading', loading),
+  onOverlayLoading: (callback: (loading: boolean) => void) => {
+    const handler = (_: unknown, loading: boolean) => callback(loading);
+    ipcRenderer.on('overlay:loading', handler);
+    return () => {
+      ipcRenderer.removeListener('overlay:loading', handler);
+    };
+  },
   onAudioData: (callback: (data: number[]) => void) => {
     const handler = (_: unknown, data: number[]) => callback(data);
     ipcRenderer.on('overlay:audio-data', handler);

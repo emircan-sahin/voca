@@ -22,11 +22,23 @@
 
 @theme {
   --animate-slide-down: slide-down 0.3s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
 
   @keyframes slide-down {
     0% {
       opacity: 0;
       transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
     }
     100% {
       opacity: 1;

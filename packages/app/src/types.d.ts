@@ -25,6 +25,8 @@ declare global {
       showOverlay: () => void;
       hideOverlay: () => void;
       sendAudioData: (data: number[]) => void;
+      setOverlayLoading: (loading: boolean) => void;
+      onOverlayLoading: (callback: (loading: boolean) => void) => () => void;
       onAudioData: (callback: (data: number[]) => void) => () => void;
       requestStopRecording: () => void;
       requestCancelRecording: () => void;

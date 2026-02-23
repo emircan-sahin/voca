@@ -2,7 +2,7 @@ import { app, BrowserWindow, shell, ipcMain, systemPreferences, clipboard, nativ
 import path, { join } from 'path';
 import { exec } from 'child_process';
 import { registerShortcuts, unregisterShortcuts } from './shortcuts';
-import { showOverlay, hideOverlay, sendAudioDataToOverlay } from './overlay';
+import { showOverlay, hideOverlay, sendAudioDataToOverlay, sendLoadingToOverlay } from './overlay';
 import { getAuthData, setAuthData, clearAuthData, openAuthProvider } from './auth';
 
 let mainWin: BrowserWindow | null = null;
@@ -83,6 +83,7 @@ ipcMain.on('overlay:show', () => {
 });
 ipcMain.on('overlay:hide', () => hideOverlay());
 ipcMain.on('overlay:audio-data', (_, data: number[]) => sendAudioDataToOverlay(data));
+ipcMain.on('overlay:loading', (_, loading: boolean) => sendLoadingToOverlay(loading));
 ipcMain.on('overlay:stop', () => {
   mainWin?.webContents.send('shortcut:toggle-recording');
 });
