@@ -39,8 +39,9 @@ axiosInstance.interceptors.response.use(
     const original = error.config;
     const status = error.response?.status;
 
-    // Try refresh on 401 (but not for auth endpoints themselves)
-    if (status === 401 && !original._retry && !original.url?.startsWith('/auth/')) {
+    // Try refresh on 401 (skip only login/refresh endpoints to avoid loops)
+    const isAuthFlow = original.url === '/auth/refresh' || original.url?.startsWith('/auth/google');
+    if (status === 401 && !original._retry && !isAuthFlow) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -50,7 +51,7 @@ axiosInstance.interceptors.response.use(
       original._retry = true;
       isRefreshing = true;
 
-      const { refreshToken, setAuth, clearAuth } = useAuthStore.getState();
+      const { refreshToken, setTokens, clearAuth } = useAuthStore.getState();
       if (!refreshToken) {
         isRefreshing = false;
         clearAuth();
@@ -59,8 +60,8 @@ axiosInstance.interceptors.response.use(
 
       try {
         const res = await axios.post(`${axiosInstance.defaults.baseURL}/auth/refresh`, { refreshToken });
-        const data = res.data.data;
-        setAuth(data);
+        const { token: newToken, refreshToken: newRt } = res.data.data;
+        setTokens({ token: newToken, refreshToken: newRt });
         processQueue(null);
         return axiosInstance(original);
       } catch (refreshError) {

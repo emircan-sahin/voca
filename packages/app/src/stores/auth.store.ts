@@ -11,6 +11,7 @@ interface AuthState {
   refreshToken: string | null;
   isLoading: boolean;
   setAuth: (data: { user: IUser; token: string; refreshToken: string }) => void;
+  setTokens: (data: { token: string; refreshToken: string }) => void;
   clearAuth: () => void;
   hydrate: () => Promise<void>;
 }
@@ -34,6 +35,10 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: true,
   setAuth: ({ user, token, refreshToken }) => {
     set({ user, token, refreshToken });
+    window.electronAPI.auth.set({ token, refreshToken });
+  },
+  setTokens: ({ token, refreshToken }) => {
+    set({ token, refreshToken });
     window.electronAPI.auth.set({ token, refreshToken });
   },
   clearAuth: () => {
