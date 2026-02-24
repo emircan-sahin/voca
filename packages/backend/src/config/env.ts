@@ -10,6 +10,7 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string().default(''),
   GOOGLE_CLIENT_SECRET: z.string().default(''),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
+  REDIS_URL: z.string().default('redis://127.0.0.1:6379'),
 });
 
 export const env = envSchema.parse(process.env);

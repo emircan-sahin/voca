@@ -9,6 +9,7 @@ import billingRoutes from '~/routes/billing.routes';
 import { errorMiddleware } from '~/middleware/error.middleware';
 import { sendError } from '~/utils/response';
 import { globalLimiter } from '~/middleware/rateLimit.middleware';
+import { redis, clearTranscriptionLocks } from '~/config/redis';
 
 const app = express();
 
@@ -38,8 +39,9 @@ app.use(errorMiddleware);
 
 mongoose
   .connect(env.MONGODB_URI)
-  .then(() => {
+  .then(async () => {
     console.log('[MongoDB] Connected');
+    await clearTranscriptionLocks();
     const server = app.listen(env.PORT, () => {
       console.log(`[Server] Running on http://localhost:${env.PORT}`);
     });
@@ -47,8 +49,9 @@ mongoose
     const shutdown = () => {
       console.log('[Server] Shutting down...');
       server.close(() => {
-        mongoose.disconnect().then(() => {
+        Promise.all([mongoose.disconnect(), redis.quit()]).then(() => {
           console.log('[MongoDB] Disconnected');
+          console.log('[Redis] Disconnected');
           process.exit(0);
         });
       });
