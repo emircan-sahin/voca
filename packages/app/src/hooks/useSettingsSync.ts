@@ -4,7 +4,9 @@ import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
+import { usePrivacyModeStore } from '~/stores/privacyMode.store';
 import { api } from '~/lib/axios';
+import { queryClient } from '~/lib/queryClient';
 
 export function useSettingsSync() {
   const user = useAuthStore((s) => s.user);
@@ -13,6 +15,7 @@ export function useSettingsSync() {
   const language = useLanguageStore((s) => s.language);
   const { enabled, targetLanguage, tone, numeric, planning } = useTranslationStore();
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
+  const privacyMode = usePrivacyModeStore((s) => s.enabled);
 
   // Tracks the last remoteSettingsVersion we saw, so we can skip syncing
   // server-driven changes (hydration, reset) back to the server.
@@ -32,19 +35,28 @@ export function useSettingsSync() {
       return;
     }
 
+    const controller = new AbortController();
     const timer = setTimeout(() => {
       api
         .put('/auth/settings', {
           provider,
           language,
           noiseSuppression,
+          privacyMode,
           translation: { enabled, targetLanguage, tone, numeric, planning },
+        }, { signal: controller.signal })
+        .then(() => {
+          if (privacyMode) queryClient.invalidateQueries({ queryKey: ['transcripts'] });
         })
         .catch((err) => {
+          if (controller.signal.aborted) return;
           console.warn('[SettingsSync] Failed to save settings:', err.message ?? err);
         });
     }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [user, isLoading, provider, language, noiseSuppression, enabled, targetLanguage, tone, numeric, planning]);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [user, isLoading, provider, language, noiseSuppression, privacyMode, enabled, targetLanguage, tone, numeric, planning]);
 }

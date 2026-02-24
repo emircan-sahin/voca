@@ -46,6 +46,7 @@ export interface IUserSettings {
   provider: SttProvider;
   language: LanguageCode;
   noiseSuppression: boolean;
+  privacyMode: boolean;
   translation: {
     enabled: boolean;
     targetLanguage: LanguageCode;
@@ -59,6 +60,7 @@ export const DEFAULT_USER_SETTINGS: IUserSettings = {
   provider: 'deepgram',
   language: 'en',
   noiseSuppression: false,
+  privacyMode: false,
   translation: {
     enabled: false,
     targetLanguage: 'en',

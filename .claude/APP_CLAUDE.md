@@ -69,6 +69,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 ## MediaRecorder
 - Format: `audio/webm`
 - Noise suppression: `getUserMedia({ audio: { noiseSuppression } })` — controlled by `noiseSuppression.store.ts`, synced to backend
+- Privacy mode: `privacyMode.store.ts` — same toggle pattern as noise suppression, synced to backend. When active, `useSettingsSync` invalidates `['transcripts']` query after settings save.
 - Stop stream tracks after stopping: `stream.getTracks().forEach(t => t.stop())`
 - Create blob: `new Blob(chunks, { type: 'audio/webm' })`
 
@@ -81,6 +82,7 @@ const res = await axiosInstance.post('/transcripts', formData);
 ```
 
 ## React Query Usage
+- `queryClient` singleton lives in `~/lib/queryClient.ts` — import it directly when needed outside React tree (stores, hooks called above `QueryClientProvider`)
 - Use `useMutation<ApiResponse<T>, ApiError, TVar>` for mutations
 - Use `useQuery<ApiResponse<T>>` for queries
 - Access response: `res.message`, `res.data`

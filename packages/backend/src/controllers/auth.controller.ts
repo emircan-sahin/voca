@@ -8,6 +8,7 @@ import {
 import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
 import { refreshBodySchema, userSettingsSchema, DEFAULT_USER_SETTINGS } from '@voca/shared';
+import { deleteUserTranscripts } from '~/controllers/transcript.controller';
 
 const REDIRECT_URI = `http://localhost:${env.PORT}/api/auth/google/callback`;
 
@@ -107,6 +108,13 @@ export const getSettings = async (req: Request, res: Response) => {
 export const updateSettings = async (req: Request, res: Response) => {
   const parsed = userSettingsSchema.safeParse(req.body);
   if (!parsed.success) return sendError(res, 'Invalid settings', 400);
+
+  if (parsed.data.privacyMode) {
+    const current = await UserModel.findById(req.user!.id).select('settings.privacyMode').lean();
+    if (current && !current.settings?.privacyMode) {
+      await deleteUserTranscripts(req.user!.id);
+    }
+  }
 
   const user = await UserModel.findByIdAndUpdate(
     req.user!.id,

@@ -44,6 +44,11 @@ Mistakes caught during development. Review at the start of every session.
 - **Right**: Use `useRef` to hold latest callback, register listener once with empty deps
 - **Why**: When callback depends on state that changes frequently, the effect fires too often, causing listener churn.
 
+### [React Context] useQueryClient outside QueryClientProvider
+- **Wrong**: `useQueryClient()` in `useSettingsSync` which runs before `QueryClientProvider` in the tree — white screen
+- **Right**: Extract `queryClient` to a module-level singleton (`~/lib/queryClient.ts`) and import directly
+- **Why**: `useSettingsSync` is called in `App` component body, above `QueryClientProvider` in the JSX return. React hooks can't access context that wraps sibling JSX, only ancestor JSX.
+
 ### [Mongoose] findOneAndUpdate without $set replaces entire document
 - **Wrong**: `findOneAndUpdate(filter, { email, name, avatarUrl, provider, providerId }, { upsert: true })` — on existing docs this replaces all fields, wiping `settings`, `credits`, `plan`, `refreshToken`
 - **Right**: `findOneAndUpdate(filter, { $set: { email, name, avatarUrl }, $setOnInsert: { provider, providerId } }, { upsert: true })` — only updates specified fields, immutable fields set once on insert

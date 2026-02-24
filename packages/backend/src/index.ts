@@ -2,6 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import fs from 'fs';
+import path from 'path';
 import { env } from '~/config/env';
 import authRoutes from '~/routes/auth.routes';
 import transcriptRoutes from '~/routes/transcript.routes';
@@ -49,6 +51,15 @@ mongoose
     console.log('[MongoDB] Connected');
     await clearTranscriptionLocks();
     await ensureAppConfig();
+
+    // Purge leftover audio files from previous sessions
+    const uploadDir = path.join(process.cwd(), 'uploads');
+    if (fs.existsSync(uploadDir)) {
+      for (const file of fs.readdirSync(uploadDir)) {
+        fs.unlinkSync(path.join(uploadDir, file));
+      }
+      console.log('[Startup] Cleared uploads directory');
+    }
     const server = app.listen(env.PORT, () => {
       console.log(`[Server] Running on http://localhost:${env.PORT}`);
     });

@@ -35,7 +35,7 @@ return sendSuccess(res, 'Success', toITranscript(doc));
 return sendSuccess(res, 'Fetched', docs.map(toITranscript));
 ```
 Existing helpers: `toIUser()` in `auth.service.ts`, `toITranscript()` in `transcript.controller.ts`.
-**Never** expose internal fields like `audioPath`, `__v`. Use `doc.createdAt.toISOString()` for dates.
+**Never** expose internal fields like `__v`. Use `doc.createdAt.toISOString()` for dates.
 
 ## Authentication
 - Google OAuth with `voca://` deep link callback (no polling)
@@ -116,6 +116,14 @@ The controller validates `language` against `LANGUAGE_CODES` from `@voca/shared`
 - Allowed MIME types: `audio/webm`, `audio/mp4`, `audio/mpeg`, `audio/wav`, `audio/ogg`
 - Allowed extensions: `.webm`, `.mp4`, `.mpeg`, `.mp3`, `.wav`, `.ogg`, `.m4a` (whitelist, defaults to `.webm`)
 - Magic bytes verified after disk write — invalid content returns 400 and deletes file
+- **Zero retention**: Audio files are deleted immediately after transcription (before DB write). `audioPath` is not stored in the transcript document. On server startup, the uploads directory is purged.
+
+## Privacy Mode
+- `IUserSettings.privacyMode` (boolean, default `false`) — synced like other settings
+- **Toggle ON (false→true)**: `updateSettings` detects the transition and calls `deleteUserTranscripts(userId)` to wipe all existing transcripts
+- **Active**: After each `createTranscript`, the controller checks privacy mode and calls `deleteUserTranscripts(userId, excludeId)` to keep only the latest transcript
+- **Toggle OFF**: Normal behavior resumes, transcripts accumulate
+- `deleteUserTranscripts(userId, excludeId?)` helper in `transcript.controller.ts` — simple `deleteMany`, no audio cleanup needed (files are already deleted)
 
 ## Route Structure
 ```

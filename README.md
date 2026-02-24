@@ -41,6 +41,7 @@ Press a shortcut, speak, and the transcript is automatically pasted wherever you
 - **AI-powered corrections** — Developer tone fixes misheard technical jargon (e.g. "reakt" → React, "nahbar" → navbar) and keeps terms like API, middleware, deploy in English.
 - **Numeric & Planning add-ons** — Convert spoken numbers to digits ("two point five" → 2.5) and dictated steps into clean numbered lists.
 - **Noise suppression** — Toggle built-in noise suppression to filter out fans, AC, and traffic. Keep it off in quiet rooms for unaltered voice quality.
+- **Privacy mode** — Enable to keep only the latest transcript. Turning it on deletes all existing transcripts. Audio files are never stored — they're deleted immediately after processing.
 - **One-shortcut workflow** — Press a key, speak, done. The transcript (or translation) lands right where your cursor was.
 - **macOS & Windows** — Works on both platforms out of the box.
 
@@ -92,7 +93,7 @@ voca/
 │   │   ├── services/    # Deepgram, Groq, Gemini, auth & billing services
 │   │   ├── middleware/  # Auth, billing, rate limiting, multer, error handling
 │   │   ├── models/      # Mongoose schemas (Transcript, User)
-│   │   └── uploads/     # Temporary audio storage
+│   │   └── uploads/     # Ephemeral audio processing (purged on startup)
 │   └── app/             # Electron + React application
 │       ├── electron/
 │       │   ├── main/    # App lifecycle, shortcuts, overlay, voca:// protocol
@@ -229,8 +230,10 @@ Translation is fully optional — it requires a free [Google AI Studio](https://
 
 Both plans include all AI features — tone-aware translation (Developer / Personal), Numeric formatting (spoken numbers → digits), and Planning mode (dictated lists → clean numbered output). Credits are deducted based on real API usage (STT + translation + 25% markup), so light users get months of value from a single plan.
 
-## Security
+## Security & Privacy
 
+- **Zero audio retention** — Audio files are deleted immediately after transcription. The server never stores recordings on disk beyond the processing window. On startup, the uploads directory is purged to catch any leftovers.
+- **Privacy mode** — Optional setting that keeps only the most recent transcript. Enabling it deletes all existing transcripts. Each new transcription automatically removes the previous one.
 - **Authentication** — Google OAuth 2.0 with JWT access tokens (15min) and refresh tokens (7 days)
 - **Rate Limiting** — IP-based limits: 60 req/min global, 10 req/min for auth and transcription endpoints
 - **Input Validation** — Zod schemas for all inputs, `LANGUAGE_CODES` enum for language fields, magic bytes verification for audio uploads

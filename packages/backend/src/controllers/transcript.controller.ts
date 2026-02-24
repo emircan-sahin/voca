@@ -9,6 +9,7 @@ import { sendSuccess, sendError } from '~/utils/response';
 import { safeUnlink } from '~/utils/fs';
 import { env } from '~/config/env';
 import { ITranscript, LANGUAGE_CODES, TONES, STT_PROVIDERS } from '@voca/shared';
+import { UserModel } from '~/models/user.model';
 
 const transcribeQuerySchema = z.object({
   provider: z.enum(STT_PROVIDERS).default('groq'),
@@ -30,6 +31,12 @@ function toITranscript(doc: ITranscriptDocument): ITranscript {
     ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
     ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
   };
+}
+
+export async function deleteUserTranscripts(userId: string, excludeId?: string) {
+  const filter: Record<string, unknown> = { userId };
+  if (excludeId) filter._id = { $ne: excludeId };
+  await TranscriptModel.deleteMany(filter);
 }
 
 export const createTranscript = async (req: Request, res: Response) => {
@@ -80,16 +87,22 @@ export const createTranscript = async (req: Request, res: Response) => {
       return sendError(res, 'Insufficient credits', 402);
     }
 
+    safeUnlink(filePath);
+
     const doc = await TranscriptModel.create({
       text: result.text,
       duration: result.duration,
       language: result.language,
-      audioPath: filePath,
       userId: req.user!.id,
       translatedText,
       targetLanguage,
       tokenUsage,
     });
+
+    const userDoc = await UserModel.findById(req.user!.id).select('settings.privacyMode').lean();
+    if (userDoc?.settings?.privacyMode) {
+      deleteUserTranscripts(req.user!.id, doc._id.toString());
+    }
 
     return sendSuccess(res, 'Transcription successful', toITranscript(doc));
   } catch (err) {
@@ -109,10 +122,6 @@ export const deleteTranscript = async (req: Request, res: Response) => {
 
   if (!doc) {
     return sendError(res, 'Transcript not found', 404);
-  }
-
-  if (doc.audioPath) {
-    safeUnlink(doc.audioPath);
   }
 
   return sendSuccess(res, 'Transcript deleted', null);

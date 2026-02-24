@@ -5,6 +5,7 @@ import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
+import { usePrivacyModeStore } from '~/stores/privacyMode.store';
 
 interface AuthState {
   user: IUser | null;
@@ -26,6 +27,7 @@ export function applyRemoteSettings(settings: IUserSettings) {
   useProviderStore.setState({ provider: settings.provider });
   useLanguageStore.setState({ language: settings.language });
   useNoiseSuppressionStore.setState({ enabled: settings.noiseSuppression });
+  usePrivacyModeStore.setState({ enabled: settings.privacyMode });
   useTranslationStore.setState({
     enabled: settings.translation.enabled,
     targetLanguage: settings.translation.targetLanguage,

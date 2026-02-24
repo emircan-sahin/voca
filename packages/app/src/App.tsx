@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { DashboardLayout } from '~/layouts/DashboardLayout';
 import { SetupPage } from '~/pages/Setup';
@@ -8,15 +8,7 @@ import { SplashScreen } from '~/components/SplashScreen';
 import { useAuthStore } from '~/stores/auth.store';
 import { useSettingsSync } from '~/hooks/useSettingsSync';
 import { useBackendReady } from '~/hooks/useBackendReady';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      staleTime: 1000 * 30,
-    },
-  },
-});
+import { queryClient } from '~/lib/queryClient';
 
 const App = () => {
   const [ready, setReady] = useState<boolean | null>(null);

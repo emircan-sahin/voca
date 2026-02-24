@@ -8,6 +8,7 @@ import { LanguageSelect } from '~/components/LanguageSelect';
 import { MicrophoneSelect } from '~/components/MicrophoneSelect';
 import { TranslationSettings } from '~/components/TranslationSettings';
 import { NoiseSuppression } from '~/components/NoiseSuppression';
+import { PrivacyMode } from '~/components/PrivacyMode';
 
 const sections = [
   { label: 'Transcription Provider', component: <ProviderSelect /> },
@@ -15,6 +16,7 @@ const sections = [
   { label: 'Microphone', component: <MicrophoneSelect /> },
   { label: 'Audio Processing', component: <NoiseSuppression /> },
   { label: 'Translation', component: <TranslationSettings /> },
+  { label: 'Privacy', component: <PrivacyMode /> },
 ];
 
 export const SettingsView = () => {

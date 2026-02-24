@@ -59,7 +59,7 @@ Every API response must follow the `ApiResponse<T>` format:
 
 ### Shared Types
 - `@voca/shared` contains the API contract: `IUser`, `ITranscript`, `ApiResponse<T>`, Zod schemas, `LANGUAGE_CODES`
-- Internal fields (`_id`, `__v`, `audioPath`) must **never** be added to shared types
+- Internal fields (`_id`, `__v`) must **never** be added to shared types
 
 ### Path Alias
 - `~/` is mandatory, relative imports are **forbidden** (exception: `@voca/shared` uses relative `../` for internal refs)
