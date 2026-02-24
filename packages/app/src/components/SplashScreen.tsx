@@ -12,8 +12,8 @@ export const SplashScreen = ({ retryIn }: SplashScreenProps) => (
 
     <p className="text-sm text-[#737373]">
       {retryIn !== null
-        ? `Server unreachable. Retrying in ${retryIn}s...`
-        : 'Connecting...'}
+        ? `Checking for updates... Retrying in ${retryIn}s`
+        : 'Checking for updates...'}
     </p>
   </div>
 );

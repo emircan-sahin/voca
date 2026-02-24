@@ -20,13 +20,13 @@ export function registerShortcuts(win: BrowserWindow) {
 
   uIOhook.on('keyup', (e) => {
     if (e.keycode === UiohookKey.MetaRight && rightMetaDown) {
-      if (!otherKeyPressed) {
+      if (!otherKeyPressed && !win.isDestroyed()) {
         win.webContents.send('shortcut:toggle-recording');
       }
       rightMetaDown = false;
       otherKeyPressed = false;
     } else if (e.keycode === UiohookKey.AltRight && rightAltDown) {
-      if (!otherKeyPressed) {
+      if (!otherKeyPressed && !win.isDestroyed()) {
         win.webContents.send('recording:cancel');
       }
       rightAltDown = false;

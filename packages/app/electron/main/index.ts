@@ -7,6 +7,7 @@ import { getAuthData, setAuthData, clearAuthData, openAuthProvider } from './aut
 
 let mainWin: BrowserWindow | null = null;
 let bufferedDeepLinkUrl: string | null = null;
+let isQuitting = false;
 
 function handleAuthDeepLink(url: string) {
   if (!url.startsWith('voca://auth/callback')) return;
@@ -84,13 +85,19 @@ ipcMain.on('overlay:show', (_, deviceId?: string) => {
 ipcMain.on('overlay:hide', () => hideOverlay());
 ipcMain.on('overlay:loading', (_, loading: boolean) => sendLoadingToOverlay(loading));
 ipcMain.on('overlay:stop', () => {
-  mainWin?.webContents.send('shortcut:toggle-recording');
+  if (mainWin && !mainWin.isDestroyed()) {
+    mainWin.webContents.send('shortcut:toggle-recording');
+  }
 });
 ipcMain.on('overlay:cancel', () => {
-  mainWin?.webContents.send('recording:cancel');
+  if (mainWin && !mainWin.isDestroyed()) {
+    mainWin.webContents.send('recording:cancel');
+  }
 });
 ipcMain.on('overlay:pause', () => {
-  mainWin?.webContents.send('recording:pause');
+  if (mainWin && !mainWin.isDestroyed()) {
+    mainWin.webContents.send('recording:pause');
+  }
 });
 
 function createWindow() {
@@ -122,6 +129,15 @@ function createWindow() {
     shell.openExternal(details.url);
     return { action: 'deny' };
   });
+
+  if (process.platform === 'darwin') {
+    win.on('close', (e) => {
+      if (!isQuitting) {
+        e.preventDefault();
+        win.hide();
+      }
+    });
+  }
 
   return win;
 }
@@ -179,11 +195,17 @@ app.whenReady().then(() => {
   });
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
+    if (mainWin && !mainWin.isDestroyed()) {
+      mainWin.show();
+    } else {
       mainWin = createWindow();
       registerShortcuts(mainWin);
     }
   });
+});
+
+app.on('before-quit', () => {
+  isQuitting = true;
 });
 
 app.on('will-quit', () => {
