@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <a href="https://usevoca.dev"><img src="https://img.shields.io/badge/Website-usevoca.dev-dc2626?style=for-the-badge" alt="Website" /></a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Electron-31-47848F?logo=electron&logoColor=white" alt="Electron" />
   <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
