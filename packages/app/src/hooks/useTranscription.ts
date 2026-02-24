@@ -32,8 +32,7 @@ export const useTranscription = () => {
 
   const transcribeMutation = useMutation<ApiResponse<ITranscript>, ApiError, Blob>({
     mutationFn: (blob) => {
-      const needsTranslation = translationEnabled && (targetLanguage !== language || numeric || planning);
-      const translateTo = needsTranslation ? targetLanguage : undefined;
+      const translateTo = translationEnabled ? targetLanguage : undefined;
       return transcriptService.transcribe(
         blob, provider, language, translateTo,
         translateTo ? tone : undefined,

@@ -63,7 +63,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     let targetLanguage: string | undefined;
     let tokenUsage: { inputTokens: number; outputTokens: number; cacheReadTokens: number } | undefined;
 
-    if (translateTo && (translateTo !== result.language || numeric || planning)) {
+    if (translateTo) {
       const translation = await translateText(result.text, result.language, translateTo, tone, { numeric, planning });
       translatedText = translation.translatedText;
       targetLanguage = translateTo;
