@@ -81,7 +81,7 @@ export default function Pricing() {
 
                   <Button className="w-full">
                     <Download className="mr-1.5 h-4 w-4" />
-                    {t('pricing.downloadToGet', { plan: plan.label })}
+                    {t('pricing.downloadToGet')}
                   </Button>
                 </CardContent>
               </Card>

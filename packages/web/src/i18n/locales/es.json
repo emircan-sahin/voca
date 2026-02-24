@@ -63,7 +63,8 @@
       "Complementos Numérico y Planificación",
       "Hasta {{limit}} por grabación"
     ],
-    "downloadToGet": "Descargar para obtener {{plan}}"
+    "downloadToGet": "Descarga y prueba gratis",
+    "freeTrial": "Prueba gratuita de 3 días incluida"
   },
   "faq": {
     "heading": "Preguntas Frecuentes",

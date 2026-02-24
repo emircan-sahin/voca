@@ -63,7 +63,8 @@
       "Numeric & Planning add-ons",
       "Up to {{limit}} per recording"
     ],
-    "downloadToGet": "Download to get {{plan}}"
+    "downloadToGet": "Download & try free",
+    "freeTrial": "3-day free trial included"
   },
   "faq": {
     "heading": "Frequently Asked Questions",

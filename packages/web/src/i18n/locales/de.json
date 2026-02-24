@@ -63,7 +63,8 @@
       "Numerische & Planungs-Add-ons",
       "Bis zu {{limit}} pro Aufnahme"
     ],
-    "downloadToGet": "Download für {{plan}}"
+    "downloadToGet": "Herunterladen & kostenlos testen",
+    "freeTrial": "3 Tage kostenlos testen inklusive"
   },
   "faq": {
     "heading": "Häufig gestellte Fragen",

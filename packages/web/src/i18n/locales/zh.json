@@ -63,7 +63,8 @@
       "数字和规划插件",
       "每次录音最大 {{limit}}"
     ],
-    "downloadToGet": "下载获取 {{plan}}"
+    "downloadToGet": "下载并免费试用",
+    "freeTrial": "含 3 天免费试用"
   },
   "faq": {
     "heading": "常见问题",

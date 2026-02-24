@@ -1,0 +1,157 @@
+{
+  "navbar": {
+    "features": "Funzionalità",
+    "pricing": "Prezzi",
+    "download": "Scarica"
+  },
+  "hero": {
+    "badge": "Open source · Crediti gratuiti inclusi",
+    "headingTop": "Parla, ed è già",
+    "headingBottom": "incollato.",
+    "description": "Premi una scorciatoia, parla e la trascrizione corretta dall'IA appare esattamente dove si trovava il cursore. Traduci in oltre 100 lingue all'istante.",
+    "downloadWindows": "Scarica per Windows",
+    "downloadMac": "Scarica per macOS"
+  },
+  "featureHighlight": {
+    "label": "Precisione con IA",
+    "heading": "Le tue parole, ma migliori.",
+    "description": "Voca non si limita a trascrivere — comprende il contesto. Errori di pronuncia e grammatica vengono corretti, poi il risultato viene incollato automaticamente dove stavi digitando. La modalità sviluppatore trasforma \"reakt\" in React e \"nahbar\" in navbar.",
+    "highlights": [
+      "Traduci le trascrizioni in oltre 100 lingue con un clic",
+      "La modalità sviluppatore mantiene i termini tecnici in inglese",
+      "Il componente numerico converte i numeri parlati in cifre",
+      "Il componente pianificazione trasforma i passaggi dettati in elenchi ordinati"
+    ]
+  },
+  "correctionDemo": {
+    "youSaid": "Hai detto",
+    "correcting": "Correzione...",
+    "aiCorrected": "IA ha corretto",
+    "fixes": "{{count}} correzioni"
+  },
+  "numberedFeatures": {
+    "heading": "Tutto ciò che serve, niente di superfluo.",
+    "description": "Dalla registrazione al testo tradotto e rifinito — Voca gestisce l'intero processo sul tuo desktop.",
+    "features": [
+      {
+        "title": "Una scorciatoia, fatto",
+        "description": "Premi un tasto, parla, premi di nuovo. La trascrizione viene copiata e incollata esattamente dove si trovava il cursore — nessun cambio di app, nessun passaggio extra."
+      },
+      {
+        "title": "Scegli il tuo motore STT",
+        "description": "Passa da Deepgram Nova-3 a Groq Whisper con un solo clic. Oltre 35 lingue supportate con rilevamento automatico della lingua."
+      },
+      {
+        "title": "Traduci in oltre 100 lingue",
+        "description": "Traduzione consapevole del contesto con controllo del tono. Scegli formale, informale o modalità sviluppatore — i termini tecnici restano in inglese."
+      },
+      {
+        "title": "Open source e privato",
+        "description": "Completamente open source sotto MIT. L'audio viene elaborato con le tue chiavi API — nessuna raccolta dati, nessuna analisi, nessun server di terze parti."
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "Piani accessibili, tutte le funzionalità incluse.",
+    "description": "Entrambi i piani sbloccano tutte le funzionalità. Nessun costo nascosto, nessuna sorpresa — scegli quello adatto al tuo utilizzo e inizia a trascrivere.",
+    "perMonth": "/mese",
+    "creditsIncluded": "${{credits}} di crediti inclusi ogni mese",
+    "features": [
+      "Deepgram Nova-3 e Groq Whisper",
+      "Traduzione IA in oltre 100 lingue",
+      "Modalità tono Sviluppatore e Personale",
+      "Componenti Numerico e Pianificazione",
+      "Fino a {{limit}} per registrazione"
+    ],
+    "downloadToGet": "Scarica e prova gratis",
+    "freeTrial": "Prova gratuita di 3 giorni inclusa"
+  },
+  "faq": {
+    "heading": "Domande Frequenti",
+    "description": "Tutto quello che devi sapere su Voca.",
+    "cta": "Non trovi la tua domanda?",
+    "items": [
+      {
+        "question": "Voca è gratuito?",
+        "answer": [
+          "Ogni piano inizia con una prova gratuita di 3 giorni — tutte le funzionalità, nessuna restrizione. Scegli un piano, provalo senza rischi e cancella in qualsiasi momento.",
+          "Dopo la prova, i piani partono da soli $3/mese. Nessun costo nascosto, nessun addebito a sorpresa. Quello che vedi è quello che paghi.",
+          "I concorrenti fanno pagare ~$8/mese più costi aggiuntivi per le chiavi API. Voca include tutto in un unico abbonamento."
+        ]
+      },
+      {
+        "question": "Posso cancellare in qualsiasi momento?",
+        "answer": [
+          "Sì. Cancella quando vuoi — il periodo corrente resta attivo e il mese successivo semplicemente non si rinnova.",
+          "Nessuna penale di cancellazione, nessuna clausola nascosta, nessun processo di fidelizzazione. Un clic e hai finito.",
+          "Tutto è open source. Puoi verificare la nostra fatturazione, il nostro codice e le nostre promesse — niente è nascosto."
+        ]
+      },
+      {
+        "question": "Cosa rende Voca diverso?",
+        "answer": [
+          "Cancellazione del rumore di fondo progettata per ambienti reali — particolarmente utile per sviluppatori in spazi rumorosi.",
+          "IA che riconosce nomi di funzioni, termini di codice e gergo tecnico, trascrivendoli correttamente invece di indovinare.",
+          "Incollaggio automatico intelligente: la trascrizione corretta appare esattamente dove si trovava il cursore. Niente copia-incolla, niente cambio di app.",
+          "L'IA non si limita a trascrivere — migliora il tuo stile di scrittura, corregge la grammatica e rende il testo più pulito di quello che hai effettivamente detto."
+        ]
+      },
+      {
+        "question": "Cos'è la Modalità Sviluppatore?",
+        "answer": [
+          "La Modalità Sviluppatore è un'impostazione del tono creata specificamente per gli ingegneri del software. Quando attivata, l'IA di Voca riconosce termini di codice, nomi di funzioni, nomi di librerie e gergo tecnico — e li trascrive correttamente invece di trattarli come parole comuni.",
+          "Dì \"reakt iuz steit huk\" e scriverà \"React useState hook\". Dì \"nahbar component\" e scriverà \"navbar component\".",
+          "Combinata con la cancellazione del rumore di fondo, è progettata per sviluppatori che dettano commenti al codice, documentazione o messaggi mentre lavorano in ambienti reali."
+        ]
+      },
+      {
+        "question": "Quali lingue sono supportate?",
+        "answer": [
+          "Oltre 35 lingue per il riconoscimento vocale tramite i motori Deepgram e Groq.",
+          "Oltre 100 lingue per la traduzione con IA con controllo del tono — formale, informale o modalità sviluppatore.",
+          "La modalità sviluppatore riconosce automaticamente termini di codice e gergo tecnico, mantenendoli in inglese e traducendo il resto in modo naturale."
+        ]
+      },
+      {
+        "question": "Dove vengono archiviati i miei dati?",
+        "answer": [
+          "I tuoi dati vengono elaborati sui nostri server con un approccio incentrato sulla privacy. Voca è completamente open source — puoi ispezionare ogni riga di codice.",
+          "Se non vuoi che nulla venga archiviato sui nostri server, basta disattivarlo nelle Impostazioni. Le tue registrazioni e trascrizioni non verranno salvate — la scelta è interamente tua.",
+          "Nessun tracciamento, nessuna analisi, nessuna vendita di dati. Punto."
+        ]
+      },
+      {
+        "question": "Funziona offline?",
+        "answer": [
+          "Voca richiede una connessione internet. Il tuo audio viene inviato ai nostri server dove lo elaboriamo per la migliore qualità possibile al costo più basso.",
+          "La nostra pipeline cloud include cancellazione del rumore di fondo, correzione IA, trascrizione consapevole del codice e traduzione intelligente — risultati più veloci e precisi di qualsiasi soluzione locale."
+        ]
+      },
+      {
+        "question": "Verranno aggiunte nuove funzionalità?",
+        "answer": [
+          "Assolutamente. Voca è una piattaforma in sviluppo attivo — rilasciamo aggiornamenti regolarmente con nuove funzionalità, miglioramenti e ottimizzazioni.",
+          "Il tuo feedback modella direttamente la nostra roadmap. Hai trovato un bug o hai una richiesta di funzionalità? Contattaci tramite email o i link social nel footer — leggiamo tutto.",
+          "Quando ti abboni, non stai ottenendo solo il prodotto di oggi. Ottieni ogni futuro aggiornamento senza costi aggiuntivi."
+        ]
+      }
+    ]
+  },
+  "finalCta": {
+    "heading": "Premi un tasto, parla, fatto.",
+    "description": "Una scorciatoia per trascrivere, correggere, tradurre e incollare — tutto senza uscire dalla tua app. Open source, funziona su macOS e Windows.",
+    "downloadWindows": "Scarica per Windows",
+    "downloadMac": "Scarica per macOS"
+  },
+  "footer": {
+    "features": "Funzionalità",
+    "pricing": "Prezzi",
+    "faq": "FAQ",
+    "copyright": "© {{year}} Voca. Tutti i diritti riservati."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Questa pagina non esiste. Forse è stata trascritta male.",
+    "backHome": "Torna alla home"
+  }
+}

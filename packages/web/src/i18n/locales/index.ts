@@ -11,4 +11,6 @@ export const LOCALE_META: Record<Locale, { flag: string; name: string }> = {
   fr: { flag: '🇫🇷', name: 'Français' },
   tr: { flag: '🇹🇷', name: 'Türkçe' },
   ru: { flag: '🇷🇺', name: 'Русский' },
+  ko: { flag: '🇰🇷', name: '한국어' },
+  it: { flag: '🇮🇹', name: 'Italiano' },
 };

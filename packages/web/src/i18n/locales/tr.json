@@ -63,7 +63,8 @@
       "Sayısal ve Planlama eklentileri",
       "Kayıt başına en fazla {{limit}}"
     ],
-    "downloadToGet": "{{plan}} için indir"
+    "downloadToGet": "İndir ve ücretsiz dene",
+    "freeTrial": "3 günlük ücretsiz deneme dahil"
   },
   "faq": {
     "heading": "Sıkça Sorulan Sorular",

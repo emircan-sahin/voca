@@ -63,7 +63,8 @@
       "Modules Numérique & Planification",
       "Jusqu'à {{limit}} par enregistrement"
     ],
-    "downloadToGet": "Télécharger pour obtenir {{plan}}"
+    "downloadToGet": "Télécharger et essayer gratuitement",
+    "freeTrial": "Essai gratuit de 3 jours inclus"
   },
   "faq": {
     "heading": "Questions Fréquentes",
