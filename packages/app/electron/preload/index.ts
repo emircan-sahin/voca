@@ -21,22 +21,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
 
   // Overlay
-  showOverlay: () => ipcRenderer.send('overlay:show'),
+  showOverlay: (deviceId?: string) => ipcRenderer.send('overlay:show', deviceId),
   hideOverlay: () => ipcRenderer.send('overlay:hide'),
-  sendAudioData: (data: number[]) => ipcRenderer.send('overlay:audio-data', data),
   setOverlayLoading: (loading: boolean) => ipcRenderer.send('overlay:loading', loading),
   onOverlayLoading: (callback: (loading: boolean) => void) => {
     const handler = (_: unknown, loading: boolean) => callback(loading);
     ipcRenderer.on('overlay:loading', handler);
     return () => {
       ipcRenderer.removeListener('overlay:loading', handler);
-    };
-  },
-  onAudioData: (callback: (data: number[]) => void) => {
-    const handler = (_: unknown, data: number[]) => callback(data);
-    ipcRenderer.on('overlay:audio-data', handler);
-    return () => {
-      ipcRenderer.removeListener('overlay:audio-data', handler);
     };
   },
   requestStopRecording: () => ipcRenderer.send('overlay:stop'),

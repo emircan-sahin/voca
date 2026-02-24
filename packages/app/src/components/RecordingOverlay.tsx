@@ -8,7 +8,8 @@ export function RecordingOverlay() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentHeights = useRef(new Float32Array(BAR_COUNT));
   const targetHeights = useRef(new Float32Array(BAR_COUNT));
-  const latestData = useRef<number[]>(new Array(64).fill(0));
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const freqData = useRef(new Uint8Array(0));
   const rafRef = useRef(0);
   const startTime = useRef(Date.now());
   const [timer, setTimer] = useState('00:00');
@@ -26,12 +27,43 @@ export function RecordingOverlay() {
     return () => clearInterval(id);
   }, []);
 
-  // Audio data listener
+  // Local mic capture — overlay is always visible so AudioContext is never throttled.
+  // Stores analyser in a ref; the animation loop reads from it.
   useEffect(() => {
-    const cleanup = window.electronAPI.onAudioData((data) => {
-      latestData.current = data;
-    });
-    return cleanup;
+    const params = new URLSearchParams(window.location.search);
+    const deviceId = params.get('deviceId') || '';
+
+    let audioCtx: AudioContext | null = null;
+    let stream: MediaStream | null = null;
+    let cancelled = false;
+
+    (async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: deviceId ? { deviceId: { exact: deviceId } } : true,
+        });
+        if (cancelled) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        audioCtx = new AudioContext();
+        const source = audioCtx.createMediaStreamSource(stream);
+        const analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 128;
+        source.connect(analyser);
+        freqData.current = new Uint8Array(analyser.frequencyBinCount);
+        analyserRef.current = analyser;
+      } catch {
+        // Mic access failed — waveform will show idle animation
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+      analyserRef.current = null;
+      stream?.getTracks().forEach((t) => t.stop());
+      audioCtx?.close();
+    };
   }, []);
 
   // Loading state listener
@@ -42,7 +74,7 @@ export function RecordingOverlay() {
     return cleanup;
   }, []);
 
-  // Waveform animation
+  // Single RAF loop: reads frequency data and renders waveform
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -50,6 +82,9 @@ export function RecordingOverlay() {
 
     const animate = () => {
       rafRef.current = requestAnimationFrame(animate);
+
+      // Read latest frequency snapshot from the analyser (set by mic capture effect)
+      analyserRef.current?.getByteFrequencyData(freqData.current);
 
       const dpr = window.devicePixelRatio || 1;
       const w = canvas.clientWidth;
@@ -60,7 +95,7 @@ export function RecordingOverlay() {
       ctx.clearRect(0, 0, w, h);
 
       const t = Date.now() / 1000;
-      const data = latestData.current;
+      const data = freqData.current;
 
       for (let i = 0; i < BAR_COUNT; i++) {
         const idx = Math.floor((i / BAR_COUNT) * data.length);

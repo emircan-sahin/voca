@@ -4,7 +4,7 @@ import { execSync, exec } from 'child_process';
 
 let overlayWin: BrowserWindow | null = null;
 
-export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWindow) {
+export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWindow, deviceId?: string) {
   if (overlayWin) return;
 
   // Capture the frontmost app before we create any window
@@ -97,11 +97,13 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
     overlayWin = null;
   });
 
-  // Load the React overlay page
+  // Load the React overlay page — pass deviceId as query param so it's
+  // available immediately (no IPC timing issues).
+  const qs = deviceId ? `?deviceId=${encodeURIComponent(deviceId)}` : '';
   if (process.env['ELECTRON_RENDERER_URL']) {
-    overlayWin.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/overlay.html`);
+    overlayWin.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/overlay.html${qs}`);
   } else {
-    overlayWin.loadFile(join(__dirname, '../renderer/overlay.html'));
+    overlayWin.loadFile(join(__dirname, '../renderer/overlay.html'), { query: deviceId ? { deviceId } : {} });
   }
 }
 
@@ -109,10 +111,6 @@ export function hideOverlay() {
   if (!overlayWin) return;
   overlayWin.close();
   overlayWin = null;
-}
-
-export function sendAudioDataToOverlay(data: number[]) {
-  overlayWin?.webContents.send('overlay:audio-data', data);
 }
 
 export function sendLoadingToOverlay(loading: boolean) {

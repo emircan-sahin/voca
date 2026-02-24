@@ -23,7 +23,7 @@ export const useTranscription = () => {
   const { enabled: translationEnabled, targetLanguage, tone, numeric, planning } = useTranslationStore();
   const triggeredByShortcut = useRef(false);
 
-  useRecordingOverlay(stream);
+  useRecordingOverlay(stream, deviceId);
 
   const { data: transcriptsResponse } = useQuery<ApiResponse<ITranscript[]>>({
     queryKey: ['transcripts'],
@@ -86,7 +86,6 @@ export const useTranscription = () => {
         return;
       }
       setProcessing(true);
-      window.electronAPI.showOverlay();
       window.electronAPI.setOverlayLoading(true);
       transcribeMutation.mutate(blob);
     } else {

@@ -22,12 +22,10 @@ declare global {
       pasteTranscript: (text: string) => void;
 
       // Overlay
-      showOverlay: () => void;
+      showOverlay: (deviceId?: string) => void;
       hideOverlay: () => void;
-      sendAudioData: (data: number[]) => void;
       setOverlayLoading: (loading: boolean) => void;
       onOverlayLoading: (callback: (loading: boolean) => void) => () => void;
-      onAudioData: (callback: (data: number[]) => void) => () => void;
       requestStopRecording: () => void;
       requestCancelRecording: () => void;
       onCancelRecording: (callback: () => void) => () => void;
