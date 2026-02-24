@@ -191,7 +191,20 @@ app.whenReady().then(() => {
   }
 
   mainWin = createWindow();
-  registerShortcuts(mainWin);
+
+  // Defer shortcut registration until accessibility is granted (macOS)
+  if (process.platform === 'darwin') {
+    const tryRegister = () => {
+      if (systemPreferences.isTrustedAccessibilityClient(false)) {
+        registerShortcuts(mainWin!);
+      } else {
+        setTimeout(tryRegister, 3_000);
+      }
+    };
+    tryRegister();
+  } else {
+    registerShortcuts(mainWin);
+  }
 
   // Auto-updater (production only — register noop handlers in dev)
   if (!isDev) {
