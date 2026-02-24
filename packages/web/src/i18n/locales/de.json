@@ -1,0 +1,84 @@
+{
+  "navbar": {
+    "features": "Funktionen",
+    "pricing": "Preise",
+    "download": "Download"
+  },
+  "hero": {
+    "badge": "Open Source · Gratis-Guthaben inklusive",
+    "headingTop": "Sprich, und es ist",
+    "headingBottom": "bereits eingefügt.",
+    "description": "Drücke eine Taste, sprich, und das KI-korrigierte Transkript landet genau dort, wo dein Cursor war. Übersetze in über 100 Sprachen in Echtzeit.",
+    "downloadWindows": "Download für Windows",
+    "downloadMac": "Download für macOS"
+  },
+  "featureHighlight": {
+    "label": "KI-gestützte Genauigkeit",
+    "heading": "Deine Worte, aber besser.",
+    "description": "Voca transkribiert nicht nur — es versteht den Kontext. Aussprachefehler und Grammatikfehler werden korrigiert, dann wird das Ergebnis automatisch dort eingefügt, wo du getippt hast. Der Entwicklermodus wandelt \"reakt\" in React und \"nahbar\" in navbar um.",
+    "highlights": [
+      "Transkripte mit einem Klick in über 100 Sprachen übersetzen",
+      "Entwicklermodus behält Fachbegriffe auf Englisch",
+      "Numerisches Add-on wandelt gesprochene Zahlen in Ziffern um",
+      "Planungs-Add-on verwandelt diktierte Schritte in saubere Listen"
+    ]
+  },
+  "correctionDemo": {
+    "youSaid": "Du sagtest",
+    "correcting": "Korrigiere...",
+    "aiCorrected": "KI korrigiert",
+    "fixes": "{{count}} Korrekturen"
+  },
+  "numberedFeatures": {
+    "heading": "Alles, was du brauchst, nichts, was du nicht brauchst.",
+    "description": "Von der Aufnahme zum polierten, übersetzten Text — Voca übernimmt die gesamte Pipeline auf deinem Desktop.",
+    "features": [
+      {
+        "title": "Eine Taste, fertig",
+        "description": "Drücke eine Taste, sprich, drücke erneut. Das Transkript wird kopiert und genau dort eingefügt, wo dein Cursor war — kein App-Wechsel, keine zusätzlichen Schritte."
+      },
+      {
+        "title": "Wähle deine STT-Engine",
+        "description": "Wechsle mit einem Klick zwischen Deepgram Nova-3 und Groq Whisper. Über 35 Sprachen unterstützt mit automatischer Spracherkennung."
+      },
+      {
+        "title": "Übersetze in 100+ Sprachen",
+        "description": "Kontextbewusste Übersetzung mit Tonkontrolle. Wähle formell, locker oder Entwicklermodus — Fachbegriffe bleiben auf Englisch."
+      },
+      {
+        "title": "Open Source & Privat",
+        "description": "Vollständig Open Source unter MIT. Audio wird über deine eigenen API-Schlüssel verarbeitet — keine Datenerhebung, keine Analysen, keine Drittanbieter-Server."
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "Erschwingliche Pläne, alle Funktionen inklusive.",
+    "description": "Beide Pläne schalten alle Funktionen frei. Keine versteckten Gebühren, keine Überraschungen — wähle den Plan, der zu deinem Verbrauch passt.",
+    "perMonth": "/Monat",
+    "creditsIncluded": "${{credits}} Guthaben jeden Monat inklusive",
+    "features": [
+      "Deepgram Nova-3 & Groq Whisper",
+      "KI-Übersetzung in 100+ Sprachen",
+      "Entwickler- & Persönlicher Tonmodus",
+      "Numerische & Planungs-Add-ons",
+      "Bis zu {{limit}} pro Aufnahme"
+    ],
+    "downloadToGet": "Download für {{plan}}"
+  },
+  "finalCta": {
+    "heading": "Taste drücken, sprechen, fertig.",
+    "description": "Eine Tastenkombination zum Transkribieren, Korrigieren, Übersetzen und Einfügen — alles ohne deine App zu verlassen. Open Source, funktioniert auf macOS & Windows.",
+    "downloadWindows": "Download für Windows",
+    "downloadMac": "Download für macOS"
+  },
+  "footer": {
+    "features": "Funktionen",
+    "pricing": "Preise",
+    "copyright": "© {{year}} Voca. Alle Rechte vorbehalten."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Diese Seite existiert nicht. Vielleicht wurde sie falsch transkribiert.",
+    "backHome": "Zurück zur Startseite"
+  }
+}

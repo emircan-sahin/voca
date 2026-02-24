@@ -1,0 +1,84 @@
+{
+  "navbar": {
+    "features": "Özellikler",
+    "pricing": "Fiyatlar",
+    "download": "İndir"
+  },
+  "hero": {
+    "badge": "Açık kaynak · Ücretsiz kredi dahil",
+    "headingTop": "Konuş, zaten",
+    "headingBottom": "yapıştırıldı.",
+    "description": "Bir kısayola bas, konuş ve AI ile düzeltilmiş transkript imleçinizin olduğu yere gelsin. 100'den fazla dile anında çevirin.",
+    "downloadWindows": "Windows için indir",
+    "downloadMac": "macOS için indir"
+  },
+  "featureHighlight": {
+    "label": "AI Destekli Doğruluk",
+    "heading": "Senin sözlerin, ama daha iyi.",
+    "description": "Voca sadece yazıya dökmez — bağlamı anlar. Telaffuz ve dilbilgisi hataları düzeltilir, ardından sonuç yazdığınız yere otomatik olarak yapıştırılır. Geliştirici modu \"reakt\"ı React'a, \"nahbar\"ı navbar'a dönüştürür.",
+    "highlights": [
+      "Tek tıkla 100'den fazla dile çeviri",
+      "Geliştirici modu teknik terimleri İngilizce tutar",
+      "Sayısal eklenti söylenen sayıları rakamlara dönüştürür",
+      "Planlama eklentisi dikte edilen adımları düzenli listelere dönüştürür"
+    ]
+  },
+  "correctionDemo": {
+    "youSaid": "Söylediğiniz",
+    "correcting": "Düzeltiliyor...",
+    "aiCorrected": "AI düzeltmesi",
+    "fixes": "{{count}} düzeltme"
+  },
+  "numberedFeatures": {
+    "heading": "İhtiyacın olan her şey, gereksiz hiçbir şey.",
+    "description": "Kayıttan cilalı, çevrilmiş metne — Voca tüm süreci masaüstünde yönetir.",
+    "features": [
+      {
+        "title": "Tek kısayol, tamam",
+        "description": "Bir tuşa bas, konuş, tekrar bas. Transkript kopyalanıp imleçinizin olduğu yere yapıştırılır — uygulama değiştirme yok, ekstra adım yok."
+      },
+      {
+        "title": "STT motorunu seç",
+        "description": "Tek tıkla Deepgram Nova-3 ve Groq Whisper arasında geçiş yapın. Otomatik dil algılama ile 35'ten fazla dil desteklenir."
+      },
+      {
+        "title": "100'den fazla dile çevir",
+        "description": "Ton kontrollü bağlam duyarlı çeviri. Resmi, günlük veya geliştirici modu seçin — teknik terimler İngilizce kalır."
+      },
+      {
+        "title": "Açık kaynak ve özel",
+        "description": "MIT lisansı altında tamamen açık kaynak. Ses kendi API anahtarlarınızla işlenir — veri toplama yok, analitik yok, üçüncü taraf sunucu yok."
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "Uygun fiyatlı planlar, tüm özellikler dahil.",
+    "description": "Her iki plan da tüm özellikleri açar. Gizli ücret yok, sürpriz yok — kullanımınıza uygun olanı seçin.",
+    "perMonth": "/ay",
+    "creditsIncluded": "Her ay ${{credits}} kredi dahil",
+    "features": [
+      "Deepgram Nova-3 ve Groq Whisper",
+      "100'den fazla dile AI çeviri",
+      "Geliştirici ve Kişisel ton modları",
+      "Sayısal ve Planlama eklentileri",
+      "Kayıt başına en fazla {{limit}}"
+    ],
+    "downloadToGet": "{{plan}} için indir"
+  },
+  "finalCta": {
+    "heading": "Bir tuşa bas, konuş, tamam.",
+    "description": "Yazıya dökme, düzeltme, çeviri ve yapıştırma — hepsi tek kısayolla, uygumanızdan ayrılmadan. Açık kaynak, macOS ve Windows'da çalışır.",
+    "downloadWindows": "Windows için indir",
+    "downloadMac": "macOS için indir"
+  },
+  "footer": {
+    "features": "Özellikler",
+    "pricing": "Fiyatlar",
+    "copyright": "© {{year}} Voca. Tüm hakları saklıdır."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Bu sayfa mevcut değil. Belki yanlış transkript edilmiştir.",
+    "backHome": "Ana sayfaya dön"
+  }
+}

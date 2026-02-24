@@ -1,0 +1,84 @@
+{
+  "navbar": {
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "download": "Télécharger"
+  },
+  "hero": {
+    "badge": "Open source · Crédits gratuits inclus",
+    "headingTop": "Parlez, et c'est",
+    "headingBottom": "déjà collé.",
+    "description": "Appuyez sur un raccourci, parlez et la transcription corrigée par l'IA apparaît là où se trouvait votre curseur. Traduisez dans plus de 100 langues en temps réel.",
+    "downloadWindows": "Télécharger pour Windows",
+    "downloadMac": "Télécharger pour macOS"
+  },
+  "featureHighlight": {
+    "label": "Précision par IA",
+    "heading": "Vos mots, en mieux.",
+    "description": "Voca ne se contente pas de transcrire — il comprend le contexte. Les erreurs de prononciation et de grammaire sont corrigées, puis le résultat est automatiquement collé là où vous tapiez. Le mode développeur transforme \" reakt \" en React et \" nahbar \" en navbar.",
+    "highlights": [
+      "Traduisez les transcriptions dans plus de 100 langues en un clic",
+      "Le mode développeur garde les termes techniques en anglais",
+      "Le module numérique convertit les nombres parlés en chiffres",
+      "Le module planification transforme les étapes dictées en listes propres"
+    ]
+  },
+  "correctionDemo": {
+    "youSaid": "Vous avez dit",
+    "correcting": "Correction...",
+    "aiCorrected": "IA corrigé",
+    "fixes": "{{count}} corrections"
+  },
+  "numberedFeatures": {
+    "heading": "Tout ce dont vous avez besoin, rien de superflu.",
+    "description": "De l'enregistrement au texte poli et traduit — Voca gère toute la chaîne sur votre bureau.",
+    "features": [
+      {
+        "title": "Un raccourci, terminé",
+        "description": "Appuyez sur une touche, parlez, appuyez à nouveau. La transcription est copiée et collée là où se trouvait votre curseur — pas de changement d'app, pas d'étapes supplémentaires."
+      },
+      {
+        "title": "Choisissez votre moteur STT",
+        "description": "Basculez entre Deepgram Nova-3 et Groq Whisper en un clic. Plus de 35 langues prises en charge avec détection automatique de la langue."
+      },
+      {
+        "title": "Traduisez dans 100+ langues",
+        "description": "Traduction contextuelle avec contrôle du ton. Choisissez formel, décontracté ou mode développeur — les termes techniques restent en anglais."
+      },
+      {
+        "title": "Open source et privé",
+        "description": "Entièrement open source sous MIT. L'audio est traité via vos propres clés API — pas de collecte de données, pas d'analytique, pas de serveurs tiers."
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "Des forfaits abordables, toutes les fonctionnalités incluses.",
+    "description": "Les deux forfaits débloquent toutes les fonctionnalités. Pas de frais cachés, pas de surprises — choisissez celui qui correspond à votre utilisation.",
+    "perMonth": "/mois",
+    "creditsIncluded": "{{credits}}$ de crédits inclus chaque mois",
+    "features": [
+      "Deepgram Nova-3 & Groq Whisper",
+      "Traduction IA dans 100+ langues",
+      "Modes ton Développeur & Personnel",
+      "Modules Numérique & Planification",
+      "Jusqu'à {{limit}} par enregistrement"
+    ],
+    "downloadToGet": "Télécharger pour obtenir {{plan}}"
+  },
+  "finalCta": {
+    "heading": "Appuyez, parlez, terminé.",
+    "description": "Un raccourci pour transcrire, corriger, traduire et coller — tout sans quitter votre app. Open source, fonctionne sur macOS & Windows.",
+    "downloadWindows": "Télécharger pour Windows",
+    "downloadMac": "Télécharger pour macOS"
+  },
+  "footer": {
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "copyright": "© {{year}} Voca. Tous droits réservés."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Cette page n'existe pas. Peut-être a-t-elle été mal transcrite.",
+    "backHome": "Retour à l'accueil"
+  }
+}

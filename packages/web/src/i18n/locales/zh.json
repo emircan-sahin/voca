@@ -1,0 +1,84 @@
+{
+  "navbar": {
+    "features": "功能",
+    "pricing": "价格",
+    "download": "下载"
+  },
+  "hero": {
+    "badge": "开源 · 免费额度",
+    "headingTop": "说出来，",
+    "headingBottom": "已经粘贴好了。",
+    "description": "按下快捷键，说话，AI 修正后的转录会直接出现在光标位置。实时翻译成 100+ 种语言。",
+    "downloadWindows": "下载 Windows 版",
+    "downloadMac": "下载 macOS 版"
+  },
+  "featureHighlight": {
+    "label": "AI 驱动的精准度",
+    "heading": "你的话，但更好。",
+    "description": "Voca 不仅仅转录 — 它理解上下文。发音错误和语法错误会被纠正，然后结果自动粘贴到你正在输入的地方。开发者模式会将\"reakt\"转换为 React，\"nahbar\"转换为 navbar。",
+    "highlights": [
+      "一键翻译转录为 100+ 种语言",
+      "开发者模式保持技术术语为英文",
+      "数字插件将口述数字转换为阿拉伯数字",
+      "规划插件将口述步骤转换为整洁列表"
+    ]
+  },
+  "correctionDemo": {
+    "youSaid": "你说的",
+    "correcting": "纠正中...",
+    "aiCorrected": "AI 纠正",
+    "fixes": "{{count}} 处修正"
+  },
+  "numberedFeatures": {
+    "heading": "你需要的一切，多余的都没有。",
+    "description": "从录音到精美的翻译文本 — Voca 在你的桌面处理整个流程。",
+    "features": [
+      {
+        "title": "一个快捷键，搞定",
+        "description": "按下按键，说话，再按一次。转录会复制并粘贴到光标位置 — 无需切换应用，无额外步骤。"
+      },
+      {
+        "title": "选择你的 STT 引擎",
+        "description": "一键切换 Deepgram Nova-3 和 Groq Whisper。支持 35+ 种语言的语音识别，自动检测语言。"
+      },
+      {
+        "title": "翻译为 100+ 种语言",
+        "description": "带语调控制的上下文感知翻译。选择正式、随意或开发者模式 — 技术术语保持英文。"
+      },
+      {
+        "title": "开源且私密",
+        "description": "完全开源，MIT 许可。音频通过你自己的 API 密钥处理 — 无数据收集，无分析，无第三方服务器。"
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "实惠的计划，包含所有功能。",
+    "description": "两个计划都解锁所有功能。无隐藏费用，无意外 — 选择适合你用量的计划开始转录。",
+    "perMonth": "/月",
+    "creditsIncluded": "每月包含 ${{credits}} 额度",
+    "features": [
+      "Deepgram Nova-3 和 Groq Whisper",
+      "AI 翻译成 100+ 种语言",
+      "开发者和个人语调模式",
+      "数字和规划插件",
+      "每次录音最大 {{limit}}"
+    ],
+    "downloadToGet": "下载获取 {{plan}}"
+  },
+  "finalCta": {
+    "heading": "按下按键，说话，搞定。",
+    "description": "一个快捷键完成转录、纠正、翻译和粘贴 — 无需离开当前应用。开源，支持 macOS 和 Windows。",
+    "downloadWindows": "下载 Windows 版",
+    "downloadMac": "下载 macOS 版"
+  },
+  "footer": {
+    "features": "功能",
+    "pricing": "价格",
+    "copyright": "© {{year}} Voca. 保留所有权利。"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "此页面不存在。也许是转录错了。",
+    "backHome": "返回首页"
+  }
+}

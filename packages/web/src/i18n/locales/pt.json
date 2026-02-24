@@ -1,0 +1,84 @@
+{
+  "navbar": {
+    "features": "Recursos",
+    "pricing": "Preços",
+    "download": "Baixar"
+  },
+  "hero": {
+    "badge": "Código aberto · Créditos grátis incluídos",
+    "headingTop": "Fale, e já está",
+    "headingBottom": "colado.",
+    "description": "Pressione um atalho, fale e a transcrição corrigida por IA aparece exatamente onde seu cursor estava. Traduza para mais de 100 idiomas instantaneamente.",
+    "downloadWindows": "Baixar para Windows",
+    "downloadMac": "Baixar para macOS"
+  },
+  "featureHighlight": {
+    "label": "Precisão com IA",
+    "heading": "Suas palavras, mas melhores.",
+    "description": "O Voca não apenas transcreve — ele entende o contexto. Erros de pronúncia e gramática são corrigidos, e o resultado é colado automaticamente onde você estava digitando. O modo desenvolvedor transforma \"reakt\" em React e \"nahbar\" em navbar.",
+    "highlights": [
+      "Traduza transcrições para mais de 100 idiomas em um clique",
+      "Modo desenvolvedor mantém termos técnicos em inglês",
+      "Complemento numérico converte números falados em dígitos",
+      "Complemento de planejamento transforma passos ditados em listas organizadas"
+    ]
+  },
+  "correctionDemo": {
+    "youSaid": "Você disse",
+    "correcting": "Corrigindo...",
+    "aiCorrected": "IA corrigiu",
+    "fixes": "{{count}} correções"
+  },
+  "numberedFeatures": {
+    "heading": "Tudo que você precisa, nada que não precisa.",
+    "description": "Da gravação ao texto polido e traduzido — o Voca cuida de todo o processo no seu desktop.",
+    "features": [
+      {
+        "title": "Um atalho, pronto",
+        "description": "Pressione uma tecla, fale, pressione novamente. A transcrição é copiada e colada exatamente onde seu cursor estava — sem trocar de app, sem passos extras."
+      },
+      {
+        "title": "Escolha seu motor STT",
+        "description": "Alterne entre Deepgram Nova-3 e Groq Whisper com um clique. Mais de 35 idiomas suportados com detecção automática de idioma."
+      },
+      {
+        "title": "Traduza para 100+ idiomas",
+        "description": "Tradução consciente do contexto com controle de tom. Escolha formal, casual ou modo desenvolvedor — termos técnicos permanecem em inglês."
+      },
+      {
+        "title": "Código aberto e privado",
+        "description": "Totalmente código aberto sob MIT. O áudio é processado com suas próprias chaves de API — sem coleta de dados, sem análises, sem servidores de terceiros."
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "Planos acessíveis, todos os recursos incluídos.",
+    "description": "Ambos os planos desbloqueiam todos os recursos. Sem taxas ocultas, sem surpresas — escolha o que se adapta ao seu uso e comece a transcrever.",
+    "perMonth": "/mês",
+    "creditsIncluded": "${{credits}} em créditos incluídos todo mês",
+    "features": [
+      "Deepgram Nova-3 e Groq Whisper",
+      "Tradução com IA para 100+ idiomas",
+      "Modos de tom Desenvolvedor e Pessoal",
+      "Complementos Numérico e Planejamento",
+      "Até {{limit}} por gravação"
+    ],
+    "downloadToGet": "Baixar para obter {{plan}}"
+  },
+  "finalCta": {
+    "heading": "Pressione uma tecla, fale, pronto.",
+    "description": "Um atalho para transcrever, corrigir, traduzir e colar — tudo sem sair do seu app. Código aberto e funciona no macOS e Windows.",
+    "downloadWindows": "Baixar para Windows",
+    "downloadMac": "Baixar para macOS"
+  },
+  "footer": {
+    "features": "Recursos",
+    "pricing": "Preços",
+    "copyright": "© {{year}} Voca. Todos os direitos reservados."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Esta página não existe. Talvez tenha sido mal transcrita.",
+    "backHome": "Voltar ao início"
+  }
+}

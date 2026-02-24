@@ -1,36 +1,37 @@
 import { Button } from 'poyraz-ui/atoms';
-import { Github } from 'lucide-react';
-import { Apple, Monitor } from 'lucide-react';
+import { Github, Apple, Monitor } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const GITHUB_URL = 'https://github.com/emircan-sahin/voca';
 
 export default function Hero() {
+  const { t } = useTranslation();
+
   return (
     <section className="px-4 pb-16 pt-20 sm:px-6 sm:pb-20 sm:pt-24">
       <div className="mx-auto max-w-4xl text-center">
         <div className="mb-4 inline-block rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-neutral-500">
-          Open source &middot; Free credits included
+          {t('hero.badge')}
         </div>
 
         <h1 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
-          Speak, and it&apos;s
+          {t('hero.headingTop')}
           <br />
-          <span className="text-red-600">already pasted.</span>
+          <span className="text-red-600">{t('hero.headingBottom')}</span>
         </h1>
 
         <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-neutral-500 sm:text-lg">
-          Press a shortcut, talk, and the AI-corrected transcript lands right
-          where your cursor was. Translate into 100+ languages on the fly.
+          {t('hero.description')}
         </p>
 
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
           <Button variant="outline" className="w-full border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-800 sm:w-80">
             <Monitor className="mr-2 h-5 w-5" />
-            Download for Windows
+            {t('hero.downloadWindows')}
           </Button>
           <Button className="w-full sm:w-80">
             <Apple className="mr-2 h-5 w-5" />
-            Download for macOS
+            {t('hero.downloadMac')}
           </Button>
         </div>
         <div className="mt-3 flex justify-center">

@@ -1,0 +1,84 @@
+{
+  "navbar": {
+    "features": "機能",
+    "pricing": "料金",
+    "download": "ダウンロード"
+  },
+  "hero": {
+    "badge": "オープンソース · 無料クレジット付き",
+    "headingTop": "話すだけで、",
+    "headingBottom": "もう貼り付け済み。",
+    "description": "ショートカットを押して話すだけ。AIが修正したトランスクリプトがカーソル位置に直接入力されます。100以上の言語にリアルタイム翻訳。",
+    "downloadWindows": "Windows版をダウンロード",
+    "downloadMac": "macOS版をダウンロード"
+  },
+  "featureHighlight": {
+    "label": "AI駆動の精度",
+    "heading": "あなたの言葉を、もっと良く。",
+    "description": "Vocaは単なる文字起こしではありません — 文脈を理解します。発音ミスや文法エラーが修正され、入力中の場所に自動貼り付けされます。開発者モードでは「reakt」をReactに、「nahbar」をnavbarに変換します。",
+    "highlights": [
+      "ワンクリックで100以上の言語に翻訳",
+      "開発者モードで技術用語を英語のまま保持",
+      "数値アドオンで話した数字をアラビア数字に変換",
+      "プランニングアドオンで口述したステップを整理されたリストに"
+    ]
+  },
+  "correctionDemo": {
+    "youSaid": "あなたが言ったこと",
+    "correcting": "修正中...",
+    "aiCorrected": "AIが修正",
+    "fixes": "{{count}}件の修正"
+  },
+  "numberedFeatures": {
+    "heading": "必要なものだけ、不要なものはなし。",
+    "description": "録音から洗練された翻訳テキストまで — Vocaがデスクトップで全プロセスを処理します。",
+    "features": [
+      {
+        "title": "ショートカット一つで完了",
+        "description": "キーを押して、話して、もう一度押す。トランスクリプトがコピーされカーソル位置に貼り付け — アプリ切り替え不要、追加ステップなし。"
+      },
+      {
+        "title": "STTエンジンを選択",
+        "description": "ワンクリックでDeepgram Nova-3とGroq Whisperを切り替え。35以上の言語に対応、自動言語検出付き。"
+      },
+      {
+        "title": "100以上の言語に翻訳",
+        "description": "トーン制御付きの文脈認識翻訳。フォーマル、カジュアル、開発者モードを選択 — 技術用語は英語のまま。"
+      },
+      {
+        "title": "オープンソースでプライベート",
+        "description": "MITライセンスの完全オープンソース。音声は自分のAPIキーで処理 — データ収集なし、分析なし、サードパーティサーバーなし。"
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "手頃なプラン、全機能付き。",
+    "description": "どちらのプランも全機能を解放。隠れた料金なし、予想外なし — 使用量に合ったプランを選んで始めましょう。",
+    "perMonth": "/月",
+    "creditsIncluded": "毎月${{credits}}のクレジット付き",
+    "features": [
+      "Deepgram Nova-3 & Groq Whisper",
+      "100以上の言語にAI翻訳",
+      "開発者・パーソナルトーンモード",
+      "数値・プランニングアドオン",
+      "録音あたり最大{{limit}}"
+    ],
+    "downloadToGet": "{{plan}}を取得するためにダウンロード"
+  },
+  "finalCta": {
+    "heading": "キーを押して、話して、完了。",
+    "description": "一つのショートカットで文字起こし、修正、翻訳、貼り付け — アプリを離れずに。オープンソース、macOSとWindows対応。",
+    "downloadWindows": "Windows版をダウンロード",
+    "downloadMac": "macOS版をダウンロード"
+  },
+  "footer": {
+    "features": "機能",
+    "pricing": "料金",
+    "copyright": "© {{year}} Voca. All rights reserved."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "このページは存在しません。文字起こしが間違っていたのかもしれません。",
+    "backHome": "ホームに戻る"
+  }
+}

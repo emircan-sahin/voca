@@ -1,9 +1,13 @@
 import { Button } from 'poyraz-ui/atoms';
 import { Download, Github } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '~/components/LanguageSwitcher';
 
 const GITHUB_URL = 'https://github.com/emircan-sahin/voca';
 
 export default function Navbar() {
+  const { t } = useTranslation();
+
   return (
     <nav className="sticky top-0 z-50 border-b border-dashed border-slate-300 bg-white/80 px-4 backdrop-blur-md sm:px-6">
       <div className="mx-auto flex max-w-4xl items-center justify-between py-3">
@@ -17,13 +21,13 @@ export default function Navbar() {
             href="#features"
             className="hidden text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 sm:block"
           >
-            Features
+            {t('navbar.features')}
           </a>
           <a
             href="#pricing"
             className="hidden text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 sm:block"
           >
-            Pricing
+            {t('navbar.pricing')}
           </a>
           <a
             href={GITHUB_URL}
@@ -33,9 +37,10 @@ export default function Navbar() {
           >
             <Github className="h-5 w-5" />
           </a>
-          <Button size="sm">
+          <LanguageSwitcher />
+          <Button size="sm" className="hidden sm:inline-flex">
             <Download className="mr-1.5 h-4 w-4" />
-            Download
+            {t('navbar.download')}
           </Button>
         </div>
       </div>

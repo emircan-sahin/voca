@@ -1,5 +1,6 @@
 import { Button, Card, CardContent } from 'poyraz-ui/atoms';
 import { Check, Download } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import {
   PLAN_CREDITS,
   PLAN_UPLOAD_LIMIT,
@@ -21,27 +22,18 @@ function formatMB(bytes: number) {
   return `${bytes / (1024 * 1024)} MB`;
 }
 
-function getFeatures(key: BillingPlan, limit: number): string[] {
-  return [
-    'Deepgram Nova-3 & Groq Whisper',
-    'AI translation into 100+ languages',
-    'Developer & Personal tone modes',
-    'Numeric & Planning add-ons',
-    `Up to ${formatMB(limit)} per recording`,
-  ];
-}
-
 export default function Pricing() {
+  const { t } = useTranslation();
+
   return (
     <section id="pricing" className="border-t border-dashed border-slate-300 px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-4xl">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold text-neutral-900">
-            Affordable plans, all features included.
+            {t('pricing.heading')}
           </h2>
           <p className="mx-auto max-w-lg text-neutral-500">
-            Both plans unlock every feature. No hidden fees, no surprises —
-            pick the one that fits your usage and start transcribing.
+            {t('pricing.description')}
           </p>
         </div>
 
@@ -49,7 +41,8 @@ export default function Pricing() {
           {plans.map((plan) => {
             const credits = PLAN_CREDITS[plan.key];
             const limit = PLAN_UPLOAD_LIMIT[plan.key];
-            const feats = getFeatures(plan.key, limit);
+            const limitStr = formatMB(limit);
+            const features = t('pricing.features', { returnObjects: true }) as string[];
 
             return (
               <Card key={plan.key}>
@@ -66,27 +59,29 @@ export default function Pricing() {
                     <span className="text-4xl font-bold text-red-600">
                       ${credits}
                     </span>
-                    <span className="text-neutral-400">/mo</span>
+                    <span className="text-neutral-400">{t('pricing.perMonth')}</span>
                   </div>
 
                   <p className="mb-8 text-sm text-neutral-500">
-                    ${credits} in credits included every month
+                    {t('pricing.creditsIncluded', { credits })}
                   </p>
 
                   <ul className="mb-8 space-y-3">
-                    {feats.map((feat) => (
-                      <li key={feat} className="flex items-start gap-3">
+                    {features.map((feat, i) => (
+                      <li key={i} className="flex items-start gap-3">
                         <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100">
                           <Check className="h-3 w-3 text-green-600" />
                         </div>
-                        <span className="text-sm text-neutral-600">{feat}</span>
+                        <span className="text-sm text-neutral-600">
+                          {feat.replace('{{limit}}', limitStr)}
+                        </span>
                       </li>
                     ))}
                   </ul>
 
                   <Button className="w-full">
                     <Download className="mr-1.5 h-4 w-4" />
-                    Download to get {plan.label}
+                    {t('pricing.downloadToGet', { plan: plan.label })}
                   </Button>
                 </CardContent>
               </Card>

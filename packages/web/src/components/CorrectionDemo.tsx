@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Mic, Sparkles } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const ORIGINAL = 'We\'ve been recieving alot of complains about the irregardless pricing';
 const CORRECTIONS: { wrong: string; right: string }[] = [
@@ -16,6 +17,7 @@ const CORRECTION_DELAY = 600;
 const DISPLAY_DURATION = 3000;
 
 export default function CorrectionDemo() {
+  const { t } = useTranslation();
   const [phase, setPhase] = useState<'typing' | 'processing' | 'corrected' | 'done'>('typing');
   const [typed, setTyped] = useState('');
   const [correctionIndex, setCorrectionIndex] = useState(-1);
@@ -39,36 +41,36 @@ export default function CorrectionDemo() {
   // Processing → corrected
   useEffect(() => {
     if (phase !== 'processing') return;
-    const t = setTimeout(() => {
+    const timer = setTimeout(() => {
       setPhase('corrected');
       setCorrectionIndex(0);
     }, 1000);
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, [phase]);
 
   // Animate corrections one by one
   useEffect(() => {
     if (phase !== 'corrected') return;
     if (correctionIndex >= CORRECTIONS.length) {
-      const t = setTimeout(() => setPhase('done'), CORRECTION_DELAY);
-      return () => clearTimeout(t);
+      const timer = setTimeout(() => setPhase('done'), CORRECTION_DELAY);
+      return () => clearTimeout(timer);
     }
     if (correctionIndex < 0) return;
-    const t = setTimeout(() => {
+    const timer = setTimeout(() => {
       setCorrectionIndex((i) => i + 1);
     }, CORRECTION_DELAY);
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, [phase, correctionIndex]);
 
   // Reset loop
   useEffect(() => {
     if (phase !== 'done') return;
-    const t = setTimeout(() => {
+    const timer = setTimeout(() => {
       setTyped('');
       setCorrectionIndex(-1);
       setPhase('typing');
     }, DISPLAY_DURATION);
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, [phase]);
 
   function renderOriginal() {
@@ -81,8 +83,7 @@ export default function CorrectionDemo() {
       );
     }
 
-    // Show with wavy underlines on errors
-    let text = ORIGINAL;
+    const text = ORIGINAL;
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
 
@@ -110,7 +111,7 @@ export default function CorrectionDemo() {
   }
 
   function renderCorrected() {
-    let text = CORRECTED;
+    const text = CORRECTED;
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
 
@@ -160,7 +161,7 @@ export default function CorrectionDemo() {
           <div className="mb-1.5 flex items-center gap-1.5">
             <Mic className="h-3 w-3 text-neutral-400" />
             <span className="text-[11px] font-medium uppercase tracking-wider text-neutral-400">
-              You said
+              {t('correctionDemo.youSaid')}
             </span>
             {phase === 'typing' && (
               <span className="ml-auto flex items-center gap-0.5">
@@ -180,7 +181,7 @@ export default function CorrectionDemo() {
           {phase === 'processing' ? (
             <div className="flex items-center gap-2 text-[11px] font-medium text-red-500">
               <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-              <span>Correcting...</span>
+              <span>{t('correctionDemo.correcting')}</span>
             </div>
           ) : (
             <div className={`h-5 w-px transition-colors duration-300 ${
@@ -204,11 +205,11 @@ export default function CorrectionDemo() {
             <span className={`text-[11px] font-medium uppercase tracking-wider transition-colors duration-300 ${
               phase === 'corrected' || phase === 'done' ? 'text-green-500' : 'text-neutral-300'
             }`}>
-              AI corrected
+              {t('correctionDemo.aiCorrected')}
             </span>
             {(phase === 'corrected' || phase === 'done') && correctionIndex >= CORRECTIONS.length && (
               <span className="ml-auto rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-600">
-                4 fixes
+                {t('correctionDemo.fixes', { count: CORRECTIONS.length })}
               </span>
             )}
           </div>
