@@ -65,9 +65,17 @@ axiosInstance.interceptors.response.use(
         setTokens({ token: newToken, refreshToken: newRt });
         processQueue(null);
         return axiosInstance(original);
-      } catch (refreshError) {
+      } catch (refreshError: unknown) {
         processQueue(refreshError);
-        clearAuth();
+        // Only clear auth on definitive rejection (4xx) from refresh endpoint.
+        // Network errors or 5xx mean the server is temporarily unreachable —
+        // keep tokens so the user isn't logged out during maintenance.
+        const refreshStatus = axios.isAxiosError(refreshError)
+          ? refreshError.response?.status
+          : undefined;
+        if (refreshStatus && refreshStatus >= 400 && refreshStatus < 500) {
+          clearAuth();
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
