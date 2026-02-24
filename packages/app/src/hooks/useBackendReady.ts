@@ -6,6 +6,7 @@ const RETRY_INTERVALS = [3, 30, 60];
 export const useBackendReady = () => {
   const [ready, setReady] = useState(false);
   const [retryIn, setRetryIn] = useState<number | null>(null);
+  const [latestVersion, setLatestVersion] = useState<string | null>(null);
   const attemptRef = useRef(0);
   const mountedRef = useRef(true);
 
@@ -13,6 +14,9 @@ export const useBackendReady = () => {
     try {
       const res = await fetch(HEALTH_URL);
       const json = await res.json();
+      if (json.success && json.data?.latestVersion) {
+        setLatestVersion(json.data.latestVersion);
+      }
       return json.success === true;
     } catch {
       return false;
@@ -72,5 +76,5 @@ export const useBackendReady = () => {
     };
   }, [checkHealth]);
 
-  return { ready, retryIn };
+  return { ready, retryIn, latestVersion };
 };

@@ -29,7 +29,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/health', (_req, res) => sendSuccess(res, 'OK', null));
+app.get('/api/health', (_req, res) => {
+  sendSuccess(res, 'OK', { latestVersion: env.CLIENT_VERSION });
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/transcripts', transcriptRoutes);
