@@ -110,7 +110,7 @@ export const updateSettings = async (req: Request, res: Response) => {
 
   const user = await UserModel.findByIdAndUpdate(
     req.user!.id,
-    { settings: parsed.data },
+    { $set: { settings: parsed.data } },
     { new: true }
   );
   if (!user) return sendError(res, 'User not found', 404);
@@ -120,7 +120,7 @@ export const updateSettings = async (req: Request, res: Response) => {
 export const resetSettings = async (req: Request, res: Response) => {
   const user = await UserModel.findByIdAndUpdate(
     req.user!.id,
-    { settings: DEFAULT_USER_SETTINGS },
+    { $set: { settings: DEFAULT_USER_SETTINGS } },
     { new: true }
   );
   if (!user) return sendError(res, 'User not found', 404);

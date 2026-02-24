@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useAuthStore } from '~/stores/auth.store';
+import { useAuthStore, remoteSettingsVersion } from '~/stores/auth.store';
 import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
 import { useTranslationStore } from '~/stores/translation.store';
@@ -14,19 +14,21 @@ export function useSettingsSync() {
   const { enabled, targetLanguage, tone, numeric, planning } = useTranslationStore();
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
 
-  const hasSynced = useRef(false);
+  // Tracks the last remoteSettingsVersion we saw, so we can skip syncing
+  // server-driven changes (hydration, reset) back to the server.
+  const lastRemoteVersion = useRef(remoteSettingsVersion);
 
-  // Reset sync flag when user changes (logout/login)
+  // Reset version tracking when user changes (logout/login)
   useEffect(() => {
-    if (!user) hasSynced.current = false;
+    if (!user) lastRemoteVersion.current = 0;
   }, [user]);
 
   useEffect(() => {
     if (!user || isLoading) return;
 
-    // Skip the first run after hydration (remote settings were just applied)
-    if (!hasSynced.current) {
-      hasSynced.current = true;
+    // Skip when settings came from the server (hydration or reset)
+    if (lastRemoteVersion.current !== remoteSettingsVersion) {
+      lastRemoteVersion.current = remoteSettingsVersion;
       return;
     }
 

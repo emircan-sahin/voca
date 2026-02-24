@@ -17,7 +17,12 @@ interface AuthState {
   hydrate: () => Promise<void>;
 }
 
+// Incremented each time the server pushes settings; useSettingsSync reads this
+// to avoid syncing server-driven changes back to the server.
+export let remoteSettingsVersion = 0;
+
 export function applyRemoteSettings(settings: IUserSettings) {
+  remoteSettingsVersion++;
   useProviderStore.setState({ provider: settings.provider });
   useLanguageStore.setState({ language: settings.language });
   useNoiseSuppressionStore.setState({ enabled: settings.noiseSuppression });
