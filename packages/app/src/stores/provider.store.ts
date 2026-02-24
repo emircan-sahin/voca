@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export type Provider = 'groq' | 'deepgram';
 
@@ -8,12 +7,7 @@ interface ProviderState {
   setProvider: (p: Provider) => void;
 }
 
-export const useProviderStore = create<ProviderState>()(
-  persist(
-    (set) => ({
-      provider: 'deepgram',
-      setProvider: (provider) => set({ provider }),
-    }),
-    { name: 'voice-provider' }
-  )
-);
+export const useProviderStore = create<ProviderState>((set) => ({
+  provider: 'deepgram',
+  setProvider: (provider) => set({ provider }),
+}));

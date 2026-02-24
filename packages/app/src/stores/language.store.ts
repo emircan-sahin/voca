@@ -1,17 +1,11 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface LanguageState {
   language: string;
   setLanguage: (code: string) => void;
 }
 
-export const useLanguageStore = create<LanguageState>()(
-  persist(
-    (set) => ({
-      language: 'en',
-      setLanguage: (language) => set({ language }),
-    }),
-    { name: 'voice-language' }
-  )
-);
+export const useLanguageStore = create<LanguageState>((set) => ({
+  language: 'en',
+  setLanguage: (language) => set({ language }),
+}));
