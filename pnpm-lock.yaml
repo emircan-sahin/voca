@@ -171,6 +171,49 @@ importers:
         specifier: ^5.4.5
         version: 5.9.3
 
+  packages/web:
+    dependencies:
+      '@voca/shared':
+        specifier: workspace:*
+        version: link:../shared
+      lucide-react:
+        specifier: ^0.400.0
+        version: 0.400.0(react@18.3.1)
+      poyraz-ui:
+        specifier: ^0.2.2
+        version: 0.2.2(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.71.2(react@18.3.1))(react@18.3.1)(tailwindcss@4.2.0)(zod@3.25.76)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@tailwindcss/postcss':
+        specifier: ^4.2.0
+        version: 4.2.0
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.28
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.7(@types/react@18.3.28)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.1
+        version: 4.7.0(vite@5.4.21(@types/node@20.19.33)(lightningcss@1.31.1))
+      postcss:
+        specifier: ^8.4.39
+        version: 8.5.6
+      tailwindcss:
+        specifier: ^4.2.0
+        version: 4.2.0
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vite:
+        specifier: ^5.3.3
+        version: 5.4.21(@types/node@20.19.33)(lightningcss@1.31.1)
+
 packages:
 
   '@ai-sdk/gateway@3.0.53':

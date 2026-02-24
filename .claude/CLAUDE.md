@@ -1,11 +1,12 @@
 # Voca — Master Guide
 
 ## Project Overview
-An Electron desktop app that records audio, transcribes it to text via Groq/Deepgram APIs, translates with Gemini, and stores transcripts in MongoDB. Users authenticate via Google OAuth. The pnpm monorepo contains three packages:
+An Electron desktop app that records audio, transcribes it to text via Groq/Deepgram APIs, translates with Gemini, and stores transcripts in MongoDB. Users authenticate via Google OAuth. The pnpm monorepo contains four packages:
 
 - `@voca/shared` — TypeScript types, Zod schemas, and language constants
 - `@voca/backend` — Express.js API server (port 3100)
 - `@voca/app` — Electron + React application
+- `@voca/web` — Landing page at usevoca.dev (Vite + React, static SPA)
 
 ## Communication Flow
 ```
@@ -83,6 +84,7 @@ Use direct calls (`doc._id.toString()`) or proper type narrowing. Never cast thr
 ```bash
 pnpm dev:backend     # Start the backend
 pnpm dev:app         # Start the Electron app
+pnpm dev:web         # Start the landing page (port 3000)
 pnpm dev             # Start both in parallel
 pnpm build           # Build all packages
 ```

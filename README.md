@@ -19,7 +19,7 @@
 ---
 
 <p align="center">
-  <img src="app_screenshot.png" alt="Voca App Screenshot" width="700" />
+  <img src="assets/new_voca_screenshot.png" alt="Voca App Screenshot" width="700" />
 </p>
 
 ---

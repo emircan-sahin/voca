@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "poyraz-ui/preset.css";
+
+/*
+ * Poyraz UI class safelist — Tailwind v4 ignores node_modules in @source,
+ * so we inline the interactive-state classes poyraz-ui components use.
+ */
+@source inline("hover:bg-slate-50 hover:bg-slate-50/50 hover:bg-slate-100 hover:bg-slate-800 hover:bg-slate-900 hover:bg-red-600 hover:bg-red-700 hover:border-slate-200 hover:border-slate-400 hover:border-slate-500 hover:border-red-800 hover:border-red-900 hover:text-slate-200 hover:text-slate-900 hover:text-slate-950 hover:text-red-600 hover:text-white hover:underline hover:opacity-100 group-hover:text-slate-300 group-hover:text-slate-600 group-hover:opacity-100 focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 active:bg-red-800 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out data-[motion=from-start]:slide-in-from-left-52 data-[motion=from-end]:slide-in-from-right-52 data-[motion=to-start]:slide-out-to-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[active]:border-b-2 data-[active]:border-dashed data-[active]:border-red-600 data-[state=checked]:bg-slate-900 data-[state=unchecked]:bg-slate-200 data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0");
+
+@layer base {
+  button, [role="button"], a, select, summary, [type="button"], [type="submit"], [type="reset"] {
+    cursor: pointer;
+  }
+
+  *:focus,
+  *:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #fafafa;
+    color: #171717;
+  }
+}
+
+@theme {
+  --animate-fade-in-up: fade-in-up 0.6s ease-out both;
+  --animate-pulse-dot: pulse-dot 1.4s ease-in-out infinite;
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse-dot {
+    0%, 80%, 100% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    40% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@layer utilities {
+  .correction-underline {
+    text-decoration: underline wavy #dc2626;
+    text-underline-offset: 3px;
+  }
+}

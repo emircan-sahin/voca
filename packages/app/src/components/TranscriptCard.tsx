@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Trash2, Copy, Check, Languages } from 'lucide-react';
+import { Trash2, Copy, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ITranscript } from '@voca/shared';
 import { Card, CardContent, Badge } from 'poyraz-ui/atoms';
@@ -12,7 +12,7 @@ interface TranscriptCardProps {
 
 export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) => {
   const [copied, setCopied] = useState(false);
-  const [showTranslated, setShowTranslated] = useState(false);
+  const [showTranslated, setShowTranslated] = useState(true);
   const duration = dayjs.duration(transcript.duration, 'seconds').format('m:ss');
   const date = dayjs(transcript.createdAt).fromNow();
 
@@ -46,25 +46,39 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
             <span>{date}</span>
             <span>·</span>
             <span>{duration}</span>
-            <Badge variant="outline" className="text-xs uppercase">
-              {transcript.language}
-            </Badge>
-            {hasTranslation && (
-              <>
-                <Badge variant="outline" className="text-xs uppercase">
-                  {transcript.language} → {transcript.targetLanguage}
-                </Badge>
+            {hasTranslation ? (
+              <div className="flex items-center border border-[#e5e5e5] rounded-md overflow-hidden">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowTranslated((prev) => !prev);
+                    setShowTranslated(false);
                   }}
-                  className="text-[#737373] hover:text-[#171717] transition-colors"
-                  title={showTranslated ? 'Show original' : 'Show translation'}
+                  className={`px-2 py-0.5 text-xs font-medium transition-colors ${
+                    !showTranslated
+                      ? 'bg-[#171717] text-white'
+                      : 'bg-transparent text-[#737373]'
+                  }`}
                 >
-                  <Languages className="w-4 h-4" />
+                  Original
                 </button>
-              </>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowTranslated(true);
+                  }}
+                  className={`px-2 py-0.5 text-xs font-medium transition-colors ${
+                    showTranslated
+                      ? 'bg-[#171717] text-white'
+                      : 'bg-transparent text-[#737373]'
+                  }`}
+                >
+                  AI
+                </button>
+              </div>
+            ) : (
+              <Badge variant="outline" className="text-xs uppercase">
+                {transcript.language}
+              </Badge>
             )}
           </div>
           <div className="flex items-center gap-2">
