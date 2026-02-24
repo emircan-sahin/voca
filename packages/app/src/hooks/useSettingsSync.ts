@@ -10,7 +10,7 @@ import { queryClient } from '~/lib/queryClient';
 
 export function useSettingsSync() {
   const user = useAuthStore((s) => s.user);
-  const isLoading = useAuthStore((s) => s.isLoading);
+  const settingsHydrated = useAuthStore((s) => s.settingsHydrated);
   const provider = useProviderStore((s) => s.provider);
   const language = useLanguageStore((s) => s.language);
   const { enabled, targetLanguage, tone, numeric, planning } = useTranslationStore();
@@ -27,7 +27,10 @@ export function useSettingsSync() {
   }, [user]);
 
   useEffect(() => {
-    if (!user || isLoading) return;
+    // Block sync until server settings are successfully loaded.
+    // This prevents local defaults from overwriting the database
+    // when the settings fetch fails or hasn't completed yet.
+    if (!user || !settingsHydrated) return;
 
     // Skip when settings came from the server (hydration or reset)
     if (lastRemoteVersion.current !== remoteSettingsVersion) {
@@ -58,5 +61,5 @@ export function useSettingsSync() {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [user, isLoading, provider, language, noiseSuppression, privacyMode, enabled, targetLanguage, tone, numeric, planning]);
+  }, [user, settingsHydrated, provider, language, noiseSuppression, privacyMode, enabled, targetLanguage, tone, numeric, planning]);
 }

@@ -12,6 +12,7 @@ interface AuthState {
   token: string | null;
   refreshToken: string | null;
   isLoading: boolean;
+  settingsHydrated: boolean;
   setAuth: (data: { user: IUser; token: string; refreshToken: string }) => void;
   setTokens: (data: { token: string; refreshToken: string }) => void;
   clearAuth: () => void;
@@ -42,6 +43,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   token: null,
   refreshToken: null,
   isLoading: true,
+  settingsHydrated: false,
   setAuth: ({ user, token, refreshToken }) => {
     set({ user, token, refreshToken });
     window.electronAPI.auth.set({ token, refreshToken });
@@ -51,7 +53,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     window.electronAPI.auth.set({ token, refreshToken });
   },
   clearAuth: () => {
-    set({ user: null, token: null, refreshToken: null });
+    set({ user: null, token: null, refreshToken: null, settingsHydrated: false });
     window.electronAPI.auth.clear();
   },
   hydrate: async () => {
@@ -64,6 +66,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     // Set tokens so interceptor can attach Bearer header
     set({ token: stored.token, refreshToken: stored.refreshToken });
 
+    let settingsLoaded = false;
     try {
       // Fetch user from server (interceptor handles refresh on 401)
       const meRes = await api.get<IUser>('/auth/me');
@@ -72,14 +75,18 @@ export const useAuthStore = create<AuthState>((set) => ({
       // Fetch and apply remote settings
       try {
         const settingsRes = await api.get<IUserSettings>('/auth/settings');
-        if (settingsRes.data) applyRemoteSettings(settingsRes.data);
+        if (settingsRes.data) {
+          applyRemoteSettings(settingsRes.data);
+          settingsLoaded = true;
+        }
       } catch {
-        // Settings fetch failed — use local settings
+        // Settings fetch failed — keep settingsHydrated false to prevent
+        // syncing local defaults back to the server
       }
     } catch {
       // Token invalid and refresh failed — interceptor already cleared auth
     }
 
-    set({ isLoading: false });
+    set({ isLoading: false, settingsHydrated: settingsLoaded });
   },
 }));
