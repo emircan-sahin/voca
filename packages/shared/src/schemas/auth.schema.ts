@@ -41,3 +41,19 @@ export const userSettingsSchema = z.object({
     planning: z.boolean(),
   }),
 });
+
+/** Partial version for PUT /auth/settings — allows old clients to send
+ *  only the fields they know about without failing validation. */
+export const updateUserSettingsSchema = z.object({
+  provider: z.enum(STT_PROVIDERS).optional(),
+  language: z.enum(LANGUAGE_CODES).optional(),
+  noiseSuppression: z.boolean().optional(),
+  privacyMode: z.boolean().optional(),
+  translation: z.object({
+    enabled: z.boolean().optional(),
+    targetLanguage: z.enum(LANGUAGE_CODES).optional(),
+    tone: z.enum(TONES).optional(),
+    numeric: z.boolean().optional(),
+    planning: z.boolean().optional(),
+  }).optional(),
+});

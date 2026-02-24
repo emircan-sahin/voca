@@ -7,7 +7,7 @@ import {
 } from '~/services/auth.service';
 import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
-import { refreshBodySchema, userSettingsSchema, DEFAULT_USER_SETTINGS } from '@voca/shared';
+import { refreshBodySchema, updateUserSettingsSchema, DEFAULT_USER_SETTINGS } from '@voca/shared';
 import { deleteUserTranscripts } from '~/controllers/transcript.controller';
 
 const REDIRECT_URI = `http://localhost:${env.PORT}/api/auth/google/callback`;
@@ -106,19 +106,39 @@ export const getSettings = async (req: Request, res: Response) => {
 };
 
 export const updateSettings = async (req: Request, res: Response) => {
-  const parsed = userSettingsSchema.safeParse(req.body);
+  const parsed = updateUserSettingsSchema.safeParse(req.body);
   if (!parsed.success) return sendError(res, 'Invalid settings', 400);
 
-  if (parsed.data.privacyMode) {
+  const s = parsed.data;
+
+  if (s.privacyMode) {
     const current = await UserModel.findById(req.user!.id).select('settings.privacyMode').lean();
     if (current && !current.settings?.privacyMode) {
       await deleteUserTranscripts(req.user!.id);
     }
   }
 
+  const $set: Record<string, unknown> = {};
+  if (s.provider !== undefined) $set['settings.provider'] = s.provider;
+  if (s.language !== undefined) $set['settings.language'] = s.language;
+  if (s.noiseSuppression !== undefined) $set['settings.noiseSuppression'] = s.noiseSuppression;
+  if (s.privacyMode !== undefined) $set['settings.privacyMode'] = s.privacyMode;
+  if (s.translation) {
+    const t = s.translation;
+    if (t.enabled !== undefined) $set['settings.translation.enabled'] = t.enabled;
+    if (t.targetLanguage !== undefined) $set['settings.translation.targetLanguage'] = t.targetLanguage;
+    if (t.tone !== undefined) $set['settings.translation.tone'] = t.tone;
+    if (t.numeric !== undefined) $set['settings.translation.numeric'] = t.numeric;
+    if (t.planning !== undefined) $set['settings.translation.planning'] = t.planning;
+  }
+
+  if (Object.keys($set).length === 0) {
+    return sendError(res, 'No settings to update', 400);
+  }
+
   const user = await UserModel.findByIdAndUpdate(
     req.user!.id,
-    { $set: { settings: parsed.data } },
+    { $set },
     { new: true }
   );
   if (!user) return sendError(res, 'User not found', 404);
