@@ -1,9 +1,7 @@
 import { Button } from 'poyraz-ui/atoms';
-import { Download, Github } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '~/components/LanguageSwitcher';
-
-const GITHUB_URL = 'https://github.com/emircan-sahin/voca';
 
 export default function Navbar() {
   const { t } = useTranslation();
@@ -30,12 +28,10 @@ export default function Navbar() {
             {t('navbar.pricing')}
           </a>
           <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-500 transition-colors hover:text-neutral-900"
+            href="#faq"
+            className="hidden text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 sm:block"
           >
-            <Github className="h-5 w-5" />
+            {t('footer.faq')}
           </a>
           <LanguageSwitcher />
           <Button size="sm" className="hidden sm:inline-flex">

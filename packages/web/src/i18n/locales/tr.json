@@ -65,6 +65,77 @@
     ],
     "downloadToGet": "{{plan}} için indir"
   },
+  "faq": {
+    "heading": "Sıkça Sorulan Sorular",
+    "description": "Voca hakkında bilmeniz gereken her şey.",
+    "cta": "Sorunuz burada yok mu?",
+    "items": [
+      {
+        "question": "Ücretsiz mi?",
+        "answer": [
+          "Her plan 3 günlük ücretsiz deneme ile başlar — tüm özellikler açık, kısıtlama yok. İstediğiniz planı seçin, risksiz deneyin, istediğiniz zaman iptal edin.",
+          "Deneme sonrası planlar sadece aylık $3'dan başlar. Gizli ücret yok, sürpriz fatura yok. Ne görüyorsanız onu ödersiniz.",
+          "Rakipler aylık ~$8 abonelik üzerine ekstra API key ücreti alıyor. Voca'da her şey tek bir aboneliğe dahil."
+        ]
+      },
+      {
+        "question": "İstediğim zaman iptal edebilir miyim?",
+        "answer": [
+          "Evet. İstediğiniz zaman iptal edin — mevcut dönem aktif kalır, bir sonraki ay yenilenmez.",
+          "İptal ücreti yok, gizli şart yok, zorlayıcı süreç yok. Tek tıkla tamam.",
+          "Her şey açık kaynak. Faturalandırmamızı, kodumuzu ve vaatlerimizi doğrulayabilirsiniz — hiçbir şey gizli değil."
+        ]
+      },
+      {
+        "question": "Voca'yı farklı kılan ne?",
+        "answer": [
+          "Gerçek ortamlar için tasarlanmış arka plan gürültü engelleme — özellikle gürültülü mekanlarda kod yazan geliştiriciler için ideal.",
+          "Fonksiyon adlarını, kod terimlerini ve teknik jargonu tanıyan AI — tahmin etmek yerine doğru şekilde yazıya döker.",
+          "Akıllı otomatik yapıştırma: düzeltilmiş transkript imlecinizin olduğu yere anında gelir. Kopyala-yapıştır yok, uygulama değiştirme yok.",
+          "AI sadece yazıya dökmez — yazım stilinizi iyileştirir, dilbilgisi hatalarını düzeltir ve metninizi söylediğinizden daha temiz hale getirir."
+        ]
+      },
+      {
+        "question": "Yazılımcı Modu nedir?",
+        "answer": [
+          "Yazılımcı Modu, özellikle yazılım geliştiriciler için tasarlanmış bir ton ayarıdır. Aktifken Voca'nın AI'ı kod terimlerini, fonksiyon adlarını, kütüphane isimlerini ve teknik jargonu tanır — bunları sıradan kelimeler gibi değil, doğru şekilde yazıya döker.",
+          "\"reakt yuz steyt huk\" deyin, \"React useState hook\" yazar. \"nahbar komponenti\" deyin, \"navbar component\" yazar.",
+          "Arka plan gürültü engelleme ile birleştiğinde, gerçek ortamlarda çalışırken kod yorumları, dokümantasyon veya mesajlar dikte eden geliştiriciler için idealdir."
+        ]
+      },
+      {
+        "question": "Hangi dilleri destekliyor?",
+        "answer": [
+          "Deepgram ve Groq motorları ile 35'ten fazla dilde konuşma tanıma.",
+          "Ton kontrollü AI çeviri ile 100'den fazla dile çeviri — resmi, günlük veya geliştirici modu.",
+          "Geliştirici modu kod terimlerini ve teknik jargonu otomatik tanır, bunları İngilizce tutarken geri kalanını doğal şekilde çevirir."
+        ]
+      },
+      {
+        "question": "Verilerim nerede saklanıyor?",
+        "answer": [
+          "Verileriniz gizlilik odaklı bir yaklaşımla sunucularımızda işlenir. Voca tamamen açık kaynak — her satır kodu kendiniz inceleyebilirsiniz.",
+          "Sunucuda hiçbir şeyin saklanmasını istemiyorsanız Ayarlar'dan tek tuşla kapatabilirsiniz. Kayıtlarınız ve transkriptleriniz tutulmaz — karar tamamen sizin.",
+          "Takip yok, analitik yok, veri satışı yok. Nokta."
+        ]
+      },
+      {
+        "question": "Çevrimdışı çalışıyor mu?",
+        "answer": [
+          "Voca internet bağlantısı gerektirir. Sesiniz en iyi kaliteyi en düşük maliyetle sunmak için sunucularımızda işlenir.",
+          "Bulut altyapımız arka plan gürültü engelleme, AI düzeltme, koda duyarlı transkripsiyon ve akıllı çeviri içerir — yerel bir çözümün sunabileceğinden çok daha hızlı ve doğru sonuçlar sunar."
+        ]
+      },
+      {
+        "question": "Yeni özellikler gelecek mi?",
+        "answer": [
+          "Kesinlikle. Voca aktif olarak geliştirilen bir platform — düzenli olarak yeni özellikler, iyileştirmeler ve optimizasyonlar yayınlıyoruz.",
+          "Geri bildiriminiz yol haritamızı doğrudan şekillendiriyor. Bir hata buldunuz veya özellik isteğiniz mi var? Footer'daki email veya sosyal medya linklerinden bize ulaşın — her mesajı okuyoruz.",
+          "Abone olduğunuzda sadece bugünkü ürünü almıyorsunuz. Gelecekteki tüm güncellemeleri de ekstra ücret ödemeden alıyorsunuz."
+        ]
+      }
+    ]
+  },
   "finalCta": {
     "heading": "Bir tuşa bas, konuş, tamam.",
     "description": "Yazıya dökme, düzeltme, çeviri ve yapıştırma — hepsi tek kısayolla, uygumanızdan ayrılmadan. Açık kaynak, macOS ve Windows'da çalışır.",
@@ -74,6 +145,7 @@
   "footer": {
     "features": "Özellikler",
     "pricing": "Fiyatlar",
+    "faq": "SSS",
     "copyright": "© {{year}} Voca. Tüm hakları saklıdır."
   },
   "notFound": {

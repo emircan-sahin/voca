@@ -65,6 +65,77 @@
     ],
     "downloadToGet": "Download to get {{plan}}"
   },
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "description": "Everything you need to know about Voca.",
+    "cta": "Can't find your question?",
+    "items": [
+      {
+        "question": "Is Voca free?",
+        "answer": [
+          "Every plan starts with a 3-day free trial — fully featured, no restrictions. Pick any plan, try it risk-free, and cancel anytime.",
+          "After the trial, plans start at just $3/month. No hidden fees, no surprise charges. What you see is what you pay.",
+          "Unlike competitors who charge ~$8/month plus extra API key costs, Voca includes everything in one simple subscription."
+        ]
+      },
+      {
+        "question": "Can I cancel anytime?",
+        "answer": [
+          "Yes. Cancel whenever you want — your current period stays active, and the next month simply won't renew.",
+          "No cancellation fees, no hidden terms, no awkward retention flows. One click and you're done.",
+          "Everything is open source. You can verify our billing, our code, and our promises — nothing is hidden."
+        ]
+      },
+      {
+        "question": "What makes Voca different?",
+        "answer": [
+          "Background noise cancellation built for real-world environments — especially useful for developers in noisy spaces.",
+          "AI that recognizes function names, code terms, and technical jargon, then transcribes them correctly instead of guessing.",
+          "Smart auto-paste: the corrected transcript lands right where your cursor was. No copy-paste, no switching apps.",
+          "AI doesn't just transcribe — it improves your writing style, fixes grammar, and makes your text cleaner than what you actually said."
+        ]
+      },
+      {
+        "question": "What is Developer Mode?",
+        "answer": [
+          "Developer Mode is a tone setting built specifically for software engineers. When enabled, Voca's AI recognizes code terms, function names, library names, and technical jargon — and transcribes them correctly instead of treating them as regular words.",
+          "Say \"reakt use state hook\" and it writes \"React useState hook\". Say \"nahbar component\" and it writes \"navbar component\".",
+          "Combined with background noise cancellation, it's designed for developers who dictate code comments, documentation, or messages while working in real-world environments."
+        ]
+      },
+      {
+        "question": "Which languages are supported?",
+        "answer": [
+          "35+ languages for speech recognition through Deepgram and Groq engines.",
+          "100+ languages for AI-powered translation with tone control — formal, casual, or developer mode.",
+          "Developer mode automatically recognizes code terms and technical jargon, keeping them in English while translating the rest naturally."
+        ]
+      },
+      {
+        "question": "Where is my data stored?",
+        "answer": [
+          "Your data is processed on our servers with a privacy-first approach. Voca is fully open source — you can inspect every line of code yourself.",
+          "If you don't want anything stored on our servers, simply toggle it off in Settings. Your recordings and transcripts won't be saved — it's entirely your choice.",
+          "No tracking, no analytics, no selling data. Period."
+        ]
+      },
+      {
+        "question": "Does it work offline?",
+        "answer": [
+          "Voca requires an internet connection. Your audio is sent to our servers where we process it for the best possible quality at the lowest cost.",
+          "Our cloud pipeline includes background noise cancellation, AI correction, code-aware transcription, and smart translation — delivering faster, more accurate results than any local solution could."
+        ]
+      },
+      {
+        "question": "Will new features be added?",
+        "answer": [
+          "Absolutely. Voca is an actively developed platform — we ship updates regularly with new features, improvements, and optimizations.",
+          "Your feedback directly shapes the roadmap. Found a bug or have a feature request? Reach out through email or social links in the footer — we read everything.",
+          "When you subscribe, you're not just getting today's product. You're getting every future update at no extra cost."
+        ]
+      }
+    ]
+  },
   "finalCta": {
     "heading": "Press a key, speak, done.",
     "description": "One shortcut to transcribe, correct, translate, and paste — all without leaving your app. Open source and works on macOS & Windows.",
@@ -74,6 +145,7 @@
   "footer": {
     "features": "Features",
     "pricing": "Pricing",
+    "faq": "FAQ",
     "copyright": "© {{year}} Voca. All rights reserved."
   },
   "notFound": {

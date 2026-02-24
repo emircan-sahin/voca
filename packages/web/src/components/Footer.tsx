@@ -1,7 +1,12 @@
-import { Github } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { SOCIALS } from '@voca/shared';
 
-const GITHUB_URL = 'https://github.com/emircan-sahin/voca';
+const socialLinks = [
+  { href: SOCIALS.linkedin, icon: Linkedin, label: 'LinkedIn' },
+  { href: `mailto:${SOCIALS.email}`, icon: Mail, label: 'Email' },
+  { href: SOCIALS.github, icon: Github, label: 'GitHub' },
+] as const;
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -15,22 +20,33 @@ export default function Footer() {
           <span className="text-lg font-semibold tracking-tight text-neutral-900">use<span className="text-red-600">voca</span>.dev</span>
         </div>
 
-        {/* Center — links */}
-        <div className="flex items-center justify-center gap-6 text-sm text-neutral-500">
-          <a href="#features" className="transition-colors hover:text-neutral-900">
-            {t('footer.features')}
-          </a>
-          <a href="#pricing" className="transition-colors hover:text-neutral-900">
-            {t('footer.pricing')}
-          </a>
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-neutral-900"
-          >
-            <Github className="h-4 w-4" />
-          </a>
+        {/* Center — nav + social */}
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex items-center gap-6 text-sm text-neutral-500">
+            <a href="#features" className="transition-colors hover:text-neutral-900">
+              {t('footer.features')}
+            </a>
+            <a href="#pricing" className="transition-colors hover:text-neutral-900">
+              {t('footer.pricing')}
+            </a>
+            <a href="#faq" className="transition-colors hover:text-neutral-900">
+              {t('footer.faq')}
+            </a>
+          </div>
+          <div className="flex items-center gap-4 text-neutral-400">
+            {socialLinks.map(({ href, icon: Icon, label }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('mailto:') ? undefined : '_blank'}
+                rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                aria-label={label}
+                className="transition-colors hover:text-neutral-900"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Right — copyright */}

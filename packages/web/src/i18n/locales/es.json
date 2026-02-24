@@ -65,6 +65,77 @@
     ],
     "downloadToGet": "Descargar para obtener {{plan}}"
   },
+  "faq": {
+    "heading": "Preguntas Frecuentes",
+    "description": "Todo lo que necesitas saber sobre Voca.",
+    "cta": "¿No encuentras tu pregunta?",
+    "items": [
+      {
+        "question": "¿Es gratis?",
+        "answer": [
+          "Cada plan comienza con una prueba gratuita de 3 días — todas las funciones, sin restricciones. Elige cualquier plan, pruébalo sin riesgo y cancela cuando quieras.",
+          "Después de la prueba, los planes empiezan desde solo $3/mes. Sin tarifas ocultas, sin cargos sorpresa. Lo que ves es lo que pagas.",
+          "Los competidores cobran ~$8/mes más costes extra de API key. Voca incluye todo en una sola suscripción."
+        ]
+      },
+      {
+        "question": "¿Puedo cancelar en cualquier momento?",
+        "answer": [
+          "Sí. Cancela cuando quieras — tu período actual se mantiene activo y el siguiente mes simplemente no se renueva.",
+          "Sin tarifas de cancelación, sin términos ocultos, sin procesos de retención. Un clic y listo.",
+          "Todo es código abierto. Puedes verificar nuestra facturación, nuestro código y nuestras promesas — nada está oculto."
+        ]
+      },
+      {
+        "question": "¿Qué hace diferente a Voca?",
+        "answer": [
+          "Cancelación de ruido de fondo diseñada para entornos reales — especialmente útil para desarrolladores en espacios ruidosos.",
+          "IA que reconoce nombres de funciones, términos de código y jerga técnica, y los transcribe correctamente en lugar de adivinar.",
+          "Auto-pegado inteligente: la transcripción corregida aparece justo donde estaba tu cursor. Sin copiar-pegar, sin cambiar de app.",
+          "La IA no solo transcribe — mejora tu estilo de escritura, corrige la gramática y deja tu texto más limpio de lo que realmente dijiste."
+        ]
+      },
+      {
+        "question": "¿Qué es el Modo Desarrollador?",
+        "answer": [
+          "El Modo Desarrollador es un ajuste de tono diseñado específicamente para ingenieros de software. Cuando está activado, la IA de Voca reconoce términos de código, nombres de funciones, nombres de librerías y jerga técnica — y los transcribe correctamente en lugar de tratarlos como palabras comunes.",
+          "Di \"reakt yus esteit juk\" y escribe \"React useState hook\". Di \"nahbar component\" y escribe \"navbar component\".",
+          "Combinado con la cancelación de ruido de fondo, está diseñado para desarrolladores que dictan comentarios de código, documentación o mensajes mientras trabajan en entornos reales."
+        ]
+      },
+      {
+        "question": "¿Qué idiomas son compatibles?",
+        "answer": [
+          "Más de 35 idiomas para reconocimiento de voz a través de los motores Deepgram y Groq.",
+          "Más de 100 idiomas para traducción con IA con control de tono — formal, casual o modo desarrollador.",
+          "El modo desarrollador reconoce automáticamente los términos de código y la jerga técnica, manteniéndolos en inglés mientras traduce el resto de forma natural."
+        ]
+      },
+      {
+        "question": "¿Dónde se almacenan mis datos?",
+        "answer": [
+          "Tus datos se procesan en nuestros servidores con un enfoque de privacidad primero. Voca es completamente de código abierto — puedes inspeccionar cada línea de código tú mismo.",
+          "Si no quieres que nada se almacene en nuestros servidores, simplemente desactívalo en Ajustes. Tus grabaciones y transcripciones no se guardarán — es totalmente tu decisión.",
+          "Sin rastreo, sin analíticas, sin venta de datos. Punto."
+        ]
+      },
+      {
+        "question": "¿Funciona sin conexión?",
+        "answer": [
+          "Voca requiere conexión a internet. Tu audio se envía a nuestros servidores donde lo procesamos para la mejor calidad posible al menor coste.",
+          "Nuestra infraestructura en la nube incluye cancelación de ruido de fondo, corrección con IA, transcripción adaptada al código y traducción inteligente — ofreciendo resultados más rápidos y precisos que cualquier solución local."
+        ]
+      },
+      {
+        "question": "¿Se añadirán nuevas funciones?",
+        "answer": [
+          "Por supuesto. Voca es una plataforma en desarrollo activo — publicamos actualizaciones regularmente con nuevas funciones, mejoras y optimizaciones.",
+          "Tus comentarios dan forma directamente a la hoja de ruta. ¿Encontraste un error o tienes una solicitud de función? Contáctanos a través del email o los enlaces sociales en el footer — leemos todo.",
+          "Al suscribirte, no solo obtienes el producto de hoy. Obtienes cada actualización futura sin coste adicional."
+        ]
+      }
+    ]
+  },
   "finalCta": {
     "heading": "Pulsa una tecla, habla, listo.",
     "description": "Un atajo para transcribir, corregir, traducir y pegar — todo sin salir de tu app. Código abierto y funciona en macOS y Windows.",
@@ -74,6 +145,7 @@
   "footer": {
     "features": "Funciones",
     "pricing": "Precios",
+    "faq": "FAQ",
     "copyright": "© {{year}} Voca. Todos los derechos reservados."
   },
   "notFound": {

@@ -4,6 +4,7 @@ import Hero from '~/components/Hero';
 import FeatureHighlight from '~/components/FeatureHighlight';
 import NumberedFeatures from '~/components/NumberedFeatures';
 import Pricing from '~/components/Pricing';
+import Faq from '~/components/Faq';
 import FinalCta from '~/components/FinalCta';
 import Footer from '~/components/Footer';
 import NotFound from '~/components/NotFound';
@@ -33,6 +34,7 @@ export default function App() {
       <FeatureHighlight />
       <NumberedFeatures />
       <Pricing />
+      <Faq />
       <FinalCta />
       <Footer />
     </div>
