@@ -46,11 +46,15 @@ export async function loginWithGoogleCode(authCode: string, redirectUri: string)
   const user = await UserModel.findOneAndUpdate(
     { provider: 'google', providerId: payload.sub },
     {
-      email: payload.email,
-      name: payload.name || payload.email,
-      avatarUrl: payload.picture,
-      provider: 'google',
-      providerId: payload.sub,
+      $set: {
+        email: payload.email,
+        name: payload.name || payload.email,
+        avatarUrl: payload.picture,
+      },
+      $setOnInsert: {
+        provider: 'google',
+        providerId: payload.sub,
+      },
     },
     { upsert: true, new: true }
   );
