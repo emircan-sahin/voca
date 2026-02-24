@@ -54,3 +54,16 @@ export interface IUserSettings {
     planning: boolean;
   };
 }
+
+export const DEFAULT_USER_SETTINGS: IUserSettings = {
+  provider: 'deepgram',
+  language: 'en',
+  noiseSuppression: false,
+  translation: {
+    enabled: false,
+    targetLanguage: 'en',
+    tone: 'developer',
+    numeric: false,
+    planning: false,
+  },
+};

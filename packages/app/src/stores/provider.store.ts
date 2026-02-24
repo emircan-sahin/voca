@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { DEFAULT_USER_SETTINGS } from '@voca/shared';
 
 export type Provider = 'groq' | 'deepgram';
 
@@ -8,6 +9,6 @@ interface ProviderState {
 }
 
 export const useProviderStore = create<ProviderState>((set) => ({
-  provider: 'deepgram',
+  provider: DEFAULT_USER_SETTINGS.provider,
   setProvider: (provider) => set({ provider }),
 }));

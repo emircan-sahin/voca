@@ -1,5 +1,7 @@
 import { create } from 'zustand';
-import { TranslationTone } from '@voca/shared';
+import { TranslationTone, DEFAULT_USER_SETTINGS } from '@voca/shared';
+
+const dt = DEFAULT_USER_SETTINGS.translation;
 
 interface TranslationState {
   enabled: boolean;
@@ -15,11 +17,11 @@ interface TranslationState {
 }
 
 export const useTranslationStore = create<TranslationState>((set) => ({
-  enabled: false,
-  targetLanguage: 'en',
-  tone: 'developer',
-  numeric: false,
-  planning: false,
+  enabled: dt.enabled,
+  targetLanguage: dt.targetLanguage,
+  tone: dt.tone,
+  numeric: dt.numeric,
+  planning: dt.planning,
   setEnabled: (enabled) => set({ enabled }),
   setTargetLanguage: (targetLanguage) => set({ targetLanguage }),
   setTone: (tone) => set({ tone }),

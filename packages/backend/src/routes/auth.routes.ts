@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { googleRedirect, googleCallback, refresh, getMe, getSettings, updateSettings } from '~/controllers/auth.controller';
+import { googleRedirect, googleCallback, refresh, getMe, getSettings, updateSettings, resetSettings } from '~/controllers/auth.controller';
 import { authenticate } from '~/middleware/auth.middleware';
 import { authLimiter } from '~/middleware/rateLimit.middleware';
 
@@ -11,5 +11,6 @@ router.post('/refresh', authLimiter, refresh);
 router.get('/me', authenticate, getMe);
 router.get('/settings', authenticate, getSettings);
 router.put('/settings', authenticate, updateSettings);
+router.post('/settings/reset', authenticate, resetSettings);
 
 export default router;

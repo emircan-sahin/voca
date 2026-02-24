@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
-import { IUserSettings, BillingPlan } from '@voca/shared';
+import { IUserSettings, BillingPlan, DEFAULT_USER_SETTINGS } from '@voca/shared';
 
 export interface IUserDocument extends Document {
   email: string;
@@ -15,22 +15,24 @@ export interface IUserDocument extends Document {
   createdAt: Date;
 }
 
+const d = DEFAULT_USER_SETTINGS;
+
 const translationSettingsSchema = new Schema(
   {
-    enabled: { type: Boolean, default: false },
-    targetLanguage: { type: String, default: 'en' },
-    tone: { type: String, enum: ['developer', 'personal'], default: 'developer' },
-    numeric: { type: Boolean, default: false },
-    planning: { type: Boolean, default: false },
+    enabled: { type: Boolean, default: d.translation.enabled },
+    targetLanguage: { type: String, default: d.translation.targetLanguage },
+    tone: { type: String, enum: ['developer', 'personal'], default: d.translation.tone },
+    numeric: { type: Boolean, default: d.translation.numeric },
+    planning: { type: Boolean, default: d.translation.planning },
   },
   { _id: false }
 );
 
 const settingsSchema = new Schema(
   {
-    provider: { type: String, enum: ['groq', 'deepgram'], default: 'deepgram' },
-    language: { type: String, default: 'en' },
-    noiseSuppression: { type: Boolean, default: false },
+    provider: { type: String, enum: ['groq', 'deepgram'], default: d.provider },
+    language: { type: String, default: d.language },
+    noiseSuppression: { type: Boolean, default: d.noiseSuppression },
     translation: { type: translationSettingsSchema, default: () => ({}) },
   },
   { _id: false }

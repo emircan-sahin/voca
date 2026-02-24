@@ -1,4 +1,8 @@
-import { Card, CardContent } from 'poyraz-ui/atoms';
+import { useState } from 'react';
+import { Card, CardContent, Button } from 'poyraz-ui/atoms';
+import { IUserSettings } from '@voca/shared';
+import { api } from '~/lib/axios';
+import { applyRemoteSettings } from '~/stores/auth.store';
 import { ProviderSelect } from '~/components/ProviderSelect';
 import { LanguageSelect } from '~/components/LanguageSelect';
 import { MicrophoneSelect } from '~/components/MicrophoneSelect';
@@ -14,6 +18,20 @@ const sections = [
 ];
 
 export const SettingsView = () => {
+  const [resetting, setResetting] = useState(false);
+
+  const handleReset = async () => {
+    setResetting(true);
+    try {
+      const res = await api.post<IUserSettings>('/auth/settings/reset');
+      if (res.data) applyRemoteSettings(res.data);
+    } catch {
+      // Settings reset failed — ignore
+    } finally {
+      setResetting(false);
+    }
+  };
+
   return (
     <div className="p-6 space-y-4">
       {sections.map((section) => (
@@ -24,6 +42,12 @@ export const SettingsView = () => {
           </CardContent>
         </Card>
       ))}
+
+      <div className="flex justify-start">
+        <Button variant="outline" size="sm" onClick={handleReset} disabled={resetting}>
+          {resetting ? 'Resetting...' : 'Reset to Defaults'}
+        </Button>
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import {
 } from '~/services/auth.service';
 import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
-import { refreshBodySchema, userSettingsSchema } from '@voca/shared';
+import { refreshBodySchema, userSettingsSchema, DEFAULT_USER_SETTINGS } from '@voca/shared';
 
 const REDIRECT_URI = `http://localhost:${env.PORT}/api/auth/google/callback`;
 
@@ -115,4 +115,14 @@ export const updateSettings = async (req: Request, res: Response) => {
   );
   if (!user) return sendError(res, 'User not found', 404);
   return sendSuccess(res, 'Settings updated', user.settings);
+};
+
+export const resetSettings = async (req: Request, res: Response) => {
+  const user = await UserModel.findByIdAndUpdate(
+    req.user!.id,
+    { settings: DEFAULT_USER_SETTINGS },
+    { new: true }
+  );
+  if (!user) return sendError(res, 'User not found', 404);
+  return sendSuccess(res, 'Settings reset to defaults', user.settings);
 };

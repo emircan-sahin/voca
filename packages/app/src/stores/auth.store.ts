@@ -17,7 +17,7 @@ interface AuthState {
   hydrate: () => Promise<void>;
 }
 
-function applyRemoteSettings(settings: IUserSettings) {
+export function applyRemoteSettings(settings: IUserSettings) {
   useProviderStore.setState({ provider: settings.provider });
   useLanguageStore.setState({ language: settings.language });
   useNoiseSuppressionStore.setState({ enabled: settings.noiseSuppression });
