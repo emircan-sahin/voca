@@ -4,8 +4,10 @@ import { Toaster } from 'react-hot-toast';
 import { DashboardLayout } from '~/layouts/DashboardLayout';
 import { SetupPage } from '~/pages/Setup';
 import { WelcomePage } from '~/pages/Welcome';
+import { SplashScreen } from '~/components/SplashScreen';
 import { useAuthStore } from '~/stores/auth.store';
 import { useSettingsSync } from '~/hooks/useSettingsSync';
+import { useBackendReady } from '~/hooks/useBackendReady';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,10 +21,11 @@ const queryClient = new QueryClient({
 const App = () => {
   const [ready, setReady] = useState<boolean | null>(null);
   const { user, isLoading, hydrate } = useAuthStore();
+  const { ready: backendReady, retryIn } = useBackendReady();
 
   useEffect(() => {
-    hydrate();
-  }, [hydrate]);
+    if (backendReady) hydrate();
+  }, [backendReady, hydrate]);
 
   useSettingsSync();
 
@@ -41,6 +44,7 @@ const App = () => {
     });
   }, []);
 
+  if (!backendReady) return <SplashScreen retryIn={retryIn} />;
   if (ready === null || isLoading) return null;
 
   const content = !ready

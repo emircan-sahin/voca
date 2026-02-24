@@ -7,7 +7,7 @@ import authRoutes from '~/routes/auth.routes';
 import transcriptRoutes from '~/routes/transcript.routes';
 import billingRoutes from '~/routes/billing.routes';
 import { errorMiddleware } from '~/middleware/error.middleware';
-import { sendError } from '~/utils/response';
+import { sendError, sendSuccess } from '~/utils/response';
 import { globalLimiter } from '~/middleware/rateLimit.middleware';
 import { redis, clearTranscriptionLocks } from '~/config/redis';
 
@@ -28,6 +28,8 @@ app.use((req, res, next) => {
   });
   next();
 });
+
+app.get('/api/health', (_req, res) => sendSuccess(res, 'OK', null));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/transcripts', transcriptRoutes);
