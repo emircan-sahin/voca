@@ -89,6 +89,9 @@ ipcMain.on('overlay:stop', () => {
 ipcMain.on('overlay:cancel', () => {
   mainWin?.webContents.send('recording:cancel');
 });
+ipcMain.on('overlay:pause', () => {
+  mainWin?.webContents.send('recording:pause');
+});
 
 function createWindow() {
   const iconPath = join(__dirname, '../../../../assets/icon.png');

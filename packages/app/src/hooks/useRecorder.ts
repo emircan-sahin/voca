@@ -40,6 +40,12 @@ export const useRecorder = (deviceId: string) => {
     []
   );
 
+  const pause = useCallback(() => {
+    if (mediaRecorder.current?.state === 'recording') {
+      mediaRecorder.current.pause();
+    }
+  }, []);
+
   const cancel = useCallback(() => {
     if (!mediaRecorder.current) return;
     mediaRecorder.current.onstop = null;
@@ -50,5 +56,5 @@ export const useRecorder = (deviceId: string) => {
     setIsRecording(false);
   }, []);
 
-  return { isRecording, stream, start, stop, cancel };
+  return { isRecording, stream, start, stop, pause, cancel };
 };

@@ -3,26 +3,41 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 const BAR_COUNT = 48;
 const LERP = 0.18;
 const ACCENT = '#dc2626';
+const MAX_SECONDS = 300;
 
 export function RecordingOverlay() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentHeights = useRef(new Float32Array(BAR_COUNT));
   const targetHeights = useRef(new Float32Array(BAR_COUNT));
   const analyserRef = useRef<AnalyserNode | null>(null);
+  const micStreamRef = useRef<MediaStream | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
   const freqData = useRef(new Uint8Array(0));
   const rafRef = useRef(0);
   const startTime = useRef(Date.now());
+  const autoPaused = useRef(false);
   const [timer, setTimer] = useState('00:00');
+  const [paused, setPaused] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Timer
+  // Timer + auto-pause at MAX_SECONDS
   useEffect(() => {
     const id = setInterval(() => {
       const s = Math.floor((Date.now() - startTime.current) / 1000);
+      const capped = Math.min(s, MAX_SECONDS);
       setTimer(
-        String(Math.floor(s / 60)).padStart(2, '0') + ':' +
-        String(s % 60).padStart(2, '0')
+        String(Math.floor(capped / 60)).padStart(2, '0') + ':' +
+        String(capped % 60).padStart(2, '0')
       );
+      if (s >= MAX_SECONDS && !autoPaused.current) {
+        autoPaused.current = true;
+        clearInterval(id);
+        analyserRef.current = null;
+        micStreamRef.current?.getTracks().forEach((t) => t.stop());
+        audioCtxRef.current?.close();
+        setPaused(true);
+        window.electronAPI.requestPauseRecording();
+      }
     }, 500);
     return () => clearInterval(id);
   }, []);
@@ -33,20 +48,20 @@ export function RecordingOverlay() {
     const params = new URLSearchParams(window.location.search);
     const deviceId = params.get('deviceId') || '';
 
-    let audioCtx: AudioContext | null = null;
-    let stream: MediaStream | null = null;
     let cancelled = false;
 
     (async () => {
       try {
-        stream = await navigator.mediaDevices.getUserMedia({
+        const stream = await navigator.mediaDevices.getUserMedia({
           audio: deviceId ? { deviceId: { exact: deviceId } } : true,
         });
         if (cancelled) {
           stream.getTracks().forEach((t) => t.stop());
           return;
         }
-        audioCtx = new AudioContext();
+        micStreamRef.current = stream;
+        const audioCtx = new AudioContext();
+        audioCtxRef.current = audioCtx;
         const source = audioCtx.createMediaStreamSource(stream);
         const analyser = audioCtx.createAnalyser();
         analyser.fftSize = 128;
@@ -61,8 +76,8 @@ export function RecordingOverlay() {
     return () => {
       cancelled = true;
       analyserRef.current = null;
-      stream?.getTracks().forEach((t) => t.stop());
-      audioCtx?.close();
+      micStreamRef.current?.getTracks().forEach((t) => t.stop());
+      audioCtxRef.current?.close();
     };
   }, []);
 
@@ -98,15 +113,19 @@ export function RecordingOverlay() {
       const data = freqData.current;
 
       for (let i = 0; i < BAR_COUNT; i++) {
-        const idx = Math.floor((i / BAR_COUNT) * data.length);
-        const audioVal = (data[idx] || 0) / 255;
+        if (autoPaused.current) {
+          targetHeights.current[i] = 0.04;
+        } else {
+          const idx = Math.floor((i / BAR_COUNT) * data.length);
+          const audioVal = (data[idx] || 0) / 255;
 
-        const idle =
-          0.08 +
-          0.06 * Math.sin(t * 2.5 + i * 0.4) +
-          0.04 * Math.sin(t * 1.7 + i * 0.7);
+          const idle =
+            0.08 +
+            0.06 * Math.sin(t * 2.5 + i * 0.4) +
+            0.04 * Math.sin(t * 1.7 + i * 0.7);
 
-        targetHeights.current[i] = Math.max(idle, audioVal);
+          targetHeights.current[i] = Math.max(idle, audioVal);
+        }
         currentHeights.current[i] +=
           (targetHeights.current[i] - currentHeights.current[i]) * LERP;
       }
@@ -148,9 +167,13 @@ export function RecordingOverlay() {
       {/* Header */}
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className={`h-2 w-2 rounded-full ${loading ? 'bg-neutral-400 animate-pulse' : 'animate-pulse bg-red-600'}`} />
+          <div className={`h-2 w-2 rounded-full ${
+            loading ? 'bg-neutral-400 animate-pulse'
+            : paused ? 'bg-amber-500'
+            : 'animate-pulse bg-red-600'
+          }`} />
           <span className="text-[13px] font-semibold text-[#171717]">
-            {loading ? 'Processing...' : 'Recording'}
+            {loading ? 'Processing...' : paused ? 'Time\'s up' : 'Recording'}
           </span>
         </div>
         <span className="font-mono text-[13px] text-[#737373]">{timer}</span>

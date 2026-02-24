@@ -33,11 +33,20 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
   requestStopRecording: () => ipcRenderer.send('overlay:stop'),
   requestCancelRecording: () => ipcRenderer.send('overlay:cancel'),
+  requestPauseRecording: () => ipcRenderer.send('overlay:pause'),
   onCancelRecording: (callback: () => void) => {
     const handler = () => callback();
     ipcRenderer.on('recording:cancel', handler);
     return () => {
       ipcRenderer.removeListener('recording:cancel', handler);
+    };
+  },
+
+  onPauseRecording: (callback: () => void) => {
+    const handler = () => callback();
+    ipcRenderer.on('recording:pause', handler);
+    return () => {
+      ipcRenderer.removeListener('recording:pause', handler);
     };
   },
 

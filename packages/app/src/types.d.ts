@@ -28,7 +28,9 @@ declare global {
       onOverlayLoading: (callback: (loading: boolean) => void) => () => void;
       requestStopRecording: () => void;
       requestCancelRecording: () => void;
+      requestPauseRecording: () => void;
       onCancelRecording: (callback: () => void) => () => void;
+      onPauseRecording: (callback: () => void) => () => void;
 
       // Auth
       auth: {

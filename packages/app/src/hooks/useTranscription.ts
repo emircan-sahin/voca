@@ -16,7 +16,7 @@ import { ApiResponse, ITranscript } from '@voca/shared';
 export const useTranscription = () => {
   const queryClient = useQueryClient();
   const { deviceId } = useMicrophoneStore();
-  const { isRecording, stream, start, stop, cancel } = useRecorder(deviceId);
+  const { isRecording, stream, start, stop, pause, cancel } = useRecorder(deviceId);
   const { isProcessing, setProcessing } = useRecordingStore();
   const { provider } = useProviderStore();
   const { language } = useLanguageStore();
@@ -99,6 +99,14 @@ export const useTranscription = () => {
   }, [handleToggle]);
 
   useGlobalShortcut(handleShortcutToggle);
+
+  // Listen for pause from overlay (time limit)
+  useEffect(() => {
+    const cleanup = window.electronAPI.onPauseRecording(() => {
+      if (isRecording) pause();
+    });
+    return cleanup;
+  }, [isRecording, pause]);
 
   // Listen for cancel from overlay or shortcut
   useEffect(() => {
