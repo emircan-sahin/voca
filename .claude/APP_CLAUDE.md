@@ -17,8 +17,9 @@
 │  History    │     <Active View>            │
 │  Settings   │                              │
 │  Billing    │                              │
+│ v0.0.1·macOS│                              │
 │  ─────────  │                              │
-│  Voca v0.1  │                              │
+│  User info  │                              │
 └─────────────┴──────────────────────────────┘
 ```
 - **Navigation**: Zustand store (`navigation.store.ts`), no router — conditional rendering
@@ -58,7 +59,7 @@ Expose only safe APIs via `contextBridge`:
 ```typescript
 contextBridge.exposeInMainWorld('electronAPI', {
   platform: process.platform,
-  onAuthCallback: (cb) => ipcRenderer.on('auth-callback', cb),
+  getVersion: () => ipcRenderer.invoke('app:getVersion'),
   // Only add what's necessary
 });
 ```

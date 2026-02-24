@@ -158,10 +158,18 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string().default(''),
   GOOGLE_CLIENT_SECRET: z.string().default(''),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
+  REDIS_URL: z.string().default('redis://127.0.0.1:6379'),
 });
 export const env = envSchema.parse(process.env);
 ```
 Using `process.env.X` directly is **forbidden** — always use `env.X`.
+
+## AppConfig Singleton
+`latestVersion` is stored in MongoDB via `AppConfigModel` (`src/models/appConfig.model.ts`), not as an env var.
+- Singleton document: `{ _id: 'main', latestVersion: '0.0.1' }`
+- `ensureAppConfig()` called at startup — upserts without overwriting existing values (`$setOnInsert`)
+- `getAppConfig()` returns in-memory cached value (sync), refreshed every 3 minutes via `setInterval`
+- Health endpoint: `GET /api/health` → `{ success: true, data: { latestVersion } }`
 
 ## Backend Code Quality
 

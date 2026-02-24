@@ -29,8 +29,9 @@
 │  History    │     <Active View>            │
 │  Settings   │                              │
 │  Billing    │                              │
+│ v0.0.1·macOS│                              │
 │  ─────────  │                              │
-│  Voca v0.1  │                              │
+│  User info  │                              │
 └─────────────┴──────────────────────────────┘
 ```
 - Sidebar uses **dashed** borders for structural dividers
