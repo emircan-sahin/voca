@@ -10,6 +10,7 @@ import { errorMiddleware } from '~/middleware/error.middleware';
 import { sendError, sendSuccess } from '~/utils/response';
 import { globalLimiter } from '~/middleware/rateLimit.middleware';
 import { redis, clearTranscriptionLocks } from '~/config/redis';
+import { ensureAppConfig, getAppConfig } from '~/models/appConfig.model';
 
 const app = express();
 
@@ -30,7 +31,8 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/health', (_req, res) => {
-  sendSuccess(res, 'OK', { latestVersion: env.CLIENT_VERSION });
+  const config = getAppConfig();
+  sendSuccess(res, 'OK', { latestVersion: config.latestVersion });
 });
 
 app.use('/api/auth', authRoutes);
@@ -46,6 +48,7 @@ mongoose
   .then(async () => {
     console.log('[MongoDB] Connected');
     await clearTranscriptionLocks();
+    await ensureAppConfig();
     const server = app.listen(env.PORT, () => {
       console.log(`[Server] Running on http://localhost:${env.PORT}`);
     });

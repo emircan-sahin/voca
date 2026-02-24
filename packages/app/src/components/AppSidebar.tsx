@@ -14,6 +14,7 @@ import vocaLogo from '~/assets/voca_logo.png';
 
 interface AppSidebarProps {
   transcriptCount: number;
+  appVersion: string | null;
 }
 
 const menuItems: { key: View; label: string; icon: React.ReactNode }[] = [
@@ -29,9 +30,16 @@ function planBadgeStyle(plan: string | null): { label: string; bg: string; text:
   return { label: 'Free', bg: '#e5e5e5', text: '#737373' };
 }
 
-export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
+const PLATFORM_LABELS: Record<string, string> = {
+  darwin: 'macOS',
+  win32: 'Windows',
+  linux: 'Linux',
+};
+
+export const AppSidebar = ({ transcriptCount, appVersion }: AppSidebarProps) => {
   const { view, setView } = useNavigationStore();
   const { user, clearAuth } = useAuthStore();
+  const platformLabel = PLATFORM_LABELS[window.electronAPI.platform] ?? window.electronAPI.platform;
 
   return (
     <Sidebar variant="bordered" className="border-0 border-r-2 border-dashed border-slate-300">
@@ -59,6 +67,12 @@ export const AppSidebar = ({ transcriptCount }: AppSidebarProps) => {
           ))}
         </SidebarMenu>
       </SidebarContent>
+
+      {appVersion && (
+        <p className="text-[10px] text-[#a3a3a3] px-3 pb-2">
+          v{appVersion} · {platformLabel}
+        </p>
+      )}
 
       <SidebarFooter>
         {user && (() => {

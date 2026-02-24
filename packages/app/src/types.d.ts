@@ -11,6 +11,7 @@ declare global {
   interface Window {
     electronAPI: {
       platform: string;
+      getVersion: () => Promise<string>;
       permissions: {
         getMicrophoneStatus: () => Promise<MicrophoneStatus>;
         requestMicrophone: () => Promise<boolean>;

@@ -71,6 +71,9 @@ ipcMain.on('transcript:paste-text', (_event, text: string) => {
   }, 100);
 });
 
+// App info
+ipcMain.handle('app:getVersion', () => app.getVersion());
+
 // Auth
 ipcMain.handle('auth:get', () => getAuthData());
 ipcMain.handle('auth:set', (_, data) => setAuthData(data));

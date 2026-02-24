@@ -2,6 +2,7 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('electronAPI', {
   platform: process.platform,
+  getVersion: () => ipcRenderer.invoke('app:getVersion'),
   permissions: {
     getMicrophoneStatus: () => ipcRenderer.invoke('permissions:getMicrophoneStatus'),
     requestMicrophone: () => ipcRenderer.invoke('permissions:requestMicrophone'),
