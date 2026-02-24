@@ -5,11 +5,12 @@ dist/
 !.env.example
 *.local
 .DS_Store
-out/
 *.log
 uploads/
 
-# Electron
+# Electron build artifacts
+out/
+app-build/
 release/
 
 # Claude Code personal settings

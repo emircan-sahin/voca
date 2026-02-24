@@ -1,13 +1,59 @@
 {
   "name": "@voca/app",
   "version": "0.0.1",
+  "description": "Voice transcription desktop app",
+  "author": "Voca <contact@usevoca.dev>",
   "main": "out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
+    "build:mac": "rm -rf out release && electron-vite build && electron-builder --mac",
+    "build:win": "rm -rf out release && electron-vite build && electron-builder --win",
     "preview": "electron-vite preview",
     "lint": "eslint .",
     "postinstall": "node scripts/patch-electron-plist.mjs"
+  },
+  "build": {
+    "appId": "dev.usevoca.app",
+    "productName": "Voca",
+    "npmRebuild": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../../assets",
+        "to": "assets"
+      }
+    ],
+    "mac": {
+      "target": "dmg",
+      "icon": "../../assets/icon.icns",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "protocols": [
+        {
+          "name": "Voca",
+          "schemes": ["voca"]
+        }
+      ]
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "../../assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "emircan-sahin",
+      "repo": "voca"
+    }
   },
   "dependencies": {
     "@tanstack/react-query": "^5.49.2",
@@ -15,6 +61,7 @@
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
+    "electron-updater": "^6.3.9",
     "lucide-react": "^0.400.0",
     "poyraz-ui": "^0.2.2",
     "react": "^18.3.1",
@@ -32,6 +79,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "electron": "^31.1.0",
+    "electron-builder": "^25.1.8",
     "electron-vite": "^2.3.0",
     "postcss": "^8.4.39",
     "tailwindcss": "^4.2.0",

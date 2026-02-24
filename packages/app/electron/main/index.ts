@@ -4,6 +4,12 @@ import { exec } from 'child_process';
 import { registerShortcuts, unregisterShortcuts } from './shortcuts';
 import { showOverlay, hideOverlay, sendLoadingToOverlay } from './overlay';
 import { getAuthData, setAuthData, clearAuthData, openAuthProvider } from './auth';
+import { initAutoUpdater } from './updater';
+
+const isDev = !!process.env['ELECTRON_RENDERER_URL'];
+const assetsPath = isDev
+  ? join(__dirname, '../../../../assets')
+  : join(process.resourcesPath, 'assets');
 
 let mainWin: BrowserWindow | null = null;
 let bufferedDeepLinkUrl: string | null = null;
@@ -104,7 +110,7 @@ ipcMain.on('overlay:pause', () => {
 });
 
 function createWindow() {
-  const iconPath = join(__dirname, '../../../../assets/icon.png');
+  const iconPath = join(assetsPath, 'icon.png');
 
   const win = new BrowserWindow({
     width: 1050,
@@ -180,14 +186,21 @@ if (!gotTheLock) {
 app.whenReady().then(() => {
   // Set dock icon on macOS (dev mode uses Electron's default otherwise)
   if (process.platform === 'darwin') {
-    const dockIcon = nativeImage.createFromPath(
-      join(__dirname, '../../../../assets/icon.png')
-    );
+    const dockIcon = nativeImage.createFromPath(join(assetsPath, 'icon.png'));
     app.dock.setIcon(dockIcon);
   }
 
   mainWin = createWindow();
   registerShortcuts(mainWin);
+
+  // Auto-updater (production only — register noop handlers in dev)
+  if (!isDev) {
+    initAutoUpdater(mainWin);
+  } else {
+    ipcMain.handle('updater:check', () => {});
+    ipcMain.handle('updater:download', () => {});
+    ipcMain.handle('updater:install', () => {});
+  }
 
   // Process buffered deep link after window is ready
   mainWin.webContents.once('did-finish-load', () => {

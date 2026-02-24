@@ -60,11 +60,22 @@ Expose only safe APIs via `contextBridge`:
 contextBridge.exposeInMainWorld('electronAPI', {
   platform: process.platform,
   getVersion: () => ipcRenderer.invoke('app:getVersion'),
+  updater: { checkForUpdates, downloadUpdate, installUpdate, onUpdateAvailable, onDownloadProgress, onUpdateDownloaded },
   // Only add what's necessary
 });
 ```
 `nodeIntegration: false` and `contextIsolation: true` are mandatory.
 `voca://` protocol handler registered in main process (dev: plist patch, prod: app bundle).
+
+## Auto-Update (electron-updater)
+- `updater.ts` in main process — `autoDownload: false`, user confirms via toast
+- IPC channels: `updater:check`, `updater:download`, `updater:install` + renderer events
+- Dev mode registers noop handlers (no crash on sidebar click)
+- Checks: 5s after launch, then every 4h
+- `useAutoUpdate` hook in renderer shows 3-stage toast (available → downloading → restart)
+- Sidebar version label is clickable → triggers manual check
+- Packaging: `electron-builder` with `npmRebuild: false` (uiohook-napi uses prebuilt binaries)
+- CI: `.github/workflows/release.yml` — tag push `v*` → build mac+win → publish to GitHub Release
 
 ## MediaRecorder
 - Format: `audio/webm`

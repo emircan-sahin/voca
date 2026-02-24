@@ -69,9 +69,12 @@ export const AppSidebar = ({ transcriptCount, appVersion }: AppSidebarProps) => 
       </SidebarContent>
 
       {appVersion && (
-        <p className="text-[10px] text-[#a3a3a3] px-3 pb-2">
+        <button
+          onClick={() => window.electronAPI.updater.checkForUpdates()}
+          className="text-[10px] text-[#a3a3a3] hover:text-[#737373] transition-colors px-3 pb-2 text-left cursor-pointer"
+        >
           v{appVersion} · {platformLabel}
-        </p>
+        </button>
       )}
 
       <SidebarFooter>

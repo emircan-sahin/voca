@@ -41,6 +41,16 @@ declare global {
         openProvider: (url: string) => Promise<void>;
         onAuthCallback: (cb: (data: AuthData) => void) => () => void;
       };
+
+      // Auto-updater
+      updater: {
+        checkForUpdates: () => Promise<void>;
+        downloadUpdate: () => Promise<void>;
+        installUpdate: () => Promise<void>;
+        onUpdateAvailable: (cb: (data: { version: string }) => void) => () => void;
+        onDownloadProgress: (cb: (data: { percent: number }) => void) => () => void;
+        onUpdateDownloaded: (cb: (data: { version: string }) => void) => () => void;
+      };
     };
   }
 }
