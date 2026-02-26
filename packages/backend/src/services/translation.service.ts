@@ -74,19 +74,17 @@ export const translateText = async (
 IMPORTANT: You MUST convert ALL numbers expressed as words into their numeric digit form in the final output.
 This applies to numbers in ANY language (source or target).
 Examples:
-- "iki nokta beş" → "2.5"
-- "yüz elli" → "150"
-- "üç bin" → "3000"
 - "two hundred" → "200"
-- "on iki" → "12"
-- "sıfır nokta yedi beş" → "0.75"
+- "three point five" → "3.5"
+- "twelve" → "12"
+- "zero point seven five" → "0.75"
 Never leave a number in word form — always use digits.
 </numeric_rules>`;
   }
 
   if (options?.planning) {
     system += `\n\n<planning_rules>
-When the speaker dictates TWO OR MORE sequential items (e.g. "birincisi …, ikincisi …", "first …, second …"), format them as a numbered list with each item on its own line:
+When the speaker dictates TWO OR MORE sequential items (e.g. "first …, second …", "number one …, number two …"), format them as a numbered list with each item on its own line:
 1. First item
 2. Second item
 Keep the numbering sequential. Each item MUST start on a new line.
