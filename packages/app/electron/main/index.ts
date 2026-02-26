@@ -121,16 +121,18 @@ function createWindow() {
   const cursor = screen.getCursorScreenPoint();
   const display = screen.getDisplayNearestPoint(cursor);
   const { x: dx, y: dy, width, height } = display.workArea;
-  const x = Math.round(dx + (width - 1050) / 2);
-  const y = Math.round(dy + (height - 740) / 2);
+  const w = Math.min(1050, width);
+  const h = Math.min(740, height);
+  const x = Math.round(dx + (width - w) / 2);
+  const y = Math.round(dy + (height - h) / 2);
 
   const win = new BrowserWindow({
-    width: 1050,
-    height: 740,
-    minWidth: 1050,
-    minHeight: 740,
-    maxWidth: 1050,
-    maxHeight: 740,
+    width: w,
+    height: h,
+    minWidth: w,
+    minHeight: h,
+    maxWidth: w,
+    maxHeight: h,
     resizable: false,
     x,
     y,
