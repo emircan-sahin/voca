@@ -6,6 +6,11 @@ import { showOverlay, hideOverlay, sendLoadingToOverlay } from './overlay';
 import { getAuthData, setAuthData, clearAuthData, openAuthProvider } from './auth';
 import { initAutoUpdater } from './updater';
 
+// Enable CDP for Playwright MCP in dev mode
+if (process.env['ELECTRON_RENDERER_URL']) {
+  app.commandLine.appendSwitch('remote-debugging-port', '9222');
+}
+
 const isDev = !!process.env['ELECTRON_RENDERER_URL'];
 const assetsPath = isDev
   ? join(__dirname, '../../../../assets')

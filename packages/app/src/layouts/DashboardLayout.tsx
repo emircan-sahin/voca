@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { IUser } from '@voca/shared';
 import { AppSidebar } from '~/components/AppSidebar';
 import { TopHeader } from '~/components/TopHeader';
 import { ShortcutsPanel } from '~/components/ShortcutsPanel';
@@ -9,30 +8,21 @@ import { SettingsView } from '~/pages/Settings';
 import { BillingView } from '~/pages/Billing';
 import { useTranscription } from '~/hooks/useTranscription';
 import { useNavigationStore } from '~/stores/navigation.store';
-import { useAuthStore } from '~/stores/auth.store';
-import { api } from '~/lib/axios';
-
-function refreshUser() {
-  api.get<IUser>('/auth/me').then((res) => {
-    if (res.data) useAuthStore.setState({ user: res.data });
-  }).catch((err) => {
-    console.warn('[PlanExpiry] Failed to refresh user:', err.message ?? err);
-  });
-}
+import { useAuthStore, refreshUser } from '~/stores/auth.store';
 
 function usePlanExpiryWatcher() {
   const { user } = useAuthStore();
 
   useEffect(() => {
-    if (!user?.planExpiresAt) return;
+    if (!user?.currentPeriodEnd) return;
 
     const interval = setInterval(() => {
-      const remaining = new Date(user.planExpiresAt!).getTime() - Date.now();
+      const remaining = new Date(user.currentPeriodEnd!).getTime() - Date.now();
       if (remaining <= 0) refreshUser();
     }, 60_000);
 
     return () => clearInterval(interval);
-  }, [user?.planExpiresAt]);
+  }, [user?.currentPeriodEnd]);
 }
 
 export const DashboardLayout = () => {

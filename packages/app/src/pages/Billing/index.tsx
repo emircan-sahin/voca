@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Check, Linkedin, Mail } from 'lucide-react';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
 import {
@@ -7,10 +7,13 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from 'poyraz-ui/molecules';
-import { BillingPlan, PLAN_RANK, IUser, SOCIALS } from '@voca/shared';
+import { initializePaddle, CheckoutEventNames } from '@paddle/paddle-js';
+import type { Paddle, Environments } from '@paddle/paddle-js';
+import toast from 'react-hot-toast';
+import { BillingPlan, IUser, SubscriptionStatus, SOCIALS, PLAN_RANK } from '@voca/shared';
 import dayjs from '~/lib/dayjs';
-import { api } from '~/lib/axios';
-import { useAuthStore } from '~/stores/auth.store';
+import { api, ApiError } from '~/lib/axios';
+import { useAuthStore, refreshUser } from '~/stores/auth.store';
 
 const plans: {
   key: BillingPlan;
@@ -106,12 +109,23 @@ const FAQ_ITEMS = [
   },
 ];
 
-function expiryLabel(expiresAt: string | null): string | null {
-  if (!expiresAt) return null;
-  const target = dayjs(expiresAt);
+// ── Helpers ─────────────────────────────────────────────────────
+
+function periodLabel(periodEnd: string | null, status: SubscriptionStatus | null, cancelScheduled: boolean): string | null {
+  if (!periodEnd) return null;
+  const target = dayjs(periodEnd);
   if (target.isBefore(dayjs())) return 'Expired';
-  return `Expires ${target.fromNow()}`;
+  if (cancelScheduled) return `Active until ${target.format('MMM D')}`;
+  if (status === 'trialing') return `Trial ends ${target.fromNow()}`;
+  if (status === 'canceled') return `Expired`;
+  return `Renews ${target.fromNow()}`;
 }
+
+const STATUS_LABELS: Record<SubscriptionStatus, { label: string; color: string }> = {
+  trialing: { label: 'Trial', color: '#3b82f6' },
+  active: { label: 'Active', color: '#22c55e' },
+  canceled: { label: 'Canceled', color: '#ef4444' },
+};
 
 function useTick(intervalMs: number) {
   const [, setTick] = useState(0);
@@ -121,16 +135,63 @@ function useTick(intervalMs: number) {
   }, [intervalMs]);
 }
 
+
+// ── Component ───────────────────────────────────────────────────
+
 export const BillingView = () => {
   const { user } = useAuthStore();
-  const [loading, setLoading] = useState<'activate' | 'cancel' | null>(null);
+  const [loading, setLoading] = useState<'checkout' | 'cancel' | null>(null);
+  const paddleRef = useRef<Paddle | null>(null);
   useTick(60_000);
 
-  const handleActivate = async (plan: BillingPlan) => {
-    setLoading('activate');
+  // Refresh user data on mount so billing state is always fresh
+  useEffect(() => { refreshUser(); }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    api.get<{ clientToken: string; sandbox: boolean }>('/billing/config').then(async (res) => {
+      if (cancelled || !res.data) return;
+
+      const paddle = await initializePaddle({
+        token: res.data.clientToken,
+        environment: (res.data.sandbox ? 'sandbox' : 'production') as Environments,
+        eventCallback: (event) => {
+          if (event.name === CheckoutEventNames.CHECKOUT_COMPLETED) {
+            setTimeout(refreshUser, 5_000);
+            setTimeout(refreshUser, 15_000);
+          }
+        },
+      });
+
+      if (!cancelled && paddle) paddleRef.current = paddle;
+    }).catch(() => {});
+
+    return () => { cancelled = true; };
+  }, []);
+
+  const handleCheckout = async (plan: BillingPlan) => {
+    const paddle = paddleRef.current;
+    if (!paddle || !user) return;
+
+    setLoading('checkout');
     try {
-      const res = await api.post<IUser>('/billing/activate', { plan });
-      if (res.data) useAuthStore.setState({ user: res.data });
+      const res = await api.post<{ url: string; updated?: boolean }>('/billing/checkout', { plan });
+
+      if (res.data?.updated) {
+        toast.success('Plan updated');
+        setTimeout(refreshUser, 2000);
+        return;
+      }
+
+      const txnId = res.data?.url
+        ? new URL(res.data.url).searchParams.get('_ptxn')
+        : null;
+      if (txnId) {
+        paddle.Checkout.open({ transactionId: txnId });
+      }
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : 'Failed to open checkout');
     } finally {
       setLoading(null);
     }
@@ -141,16 +202,25 @@ export const BillingView = () => {
     try {
       const res = await api.post<IUser>('/billing/cancel');
       if (res.data) useAuthStore.setState({ user: res.data });
+      toast.success('Subscription will cancel at period end');
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : 'Failed to cancel subscription');
     } finally {
       setLoading(null);
     }
   };
 
-  const expiry = expiryLabel(user?.planExpiresAt ?? null);
-  const hasActivePlan = !!user?.plan;
+  // ── Derived state ───────────────────────────────────────────
+  const subStatus = user?.subscriptionStatus ?? null;
+  const cancelScheduled = user?.cancelScheduled ?? false;
 
-  const isUpgrade = (plan: BillingPlan) =>
-    hasActivePlan && PLAN_RANK[plan] > PLAN_RANK[user!.plan!];
+  // "Live" = trialing or active AND not scheduled for cancel
+  const isLive = (subStatus === 'trialing' || subStatus === 'active') && !cancelScheduled;
+  const canCancel = isLive;
+  const canUpgrade = subStatus === 'active' && !cancelScheduled;
+
+  const period = periodLabel(user?.currentPeriodEnd ?? null, subStatus, cancelScheduled);
+  const statusInfo = subStatus ? STATUS_LABELS[subStatus] : null;
 
   return (
     <div className="p-6 space-y-6">
@@ -159,38 +229,69 @@ export const BillingView = () => {
           <div>
             <h3 className="text-sm font-medium text-[#171717] mb-1">Remaining Credits</h3>
             <p className="text-2xl font-bold text-[#171717]">${(user?.credits ?? 0).toFixed(2)}</p>
-            {hasActivePlan && expiry && (
-              <p className="text-xs text-[#737373] mt-1">{expiry}</p>
+            {period && (
+              <p className="text-xs text-[#737373] mt-1">{period}</p>
             )}
           </div>
-          {hasActivePlan && (
-            <span
-              className="inline-block text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded"
-              style={{
-                backgroundColor: user!.plan === 'max' ? '#dc2626' : '#f59e0b',
-                color: '#fff',
-              }}
-            >
-              {user!.plan}
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            {statusInfo && user?.plan && (
+              <span
+                className="inline-block text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded"
+                style={{ backgroundColor: cancelScheduled ? '#ef4444' : statusInfo.color, color: '#fff' }}
+              >
+                {cancelScheduled ? 'Canceling' : statusInfo.label}
+              </span>
+            )}
+            {user?.plan && (
+              <span
+                className="inline-block text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded"
+                style={{
+                  backgroundColor: user.plan === 'max' ? '#dc2626' : '#f59e0b',
+                  color: '#fff',
+                }}
+              >
+                {user.plan}
+              </span>
+            )}
+          </div>
         </CardContent>
       </Card>
 
       <div className="grid grid-cols-2 gap-4">
         {plans.map(({ key, label, description, price, features }) => {
-          const active = user?.plan === key;
+          const isCurrentPlan = user?.plan === key;
+
+          const showCancel = isCurrentPlan && canCancel;
+          const isDowngrade = isLive && !isCurrentPlan && user?.plan && PLAN_RANK[key] < PLAN_RANK[user.plan];
+
+          let buttonText = 'Subscribe';
+          let buttonDisabled = loading !== null;
+
+          if (!showCancel) {
+            if (isDowngrade) {
+              buttonText = 'Current: ' + (user?.plan === 'max' ? 'Max' : 'Pro');
+              buttonDisabled = true;
+            } else if (canUpgrade && !isCurrentPlan) {
+              buttonText = 'Upgrade';
+            } else if (isLive && !isCurrentPlan) {
+              // Trial on other plan → can't switch
+              buttonText = 'Upgrade';
+              buttonDisabled = true;
+            }
+          }
+
           return (
             <Card
               key={key}
               variant="bordered"
-              className={`border-solid ${active ? 'border-[#171717] border-2' : 'border-[#e5e5e5]'}`}
+              className={`border-solid ${isCurrentPlan && isLive ? 'border-[#171717] border-2' : 'border-[#e5e5e5]'}`}
             >
               <CardContent className="p-5 flex flex-col gap-4">
                 <div className="text-center">
                   <h3 className="text-base font-semibold text-[#171717]">{label}</h3>
                   <p className="text-xs text-[#737373] mt-0.5">{description}</p>
                   <p className="text-3xl font-bold text-[#171717] mt-2">${price}</p>
+                  <p className="text-xs text-[#a3a3a3] mt-0.5">3-day free trial</p>
                 </div>
 
                 <ul className="space-y-2">
@@ -202,7 +303,7 @@ export const BillingView = () => {
                   ))}
                 </ul>
 
-                {active ? (
+                {showCancel ? (
                   <Button
                     variant="outline"
                     size="sm"
@@ -210,27 +311,17 @@ export const BillingView = () => {
                     disabled={loading !== null}
                     onClick={handleCancel}
                   >
-                    {loading === 'cancel' ? 'Cancelling...' : 'Cancel Renewal'}
-                  </Button>
-                ) : isUpgrade(key) ? (
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="w-full mt-auto"
-                    disabled={loading !== null}
-                    onClick={() => handleActivate(key)}
-                  >
-                    {loading === 'activate' ? 'Upgrading...' : 'Upgrade'}
+                    {loading === 'cancel' ? 'Cancelling...' : 'Cancel Subscription'}
                   </Button>
                 ) : (
                   <Button
                     variant="default"
                     size="sm"
                     className="w-full mt-auto"
-                    disabled={loading !== null || hasActivePlan}
-                    onClick={() => handleActivate(key)}
+                    disabled={buttonDisabled}
+                    onClick={() => handleCheckout(key)}
                   >
-                    {loading === 'activate' ? 'Activating...' : 'Activate'}
+                    {loading === 'checkout' ? 'Opening...' : buttonText}
                   </Button>
                 )}
               </CardContent>

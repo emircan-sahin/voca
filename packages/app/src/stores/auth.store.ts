@@ -38,6 +38,12 @@ export function applyRemoteSettings(settings: IUserSettings) {
   });
 }
 
+export function refreshUser() {
+  api.get<IUser>('/auth/me').then((res) => {
+    if (res.data) useAuthStore.setState({ user: res.data });
+  }).catch(() => {});
+}
+
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   token: null,
