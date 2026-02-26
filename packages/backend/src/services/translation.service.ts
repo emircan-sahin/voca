@@ -95,10 +95,10 @@ Do not add any introductory or concluding remarks — just the numbered list or 
   ];
 
   const { text: translatedText, usage } = await generateText({
-    model: google('gemini-2.5-flash'),
+    model: google('gemini-2.0-flash'),
     system,
-    temperature: 0.2,
-    maxOutputTokens: 4096,
+    temperature: 0.1,
+    maxOutputTokens: 12_000,
     messages,
   });
 

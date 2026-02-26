@@ -5,12 +5,12 @@ import { env } from '~/config/env';
 import { logger } from '~/config/logger';
 
 // 25% markup on API costs
-// Gemini 2.5 Flash: $0.30/1M input, $2.50/1M output
+// Gemini 2.0 Flash: $0.10/1M input, $0.40/1M output
 const MARKUP = 1.25;
 
 const GEMINI_TOKEN_RATES = {
-  input: (0.30 / 1_000_000) * MARKUP,
-  output: (2.50 / 1_000_000) * MARKUP,
+  input: (0.10 / 1_000_000) * MARKUP,
+  output: (0.40 / 1_000_000) * MARKUP,
 } as const;
 
 export function calculateCost(
