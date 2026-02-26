@@ -62,7 +62,7 @@
   "overlay.cancel": "取消录音",
   "overlay.cancelBtn": "取消",
   "splash.checking": "正在检查更新...",
-  "splash.retrying": "正在检查更新... {{seconds}}秒后重试",
+  "splash.retrying": "{{seconds}}秒后重试",
   "update.available": "更新 v{{version}} 可用",
   "update.button": "更新",
   "update.downloading": "正在下载更新... {{percent}}%",

@@ -62,7 +62,7 @@
   "overlay.cancel": "Aufnahme abbrechen",
   "overlay.cancelBtn": "Abbrechen",
   "splash.checking": "Suche nach Updates...",
-  "splash.retrying": "Suche nach Updates... Erneuter Versuch in {{seconds}}s",
+  "splash.retrying": "Erneuter Versuch in {{seconds}}s",
   "update.available": "Update v{{version}} verfügbar",
   "update.button": "Aktualisieren",
   "update.downloading": "Update wird heruntergeladen... {{percent}}%",

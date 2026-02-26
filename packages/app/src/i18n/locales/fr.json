@@ -62,7 +62,7 @@
   "overlay.cancel": "Annuler l'enregistrement",
   "overlay.cancelBtn": "Annuler",
   "splash.checking": "Recherche de mises à jour...",
-  "splash.retrying": "Recherche de mises à jour... Nouvelle tentative dans {{seconds}}s",
+  "splash.retrying": "Nouvelle tentative dans {{seconds}}s",
   "update.available": "Mise à jour v{{version}} disponible",
   "update.button": "Mettre à jour",
   "update.downloading": "Téléchargement de la mise à jour... {{percent}}%",

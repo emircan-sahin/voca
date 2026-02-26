@@ -62,7 +62,7 @@
   "overlay.cancel": "Annulla registrazione",
   "overlay.cancelBtn": "Annulla",
   "splash.checking": "Controllo aggiornamenti...",
-  "splash.retrying": "Controllo aggiornamenti... Nuovo tentativo tra {{seconds}}s",
+  "splash.retrying": "Nuovo tentativo tra {{seconds}}s",
   "update.available": "Aggiornamento v{{version}} disponibile",
   "update.button": "Aggiorna",
   "update.downloading": "Download aggiornamento... {{percent}}%",

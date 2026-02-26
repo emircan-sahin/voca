@@ -62,7 +62,7 @@
   "overlay.cancel": "録音をキャンセル",
   "overlay.cancelBtn": "キャンセル",
   "splash.checking": "アップデートを確認中...",
-  "splash.retrying": "アップデートを確認中... {{seconds}}秒後に再試行",
+  "splash.retrying": "{{seconds}}秒後に再試行",
   "update.available": "アップデート v{{version}} が利用可能",
   "update.button": "アップデート",
   "update.downloading": "アップデートをダウンロード中... {{percent}}%",

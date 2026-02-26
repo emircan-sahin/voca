@@ -62,7 +62,7 @@
   "overlay.cancel": "녹음 취소",
   "overlay.cancelBtn": "취소",
   "splash.checking": "업데이트 확인 중...",
-  "splash.retrying": "업데이트 확인 중... {{seconds}}초 후 재시도",
+  "splash.retrying": "{{seconds}}초 후 재시도",
   "update.available": "업데이트 v{{version}} 사용 가능",
   "update.button": "업데이트",
   "update.downloading": "업데이트 다운로드 중... {{percent}}%",

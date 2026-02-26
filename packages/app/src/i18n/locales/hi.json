@@ -62,7 +62,7 @@
   "overlay.cancel": "रिकॉर्डिंग रद्द करें",
   "overlay.cancelBtn": "रद्द करें",
   "splash.checking": "अपडेट की जाँच हो रही है...",
-  "splash.retrying": "अपडेट की जाँच हो रही है... {{seconds}}s में पुनः प्रयास",
+  "splash.retrying": "{{seconds}}s में पुनः प्रयास",
   "update.available": "अपडेट v{{version}} उपलब्ध है",
   "update.button": "अपडेट करें",
   "update.downloading": "अपडेट डाउनलोड हो रहा है... {{percent}}%",

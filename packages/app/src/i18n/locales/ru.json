@@ -62,7 +62,7 @@
   "overlay.cancel": "Отменить запись",
   "overlay.cancelBtn": "Отмена",
   "splash.checking": "Проверка обновлений...",
-  "splash.retrying": "Проверка обновлений... Повтор через {{seconds}}с",
+  "splash.retrying": "Повтор через {{seconds}}с",
   "update.available": "Доступно обновление v{{version}}",
   "update.button": "Обновить",
   "update.downloading": "Загрузка обновления... {{percent}}%",

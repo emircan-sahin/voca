@@ -62,7 +62,7 @@
   "overlay.cancel": "Cancel Recording",
   "overlay.cancelBtn": "Cancel",
   "splash.checking": "Checking for updates...",
-  "splash.retrying": "Checking for updates... Retrying in {{seconds}}s",
+  "splash.retrying": "Retrying in {{seconds}}s",
   "update.available": "Update v{{version}} available",
   "update.button": "Update",
   "update.downloading": "Downloading update... {{percent}}%",

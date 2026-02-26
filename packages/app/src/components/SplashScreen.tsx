@@ -14,11 +14,12 @@ export const SplashScreen = ({ retryIn }: SplashScreenProps) => {
 
       <div className="w-6 h-6 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin" />
 
-      <p className="text-sm text-[#737373]">
-        {retryIn !== null
-          ? t('splash.retrying', { seconds: retryIn })
-          : t('splash.checking')}
-      </p>
+      <div className="text-sm text-[#737373] text-center">
+        <p>{t('splash.checking')}</p>
+        {retryIn !== null && (
+          <p className="mt-1">{t('splash.retrying', { seconds: retryIn })}</p>
+        )}
+      </div>
     </div>
   );
 };

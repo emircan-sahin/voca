@@ -62,7 +62,7 @@
   "overlay.cancel": "Kaydı İptal Et",
   "overlay.cancelBtn": "İptal",
   "splash.checking": "Güncellemeler kontrol ediliyor...",
-  "splash.retrying": "Güncellemeler kontrol ediliyor... {{seconds}}s sonra tekrar denenecek",
+  "splash.retrying": "{{seconds}}s sonra tekrar denenecek",
   "update.available": "v{{version}} güncellemesi mevcut",
   "update.button": "Güncelle",
   "update.downloading": "Güncelleme indiriliyor... %{{percent}}",
