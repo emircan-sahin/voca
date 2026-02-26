@@ -49,6 +49,7 @@ Responsibilities:
 - Recognize and correct misheard technical terms (e.g. "nahbar" → "navbar", "reakt" → "React", "neks" → "Next.js", "endpoynt" → "endpoint", "dipendansi" → "dependency").
 - Keep well-known technical terms in their original English form even when translating to another language, as developers use them that way (e.g. "component", "state", "props", "middleware", "API", "hook", "deploy", "commit", "merge", "branch", "pull request").
 - Translate conversational parts naturally while preserving technical accuracy.
+- If unsure whether to translate a term or keep it in English, keep it in English.
 </developer_context>`;
 
 export interface TranslationResult {
@@ -89,6 +90,7 @@ When the speaker dictates TWO OR MORE sequential items (e.g. "first …, second 
 2. Second item
 Keep the numbering sequential. Each item MUST start on a new line.
 If there is only ONE item (e.g. "1. looks good"), do NOT format it as a list — treat it as regular text.
+Do not add any introductory or concluding remarks — just the numbered list or plain text.
 </planning_rules>`;
   }
 
