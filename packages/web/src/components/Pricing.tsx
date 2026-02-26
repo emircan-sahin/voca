@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   PLAN_CREDITS,
   PLAN_UPLOAD_LIMIT,
+  DOWNLOADS,
   type BillingPlan,
 } from '@voca/shared';
 
@@ -79,10 +80,12 @@ export default function Pricing() {
                     ))}
                   </ul>
 
-                  <Button className="w-full">
-                    <Download className="mr-1.5 h-4 w-4" />
-                    {t('pricing.downloadToGet')}
-                  </Button>
+                  <a href={DOWNLOADS.mac}>
+                    <Button className="w-full">
+                      <Download className="mr-1.5 h-4 w-4" />
+                      {t('pricing.downloadToGet')}
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
             );

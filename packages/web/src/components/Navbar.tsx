@@ -31,13 +31,15 @@ export default function Navbar() {
             href="#faq"
             className="hidden text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 sm:block"
           >
-            {t('footer.faq')}
+            {t('navbar.faq')}
           </a>
           <LanguageSwitcher />
-          <Button size="sm" className="hidden sm:inline-flex">
-            <Download className="mr-1.5 h-4 w-4" />
-            {t('navbar.download')}
-          </Button>
+          <a href="#download" className="hidden sm:block">
+            <Button size="sm">
+              <Download className="mr-1.5 h-4 w-4" />
+              {t('navbar.download')}
+            </Button>
+          </a>
         </div>
       </div>
     </nav>

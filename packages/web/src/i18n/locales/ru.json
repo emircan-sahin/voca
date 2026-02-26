@@ -2,7 +2,8 @@
   "navbar": {
     "features": "Функции",
     "pricing": "Цены",
-    "download": "Скачать"
+    "download": "Скачать",
+    "faq": "FAQ"
   },
   "hero": {
     "badge": "Опен-сорс · Бесплатные кредиты включены",

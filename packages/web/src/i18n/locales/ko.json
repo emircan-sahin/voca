@@ -2,7 +2,8 @@
   "navbar": {
     "features": "기능",
     "pricing": "요금",
-    "download": "다운로드"
+    "download": "다운로드",
+    "faq": "FAQ"
   },
   "hero": {
     "badge": "오픈 소스 · 무료 크레딧 포함",

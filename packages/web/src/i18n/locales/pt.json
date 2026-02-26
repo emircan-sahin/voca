@@ -2,7 +2,8 @@
   "navbar": {
     "features": "Recursos",
     "pricing": "Preços",
-    "download": "Baixar"
+    "download": "Baixar",
+    "faq": "FAQ"
   },
   "hero": {
     "badge": "Código aberto · Créditos grátis incluídos",

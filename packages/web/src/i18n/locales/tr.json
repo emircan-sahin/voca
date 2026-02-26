@@ -2,7 +2,8 @@
   "navbar": {
     "features": "Özellikler",
     "pricing": "Fiyatlar",
-    "download": "İndir"
+    "download": "İndir",
+    "faq": "SSS"
   },
   "hero": {
     "badge": "Açık kaynak · Ücretsiz kredi dahil",

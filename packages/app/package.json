@@ -45,9 +45,13 @@
       "target": "nsis",
       "icon": "../../assets/icon.png"
     },
+    "dmg": {
+      "artifactName": "Voca.${ext}"
+    },
     "nsis": {
       "oneClick": true,
-      "perMachine": false
+      "perMachine": false,
+      "artifactName": "Voca-Setup.${ext}"
     },
     "publish": {
       "provider": "github",

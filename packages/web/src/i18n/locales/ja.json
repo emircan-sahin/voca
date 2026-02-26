@@ -2,7 +2,8 @@
   "navbar": {
     "features": "機能",
     "pricing": "料金",
-    "download": "ダウンロード"
+    "download": "ダウンロード",
+    "faq": "FAQ"
   },
   "hero": {
     "badge": "オープンソース · 無料クレジット付き",

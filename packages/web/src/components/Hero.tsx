@@ -1,8 +1,7 @@
 import { Button } from 'poyraz-ui/atoms';
 import { Github, Apple, Monitor } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-
-const GITHUB_URL = 'https://github.com/emircan-sahin/voca';
+import { SOCIALS, DOWNLOADS } from '@voca/shared';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -25,27 +24,26 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-          <Button variant="outline" className="w-full border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-800 sm:w-80">
-            <Monitor className="mr-2 h-5 w-5" />
-            {t('hero.downloadWindows')}
-          </Button>
-          <Button className="w-full sm:w-80">
-            <Apple className="mr-2 h-5 w-5" />
-            {t('hero.downloadMac')}
-          </Button>
+          <a href={DOWNLOADS.windows} className="w-full sm:w-80">
+            <Button variant="outline" className="w-full border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-800">
+              <Monitor className="mr-2 h-5 w-5" />
+              {t('hero.downloadWindows')}
+            </Button>
+          </a>
+          <a href={DOWNLOADS.mac} className="w-full sm:w-80">
+            <Button className="w-full">
+              <Apple className="mr-2 h-5 w-5" />
+              {t('hero.downloadMac')}
+            </Button>
+          </a>
         </div>
         <div className="mt-3 flex justify-center">
-          <Button variant="outline" className="w-full sm:w-80">
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2"
-            >
-              <Github className="h-5 w-5" />
+          <a href={SOCIALS.github} target="_blank" rel="noopener noreferrer" className="w-full sm:w-80">
+            <Button variant="outline" className="w-full">
+              <Github className="mr-2 h-5 w-5" />
               GitHub
-            </a>
-          </Button>
+            </Button>
+          </a>
         </div>
 
         {/* App screenshot */}

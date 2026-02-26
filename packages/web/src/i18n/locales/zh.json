@@ -2,7 +2,8 @@
   "navbar": {
     "features": "功能",
     "pricing": "价格",
-    "download": "下载"
+    "download": "下载",
+    "faq": "FAQ"
   },
   "hero": {
     "badge": "开源 · 免费额度",
