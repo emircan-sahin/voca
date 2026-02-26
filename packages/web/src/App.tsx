@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from '~/components/Navbar';
 import Hero from '~/components/Hero';
 import FeatureHighlight from '~/components/FeatureHighlight';
@@ -12,37 +13,14 @@ import Terms from '~/components/Terms';
 import Privacy from '~/components/Privacy';
 import Refund from '~/components/Refund';
 
-type Page = 'home' | 'terms' | 'privacy' | 'refund' | '404';
-
-function resolvePage(): Page {
-  const path = window.location.pathname;
-  if (path === '/' || path === '/index.html') return 'home';
-  if (path === '/terms') return 'terms';
-  if (path === '/privacy') return 'privacy';
-  if (path === '/refund') return 'refund';
-  return '404';
-}
-
-const PAGE_TITLES: Record<Page, string> = {
-  home: 'Voca — AI Voice-to-Text',
-  terms: 'Terms of Service — Voca',
-  privacy: 'Privacy Policy — Voca',
-  refund: 'Refund Policy — Voca',
-  '404': '404 — Page not found | usevoca.dev',
+const PAGE_TITLES: Record<string, string> = {
+  '/': 'Voca — AI Voice-to-Text',
+  '/terms': 'Terms of Service — Voca',
+  '/privacy': 'Privacy Policy — Voca',
+  '/refund': 'Refund Policy — Voca',
 };
 
-export default function App() {
-  const [page] = useState(resolvePage);
-
-  useEffect(() => {
-    document.title = PAGE_TITLES[page];
-  }, [page]);
-
-  if (page === 'terms') return <Terms />;
-  if (page === 'privacy') return <Privacy />;
-  if (page === 'refund') return <Refund />;
-  if (page === '404') return <NotFound />;
-
+function Homepage() {
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -54,5 +32,32 @@ export default function App() {
       <FinalCta />
       <Footer />
     </div>
+  );
+}
+
+export default function App() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    document.title = PAGE_TITLES[pathname] ?? '404 — Page not found | usevoca.dev';
+
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  return (
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/refund" element={<Refund />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
