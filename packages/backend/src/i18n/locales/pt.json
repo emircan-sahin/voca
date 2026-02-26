@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "Token atualizado",
   "auth.invalidRefreshToken": "Token de atualização inválido",
   "auth.missingRefreshToken": "Token de atualização ausente ou inválido",
+  "auth.loggedOut": "Sessão encerrada com sucesso",
 
   "user.notFound": "Usuário não encontrado",
   "user.fetched": "Usuário obtido",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "Checkout criado",
   "billing.paddleConfig": "Configuração do Paddle",
   "billing.cancelSuccess": "A assinatura será cancelada no final do período",
+  "billing.cancelFailed": "Falha ao cancelar assinatura",
   "billing.planRequired": "Plano ativo obrigatório. Assine um plano.",
   "billing.insufficientCredits": "Créditos insuficientes. Atualize seu plano.",
 

@@ -13,16 +13,16 @@ import billingRoutes from '~/routes/billing.routes';
 import { webhook as paddleWebhook } from '~/controllers/billing.controller';
 import { errorMiddleware } from '~/middleware/error.middleware';
 import { sendError, sendSuccess } from '~/utils/response';
-import { globalLimiter } from '~/middleware/rateLimit.middleware';
+import { globalLimiter, webhookLimiter } from '~/middleware/rateLimit.middleware';
 import { redis, clearTranscriptionLocks } from '~/config/redis';
 import { ensureAppConfig, getAppConfig } from '~/models/appConfig.model';
 
 const app = express();
 
-app.use(cors({ origin: env.CORS_ORIGIN.split(',') }));
+app.use(cors({ origin: env.CORS_ORIGIN.split(',').map((o) => o.trim()) }));
 
 // Paddle webhook needs raw body BEFORE express.json() parses it
-app.post('/api/billing/webhook', express.text({ type: 'application/json' }), paddleWebhook);
+app.post('/api/billing/webhook', webhookLimiter, express.text({ type: 'application/json' }), paddleWebhook);
 
 app.use(express.json());
 app.use(i18nextMiddleware.handle(i18n));

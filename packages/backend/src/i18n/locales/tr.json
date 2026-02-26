@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "Token yenilendi",
   "auth.invalidRefreshToken": "Geçersiz yenileme tokeni",
   "auth.missingRefreshToken": "Eksik veya geçersiz yenileme tokeni",
+  "auth.loggedOut": "Başarıyla çıkış yapıldı",
 
   "user.notFound": "Kullanıcı bulunamadı",
   "user.fetched": "Kullanıcı getirildi",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "Ödeme oluşturuldu",
   "billing.paddleConfig": "Paddle yapılandırması",
   "billing.cancelSuccess": "Abonelik dönem sonunda iptal edilecek",
+  "billing.cancelFailed": "Abonelik iptal edilemedi",
   "billing.planRequired": "Aktif plan gerekli. Lütfen bir plana abone olun.",
   "billing.insufficientCredits": "Yetersiz kredi. Lütfen planınızı yükseltin.",
 

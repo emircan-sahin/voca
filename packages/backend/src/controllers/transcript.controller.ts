@@ -89,15 +89,22 @@ export const createTranscript = async (req: Request, res: Response) => {
 
     safeUnlink(filePath);
 
-    const doc = await TranscriptModel.create({
-      text: result.text,
-      duration: result.duration,
-      language: result.language,
-      userId: req.user!.id,
-      translatedText,
-      targetLanguage,
-      tokenUsage,
-    });
+    let doc;
+    try {
+      doc = await TranscriptModel.create({
+        text: result.text,
+        duration: result.duration,
+        language: result.language,
+        userId: req.user!.id,
+        translatedText,
+        targetLanguage,
+        tokenUsage,
+      });
+    } catch (saveErr) {
+      // Refund credits if transcript save fails
+      await UserModel.updateOne({ _id: req.user!.id }, { $inc: { credits: cost } });
+      throw saveErr;
+    }
 
     const userDoc = await UserModel.findById(req.user!.id).select('settings.privacyMode').lean();
     if (userDoc?.settings?.privacyMode) {

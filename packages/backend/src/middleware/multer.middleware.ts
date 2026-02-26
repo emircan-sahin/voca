@@ -36,8 +36,10 @@ const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
-    const safeExt = ALLOWED_EXTS.includes(ext) ? ext : '.webm';
-    cb(null, `audio-${Date.now()}${safeExt}`);
+    if (!ALLOWED_EXTS.includes(ext)) {
+      return cb(new Error(`Unsupported audio format: ${ext}`), '');
+    }
+    cb(null, `audio-${Date.now()}${ext}`);
   },
 });
 

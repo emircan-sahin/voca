@@ -42,7 +42,7 @@ function isSubscriptionEvent(event: { eventType: string }): event is Subscriptio
 
 export const webhook = async (req: Request, res: Response) => {
   const signature = req.headers['paddle-signature'] as string | undefined;
-  if (!signature) return res.status(400).send('Missing signature');
+  if (!signature) return res.status(400).send('Bad request');
 
   try {
     const event = await paddle.webhooks.unmarshal(
@@ -76,7 +76,7 @@ export const webhook = async (req: Request, res: Response) => {
     return res.status(200).send('OK');
   } catch (err) {
     console.error('[Paddle] Webhook error:', getErrorMessage(err));
-    return res.status(400).send('Invalid webhook');
+    return res.status(400).send('Bad request');
   }
 };
 
@@ -152,6 +152,7 @@ export const cancel = async (req: Request, res: Response) => {
     if (!user) return sendError(res, req.t('user.notFound'), 404);
     return sendSuccess(res, req.t('billing.cancelSuccess'), toIUser(user));
   } catch (err) {
-    return sendError(res, getErrorMessage(err), 400);
+    console.error('[Billing] Cancel error:', getErrorMessage(err));
+    return sendError(res, req.t('billing.cancelFailed'), 400);
   }
 };

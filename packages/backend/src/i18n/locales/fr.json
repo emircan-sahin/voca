@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "Token actualisé",
   "auth.invalidRefreshToken": "Token de rafraîchissement invalide",
   "auth.missingRefreshToken": "Token de rafraîchissement manquant ou invalide",
+  "auth.loggedOut": "Déconnexion réussie",
 
   "user.notFound": "Utilisateur non trouvé",
   "user.fetched": "Utilisateur récupéré",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "Paiement créé",
   "billing.paddleConfig": "Configuration Paddle",
   "billing.cancelSuccess": "L'abonnement sera annulé à la fin de la période",
+  "billing.cancelFailed": "Échec de l'annulation de l'abonnement",
   "billing.planRequired": "Plan actif requis. Veuillez vous abonner à un plan.",
   "billing.insufficientCredits": "Crédits insuffisants. Veuillez mettre à niveau votre plan.",
 

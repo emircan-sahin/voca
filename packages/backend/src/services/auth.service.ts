@@ -1,8 +1,13 @@
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 import { OAuth2Client } from 'google-auth-library';
 import { env } from '~/config/env';
 import { UserModel, IUserDocument } from '~/models/user.model';
 import { IUser, IAuthResponse } from '@voca/shared';
+
+function hashToken(token: string): string {
+  return crypto.createHash('sha256').update(token).digest('hex');
+}
 
 const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SECRET);
 
@@ -49,8 +54,8 @@ export async function loginWithGoogleCode(authCode: string, redirectUri: string)
     { provider: 'google', providerId: payload.sub },
     {
       $set: {
-        email: payload.email,
-        name: payload.name || payload.email,
+        email: payload.email!.trim().slice(0, 254),
+        name: (payload.name || payload.email!).trim().slice(0, 100),
         avatarUrl: payload.picture,
       },
       $setOnInsert: {
@@ -65,7 +70,7 @@ export async function loginWithGoogleCode(authCode: string, redirectUri: string)
   const token = signAccessToken(userId, user.email);
   const refreshToken = signRefreshToken(userId);
 
-  user.refreshToken = refreshToken;
+  user.refreshToken = hashToken(refreshToken);
   await user.save();
 
   return { user: toIUser(user), token, refreshToken };
@@ -80,14 +85,14 @@ export async function refreshAccessToken(rt: string): Promise<IAuthResponse> {
   if (decoded.type !== 'refresh') throw new Error('Invalid token type');
 
   const user = await UserModel.findById(decoded.sub);
-  if (!user || user.refreshToken !== rt) {
+  if (!user || user.refreshToken !== hashToken(rt)) {
     throw new Error('Invalid refresh token');
   }
 
   const newAccessToken = signAccessToken(decoded.sub, user.email);
   const newRefreshToken = signRefreshToken(decoded.sub);
 
-  user.refreshToken = newRefreshToken;
+  user.refreshToken = hashToken(newRefreshToken);
   await user.save();
 
   return { user: toIUser(user), token: newAccessToken, refreshToken: newRefreshToken };

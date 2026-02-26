@@ -15,7 +15,7 @@ function extractUser(req: Request): { id: string; email: string } | null {
   if (!header?.startsWith('Bearer ')) return null;
 
   try {
-    const { sub, email } = verifyToken(header.slice(7));
+    const { sub, email } = verifyToken(header.slice(7).trim());
     return { id: sub, email };
   } catch {
     return null;

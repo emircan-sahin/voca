@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "Токен обновлён",
   "auth.invalidRefreshToken": "Недействительный токен обновления",
   "auth.missingRefreshToken": "Токен обновления отсутствует или недействителен",
+  "auth.loggedOut": "Выход выполнен успешно",
 
   "user.notFound": "Пользователь не найден",
   "user.fetched": "Пользователь получен",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "Оплата создана",
   "billing.paddleConfig": "Конфигурация Paddle",
   "billing.cancelSuccess": "Подписка будет отменена в конце периода",
+  "billing.cancelFailed": "Не удалось отменить подписку",
   "billing.planRequired": "Требуется активный план. Пожалуйста, оформите подписку.",
   "billing.insufficientCredits": "Недостаточно кредитов. Пожалуйста, обновите план.",
 

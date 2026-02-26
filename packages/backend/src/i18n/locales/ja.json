@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "トークンが更新されました",
   "auth.invalidRefreshToken": "無効なリフレッシュトークン",
   "auth.missingRefreshToken": "リフレッシュトークンが不足または無効です",
+  "auth.loggedOut": "ログアウトしました",
 
   "user.notFound": "ユーザーが見つかりません",
   "user.fetched": "ユーザーを取得しました",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "チェックアウトが作成されました",
   "billing.paddleConfig": "Paddle設定",
   "billing.cancelSuccess": "サブスクリプションは期間終了時にキャンセルされます",
+  "billing.cancelFailed": "サブスクリプションのキャンセルに失敗しました",
   "billing.planRequired": "有効なプランが必要です。プランに登録してください。",
   "billing.insufficientCredits": "クレジットが不足しています。プランをアップグレードしてください。",
 

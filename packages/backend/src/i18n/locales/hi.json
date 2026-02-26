@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "टोकन रिफ्रेश किया गया",
   "auth.invalidRefreshToken": "अमान्य रिफ्रेश टोकन",
   "auth.missingRefreshToken": "रिफ्रेश टोकन गायब या अमान्य है",
+  "auth.loggedOut": "सफलतापूर्वक लॉग आउट किया गया",
 
   "user.notFound": "उपयोगकर्ता नहीं मिला",
   "user.fetched": "उपयोगकर्ता प्राप्त किया गया",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "चेकआउट बनाया गया",
   "billing.paddleConfig": "Paddle कॉन्फ़िगरेशन",
   "billing.cancelSuccess": "सदस्यता अवधि के अंत में रद्द होगी",
+  "billing.cancelFailed": "सदस्यता रद्द करने में विफल",
   "billing.planRequired": "सक्रिय प्लान आवश्यक है। कृपया एक प्लान की सदस्यता लें।",
   "billing.insufficientCredits": "अपर्याप्त क्रेडिट। कृपया अपना प्लान अपग्रेड करें।",
 

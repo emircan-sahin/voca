@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "令牌已刷新",
   "auth.invalidRefreshToken": "无效的刷新令牌",
   "auth.missingRefreshToken": "刷新令牌缺失或无效",
+  "auth.loggedOut": "已成功退出登录",
 
   "user.notFound": "用户未找到",
   "user.fetched": "用户已获取",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "结账已创建",
   "billing.paddleConfig": "Paddle 配置",
   "billing.cancelSuccess": "订阅将在本期结束时取消",
+  "billing.cancelFailed": "取消订阅失败",
   "billing.planRequired": "需要有效计划。请订阅一个计划。",
   "billing.insufficientCredits": "积分不足。请升级您的计划。",
 

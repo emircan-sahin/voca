@@ -14,3 +14,4 @@ function createLimiter(limit: number, messageKey: string) {
 export const globalLimiter = createLimiter(60, 'error.tooManyRequests');
 export const authLimiter = createLimiter(10, 'error.tooManyAuth');
 export const transcriptLimiter = createLimiter(10, 'error.tooManyTranscripts');
+export const webhookLimiter = createLimiter(100, 'error.tooManyRequests');

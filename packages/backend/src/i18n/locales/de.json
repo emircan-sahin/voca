@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "Token aktualisiert",
   "auth.invalidRefreshToken": "Ungültiges Aktualisierungstoken",
   "auth.missingRefreshToken": "Fehlendes oder ungültiges Aktualisierungstoken",
+  "auth.loggedOut": "Erfolgreich abgemeldet",
 
   "user.notFound": "Benutzer nicht gefunden",
   "user.fetched": "Benutzer abgerufen",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "Checkout erstellt",
   "billing.paddleConfig": "Paddle-Konfiguration",
   "billing.cancelSuccess": "Abonnement wird am Ende des Zeitraums gekündigt",
+  "billing.cancelFailed": "Abonnement konnte nicht gekündigt werden",
   "billing.planRequired": "Aktiver Plan erforderlich. Bitte abonnieren Sie einen Plan.",
   "billing.insufficientCredits": "Unzureichendes Guthaben. Bitte upgraden Sie Ihren Plan.",
 

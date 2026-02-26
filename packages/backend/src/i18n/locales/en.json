@@ -4,6 +4,7 @@
   "auth.tokenRefreshed": "Token refreshed",
   "auth.invalidRefreshToken": "Invalid refresh token",
   "auth.missingRefreshToken": "Missing or invalid refresh token",
+  "auth.loggedOut": "Logged out successfully",
 
   "user.notFound": "User not found",
   "user.fetched": "User fetched",
@@ -30,6 +31,7 @@
   "billing.checkoutCreated": "Checkout created",
   "billing.paddleConfig": "Paddle config",
   "billing.cancelSuccess": "Subscription will cancel at period end",
+  "billing.cancelFailed": "Failed to cancel subscription",
   "billing.planRequired": "Active plan required. Please subscribe to a plan.",
   "billing.insufficientCredits": "Insufficient credits. Please upgrade your plan.",
 

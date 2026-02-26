@@ -24,7 +24,7 @@ function htmlPage(title: string, subtitle: string, color = '#171717') {
 }
 
 function requireAuthConfig(req: Request, res: Response): boolean {
-  if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || env.JWT_SECRET.length < 32) {
+  if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET) {
     sendError(res, req.t('auth.notConfigured'), 501);
     return false;
   }
@@ -91,6 +91,11 @@ export const refresh = async (req: Request, res: Response) => {
   } catch {
     return sendError(res, req.t('auth.invalidRefreshToken'), 401);
   }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  await UserModel.findByIdAndUpdate(req.user!.id, { $unset: { refreshToken: 1 } });
+  return sendSuccess(res, req.t('auth.loggedOut'), null);
 };
 
 export const getMe = async (req: Request, res: Response) => {

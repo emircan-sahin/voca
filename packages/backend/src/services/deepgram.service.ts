@@ -20,7 +20,10 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
     }
   );
 
-  if (error) throw new Error(`Deepgram transcription failed: ${error.message}`);
+  if (error) {
+    console.error('[Deepgram] Transcription error:', error.message);
+    throw new Error('Deepgram transcription failed');
+  }
 
   const alt = result?.results?.channels?.[0]?.alternatives?.[0];
   if (!alt) throw new Error('Deepgram returned empty result');
