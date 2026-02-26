@@ -66,6 +66,24 @@ contextBridge.exposeInMainWorld('electronAPI', {
     },
   },
 
+  // Shortcuts
+  shortcuts: {
+    getConfig: () => ipcRenderer.invoke('shortcuts:get-config'),
+    updateConfig: (config: unknown) => ipcRenderer.invoke('shortcuts:update-config', config),
+    resetConfig: () => ipcRenderer.invoke('shortcuts:reset-config'),
+    startCapture: () => ipcRenderer.send('shortcuts:start-capture'),
+    onKeyCaptured: (cb: (data: { keycode: number; label: string }) => void) => {
+      const handler = (_: unknown, data: { keycode: number; label: string }) => cb(data);
+      ipcRenderer.on('shortcuts:key-captured', handler);
+      return () => { ipcRenderer.removeListener('shortcuts:key-captured', handler); };
+    },
+    onCaptureCancelled: (cb: () => void) => {
+      const handler = () => cb();
+      ipcRenderer.on('shortcuts:capture-cancelled', handler);
+      return () => { ipcRenderer.removeListener('shortcuts:capture-cancelled', handler); };
+    },
+  },
+
   // Auto-updater
   updater: {
     checkForUpdates: () => ipcRenderer.invoke('updater:check'),

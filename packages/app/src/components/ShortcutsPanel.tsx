@@ -2,18 +2,26 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, X } from 'lucide-react';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
-
-const isMac = window.electronAPI.platform === 'darwin';
-const recordingKey = isMac ? 'Right ⌘ (Cmd)' : 'Right ⊞ (Win)';
-const cancelKey = isMac ? 'Right ⌥ (Opt)' : 'Right Alt';
+import { useShortcutStore } from '~/stores/shortcut.store';
+import { formatKeyLabel } from '~/components/ShortcutSettings';
 
 export const ShortcutsPanel = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const config = useShortcutStore((s) => s.config);
+  const load = useShortcutStore((s) => s.load);
+
+  useEffect(() => {
+    if (!config) load();
+  }, [config, load]);
 
   const shortcuts = [
-    { action: t('shortcuts.startStop'), keys: [recordingKey] },
-    { action: t('shortcuts.cancel'), keys: [cancelKey] },
+    ...(config?.['toggle-recording']?.enabled
+      ? [{ action: t('shortcuts.startStop'), keys: [formatKeyLabel(config['toggle-recording'].label)] }]
+      : []),
+    ...(config?.['cancel-recording']?.enabled
+      ? [{ action: t('shortcuts.cancel'), keys: [formatKeyLabel(config['cancel-recording'].label)] }]
+      : []),
     { action: t('shortcuts.show'), keys: ['?'] },
   ];
 
@@ -44,7 +52,6 @@ export const ShortcutsPanel = () => {
 
   return (
     <>
-      {/* Trigger button */}
       <Button
         variant="outline"
         size="icon"
@@ -55,7 +62,6 @@ export const ShortcutsPanel = () => {
         <Keyboard size={18} />
       </Button>
 
-      {/* Panel overlay */}
       {open && (
         <div
           className="fixed inset-0 z-50 flex items-end justify-end p-5"
@@ -67,7 +73,6 @@ export const ShortcutsPanel = () => {
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >
             <CardContent className="p-5">
-              {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-semibold text-[#171717]">{t('shortcuts.title')}</h3>
                 <Button
@@ -81,7 +86,6 @@ export const ShortcutsPanel = () => {
                 </Button>
               </div>
 
-              {/* Shortcuts list */}
               <div className="flex flex-col gap-3">
                 {shortcuts.map((s) => (
                   <div key={s.action} className="flex items-center justify-between">

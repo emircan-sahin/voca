@@ -7,6 +7,16 @@ interface AuthData {
   refreshToken: string;
 }
 
+type ShortcutAction = 'toggle-recording' | 'cancel-recording';
+
+interface ShortcutBinding {
+  keycode: number;
+  label: string;
+  enabled: boolean;
+}
+
+type ShortcutConfig = Record<ShortcutAction, ShortcutBinding>;
+
 declare global {
   interface Window {
     electronAPI: {
@@ -32,6 +42,16 @@ declare global {
       requestPauseRecording: () => void;
       onCancelRecording: (callback: () => void) => () => void;
       onPauseRecording: (callback: () => void) => () => void;
+
+      // Shortcuts
+      shortcuts: {
+        getConfig: () => Promise<ShortcutConfig>;
+        updateConfig: (config: ShortcutConfig) => Promise<ShortcutConfig>;
+        resetConfig: () => Promise<ShortcutConfig>;
+        startCapture: () => void;
+        onKeyCaptured: (cb: (data: { keycode: number; label: string }) => void) => () => void;
+        onCaptureCancelled: (cb: () => void) => () => void;
+      };
 
       // Auth
       auth: {

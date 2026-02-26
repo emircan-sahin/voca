@@ -10,16 +10,20 @@ import { MicrophoneSelect } from '~/components/MicrophoneSelect';
 import { TranslationSettings } from '~/components/TranslationSettings';
 import { NoiseSuppression } from '~/components/NoiseSuppression';
 import { PrivacyMode } from '~/components/PrivacyMode';
+import { ShortcutSettings } from '~/components/ShortcutSettings';
+import { useShortcutStore } from '~/stores/shortcut.store';
 
 export const SettingsView = () => {
   const { t } = useTranslation();
   const [resetting, setResetting] = useState(false);
+  const resetShortcuts = useShortcutStore((s) => s.reset);
 
   const handleReset = async () => {
     setResetting(true);
     try {
       const res = await api.post<IUserSettings>('/auth/settings/reset');
       if (res.data) applyRemoteSettings(res.data);
+      await resetShortcuts();
     } catch {
       // Settings reset failed — ignore
     } finally {
@@ -62,6 +66,13 @@ export const SettingsView = () => {
           <NoiseSuppression />
           <div className="border-t border-dashed border-slate-200" />
           <PrivacyMode />
+        </CardContent>
+      </Card>
+
+      <Card variant="bordered" className="border-solid border-[#e5e5e5]">
+        <CardContent className="p-4 space-y-4">
+          <h3 className="text-sm font-medium text-[#171717]">{t('settings.shortcuts')}</h3>
+          <ShortcutSettings />
         </CardContent>
       </Card>
 
