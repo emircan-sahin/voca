@@ -68,11 +68,17 @@ export const BillingView = () => {
 
     setLoading('checkout');
     try {
-      const res = await api.post<{ url: string; updated?: boolean }>('/billing/checkout', { plan });
+      const res = await api.post<{ url: string; updated?: boolean; resumed?: boolean }>('/billing/checkout', { plan });
+
+      if (res.data?.resumed) {
+        toast.success(t('billing.resumed'));
+        await refreshUser();
+        return;
+      }
 
       if (res.data?.updated) {
-        toast.success('Plan updated');
-        setTimeout(refreshUser, 2000);
+        toast.success(t('billing.upgraded'));
+        await refreshUser();
         return;
       }
 

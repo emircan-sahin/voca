@@ -96,6 +96,8 @@
   "billing.upgrade": "अपग्रेड करें",
   "billing.opening": "खुल रहा है...",
   "billing.cancelSubscription": "सदस्यता रद्द करें",
+  "billing.resumed": "सदस्यता फिर से शुरू की गई",
+  "billing.upgraded": "प्लान अपग्रेड किया गया",
   "billing.cancelling": "रद्द हो रहा है...",
   "billing.current": "वर्तमान: {{plan}}",
   "billing.freeTrial": "3 दिन का मुफ़्त ट्रायल",

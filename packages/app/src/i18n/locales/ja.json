@@ -96,6 +96,8 @@
   "billing.upgrade": "アップグレード",
   "billing.opening": "開いています...",
   "billing.cancelSubscription": "サブスクリプションをキャンセル",
+  "billing.resumed": "サブスクリプションが再開されました",
+  "billing.upgraded": "プランがアップグレードされました",
   "billing.cancelling": "キャンセル中...",
   "billing.current": "現在: {{plan}}",
   "billing.freeTrial": "3日間の無料トライアル",

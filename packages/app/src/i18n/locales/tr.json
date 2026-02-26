@@ -96,6 +96,8 @@
   "billing.upgrade": "Yükselt",
   "billing.opening": "Açılıyor...",
   "billing.cancelSubscription": "Aboneliği İptal Et",
+  "billing.resumed": "Abonelik devam ettirildi",
+  "billing.upgraded": "Plan yükseltildi",
   "billing.cancelling": "İptal ediliyor...",
   "billing.current": "Mevcut: {{plan}}",
   "billing.freeTrial": "3 günlük ücretsiz deneme",

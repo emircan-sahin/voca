@@ -96,6 +96,8 @@
   "billing.upgrade": "升级",
   "billing.opening": "正在打开...",
   "billing.cancelSubscription": "取消订阅",
+  "billing.resumed": "订阅已恢复",
+  "billing.upgraded": "计划已升级",
   "billing.cancelling": "正在取消...",
   "billing.current": "当前：{{plan}}",
   "billing.freeTrial": "3 天免费试用",

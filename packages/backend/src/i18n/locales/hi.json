@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "ट्रायल के दौरान प्लान बदलना उपलब्ध नहीं है।",
   "billing.noDowngrade": "डाउनग्रेड समर्थित नहीं है। रद्द करें और पुनः सदस्यता लें।",
   "billing.planUpdated": "प्लान अपडेट किया गया",
+  "billing.planResumed": "सदस्यता फिर से शुरू की गई",
   "billing.checkoutFailed": "चेकआउट बनाने में विफल",
   "billing.checkoutCreated": "चेकआउट बनाया गया",
   "billing.paddleConfig": "Paddle कॉन्फ़िगरेशन",

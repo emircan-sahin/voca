@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "トライアル期間中はプラン変更できません。",
   "billing.noDowngrade": "ダウングレードはサポートされていません。キャンセルして再度登録してください。",
   "billing.planUpdated": "プランが更新されました",
+  "billing.planResumed": "サブスクリプションが再開されました",
   "billing.checkoutFailed": "チェックアウトの作成に失敗しました",
   "billing.checkoutCreated": "チェックアウトが作成されました",
   "billing.paddleConfig": "Paddle設定",

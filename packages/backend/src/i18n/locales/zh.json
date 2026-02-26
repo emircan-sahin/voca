@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "试用期间无法更改计划。",
   "billing.noDowngrade": "不支持降级。请取消后重新订阅。",
   "billing.planUpdated": "计划已更新",
+  "billing.planResumed": "订阅已恢复",
   "billing.checkoutFailed": "创建结账失败",
   "billing.checkoutCreated": "结账已创建",
   "billing.paddleConfig": "Paddle 配置",

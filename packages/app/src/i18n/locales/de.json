@@ -96,6 +96,8 @@
   "billing.upgrade": "Upgrade",
   "billing.opening": "Wird geöffnet...",
   "billing.cancelSubscription": "Abo kündigen",
+  "billing.resumed": "Abo fortgesetzt",
+  "billing.upgraded": "Plan aktualisiert",
   "billing.cancelling": "Wird gekündigt...",
   "billing.current": "Aktuell: {{plan}}",
   "billing.freeTrial": "3 Tage kostenlos testen",

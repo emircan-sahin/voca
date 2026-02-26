@@ -96,6 +96,8 @@
   "billing.upgrade": "Atualizar",
   "billing.opening": "Abrindo...",
   "billing.cancelSubscription": "Cancelar Assinatura",
+  "billing.resumed": "Assinatura retomada",
+  "billing.upgraded": "Plano atualizado",
   "billing.cancelling": "Cancelando...",
   "billing.current": "Atual: {{plan}}",
   "billing.freeTrial": "3 dias de teste grátis",

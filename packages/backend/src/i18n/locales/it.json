@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Le modifiche al piano non sono disponibili durante il periodo di prova.",
   "billing.noDowngrade": "Il downgrade non è supportato. Annulla e riabbonati.",
   "billing.planUpdated": "Piano aggiornato",
+  "billing.planResumed": "Abbonamento ripreso",
   "billing.checkoutFailed": "Impossibile creare il checkout",
   "billing.checkoutCreated": "Checkout creato",
   "billing.paddleConfig": "Configurazione Paddle",

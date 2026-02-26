@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Planänderungen sind während der Testphase nicht verfügbar.",
   "billing.noDowngrade": "Downgrades werden nicht unterstützt. Kündigen Sie und abonnieren Sie erneut.",
   "billing.planUpdated": "Plan aktualisiert",
+  "billing.planResumed": "Abonnement fortgesetzt",
   "billing.checkoutFailed": "Checkout konnte nicht erstellt werden",
   "billing.checkoutCreated": "Checkout erstellt",
   "billing.paddleConfig": "Paddle-Konfiguration",

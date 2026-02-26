@@ -96,6 +96,8 @@
   "billing.upgrade": "업그레이드",
   "billing.opening": "여는 중...",
   "billing.cancelSubscription": "구독 취소",
+  "billing.resumed": "구독이 재개되었습니다",
+  "billing.upgraded": "플랜이 업그레이드되었습니다",
   "billing.cancelling": "취소 중...",
   "billing.current": "현재: {{plan}}",
   "billing.freeTrial": "3일 무료 체험",

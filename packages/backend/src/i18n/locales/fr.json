@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Les changements de plan ne sont pas disponibles pendant la période d'essai.",
   "billing.noDowngrade": "Les rétrogradations ne sont pas prises en charge. Annulez et réabonnez-vous.",
   "billing.planUpdated": "Plan mis à jour",
+  "billing.planResumed": "Abonnement repris",
   "billing.checkoutFailed": "Échec de la création du paiement",
   "billing.checkoutCreated": "Paiement créé",
   "billing.paddleConfig": "Configuration Paddle",

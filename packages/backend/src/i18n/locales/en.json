@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Plan changes are not available during trial.",
   "billing.noDowngrade": "Downgrades are not supported. Cancel and resubscribe instead.",
   "billing.planUpdated": "Plan updated",
+  "billing.planResumed": "Subscription resumed",
   "billing.checkoutFailed": "Failed to create checkout",
   "billing.checkoutCreated": "Checkout created",
   "billing.paddleConfig": "Paddle config",

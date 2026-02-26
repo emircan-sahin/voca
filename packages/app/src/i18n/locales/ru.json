@@ -96,6 +96,8 @@
   "billing.upgrade": "Улучшить",
   "billing.opening": "Открытие...",
   "billing.cancelSubscription": "Отменить подписку",
+  "billing.resumed": "Подписка возобновлена",
+  "billing.upgraded": "План обновлён",
   "billing.cancelling": "Отмена...",
   "billing.current": "Текущий: {{plan}}",
   "billing.freeTrial": "3-дневный бесплатный пробный период",

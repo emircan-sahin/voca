@@ -93,19 +93,36 @@ export const checkout = async (req: Request, res: Response) => {
     const user = await UserModel.findById(req.user!.id);
     if (!user) return sendError(res, req.t('user.notFound'), 404);
 
-    const hasLiveSub =
+    const hasActiveSub =
       user.paddleSubscriptionId &&
       user.subscriptionStatus &&
-      user.subscriptionStatus !== 'canceled' &&
-      !user.cancelScheduled;
+      user.subscriptionStatus !== 'canceled';
 
-    if (hasLiveSub) {
+    if (hasActiveSub) {
       if (user.subscriptionStatus === 'trialing') {
         return sendError(res, req.t('billing.trialNoChanges'), 400);
       }
 
       const currentRank = user.plan ? PLAN_RANK[user.plan] : 0;
       const targetRank = PLAN_RANK[parsed.data.plan];
+
+      // Cancel scheduled → resume or resume + upgrade
+      if (user.cancelScheduled) {
+        if (targetRank < currentRank) {
+          return sendError(res, req.t('billing.noDowngrade'), 400);
+        }
+
+        const updatePayload: Record<string, unknown> = { scheduledChange: null };
+        if (targetRank > currentRank) {
+          updatePayload.items = [{ priceId, quantity: 1 }];
+          updatePayload.prorationBillingMode = 'prorated_immediately';
+        }
+
+        await paddle.subscriptions.update(user.paddleSubscriptionId!, updatePayload);
+        await UserModel.findByIdAndUpdate(user._id, { $set: { cancelScheduled: false } });
+        logger.info('Billing', `Resumed subscription${targetRank > currentRank ? ' + upgrade' : ''}`, { subscriptionId: user.paddleSubscriptionId, plan: parsed.data.plan });
+        return sendSuccess(res, req.t('billing.planResumed'), { resumed: true });
+      }
 
       if (targetRank <= currentRank) {
         return sendError(res, req.t('billing.noDowngrade'), 400);
@@ -119,7 +136,7 @@ export const checkout = async (req: Request, res: Response) => {
       return sendSuccess(res, req.t('billing.planUpdated'), { updated: true });
     }
 
-    // No live subscription → new checkout
+    // No active subscription → new checkout
     const transaction = await paddle.transactions.create({
       items: [{ priceId, quantity: 1 }],
       customData: { userId: req.user!.id },

@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Deneme süresinde plan değişikliği yapılamaz.",
   "billing.noDowngrade": "Plan düşürme desteklenmiyor. İptal edip yeniden abone olun.",
   "billing.planUpdated": "Plan güncellendi",
+  "billing.planResumed": "Abonelik devam ettirildi",
   "billing.checkoutFailed": "Ödeme oluşturulamadı",
   "billing.checkoutCreated": "Ödeme oluşturuldu",
   "billing.paddleConfig": "Paddle yapılandırması",

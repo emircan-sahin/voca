@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Alterações de plano não estão disponíveis durante o período de teste.",
   "billing.noDowngrade": "Downgrades não são suportados. Cancele e assine novamente.",
   "billing.planUpdated": "Plano atualizado",
+  "billing.planResumed": "Assinatura retomada",
   "billing.checkoutFailed": "Falha ao criar checkout",
   "billing.checkoutCreated": "Checkout criado",
   "billing.paddleConfig": "Configuração do Paddle",

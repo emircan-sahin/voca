@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Изменение плана недоступно во время пробного периода.",
   "billing.noDowngrade": "Понижение плана не поддерживается. Отмените и подпишитесь заново.",
   "billing.planUpdated": "План обновлён",
+  "billing.planResumed": "Подписка возобновлена",
   "billing.checkoutFailed": "Не удалось создать оплату",
   "billing.checkoutCreated": "Оплата создана",
   "billing.paddleConfig": "Конфигурация Paddle",

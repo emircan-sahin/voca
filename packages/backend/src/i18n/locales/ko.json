@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "체험 기간 중에는 플랜을 변경할 수 없습니다.",
   "billing.noDowngrade": "다운그레이드는 지원되지 않습니다. 취소 후 다시 구독하세요.",
   "billing.planUpdated": "플랜이 업데이트되었습니다",
+  "billing.planResumed": "구독이 재개되었습니다",
   "billing.checkoutFailed": "결제 생성에 실패했습니다",
   "billing.checkoutCreated": "결제가 생성되었습니다",
   "billing.paddleConfig": "Paddle 설정",

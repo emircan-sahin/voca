@@ -27,6 +27,7 @@
   "billing.trialNoChanges": "Los cambios de plan no están disponibles durante la prueba.",
   "billing.noDowngrade": "No se admiten degradaciones. Cancele y vuelva a suscribirse.",
   "billing.planUpdated": "Plan actualizado",
+  "billing.planResumed": "Suscripción reanudada",
   "billing.checkoutFailed": "Error al crear el pago",
   "billing.checkoutCreated": "Pago creado",
   "billing.paddleConfig": "Configuración de Paddle",
