@@ -8,6 +8,11 @@ export const PLAN_CREDITS: Record<BillingPlan, number> = {
   max: 10,
 };
 
+export const TRIAL_CREDITS: Record<BillingPlan, number> = {
+  pro: 0.5,
+  max: 1.5,
+};
+
 export const PLAN_RANK: Record<BillingPlan, number> = { pro: 1, max: 2 };
 
 /** Max audio upload size in bytes per plan */
@@ -15,6 +20,9 @@ export const PLAN_UPLOAD_LIMIT: Record<BillingPlan, number> = {
   pro: 10 * 1024 * 1024,  // 10 MB
   max: 25 * 1024 * 1024,  // 25 MB
 };
+
+export const SUBSCRIPTION_STATUSES = ['trialing', 'active', 'canceled'] as const;
+export type SubscriptionStatus = (typeof SUBSCRIPTION_STATUSES)[number];
 
 export const OAUTH_PROVIDERS = ['google', 'apple'] as const;
 export type OAuthProvider = (typeof OAUTH_PROVIDERS)[number];
@@ -32,7 +40,9 @@ export interface IUser {
   provider: OAuthProvider;
   credits: number;
   plan: BillingPlan | null;
-  planExpiresAt: string | null;
+  currentPeriodEnd: string | null;
+  subscriptionStatus: SubscriptionStatus | null;
+  cancelScheduled: boolean;
   createdAt: string;
 }
 

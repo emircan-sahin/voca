@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { LANGUAGE_CODES, TONES } from '../constants/languages';
-import { BILLING_PLANS, OAUTH_PROVIDERS, STT_PROVIDERS } from '../types/auth.types';
+import { BILLING_PLANS, OAUTH_PROVIDERS, STT_PROVIDERS, SUBSCRIPTION_STATUSES } from '../types/auth.types';
 
 export const userSchema = z.object({
   id: z.string(),
@@ -10,11 +10,13 @@ export const userSchema = z.object({
   provider: z.enum(OAUTH_PROVIDERS),
   credits: z.number().min(0),
   plan: z.enum(BILLING_PLANS).nullable(),
-  planExpiresAt: z.string().datetime().nullable(),
+  currentPeriodEnd: z.string().datetime().nullable(),
+  subscriptionStatus: z.enum(SUBSCRIPTION_STATUSES).nullable(),
+  cancelScheduled: z.boolean(),
   createdAt: z.string().datetime(),
 });
 
-export const activatePlanSchema = z.object({
+export const checkoutSchema = z.object({
   plan: z.enum(BILLING_PLANS),
 });
 
