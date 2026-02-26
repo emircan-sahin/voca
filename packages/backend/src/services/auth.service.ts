@@ -15,7 +15,9 @@ export function toIUser(doc: IUserDocument): IUser {
     provider: doc.provider,
     credits: doc.credits,
     plan: doc.plan,
-    planExpiresAt: doc.planExpiresAt?.toISOString() ?? null,
+    currentPeriodEnd: doc.currentPeriodEnd?.toISOString() ?? null,
+    subscriptionStatus: doc.subscriptionStatus,
+    cancelScheduled: doc.cancelScheduled ?? false,
     createdAt: doc.createdAt.toISOString(),
   };
 }

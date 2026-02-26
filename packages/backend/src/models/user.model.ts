@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
-import { IUserSettings, BillingPlan, DEFAULT_USER_SETTINGS } from '@voca/shared';
+import { IUserSettings, BillingPlan, SubscriptionStatus, DEFAULT_USER_SETTINGS } from '@voca/shared';
 
 export interface IUserDocument extends Document {
   email: string;
@@ -11,7 +11,11 @@ export interface IUserDocument extends Document {
   settings: IUserSettings;
   credits: number;
   plan: BillingPlan | null;
-  planExpiresAt: Date | null;
+  currentPeriodEnd: Date | null;
+  paddleCustomerId: string | null;
+  paddleSubscriptionId: string | null;
+  subscriptionStatus: SubscriptionStatus | null;
+  cancelScheduled: boolean;
   createdAt: Date;
 }
 
@@ -50,7 +54,11 @@ const userSchema = new Schema<IUserDocument>(
     settings: { type: settingsSchema, default: () => ({}) },
     credits: { type: Number, default: 0, min: 0 },
     plan: { type: String, enum: ['pro', 'max'], default: null },
-    planExpiresAt: { type: Date, default: null },
+    currentPeriodEnd: { type: Date, default: null },
+    paddleCustomerId: { type: String, default: null },
+    paddleSubscriptionId: { type: String, default: null },
+    subscriptionStatus: { type: String, enum: ['trialing', 'active', 'canceled'], default: null },
+    cancelScheduled: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

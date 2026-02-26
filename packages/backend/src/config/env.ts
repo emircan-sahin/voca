@@ -11,6 +11,12 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string().default(''),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
   REDIS_URL: z.string().default('redis://127.0.0.1:6379'),
+  PADDLE_API_KEY: z.string().default(''),
+  PADDLE_CLIENT_TOKEN: z.string().default(''),
+  PADDLE_WEBHOOK_SECRET: z.string().default(''),
+  PADDLE_PRICE_PRO: z.string().default(''),
+  PADDLE_PRICE_MAX: z.string().default(''),
+  PADDLE_SANDBOX: z.coerce.boolean().default(true),
 });
 
 export const env = envSchema.parse(process.env);

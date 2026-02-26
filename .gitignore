@@ -15,3 +15,4 @@ release/
 
 # Claude Code personal settings
 .claude/settings.json
+.mcp.json
