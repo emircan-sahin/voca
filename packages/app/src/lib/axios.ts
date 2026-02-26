@@ -99,6 +99,11 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(new ApiError(message, body?.data, status));
     }
 
+    // No response means the server is unreachable — signal splash retry
+    if (!error.response) {
+      window.dispatchEvent(new Event('backend-offline'));
+    }
+
     const body = error.response?.data;
     const message = body?.message || 'An unexpected error occurred';
     return Promise.reject(new ApiError(message, body?.data, status));
