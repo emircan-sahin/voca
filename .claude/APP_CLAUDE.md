@@ -94,7 +94,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Only add what's necessary
 });
 ```
-`nodeIntegration: false` and `contextIsolation: true` are mandatory.
+`nodeIntegration: false`, `contextIsolation: true`, and `sandbox: true` are mandatory.
 `voca://` protocol handler registered in main process (dev: plist patch, prod: app bundle).
 
 ## Auto-Update (electron-updater)
@@ -219,7 +219,8 @@ Always log errors with context:
 
 ### Shell Command Safety (Electron)
 When executing shell commands from user-derived input:
+- Use `execFile()` with args array instead of `exec()` with string interpolation
 - Sanitize with strict character whitelist
 - Add length limits
 - Add execution timeout
-- Always provide error callback to `exec()`
+- Always provide error callback

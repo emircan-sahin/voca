@@ -85,7 +85,11 @@ export async function refreshAccessToken(rt: string): Promise<IAuthResponse> {
   if (decoded.type !== 'refresh') throw new Error('Invalid token type');
 
   const user = await UserModel.findById(decoded.sub);
-  if (!user || user.refreshToken !== hashToken(rt)) {
+  if (!user || !user.refreshToken) throw new Error('Invalid refresh token');
+
+  const stored = Buffer.from(user.refreshToken, 'utf8');
+  const incoming = Buffer.from(hashToken(rt), 'utf8');
+  if (stored.length !== incoming.length || !crypto.timingSafeEqual(stored, incoming)) {
     throw new Error('Invalid refresh token');
   }
 

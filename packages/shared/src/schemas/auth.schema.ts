@@ -4,8 +4,8 @@ import { APP_LOCALES, BILLING_PLANS, OAUTH_PROVIDERS, STT_PROVIDERS, SUBSCRIPTIO
 
 export const userSchema = z.object({
   id: z.string(),
-  email: z.string().email(),
-  name: z.string().min(1),
+  email: z.string().email().trim().toLowerCase().max(254),
+  name: z.string().min(1).max(255).trim(),
   avatarUrl: z.string().url().optional(),
   provider: z.enum(OAUTH_PROVIDERS),
   credits: z.number().min(0),
@@ -22,12 +22,12 @@ export const checkoutSchema = z.object({
 
 export const authResponseSchema = z.object({
   user: userSchema,
-  token: z.string().min(1),
-  refreshToken: z.string().min(1),
+  token: z.string().min(1).max(10_000),
+  refreshToken: z.string().min(1).max(10_000),
 });
 
 export const refreshBodySchema = z.object({
-  refreshToken: z.string().min(1),
+  refreshToken: z.string().min(1).max(10_000),
 });
 
 export const userSettingsSchema = z.object({

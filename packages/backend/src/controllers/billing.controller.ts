@@ -43,7 +43,7 @@ function isSubscriptionEvent(event: { eventType: string }): event is Subscriptio
 
 export const webhook = async (req: Request, res: Response) => {
   const signature = req.headers['paddle-signature'] as string | undefined;
-  if (!signature) return res.status(400).send('Bad request');
+  if (!signature) return sendError(res, 'Bad request', 400);
 
   try {
     const event = await paddle.webhooks.unmarshal(
@@ -53,7 +53,7 @@ export const webhook = async (req: Request, res: Response) => {
     );
 
     if (!isSubscriptionEvent(event)) {
-      return res.status(200).send('OK');
+      return sendSuccess(res, 'OK', null);
     }
 
     const { data } = event;
@@ -62,7 +62,7 @@ export const webhook = async (req: Request, res: Response) => {
 
     if (!userId) {
       logger.warn('Paddle', 'Webhook missing customData.userId, skipping');
-      return res.status(200).send('OK');
+      return sendSuccess(res, 'OK', null);
     }
 
     await handleSubscriptionEvent({
@@ -74,10 +74,10 @@ export const webhook = async (req: Request, res: Response) => {
       userId,
     });
 
-    return res.status(200).send('OK');
+    return sendSuccess(res, 'OK', null);
   } catch (err) {
     logger.error('Paddle', `Webhook error: ${getErrorMessage(err)}`);
-    return res.status(400).send('Bad request');
+    return sendError(res, 'Bad request', 400);
   }
 };
 

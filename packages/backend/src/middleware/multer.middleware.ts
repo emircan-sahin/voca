@@ -1,4 +1,5 @@
 import multer from 'multer';
+import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import { Request, Response, NextFunction } from 'express';
@@ -39,7 +40,7 @@ const storage = multer.diskStorage({
     if (!ALLOWED_EXTS.includes(ext)) {
       return cb(new Error(`Unsupported audio format: ${ext}`), '');
     }
-    cb(null, `audio-${Date.now()}${ext}`);
+    cb(null, `audio-${Date.now()}-${crypto.randomBytes(4).toString('hex')}${ext}`);
   },
 });
 
@@ -67,7 +68,11 @@ export const upload = {
       }
 
       // Plan-based file size limit
-      const user = await UserModel.findById(req.user!.id).select('plan').lean();
+      if (!req.user) {
+        safeUnlink(req.file.path);
+        return sendError(res, req.t('auth.unauthorized'), 401);
+      }
+      const user = await UserModel.findById(req.user.id).select('plan').lean();
       const plan = (user?.plan ?? 'pro') as BillingPlan;
       const limit = PLAN_UPLOAD_LIMIT[plan];
       if (req.file.size > limit) {

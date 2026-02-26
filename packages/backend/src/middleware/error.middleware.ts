@@ -31,7 +31,8 @@ export const errorMiddleware = (
     return sendError(res, req.t('error.invalidId'), 400);
   }
 
-  logger.error('Error', err.message, { stack: err.stack });
+  logger.error('Error', err.message);
+  if (err.stack) logger.local('Error', err.stack);
   logger.flush();
   sendError(res, req.t('error.internal'), 500);
 };

@@ -45,7 +45,7 @@ export function applyRemoteSettings(settings: IUserSettings) {
 export function refreshUser() {
   api.get<IUser>('/auth/me').then((res) => {
     if (res.data) useAuthStore.setState({ user: res.data });
-  }).catch(() => {});
+  }).catch((err) => console.warn('[Auth] Failed to refresh user:', err.message ?? err));
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -91,7 +91,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 
           if (!settingsRes.data.programLanguageDefault) {
             const detected = useProgramLanguageStore.getState().programLanguage;
-            api.put('/auth/settings', { programLanguageDefault: detected }).catch(() => {});
+            api.put('/auth/settings', { programLanguageDefault: detected })
+              .catch((err) => console.warn('[Auth] Failed to save programLanguageDefault:', err.message ?? err));
           }
         }
       } catch {

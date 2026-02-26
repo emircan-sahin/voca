@@ -30,7 +30,7 @@ export function setAuthData(data: AuthData): void {
   if (canEncrypt()) {
     writeFileSync(getStorePath(), safeStorage.encryptString(json));
   } else {
-    writeFileSync(getStorePath(), json, 'utf-8');
+    writeFileSync(getStorePath(), json, { encoding: 'utf-8', mode: 0o600 });
   }
 }
 

@@ -1,6 +1,6 @@
 import { BrowserWindow, screen } from 'electron';
 import { join } from 'path';
-import { execSync, exec } from 'child_process';
+import { execSync, execFile } from 'child_process';
 
 let overlayWin: BrowserWindow | null = null;
 
@@ -60,6 +60,7 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
       nodeIntegration: false,
+      sandbox: true,
     },
   });
 
@@ -73,8 +74,9 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
         const sanitized = previousApp.replace(/[^a-zA-Z0-9 .\-_]/g, '');
         if (sanitized && sanitized.length <= 100) {
           setTimeout(() => {
-            exec(
-              `osascript -e 'tell application "${sanitized}" to activate'`,
+            execFile(
+              'osascript',
+              ['-e', `tell application "${sanitized}" to activate`],
               { timeout: 2000 },
               (err) => { if (err) console.warn('[Overlay] Failed to refocus app:', err.message); }
             );
@@ -82,10 +84,11 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
         }
       }
     } else {
-      if (previousPid && Number.isFinite(previousPid)) {
+      if (previousPid && Number.isFinite(previousPid) && previousPid > 0) {
         setTimeout(() => {
-          exec(
-            `powershell -Command "(New-Object -ComObject WScript.Shell).AppActivate(${previousPid})"`,
+          execFile(
+            'powershell',
+            ['-Command', `(New-Object -ComObject WScript.Shell).AppActivate(${previousPid})`],
             { timeout: 2000 },
             (err) => { if (err) console.warn('[Overlay] Failed to refocus app:', err.message); }
           );

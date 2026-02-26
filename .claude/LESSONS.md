@@ -73,3 +73,23 @@ Mistakes caught during development. Review at the start of every session.
 - **Wrong**: JA `settings.numericTooltip` = "話した数字を数字に変換します" (converts spoken numbers to numbers)
 - **Right**: "話した数字を算用数字に変換します" (converts spoken numbers to Arabic numerals/digits)
 - **Why**: The tooltip must clarify the transformation — spoken words ("two hundred fifty") become digits (250). Saying "numbers to numbers" is meaningless.
+
+### [Security] Token comparison must be timing-safe
+- **Wrong**: `user.refreshToken !== hashToken(rt)` — strict equality leaks token length/content via response time differences
+- **Right**: `crypto.timingSafeEqual(Buffer.from(stored), Buffer.from(incoming))` with length check first
+- **Why**: String `===` short-circuits on first differing byte. An attacker can measure response times to guess tokens byte-by-byte.
+
+### [Security] exec() with interpolated strings → execFile() with args array
+- **Wrong**: `` exec(`osascript -e 'tell application "${name}" to activate'`) `` — even with sanitization, shell interpretation is fragile
+- **Right**: `execFile('osascript', ['-e', `tell application "${name}" to activate`])` — args bypass shell parsing
+- **Why**: `exec()` spawns a shell that interprets the full command string. `execFile()` passes arguments directly to the process, eliminating shell injection vectors.
+
+### [Security] Electron shell.openExternal needs URL protocol whitelist
+- **Wrong**: `shell.openExternal(details.url)` — accepts any URL including `javascript:`, `file:`, `vbscript:`
+- **Right**: Parse with `new URL(url).protocol`, only allow `['http:', 'https:', 'mailto:']`
+- **Why**: `shell.openExternal` delegates to the OS. Dangerous schemes can execute code or access local files.
+
+### [React] setTimeout in components must be cleaned up on unmount
+- **Wrong**: `setTimeout(() => setCopied(false), 1500)` inline — no cleanup on unmount
+- **Right**: Store timer in `useRef`, clear in `useEffect` cleanup: `return () => clearTimeout(ref.current)`
+- **Why**: If the component unmounts before the timeout fires, React warns about state updates on unmounted components. In strict mode, this causes double-fire bugs.

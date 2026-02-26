@@ -141,6 +141,7 @@ function createWindow() {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
       nodeIntegration: false,
+      sandbox: true,
     },
   });
 
@@ -151,7 +152,14 @@ function createWindow() {
   }
 
   win.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url);
+    try {
+      const protocol = new URL(details.url).protocol;
+      if (['http:', 'https:', 'mailto:'].includes(protocol)) {
+        shell.openExternal(details.url);
+      }
+    } catch {
+      /* invalid URL — ignore */
+    }
     return { action: 'deny' };
   });
 

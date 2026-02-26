@@ -33,10 +33,10 @@ app.use(globalLimiter);
 app.use((req, res, next) => {
   const start = Date.now();
   const { method, originalUrl } = req;
-  logger.info('HTTP', `→ ${method} ${originalUrl}`);
+  logger.local('HTTP', `→ ${method} ${originalUrl}`);
   res.on('finish', () => {
     const ms = Date.now() - start;
-    logger.info('HTTP', `← ${method} ${originalUrl} ${res.statusCode} (${ms}ms)`, { method, url: originalUrl, status: res.statusCode, ms });
+    logger.local('HTTP', `← ${method} ${originalUrl} ${res.statusCode} (${ms}ms)`);
   });
   next();
 });

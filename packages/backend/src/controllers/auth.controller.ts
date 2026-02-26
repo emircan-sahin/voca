@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { z } from 'zod';
 import { env } from '~/config/env';
 import {
   loginWithGoogleCode,
@@ -10,6 +11,10 @@ import { sendSuccess, sendError } from '~/utils/response';
 import { refreshBodySchema, updateUserSettingsSchema, DEFAULT_USER_SETTINGS } from '@voca/shared';
 import { deleteUserTranscripts } from '~/controllers/transcript.controller';
 import { logger } from '~/config/logger';
+
+const oauthCallbackSchema = z.object({
+  code: z.string().min(1).max(500),
+});
 
 const REDIRECT_URI = `http://localhost:${env.PORT}/api/auth/google/callback`;
 
@@ -47,10 +52,11 @@ export const googleRedirect = (req: Request, res: Response) => {
 };
 
 export const googleCallback = async (req: Request, res: Response) => {
-  const { code } = req.query;
-  if (typeof code !== 'string') {
+  const parsed = oauthCallbackSchema.safeParse(req.query);
+  if (!parsed.success) {
     return sendError(res, req.t('auth.missingCode'), 400);
   }
+  const { code } = parsed.data;
 
   try {
     const authResponse = await loginWithGoogleCode(code, REDIRECT_URI);
@@ -76,7 +82,9 @@ export const googleCallback = async (req: Request, res: Response) => {
 </body></html>`);
   } catch (err) {
     logger.error('Auth', `Google callback error: ${(err as Error).message}`);
-    return res.status(401).send(htmlPage('Authentication failed', 'Please close this tab and try again.', '#dc2626'));
+    return res.status(401).send(
+      htmlPage('Authentication failed', 'Please close this tab and try again.', '#dc2626')
+    );
   }
 };
 

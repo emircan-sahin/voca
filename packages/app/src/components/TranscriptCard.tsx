@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Trash2, Copy, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -15,8 +15,13 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [showTranslated, setShowTranslated] = useState(true);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const duration = dayjs.duration(transcript.duration, 'seconds').format('m:ss');
   const date = dayjs(transcript.createdAt).fromNow();
+
+  useEffect(() => {
+    return () => clearTimeout(copyTimerRef.current);
+  }, []);
 
   const hasTranslation = !!transcript.translatedText;
   const displayText = hasTranslation && showTranslated
@@ -27,7 +32,8 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
     await navigator.clipboard.writeText(displayText);
     setCopied(true);
     toast.success(t('transcript.copied'));
-    setTimeout(() => setCopied(false), 1500);
+    clearTimeout(copyTimerRef.current);
+    copyTimerRef.current = setTimeout(() => setCopied(false), 1500);
   };
 
   return (
