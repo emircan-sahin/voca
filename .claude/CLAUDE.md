@@ -92,6 +92,15 @@ pnpm dev             # Start both in parallel
 pnpm build           # Build all packages
 ```
 
+## Security — Open Source Repo
+This is a **public repository**. Never commit or hardcode:
+- API keys, tokens, passwords, or secrets
+- `.env` files or credential files
+- User data (emails, IDs) in code or logs
+- Internal infrastructure details (IPs, DB connection strings)
+
+All secrets must live in environment variables or GitHub Actions Secrets. Before every commit, verify no sensitive data is included in the diff.
+
 ## Core Principles
 - **Simplicity First**: Make every change as simple as possible. Impact minimal code.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
