@@ -26,7 +26,8 @@ Electron Renderer (React)
 App → Opens browser → Google OAuth consent
   → Callback → voca:// deep link with tokens
   → Electron registers protocol handler
-  → Stores JWT (15m access) + refresh token (7d)
+  → Stores JWT (15m access) + refresh token (7d) via safeStorage (encrypted)
+  → Linux fallback: plaintext auth.json (when OS keychain unavailable)
   → Axios interceptor auto-refreshes on 401
 ```
 

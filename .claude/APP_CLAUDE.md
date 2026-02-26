@@ -17,7 +17,7 @@
 │  History    │     <Active View>            │
 │  Settings   │                              │
 │  Billing    │                              │
-│ v0.0.1·macOS│  [EN ▾]                      │
+│ v0.0.7·macOS│  [EN ▾]                      │
 │  ─────────  │                              │
 │  User info  │                              │
 └─────────────┴──────────────────────────────┘
@@ -54,8 +54,12 @@ Three categorized cards:
 
 ## Authentication
 - Google OAuth opens system browser → `voca://auth/callback` deep link returns tokens
-- `auth.store.ts` (Zustand + electron-store persistence) holds `user`, `token`, `refreshToken`
-- Sidebar shows login button (unauthenticated) or user profile avatar + name (authenticated)
+- `auth.store.ts` (Zustand) holds `user`, `token`, `refreshToken` in memory
+- **Token storage** (`electron/main/auth.ts`):
+  - macOS/Windows: `safeStorage` encrypted → `auth.bin` (OS keychain)
+  - Linux fallback: plaintext `auth.json` (when keychain unavailable)
+  - `canEncrypt()` checks `safeStorage.isEncryptionAvailable()` at runtime
+- Sidebar shows user profile with masked email (`em***@gm***.com`)
 - `onAuthCallback` IPC listener in preload receives deep link tokens
 
 ## Axios Interceptors
