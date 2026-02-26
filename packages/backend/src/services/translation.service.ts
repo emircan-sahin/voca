@@ -97,7 +97,7 @@ If there is only ONE item (e.g. "1. looks good"), do NOT format it as a list —
   const { text: translatedText, usage } = await generateText({
     model: google('gemini-2.0-flash'),
     system,
-    temperature: 0,
+    temperature: 0.2,
     maxOutputTokens: 4096,
     messages: [
       ...FEW_SHOT,
