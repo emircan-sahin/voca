@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const HEALTH_URL = 'http://localhost:3100/api/health';
-const RETRY_INTERVALS = [3, 30, 60];
+const RETRY_INTERVALS = [3, 5, 15, 30, 60];
 
 export const useBackendReady = () => {
   const [ready, setReady] = useState(false);
   const [retryIn, setRetryIn] = useState<number | null>(null);
   const [latestVersion, setLatestVersion] = useState<string | null>(null);
+  const [trigger, setTrigger] = useState(0);
   const attemptRef = useRef(0);
   const mountedRef = useRef(true);
+  const readyRef = useRef(false);
 
   const checkHealth = useCallback(async (): Promise<boolean> => {
     try {
@@ -40,6 +42,7 @@ export const useBackendReady = () => {
       if (!mountedRef.current) return;
 
       if (ok) {
+        readyRef.current = true;
         setReady(true);
         setRetryIn(null);
         return;
@@ -74,7 +77,20 @@ export const useBackendReady = () => {
       mountedRef.current = false;
       clearTimers();
     };
-  }, [checkHealth]);
+  }, [checkHealth, trigger]);
+
+  useEffect(() => {
+    const handleOffline = () => {
+      if (!readyRef.current) return;
+      readyRef.current = false;
+      attemptRef.current = 0;
+      setReady(false);
+      setRetryIn(null);
+      setTrigger((t) => t + 1);
+    };
+    window.addEventListener('backend-offline', handleOffline);
+    return () => window.removeEventListener('backend-offline', handleOffline);
+  }, []);
 
   return { ready, retryIn, latestVersion };
 };

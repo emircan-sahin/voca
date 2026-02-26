@@ -61,6 +61,7 @@
   "overlay.stop": "रोकें और ट्रांसक्राइब करें",
   "overlay.cancel": "रिकॉर्डिंग रद्द करें",
   "overlay.cancelBtn": "रद्द करें",
+  "splash.connecting": "सर्वर से कनेक्ट हो रहा है...",
   "splash.checking": "अपडेट की जाँच हो रही है...",
   "splash.retrying": "{{seconds}}s में पुनः प्रयास",
   "update.available": "अपडेट v{{version}} उपलब्ध है",

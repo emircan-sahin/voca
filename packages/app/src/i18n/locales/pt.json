@@ -61,6 +61,7 @@
   "overlay.stop": "Parar e transcrever",
   "overlay.cancel": "Cancelar gravação",
   "overlay.cancelBtn": "Cancelar",
+  "splash.connecting": "Conectando ao servidor...",
   "splash.checking": "Verificando atualizações...",
   "splash.retrying": "Tentando novamente em {{seconds}}s",
   "update.available": "Atualização v{{version}} disponível",

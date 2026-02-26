@@ -61,6 +61,7 @@
   "overlay.stop": "중지 및 텍스트 변환",
   "overlay.cancel": "녹음 취소",
   "overlay.cancelBtn": "취소",
+  "splash.connecting": "서버에 연결 중...",
   "splash.checking": "업데이트 확인 중...",
   "splash.retrying": "{{seconds}}초 후 재시도",
   "update.available": "업데이트 v{{version}} 사용 가능",

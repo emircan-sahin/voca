@@ -61,6 +61,7 @@
   "overlay.stop": "Durdur ve Yazıya Dök",
   "overlay.cancel": "Kaydı İptal Et",
   "overlay.cancelBtn": "İptal",
+  "splash.connecting": "Sunucuya bağlanılıyor...",
   "splash.checking": "Güncellemeler kontrol ediliyor...",
   "splash.retrying": "{{seconds}}s sonra tekrar denenecek",
   "update.available": "v{{version}} güncellemesi mevcut",

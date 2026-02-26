@@ -61,6 +61,7 @@
   "overlay.stop": "Остановить и транскрибировать",
   "overlay.cancel": "Отменить запись",
   "overlay.cancelBtn": "Отмена",
+  "splash.connecting": "Подключение к серверу...",
   "splash.checking": "Проверка обновлений...",
   "splash.retrying": "Повтор через {{seconds}}с",
   "update.available": "Доступно обновление v{{version}}",

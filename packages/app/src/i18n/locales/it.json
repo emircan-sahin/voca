@@ -61,6 +61,7 @@
   "overlay.stop": "Ferma e trascrivi",
   "overlay.cancel": "Annulla registrazione",
   "overlay.cancelBtn": "Annulla",
+  "splash.connecting": "Connessione al server...",
   "splash.checking": "Controllo aggiornamenti...",
   "splash.retrying": "Nuovo tentativo tra {{seconds}}s",
   "update.available": "Aggiornamento v{{version}} disponibile",

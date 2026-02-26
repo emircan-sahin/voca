@@ -61,6 +61,7 @@
   "overlay.stop": "停止して文字起こし",
   "overlay.cancel": "録音をキャンセル",
   "overlay.cancelBtn": "キャンセル",
+  "splash.connecting": "サーバーに接続中...",
   "splash.checking": "アップデートを確認中...",
   "splash.retrying": "{{seconds}}秒後に再試行",
   "update.available": "アップデート v{{version}} が利用可能",

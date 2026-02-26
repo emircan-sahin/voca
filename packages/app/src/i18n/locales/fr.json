@@ -61,6 +61,7 @@
   "overlay.stop": "Arrêter et transcrire",
   "overlay.cancel": "Annuler l'enregistrement",
   "overlay.cancelBtn": "Annuler",
+  "splash.connecting": "Connexion au serveur...",
   "splash.checking": "Recherche de mises à jour...",
   "splash.retrying": "Nouvelle tentative dans {{seconds}}s",
   "update.available": "Mise à jour v{{version}} disponible",
