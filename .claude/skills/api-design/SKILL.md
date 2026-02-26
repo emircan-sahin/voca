@@ -102,21 +102,32 @@ Add a route-specific limiter using the `createLimiter()` factory:
 export const fooLimiter = createLimiter(10, 'Too many foo requests, please try again later');
 ```
 
+## i18n in Controllers
+All user-facing response messages must use `req.t()`:
+```typescript
+return sendSuccess(res, req.t('general.ok'), data);
+return sendError(res, req.t('billing.invalidPlan'), 400);
+```
+Locale keys live in `src/i18n/locales/{lang}.json`. The `i18next-http-middleware` populates `req.t()` based on the `Accept-Language` header.
+
 ## Existing Routes
 | Route | Middleware | Rate Limit |
 |-------|-----------|------------|
 | `/api/auth` | authLimiter | 10/min |
 | `/api/transcripts` POST | authenticate, transcriptLimiter, requireCredits, multer | 10/min |
 | `/api/transcripts` GET/DELETE | authenticate | global only |
-| `/api/billing` | authenticate | global only |
+| `/api/billing` POST checkout/cancel | authenticate | global only |
+| `/api/billing` POST webhook | raw body (no auth) | global only |
+| `/api/billing` GET config | authenticate | global only |
 
 ## Checklist
 - [ ] Used `sendSuccess` / `sendError` (never `res.json()` directly)
+- [ ] Response messages use `req.t()` (never hardcoded strings)
 - [ ] Extracted `toIX()` mapping helper (never inline doc → type mapping 2+ times)
 - [ ] Applied `_id → id` and `Date → ISO 8601` mapping
 - [ ] Internal fields excluded from response
 - [ ] Shared type imported from `@voca/shared`
-- [ ] Enums use shared constants (`STT_PROVIDERS`, `LANGUAGE_CODES`, `TONES`, `BILLING_PLANS`)
+- [ ] Enums use shared constants (`STT_PROVIDERS`, `LANGUAGE_CODES`, `TONES`, `BILLING_PLANS`, `APP_LOCALES`)
 - [ ] Query/body params validated with Zod `safeParse()`
 - [ ] File cleanup uses `safeUnlink()` (never `fs.unlink(path, () => {})`)
 - [ ] Error extraction uses `getErrorMessage()` (never `(err as Error).message`)

@@ -25,7 +25,7 @@
   "settings.resetting": "초기화 중...",
   "settings.enableTranslation": "번역 활성화",
   "settings.targetLanguage": "대상 언어",
-  "settings.tone": "톤",
+  "settings.tone": "문체",
   "settings.toneDeveloper": "개발자",
   "settings.tonePersonal": "개인",
   "settings.numeric": "숫자 변환",
@@ -101,7 +101,7 @@
   "billing.features.proCredits": "월 $3 무료 크레딧 포함",
   "billing.features.maxCredits": "월 $10 무료 크레딧 포함",
   "billing.features.stt": "Groq 및 Deepgram 텍스트 변환",
-  "billing.features.tone": "AI 향상 톤 및 번역",
+  "billing.features.tone": "AI 향상 문체 및 번역",
   "billing.features.addons": "숫자 및 목록 형식 애드온",
   "billing.features.proUpload": "최대 10 MB 오디오 업로드",
   "billing.features.maxUpload": "최대 25 MB 오디오 업로드",
@@ -134,7 +134,7 @@
     {
       "question": "개발자 모드란 무엇인가요?",
       "answer": [
-        "개발자 모드는 소프트웨어 엔지니어를 위해 특별히 설계된 톤 설정입니다. 활성화하면 Voca의 AI가 코드 용어, 함수명, 라이브러리명, 기술 전문 용어를 인식하고 일반 단어가 아닌 올바른 형태로 텍스트를 변환합니다.",
+        "개발자 모드는 소프트웨어 엔지니어를 위해 특별히 설계된 문체 설정입니다. 활성화하면 Voca의 AI가 코드 용어, 함수명, 라이브러리명, 기술 전문 용어를 인식하고 일반 단어가 아닌 올바른 형태로 텍스트를 변환합니다.",
         "\"리액트 유즈스테이트 훅\"이라고 말하면 \"React useState hook\"으로 작성합니다. \"내브바 컴포넌트\"라고 말하면 \"navbar component\"로 작성합니다.",
         "배경 소음 제거와 결합하여, 실제 환경에서 코드 주석, 문서 또는 메시지를 음성으로 입력하는 개발자를 위해 설계되었습니다."
       ]
@@ -143,7 +143,7 @@
       "question": "어떤 언어가 지원되나요?",
       "answer": [
         "Deepgram 및 Groq 엔진을 통한 음성 인식에 35개 이상의 언어를 지원합니다.",
-        "공식, 비공식 또는 개발자 모드 등 톤 제어가 가능한 AI 기반 번역에 100개 이상의 언어를 지원합니다.",
+        "공식, 비공식 또는 개발자 모드 등 문체 제어가 가능한 AI 기반 번역에 100개 이상의 언어를 지원합니다.",
         "개발자 모드는 코드 용어와 기술 전문 용어를 자동으로 인식하여 영어로 유지하고 나머지는 자연스럽게 번역합니다."
       ]
     },

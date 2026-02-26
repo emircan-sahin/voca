@@ -25,7 +25,7 @@
   "settings.resetting": "Restaurando...",
   "settings.enableTranslation": "Ativar tradução",
   "settings.targetLanguage": "Idioma de destino",
-  "settings.tone": "Tom",
+  "settings.tone": "Estilo",
   "settings.toneDeveloper": "Desenvolvedor",
   "settings.tonePersonal": "Pessoal",
   "settings.numeric": "Numérico",
@@ -101,7 +101,7 @@
   "billing.features.proCredits": "$3/mês de créditos gratuitos incluídos",
   "billing.features.maxCredits": "$10/mês de créditos gratuitos incluídos",
   "billing.features.stt": "Transcrição Groq & Deepgram",
-  "billing.features.tone": "Tom e tradução aprimorados por AI",
+  "billing.features.tone": "Estilo e tradução aprimorados por AI",
   "billing.features.addons": "Complementos Numérico e Formato de lista",
   "billing.features.proUpload": "Uploads de áudio de até 10 MB",
   "billing.features.maxUpload": "Uploads de áudio de até 25 MB",
@@ -125,7 +125,7 @@
     {
       "question": "O que torna o Voca diferente?",
       "answer": [
-        "Cancelamento de ruído de fundo projetado para ambientes do mundo real — especialmente útil para desenvolvedores em espaços barulhentos.",
+        "Supressão de ruído de fundo projetado para ambientes do mundo real — especialmente útil para desenvolvedores em espaços barulhentos.",
         "AI que reconhece nomes de funções, termos de código e jargão técnico, transcrevendo-os corretamente em vez de adivinhar.",
         "Colagem automática inteligente: a transcrição corrigida aparece exatamente onde seu cursor estava. Sem copiar e colar, sem trocar de aplicativo.",
         "AI não apenas transcreve — melhora seu estilo de escrita, corrige gramática e torna seu texto mais limpo do que o que você realmente disse."
@@ -134,16 +134,16 @@
     {
       "question": "O que é o Modo Desenvolvedor?",
       "answer": [
-        "O Modo Desenvolvedor é uma configuração de tom criada especificamente para engenheiros de software. Quando ativado, o AI do Voca reconhece termos de código, nomes de funções, nomes de bibliotecas e jargão técnico — transcrevendo-os corretamente em vez de tratá-los como palavras comuns.",
+        "O Modo Desenvolvedor é uma configuração de estilo criada especificamente para engenheiros de software. Quando ativado, o AI do Voca reconhece termos de código, nomes de funções, nomes de bibliotecas e jargão técnico — transcrevendo-os corretamente em vez de tratá-los como palavras comuns.",
         "Diga \"reakt use state hook\" e ele escreve \"React useState hook\". Diga \"nahbar component\" e ele escreve \"navbar component\".",
-        "Combinado com o cancelamento de ruído de fundo, foi projetado para desenvolvedores que ditam comentários de código, documentação ou mensagens enquanto trabalham em ambientes do mundo real."
+        "Combinado com o supressão de ruído de fundo, foi projetado para desenvolvedores que ditam comentários de código, documentação ou mensagens enquanto trabalham em ambientes do mundo real."
       ]
     },
     {
       "question": "Quais idiomas são suportados?",
       "answer": [
         "Mais de 35 idiomas para reconhecimento de fala através dos motores Deepgram e Groq.",
-        "Mais de 100 idiomas para tradução com AI e controle de tom — formal, casual ou modo desenvolvedor.",
+        "Mais de 100 idiomas para tradução com AI e controle de estilo — formal, casual ou modo desenvolvedor.",
         "O modo desenvolvedor reconhece automaticamente termos de código e jargão técnico, mantendo-os em inglês enquanto traduz o restante naturalmente."
       ]
     },
@@ -159,7 +159,7 @@
       "question": "Funciona offline?",
       "answer": [
         "O Voca requer uma conexão com a internet. Seu áudio é enviado para nossos servidores onde o processamos para a melhor qualidade possível com o menor custo.",
-        "Nosso pipeline na nuvem inclui cancelamento de ruído de fundo, correção por AI, transcrição consciente de código e tradução inteligente — entregando resultados mais rápidos e precisos do que qualquer solução local poderia."
+        "Nosso pipeline na nuvem inclui supressão de ruído de fundo, correção por AI, transcrição consciente de código e tradução inteligente — entregando resultados mais rápidos e precisos do que qualquer solução local poderia."
       ]
     }
   ],

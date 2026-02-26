@@ -5,13 +5,20 @@
 ```typescript
 import { sendSuccess, sendError } from '~/utils/response';
 
-// Success
-return sendSuccess(res, 'Operation successful', data);
+// Success — use req.t() for localized messages
+return sendSuccess(res, req.t('general.ok'), data);
 
-// Error
-return sendError(res, 'Error message', 400);
+// Error — use req.t() for localized messages
+return sendError(res, req.t('billing.invalidPlan'), 400);
 ```
 Using `res.json()` or `res.send()` directly is **forbidden** (exception: OAuth callback HTML pages).
+
+## i18n (Server-side)
+- **Library**: `i18next` + `i18next-http-middleware`
+- **Config**: `src/i18n/config.ts` — 12 locales (en, es, hi, zh, de, pt, ja, fr, tr, ru, ko, it)
+- **Middleware**: Registered in `src/index.ts` — populates `req.t()` on every request
+- **Usage**: All user-facing messages in controllers must use `req.t('key')` instead of hardcoded strings
+- **Key patterns**: `general.ok`, `user.notFound`, `billing.invalidPlan`, `billing.trialNoChanges`
 
 ## Mongoose → Controller Mapping
 Never return a Mongoose document directly. Use `toIX()` mapping helpers:
@@ -43,14 +50,33 @@ Existing helpers: `toIUser()` in `auth.service.ts`, `toITranscript()` in `transc
 - `authenticate` middleware extracts user from Bearer token, attaches `req.user`
 - `requireAuthConfig()` guard checks `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `JWT_SECRET` (min 32 chars)
 
-## Billing & Credits
-- Plans: `pro` ($3, 300¢ credits, 10 MB upload) and `max` ($10, 1000¢ credits, 25 MB upload), 30-day expiry
+## Billing & Credits (Paddle v2)
+- Plans: `pro` ($3, 300¢ credits, 10 MB upload) and `max` ($10, 1000¢ credits, 25 MB upload)
 - Upload size enforced in multer middleware via `PLAN_UPLOAD_LIMIT` from `@voca/shared`
 - `requireCredits` middleware gates `POST /api/transcripts`
 - Credits deducted **before** transcript creation (STT cost + Gemini cost + 25% markup)
-- `$set` for fresh activation, `$inc` for upgrades to preserve existing credits
-- `checkPlanExpiry()` called in auth middleware on each authenticated request
 - Both plans include: AI-enhanced tone & translation, Numeric & Planning formatting add-ons
+
+### Paddle Integration
+- **SDK**: `@paddle/paddle-node-sdk` initialized in `src/config/paddle.ts`
+- **Checkout**: `POST /api/billing/checkout` → returns Paddle transaction ID for inline overlay
+- **Webhook**: `POST /api/billing/webhook` → raw body middleware, signature verification via `paddle.webhooks.unmarshal()`
+- **Events**: `subscription.created`, `subscription.activated`, `subscription.updated`, `subscription.canceled`
+- **Credit flow**: `handleSubscriptionEvent()` in `billing.service.ts` — trial → active resets credits, upgrade grants new plan credits, renewal resets credits
+- **Deduction**: `deductCredits()` atomic `$inc` with `$gte` guard (prevents negative)
+- **Cancel**: `POST /api/billing/cancel` → sets `cancelScheduled: true`, cancels via Paddle API
+- **Config**: `GET /api/billing/config` → returns `clientToken`, `priceId` for frontend
+
+### User Model Billing Fields
+```typescript
+credits: number                        // Remaining credits in cents
+plan: BillingPlan | null               // 'pro' | 'max' | null
+currentPeriodEnd: Date | null          // Subscription expiry
+paddleCustomerId: string | null        // Paddle customer ID
+paddleSubscriptionId: string | null    // Paddle subscription ID
+subscriptionStatus: SubscriptionStatus // 'trialing' | 'active' | 'canceled' | null
+cancelScheduled: boolean               // Pending cancellation flag
+```
 
 ## Rate Limiting
 Three tiers via `createLimiter()` factory in `src/middleware/rateLimit.middleware.ts`:
@@ -125,6 +151,19 @@ The controller validates `language` against `LANGUAGE_CODES` from `@voca/shared`
 - **Toggle OFF**: Normal behavior resumes, transcripts accumulate
 - `deleteUserTranscripts(userId, excludeId?)` helper in `transcript.controller.ts` — simple `deleteMany`, no audio cleanup needed (files are already deleted)
 
+## Settings Fields
+```typescript
+settings: {
+  provider: SttProvider;             // 'groq' | 'deepgram'
+  language: LanguageCode;            // STT language (35 codes)
+  noiseSuppression: boolean;
+  privacyMode: boolean;
+  translation: { enabled, tone, targetLanguage, numeric, planning };
+  programLanguage: AppLocale;        // UI language chosen by user (12 codes)
+  programLanguageDefault: AppLocale; // Auto-detected on first launch, saved once
+}
+```
+
 ## Route Structure
 ```
 src/routes/auth.routes.ts        → /api/auth
@@ -167,6 +206,13 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string().default(''),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
   REDIS_URL: z.string().default('redis://127.0.0.1:6379'),
+  // Paddle Billing
+  PADDLE_API_KEY: z.string(),
+  PADDLE_CLIENT_TOKEN: z.string(),
+  PADDLE_WEBHOOK_SECRET: z.string(),
+  PADDLE_PRICE_PRO: z.string(),
+  PADDLE_PRICE_MAX: z.string(),
+  PADDLE_SANDBOX: z.boolean().default(true),
 });
 export const env = envSchema.parse(process.env);
 ```

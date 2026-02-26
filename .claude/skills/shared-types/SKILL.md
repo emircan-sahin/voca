@@ -10,7 +10,8 @@ packages/shared/src/
 │   ├── api.types.ts        # ApiResponse<T>
 │   ├── auth.types.ts       # IUser, IAuthResponse, IUserSettings,
 │   │                       # BILLING_PLANS, OAUTH_PROVIDERS, STT_PROVIDERS,
-│   │                       # BillingPlan, OAuthProvider, SttProvider, LanguageCode
+│   │                       # APP_LOCALES, BillingPlan, OAuthProvider, SttProvider,
+│   │                       # LanguageCode, AppLocale, SubscriptionStatus
 │   └── transcript.types.ts # ITranscript, ITokenUsage
 ├── schemas/
 │   ├── auth.schema.ts      # userSchema, authResponseSchema, refreshBodySchema,
@@ -36,6 +37,7 @@ Enum values are `as const` arrays. Types derive from them. Schemas reference the
 export const BILLING_PLANS = ['pro', 'max'] as const;
 export const OAUTH_PROVIDERS = ['google', 'apple'] as const;
 export const STT_PROVIDERS = ['groq', 'deepgram'] as const;
+export const APP_LOCALES = ['en', 'es', 'hi', 'zh', 'de', 'pt', 'ja', 'fr', 'tr', 'ru', 'ko', 'it'] as const;
 // TONES and LANGUAGE_CODES live in constants/languages.ts
 
 // Types (derived)
@@ -43,6 +45,7 @@ export type BillingPlan = (typeof BILLING_PLANS)[number];
 export type OAuthProvider = (typeof OAUTH_PROVIDERS)[number];
 export type SttProvider = (typeof STT_PROVIDERS)[number];
 export type LanguageCode = (typeof LANGUAGE_CODES)[number];
+export type AppLocale = (typeof APP_LOCALES)[number];
 
 // Interfaces (use derived types, not inline unions)
 export interface IUser {
@@ -56,6 +59,8 @@ export interface IUserSettings {
     tone: TranslationTone;     // not 'developer' | 'personal'
     targetLanguage: LanguageCode;
   };
+  programLanguage: AppLocale;        // UI language (user-chosen)
+  programLanguageDefault: AppLocale; // Auto-detected on first launch
 }
 
 // Schemas (reference constants)
@@ -63,6 +68,7 @@ z.enum(BILLING_PLANS)    // not z.enum(['pro', 'max'])
 z.enum(STT_PROVIDERS)    // not z.enum(['groq', 'deepgram'])
 z.enum(LANGUAGE_CODES)   // not z.string().min(1)
 z.enum(TONES)            // not z.enum(['developer', 'personal'])
+z.enum(APP_LOCALES)      // not z.enum(['en', 'es', ...])
 ```
 
 ## Never Add

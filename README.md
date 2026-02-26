@@ -77,8 +77,10 @@ All transcripts are also saved locally in MongoDB so you can search and revisit 
 | Frontend | React 18, Tailwind CSS, Zustand, TanStack Query |
 | Backend | Express.js, Mongoose, Multer, express-rate-limit |
 | Auth | Google OAuth 2.0, JWT (access + refresh tokens) |
+| Billing | Paddle v2 (inline checkout, webhooks) |
 | STT | Deepgram Nova-3, Groq Whisper Large v3 Turbo |
 | Translation | Google Gemini 2.0 Flash (via Vercel AI SDK) |
+| i18n | react-i18next (app, 12 languages), i18next-http-middleware (backend) |
 | Database | MongoDB |
 | Language | TypeScript (monorepo with pnpm) |
 
@@ -94,16 +96,18 @@ voca/
 │   │   ├── middleware/  # Auth, billing, rate limiting, multer, error handling
 │   │   ├── models/      # Mongoose schemas (Transcript, User)
 │   │   └── uploads/     # Ephemeral audio processing (purged on startup)
-│   └── app/             # Electron + React application
-│       ├── electron/
-│       │   ├── main/    # App lifecycle, shortcuts, overlay, voca:// protocol
-│       │   └── preload/ # Secure IPC bridge
-│       └── src/
-│           ├── pages/   # Dashboard, History, Settings, Billing & Welcome views
-│           ├── components/
-│           ├── hooks/   # useRecorder, useGlobalShortcut, useRecordingOverlay
-│           ├── stores/  # Zustand stores (auth, navigation, recording state)
-│           └── services/# API calls via Axios
+│   ├── app/             # Electron + React application
+│   │   ├── electron/
+│   │   │   ├── main/    # App lifecycle, shortcuts, overlay, voca:// protocol
+│   │   │   └── preload/ # Secure IPC bridge
+│   │   └── src/
+│   │       ├── pages/   # Dashboard, History, Settings, Billing & Welcome views
+│   │       ├── components/
+│   │       ├── hooks/   # useRecorder, useGlobalShortcut, useRecordingOverlay
+│   │       ├── stores/  # Zustand stores (auth, navigation, recording state)
+│   │       ├── i18n/    # 12-language UI translations (react-i18next)
+│   │       └── services/# API calls via Axios
+│   └── web/             # Landing page at usevoca.dev (Vite + React SPA)
 ├── assets/              # Logo and static assets
 ├── .env.example
 ├── pnpm-workspace.yaml
@@ -149,6 +153,12 @@ JWT_SECRET=your_jwt_secret_min_32_chars_here
 GOOGLE_CLIENT_ID=your_google_client_id_here
 GOOGLE_CLIENT_SECRET=your_google_client_secret_here
 CORS_ORIGIN=http://localhost:5173                # comma-separated origins
+PADDLE_API_KEY=your_paddle_api_key_here          # Paddle Billing
+PADDLE_CLIENT_TOKEN=your_paddle_client_token_here
+PADDLE_WEBHOOK_SECRET=your_paddle_webhook_secret_here
+PADDLE_PRICE_PRO=pri_xxxxx                       # Paddle price ID for Pro plan
+PADDLE_PRICE_MAX=pri_xxxxx                       # Paddle price ID for Max plan
+PADDLE_SANDBOX=true                              # true for sandbox, false for production
 ```
 
 ### macOS — Grant Permissions First
@@ -252,8 +262,8 @@ Both plans include all AI features — tone-aware translation (Developer / Perso
 - [x] Credit-based billing system (Pro / Max plans)
 - [x] Rate limiting and CORS hardening
 - [ ] Verify Windows build and end-to-end functionality
-- [ ] Multi-language UI with localized content
-- [ ] Audio-reactive waveform visualization (bars respond to microphone input levels)
+- [x] Multi-language UI (12 languages) with localized content
+- [x] Audio-reactive waveform visualization (bars respond to microphone input levels)
 
 ## Contributing
 

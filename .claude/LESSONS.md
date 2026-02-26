@@ -53,3 +53,23 @@ Mistakes caught during development. Review at the start of every session.
 - **Wrong**: `findOneAndUpdate(filter, { email, name, avatarUrl, provider, providerId }, { upsert: true })` — on existing docs this replaces all fields, wiping `settings`, `credits`, `plan`, `refreshToken`
 - **Right**: `findOneAndUpdate(filter, { $set: { email, name, avatarUrl }, $setOnInsert: { provider, providerId } }, { upsert: true })` — only updates specified fields, immutable fields set once on insert
 - **Why**: Mongoose passes the update object directly to MongoDB. Without `$set`, MongoDB treats it as a full replacement. This silently destroys fields that aren't in the update object.
+
+### [i18n] Translation context — feature names must be translated by meaning
+- **Wrong**: "Planning" translated as "Planung" (DE), "Planificación" (ES), "計画" (JA) — all mean "project planning"
+- **Right**: "Planning" means "list formatting" in this context → "Listenformat" (DE), "Formato de lista" (ES), "リスト整形" (JA)
+- **Why**: AI translators default to the most common meaning of a word. Feature names need context-aware translation, not literal translation.
+
+### [i18n] "Tone" in music/audio context vs writing style
+- **Wrong**: "Ton" (DE), "Тон" (RU), "Ton" (TR) — all imply audio pitch or music tone
+- **Right**: "Schreibstil" (DE), "Стиль" (RU), "Üslup" (TR) — writing style
+- **Why**: In a transcription app, "Tone" controls the writing style (Developer/Personal), not audio characteristics.
+
+### [i18n] Separate entry points need separate i18n imports
+- **Wrong**: Only importing `~/i18n/config` in `main.tsx` — overlay window uses `useTranslation()` but i18n was never initialized there
+- **Right**: Both `main.tsx` and `overlay.tsx` must import `~/i18n/config` independently
+- **Why**: Electron overlay runs in its own BrowserWindow with a separate entry point. Each entry point starts fresh — shared config from another window is not inherited.
+
+### [i18n] Tautological tooltips — "converts X to X"
+- **Wrong**: JA `settings.numericTooltip` = "話した数字を数字に変換します" (converts spoken numbers to numbers)
+- **Right**: "話した数字を算用数字に変換します" (converts spoken numbers to Arabic numerals/digits)
+- **Why**: The tooltip must clarify the transformation — spoken words ("two hundred fifty") become digits (250). Saying "numbers to numbers" is meaningless.

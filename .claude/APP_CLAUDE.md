@@ -17,7 +17,7 @@
 │  History    │     <Active View>            │
 │  Settings   │                              │
 │  Billing    │                              │
-│ v0.0.1·macOS│                              │
+│ v0.0.1·macOS│  [EN ▾]                      │
 │  ─────────  │                              │
 │  User info  │                              │
 └─────────────┴──────────────────────────────┘
@@ -25,6 +25,32 @@
 - **Navigation**: Zustand store (`navigation.store.ts`), no router — conditional rendering
 - **Recording hook** (`useTranscription`) lives in `DashboardLayout` so recording persists across view switches
 - **Window**: Fixed 1050×740, non-resizable
+- **Language dropdown**: Sidebar footer, next to version — Poyraz UI Select, `w-auto`
+
+## i18n (Internationalization)
+12 UI languages: en, es, hi, zh, de, pt, ja, fr, tr, ru, ko, it
+
+### Architecture
+- **Library**: `react-i18next` + `i18next`
+- **Config**: `~/i18n/config.ts` — imports all locale JSON files, initializes with `detectSystemLocale()`
+- **Locale files**: `~/i18n/locales/{lang}.json` — flat key structure (e.g. `"sidebar.dashboard"`)
+- **Store**: `programLanguage.store.ts` — Zustand store, calls `i18n.changeLanguage()` on change
+- **Sync**: `programLanguage` synced to backend via `useSettingsSync`, `programLanguageDefault` saved once on first launch
+- **Detection**: `navigator.language` parsed to 2-letter code, matched against `APP_LOCALES`
+
+### Rules
+- **All UI strings must use `t()`** — hardcoded text is forbidden
+- **Overlay has separate entry point** (`overlay.tsx`) — must import `~/i18n/config` independently
+- **Locale keys**: flat dot-notation (e.g. `settings.noiseSuppression`, `billing.faqItems`)
+- **Interpolation**: `{{variable}}` syntax (e.g. `t('update.available', { version })`)
+- **Brand names** (Voca, Google, Groq, Deepgram, Gemini) stay untranslated in all locales
+- **Feature names**: translate by meaning, not literally (e.g. "Planning" = list formatting, "Tone" = writing style)
+
+### Settings Page Layout
+Three categorized cards:
+1. **Speech** — Provider, Language, Microphone
+2. **Translation** — Enable, Target Language, Tone, Numeric, Planning
+3. **Preferences** — Noise Suppression, Privacy Mode
 
 ## Authentication
 - Google OAuth opens system browser → `voca://auth/callback` deep link returns tokens
@@ -100,6 +126,13 @@ const res = await axiosInstance.post('/transcripts', formData);
 - Access error: `err.message`, `err.data` (structured validation errors)
 - Refresh the list after mutation with `queryClient.invalidateQueries`
 
+## Billing UI (Paddle)
+- Checkout opens as **inline overlay** via Paddle.js (`Paddle.Checkout.open()`)
+- Plan cards show Pro ($3/mo) and Max ($10/mo) with feature comparison
+- Active plan highlighted, remaining credits bar + expiry countdown
+- Cancel subscription via API (`DELETE /api/billing/subscription`)
+- 402 response → toast + auto-redirect to billing view
+
 ## Toast Notifications
 Toast calls belong in hooks/components — **not** in the interceptor (exception: 402 and 429 are handled in interceptor for global UX consistency):
 ```typescript
@@ -109,7 +142,7 @@ onError: (err: ApiError) => toast.error(err.message),
 - Success: use `res.message` from `ApiResponse<T>`
 - Error: use `err.message` from `ApiError`, access `err.data` for structured validation errors
 - Show toasts selectively — not every request needs a toast
-- Hardcoded messages are **forbidden** (exception: client-only toasts like "Copied to clipboard")
+- Hardcoded messages are **forbidden** — use `t()` for all user-facing text
 
 ## RecordButton States
 | State | Appearance |

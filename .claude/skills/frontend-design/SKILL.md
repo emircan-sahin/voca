@@ -29,7 +29,7 @@
 │  History    │     <Active View>            │
 │  Settings   │                              │
 │  Billing    │                              │
-│ v0.0.1·macOS│                              │
+│ v0.0.1·macOS│  [EN ▾]                      │
 │  ─────────  │                              │
 │  User info  │                              │
 └─────────────┴──────────────────────────────┘
@@ -37,6 +37,7 @@
 - Sidebar uses **dashed** borders for structural dividers
 - Cards use **solid** borders
 - Navigation via Zustand store, no router
+- Language dropdown in sidebar footer, next to version
 
 ## RecordButton Design
 ```
@@ -79,11 +80,27 @@
 - Login opens system browser → Google OAuth → `voca://` deep link returns tokens
 - Auth state persisted via `auth.store.ts` (Zustand + electron-store)
 
-## Billing UI
-- Plan cards: Pro ($3/mo) and Max ($10/mo)
+## Billing UI (Paddle)
+- Checkout opens as **inline overlay** via Paddle.js (`Paddle.Checkout.open()`)
+- Plan cards: Pro ($3/mo) and Max ($10/mo) with feature comparison
 - Active plan highlighted with accent border
 - Remaining credits bar + expiry countdown
+- Cancel subscription via API (`DELETE /api/billing/subscription`)
 - 402 response → toast + auto-redirect to billing view
+
+## Settings Page Layout
+Three categorized cards:
+1. **Speech** — Provider, Language, Microphone
+2. **Translation** — Enable, Target Language, Tone, Numeric, Planning
+3. **Preferences** — Noise Suppression, Privacy Mode
+
+## i18n Rules
+- **All UI strings must use `t()`** — hardcoded text is forbidden
+- Overlay has separate entry point (`overlay.tsx`) — must import `~/i18n/config` independently
+- Feature names: translate by meaning, not literally (e.g. "Planning" = list formatting, "Tone" = writing style)
+- Brand names (Voca, Google, Groq, Deepgram, Gemini) stay untranslated
+- Interpolation: `{{variable}}` syntax (e.g. `t('update.available', { version })`)
+- Toast messages: use `t()` for all user-facing text
 
 ## Key Components
 

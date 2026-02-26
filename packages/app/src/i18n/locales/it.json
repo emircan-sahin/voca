@@ -25,7 +25,7 @@
   "settings.resetting": "Ripristino...",
   "settings.enableTranslation": "Abilita traduzione",
   "settings.targetLanguage": "Lingua di destinazione",
-  "settings.tone": "Tono",
+  "settings.tone": "Stile",
   "settings.toneDeveloper": "Sviluppatore",
   "settings.tonePersonal": "Personale",
   "settings.numeric": "Numerico",
@@ -101,7 +101,7 @@
   "billing.features.proCredits": "$3/mese di crediti gratuiti inclusi",
   "billing.features.maxCredits": "$10/mese di crediti gratuiti inclusi",
   "billing.features.stt": "Trascrizione Groq e Deepgram",
-  "billing.features.tone": "Tono e traduzione potenziati da AI",
+  "billing.features.tone": "Stile e traduzione potenziati da AI",
   "billing.features.addons": "Add-on Numerico e Formato elenco",
   "billing.features.proUpload": "Upload audio fino a 10 MB",
   "billing.features.maxUpload": "Upload audio fino a 25 MB",
@@ -134,7 +134,7 @@
     {
       "question": "Cos'è la Modalità Sviluppatore?",
       "answer": [
-        "La Modalità Sviluppatore è un'impostazione di tono creata specificamente per gli ingegneri del software. Quando attivata, l'AI di Voca riconosce termini di codice, nomi di funzioni, nomi di librerie e gergo tecnico — e li trascrive correttamente invece di trattarli come parole comuni.",
+        "La Modalità Sviluppatore è un'impostazione di stile creata specificamente per gli ingegneri del software. Quando attivata, l'AI di Voca riconosce termini di codice, nomi di funzioni, nomi di librerie e gergo tecnico — e li trascrive correttamente invece di trattarli come parole comuni.",
         "Dì \"reakt use state hook\" e scriverà \"React useState hook\". Dì \"navbar component\" e scriverà \"navbar component\".",
         "Combinata con la cancellazione del rumore di fondo, è progettata per gli sviluppatori che dettano commenti al codice, documentazione o messaggi mentre lavorano in ambienti reali."
       ]
@@ -143,7 +143,7 @@
       "question": "Quali lingue sono supportate?",
       "answer": [
         "Oltre 35 lingue per il riconoscimento vocale tramite i motori Deepgram e Groq.",
-        "Oltre 100 lingue per la traduzione potenziata da AI con controllo del tono — formale, informale o modalità sviluppatore.",
+        "Oltre 100 lingue per la traduzione potenziata da AI con controllo dello stile — formale, informale o modalità sviluppatore.",
         "La modalità sviluppatore riconosce automaticamente termini di codice e gergo tecnico, mantenendoli in inglese e traducendo il resto in modo naturale."
       ]
     },

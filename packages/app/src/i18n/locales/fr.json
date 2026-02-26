@@ -125,7 +125,7 @@
     {
       "question": "Qu'est-ce qui rend Voca différent ?",
       "answer": [
-        "Annulation du bruit de fond conçue pour les environnements réels — particulièrement utile pour les développeurs dans des espaces bruyants.",
+        "Suppression du bruit de fond conçue pour les environnements réels — particulièrement utile pour les développeurs dans des espaces bruyants.",
         "Une AI qui reconnaît les noms de fonctions, les termes de code et le jargon technique, puis les transcrit correctement au lieu de deviner.",
         "Collage automatique intelligent : la transcription corrigée apparaît exactement là où se trouvait votre curseur. Pas de copier-coller, pas de changement d'application.",
         "L'AI ne se contente pas de transcrire — elle améliore votre style d'écriture, corrige la grammaire et rend votre texte plus propre que ce que vous avez réellement dit."
@@ -136,7 +136,7 @@
       "answer": [
         "Le Mode Développeur est un réglage de style conçu spécifiquement pour les ingénieurs logiciels. Lorsqu'il est activé, l'AI de Voca reconnaît les termes de code, les noms de fonctions, les noms de bibliothèques et le jargon technique — et les transcrit correctement au lieu de les traiter comme des mots ordinaires.",
         "Dites « reakt use state hook » et il écrit « React useState hook ». Dites « nahbar component » et il écrit « navbar component ».",
-        "Combiné avec l'annulation du bruit de fond, il est conçu pour les développeurs qui dictent des commentaires de code, de la documentation ou des messages tout en travaillant dans des environnements réels."
+        "Combiné avec la suppression du bruit de fond, il est conçu pour les développeurs qui dictent des commentaires de code, de la documentation ou des messages tout en travaillant dans des environnements réels."
       ]
     },
     {
@@ -159,7 +159,7 @@
       "question": "Fonctionne-t-il hors ligne ?",
       "answer": [
         "Voca nécessite une connexion internet. Votre audio est envoyé à nos serveurs où nous le traitons pour la meilleure qualité possible au coût le plus bas.",
-        "Notre pipeline cloud comprend l'annulation du bruit de fond, la correction par AI, la transcription adaptée au code et la traduction intelligente — offrant des résultats plus rapides et plus précis que toute solution locale."
+        "Notre pipeline cloud comprend la suppression du bruit de fond, la correction par AI, la transcription adaptée au code et la traduction intelligente — offrant des résultats plus rapides et plus précis que toute solution locale."
       ]
     }
   ],

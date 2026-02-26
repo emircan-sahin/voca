@@ -30,11 +30,12 @@ App → Opens browser → Google OAuth consent
   → Axios interceptor auto-refreshes on 401
 ```
 
-## Billing Flow
+## Billing Flow (Paddle v2)
 ```
-User activates plan (Pro $3 / Max $10)
-  → Credits allocated (300¢ / 1000¢)
-  → Each transcription deducts real API cost (STT + Gemini + 25% markup)
+User clicks Subscribe → Paddle checkout overlay opens (inline)
+  → Payment processed by Paddle
+  → Webhook (subscription.created/updated/canceled) → backend
+  → Backend updates user plan, credits, expiry in MongoDB
   → requireCredits middleware gates POST /api/transcripts
   → 402 → frontend redirects to billing page
   → Plan expires after 30 days, cancel stops renewal
@@ -72,6 +73,7 @@ STT_PROVIDERS  → SttProvider type  + z.enum(STT_PROVIDERS)
 OAUTH_PROVIDERS → OAuthProvider type + z.enum(OAUTH_PROVIDERS)
 TONES          → TranslationTone   + z.enum(TONES)
 LANGUAGE_CODES → LanguageCode type + z.enum(LANGUAGE_CODES)
+APP_LOCALES    → AppLocale type    + z.enum(APP_LOCALES)
 ```
 
 ### No Dead Imports

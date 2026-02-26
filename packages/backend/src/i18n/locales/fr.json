@@ -34,7 +34,7 @@
   "billing.insufficientCredits": "Crédits insuffisants. Veuillez mettre à niveau votre plan.",
 
   "error.unauthorized": "Non autorisé",
-  "error.fileTooLarge": "Fichier trop volumineux (max. 25 Mo)",
+  "error.fileTooLarge": "Fichier trop volumineux (max. 25 MB)",
   "error.fileTooLargePlan": "Fichier trop volumineux (max. {{limit}} Mo pour le plan {{plan}})",
   "error.invalidId": "Format d'ID invalide",
   "error.internal": "Erreur interne du serveur",

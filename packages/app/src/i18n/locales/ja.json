@@ -25,7 +25,7 @@
   "settings.resetting": "リセット中...",
   "settings.enableTranslation": "翻訳を有効にする",
   "settings.targetLanguage": "翻訳先の言語",
-  "settings.tone": "トーン",
+  "settings.tone": "文体",
   "settings.toneDeveloper": "開発者",
   "settings.tonePersonal": "個人",
   "settings.numeric": "数値変換",
@@ -101,7 +101,7 @@
   "billing.features.proCredits": "月$3の無料クレジット付き",
   "billing.features.maxCredits": "月$10の無料クレジット付き",
   "billing.features.stt": "Groq & Deepgram 文字起こし",
-  "billing.features.tone": "AI強化トーン＆翻訳",
+  "billing.features.tone": "AI強化文体＆翻訳",
   "billing.features.addons": "数値＆リスト整形アドオン",
   "billing.features.proUpload": "最大10 MBの音声アップロード",
   "billing.features.maxUpload": "最大25 MBの音声アップロード",
@@ -134,7 +134,7 @@
     {
       "question": "デベロッパーモードとは何ですか？",
       "answer": [
-        "デベロッパーモードはソフトウェアエンジニア向けに特別に構築されたトーン設定です。有効にすると、VocaのAIがコード用語、関数名、ライブラリ名、技術的な専門用語を認識し、通常の単語として扱うのではなく正確に文字起こしします。",
+        "デベロッパーモードはソフトウェアエンジニア向けに特別に構築された文体設定です。有効にすると、VocaのAIがコード用語、関数名、ライブラリ名、技術的な専門用語を認識し、通常の単語として扱うのではなく正確に文字起こしします。",
         "「reakt use state hook」と言えば「React useState hook」と書きます。「nahbar component」と言えば「navbar component」と書きます。",
         "バックグラウンドノイズキャンセレーションと組み合わせることで、実環境でコードコメント、ドキュメント、メッセージをディクテーションする開発者向けに設計されています。"
       ]
@@ -143,7 +143,7 @@
       "question": "対応している言語は？",
       "answer": [
         "Deepgram と Groq エンジンによる35以上の言語での音声認識。",
-        "トーンコントロール付きAI翻訳で100以上の言語に対応 — フォーマル、カジュアル、デベロッパーモード。",
+        "文体コントロール付きAI翻訳で100以上の言語に対応 — フォーマル、カジュアル、デベロッパーモード。",
         "デベロッパーモードはコード用語や技術的な専門用語を自動認識し、英語のまま維持しながら残りを自然に翻訳します。"
       ]
     },

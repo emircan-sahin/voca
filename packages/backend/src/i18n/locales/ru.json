@@ -34,7 +34,7 @@
   "billing.insufficientCredits": "Недостаточно кредитов. Пожалуйста, обновите план.",
 
   "error.unauthorized": "Не авторизован",
-  "error.fileTooLarge": "Файл слишком большой (макс. 25 МБ)",
+  "error.fileTooLarge": "Файл слишком большой (макс. 25 MB)",
   "error.fileTooLargePlan": "Файл слишком большой (макс. {{limit}} МБ для плана {{plan}})",
   "error.invalidId": "Неверный формат ID",
   "error.internal": "Внутренняя ошибка сервера",

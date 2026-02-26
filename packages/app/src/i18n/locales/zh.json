@@ -25,7 +25,7 @@
   "settings.resetting": "正在重置...",
   "settings.enableTranslation": "启用翻译",
   "settings.targetLanguage": "目标语言",
-  "settings.tone": "语气",
+  "settings.tone": "风格",
   "settings.toneDeveloper": "开发者",
   "settings.tonePersonal": "个人",
   "settings.numeric": "数字转换",
@@ -101,7 +101,7 @@
   "billing.features.proCredits": "每月包含 $3 免费额度",
   "billing.features.maxCredits": "每月包含 $10 免费额度",
   "billing.features.stt": "Groq 和 Deepgram 转录",
-  "billing.features.tone": "AI 增强的语气和翻译",
+  "billing.features.tone": "AI 增强的风格和翻译",
   "billing.features.addons": "数字转换和列表格式附加功能",
   "billing.features.proUpload": "最大 10 MB 音频上传",
   "billing.features.maxUpload": "最大 25 MB 音频上传",
@@ -134,7 +134,7 @@
     {
       "question": "什么是开发者模式？",
       "answer": [
-        "开发者模式是专为软件工程师打造的语气设置。启用后，Voca 的 AI 能识别代码术语、函数名、库名和技术行话 — 并准确转录，而非将其视为普通词汇。",
+        "开发者模式是专为软件工程师打造的风格设置。启用后，Voca 的 AI 能识别代码术语、函数名、库名和技术行话 — 并准确转录，而非将其视为普通词汇。",
         "说 \"reakt use state hook\"，它会写成 \"React useState hook\"。说 \"nahbar component\"，它会写成 \"navbar component\"。",
         "结合背景噪音消除，专为在真实环境中工作时口述代码注释、文档或消息的开发者设计。"
       ]
@@ -143,7 +143,7 @@
       "question": "支持哪些语言？",
       "answer": [
         "通过 Deepgram 和 Groq 引擎支持 35 种以上语言的语音识别。",
-        "支持 100 种以上语言的 AI 翻译，带语气控制 — 正式、随意或开发者模式。",
+        "支持 100 种以上语言的 AI 翻译，带风格控制 — 正式、随意或开发者模式。",
         "开发者模式自动识别代码术语和技术行话，将其保留为英文，同时自然翻译其余内容。"
       ]
     },

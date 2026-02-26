@@ -25,7 +25,7 @@
   "settings.resetting": "Restableciendo...",
   "settings.enableTranslation": "Activar traducción",
   "settings.targetLanguage": "Idioma de destino",
-  "settings.tone": "Tono",
+  "settings.tone": "Estilo",
   "settings.toneDeveloper": "Desarrollador",
   "settings.tonePersonal": "Personal",
   "settings.numeric": "Numérico",
@@ -101,7 +101,7 @@
   "billing.features.proCredits": "$3/mes de créditos gratuitos incluidos",
   "billing.features.maxCredits": "$10/mes de créditos gratuitos incluidos",
   "billing.features.stt": "Transcripción con Groq y Deepgram",
-  "billing.features.tone": "Tono y traducción mejorados con AI",
+  "billing.features.tone": "Estilo y traducción mejorados con AI",
   "billing.features.addons": "Complementos numéricos y de formato de lista",
   "billing.features.proUpload": "Subidas de audio de hasta 10 MB",
   "billing.features.maxUpload": "Subidas de audio de hasta 25 MB",
@@ -125,7 +125,7 @@
     {
       "question": "¿Qué hace diferente a Voca?",
       "answer": [
-        "Cancelación de ruido de fondo diseñada para entornos reales — especialmente útil para desarrolladores en espacios ruidosos.",
+        "Supresión de ruido de fondo diseñada para entornos reales — especialmente útil para desarrolladores en espacios ruidosos.",
         "AI que reconoce nombres de funciones, términos de código y jerga técnica, y luego los transcribe correctamente en lugar de adivinar.",
         "Auto-pegado inteligente: la transcripción corregida aparece justo donde estaba tu cursor. Sin copiar y pegar, sin cambiar de aplicación.",
         "La AI no solo transcribe — mejora tu estilo de escritura, corrige la gramática y hace que tu texto sea más limpio de lo que realmente dijiste."
@@ -134,16 +134,16 @@
     {
       "question": "¿Qué es el Modo Desarrollador?",
       "answer": [
-        "El Modo Desarrollador es una configuración de tono diseñada específicamente para ingenieros de software. Cuando está activado, la AI de Voca reconoce términos de código, nombres de funciones, nombres de librerías y jerga técnica — y los transcribe correctamente en lugar de tratarlos como palabras normales.",
+        "El Modo Desarrollador es una configuración de estilo diseñada específicamente para ingenieros de software. Cuando está activado, la AI de Voca reconoce términos de código, nombres de funciones, nombres de librerías y jerga técnica — y los transcribe correctamente en lugar de tratarlos como palabras normales.",
         "Di \"reakt use state hook\" y escribe \"React useState hook\". Di \"nahbar component\" y escribe \"navbar component\".",
-        "Combinado con la cancelación de ruido de fondo, está diseñado para desarrolladores que dictan comentarios de código, documentación o mensajes mientras trabajan en entornos reales."
+        "Combinado con la supresión de ruido de fondo, está diseñado para desarrolladores que dictan comentarios de código, documentación o mensajes mientras trabajan en entornos reales."
       ]
     },
     {
       "question": "¿Qué idiomas son compatibles?",
       "answer": [
         "Más de 35 idiomas para reconocimiento de voz a través de los motores Deepgram y Groq.",
-        "Más de 100 idiomas para traducción impulsada por AI con control de tono — formal, casual o modo desarrollador.",
+        "Más de 100 idiomas para traducción impulsada por AI con control de estilo — formal, casual o modo desarrollador.",
         "El modo desarrollador reconoce automáticamente términos de código y jerga técnica, manteniéndolos en inglés mientras traduce el resto de forma natural."
       ]
     },
@@ -159,7 +159,7 @@
       "question": "¿Funciona sin conexión?",
       "answer": [
         "Voca requiere conexión a internet. Tu audio se envía a nuestros servidores donde lo procesamos para obtener la mejor calidad posible al menor costo.",
-        "Nuestro pipeline en la nube incluye cancelación de ruido de fondo, corrección con AI, transcripción consciente del código y traducción inteligente — ofreciendo resultados más rápidos y precisos que cualquier solución local."
+        "Nuestro pipeline en la nube incluye supresión de ruido de fondo, corrección con AI, transcripción consciente del código y traducción inteligente — ofreciendo resultados más rápidos y precisos que cualquier solución local."
       ]
     }
   ],
