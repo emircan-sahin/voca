@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useAuthStore, remoteSettingsVersion } from '~/stores/auth.store';
 import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
+import { useProgramLanguageStore } from '~/stores/programLanguage.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
 import { usePrivacyModeStore } from '~/stores/privacyMode.store';
@@ -13,6 +14,7 @@ export function useSettingsSync() {
   const settingsHydrated = useAuthStore((s) => s.settingsHydrated);
   const provider = useProviderStore((s) => s.provider);
   const language = useLanguageStore((s) => s.language);
+  const programLanguage = useProgramLanguageStore((s) => s.programLanguage);
   const { enabled, targetLanguage, tone, numeric, planning } = useTranslationStore();
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
   const privacyMode = usePrivacyModeStore((s) => s.enabled);
@@ -44,6 +46,7 @@ export function useSettingsSync() {
         .put('/auth/settings', {
           provider,
           language,
+          programLanguage,
           noiseSuppression,
           privacyMode,
           translation: { enabled, targetLanguage, tone, numeric, planning },
@@ -61,5 +64,5 @@ export function useSettingsSync() {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [user, settingsHydrated, provider, language, noiseSuppression, privacyMode, enabled, targetLanguage, tone, numeric, planning]);
+  }, [user, settingsHydrated, provider, language, programLanguage, noiseSuppression, privacyMode, enabled, targetLanguage, tone, numeric, planning]);
 }

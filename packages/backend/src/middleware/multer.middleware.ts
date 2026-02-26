@@ -61,7 +61,7 @@ export const upload = {
 
       if (!isValidAudioFile(req.file.path)) {
         safeUnlink(req.file.path);
-        return sendError(res, 'Invalid audio file content', 400);
+        return sendError(res, req.t('error.invalidAudio'), 400);
       }
 
       // Plan-based file size limit
@@ -71,7 +71,7 @@ export const upload = {
       if (req.file.size > limit) {
         safeUnlink(req.file.path);
         const limitMB = limit / (1024 * 1024);
-        return sendError(res, `File too large (max ${limitMB} MB for ${plan} plan)`, 400);
+        return sendError(res, req.t('error.fileTooLargePlan', { limit: limitMB, plan }), 400);
       }
 
       next();

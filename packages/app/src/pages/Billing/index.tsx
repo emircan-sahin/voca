@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, Linkedin, Mail } from 'lucide-react';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
 import {
@@ -15,117 +16,7 @@ import dayjs from '~/lib/dayjs';
 import { api, ApiError } from '~/lib/axios';
 import { useAuthStore, refreshUser } from '~/stores/auth.store';
 
-const plans: {
-  key: BillingPlan;
-  label: string;
-  description: string;
-  price: number;
-  features: string[];
-}[] = [
-  {
-    key: 'pro',
-    label: 'Pro',
-    description: 'For personal use',
-    price: 3,
-    features: [
-      '$3/mo free credits included',
-      'Groq & Deepgram transcription',
-      'AI-enhanced tone & translation',
-      'Numeric & Planning add-ons',
-      'Up to 10 MB audio uploads',
-    ],
-  },
-  {
-    key: 'max',
-    label: 'Max',
-    description: 'For heavy usage',
-    price: 10,
-    features: [
-      '$10/mo free credits included',
-      'Groq & Deepgram transcription',
-      'AI-enhanced tone & translation',
-      'Numeric & Planning add-ons',
-      'Up to 25 MB audio uploads',
-    ],
-  },
-];
-
-const FAQ_ITEMS = [
-  {
-    question: 'Is Voca free?',
-    answer: [
-      'Every plan starts with a 3-day free trial — fully featured, no restrictions. Pick any plan, try it risk-free, and cancel anytime.',
-      'After the trial, plans start at just $3/month. No hidden fees, no surprise charges. What you see is what you pay.',
-      'Unlike competitors who charge ~$8/month plus extra API key costs, Voca includes everything in one simple subscription.',
-    ],
-  },
-  {
-    question: 'Can I cancel anytime?',
-    answer: [
-      "Yes. Cancel whenever you want — your current period stays active, and the next month simply won't renew.",
-      "No cancellation fees, no hidden terms, no awkward retention flows. One click and you're done.",
-      'Everything is open source. You can verify our billing, our code, and our promises — nothing is hidden.',
-    ],
-  },
-  {
-    question: 'What makes Voca different?',
-    answer: [
-      'Background noise cancellation built for real-world environments — especially useful for developers in noisy spaces.',
-      'AI that recognizes function names, code terms, and technical jargon, then transcribes them correctly instead of guessing.',
-      'Smart auto-paste: the corrected transcript lands right where your cursor was. No copy-paste, no switching apps.',
-      "AI doesn't just transcribe — it improves your writing style, fixes grammar, and makes your text cleaner than what you actually said.",
-    ],
-  },
-  {
-    question: 'What is Developer Mode?',
-    answer: [
-      "Developer Mode is a tone setting built specifically for software engineers. When enabled, Voca's AI recognizes code terms, function names, library names, and technical jargon — and transcribes them correctly instead of treating them as regular words.",
-      'Say "reakt use state hook" and it writes "React useState hook". Say "nahbar component" and it writes "navbar component".',
-      "Combined with background noise cancellation, it's designed for developers who dictate code comments, documentation, or messages while working in real-world environments.",
-    ],
-  },
-  {
-    question: 'Which languages are supported?',
-    answer: [
-      '35+ languages for speech recognition through Deepgram and Groq engines.',
-      '100+ languages for AI-powered translation with tone control — formal, casual, or developer mode.',
-      'Developer mode automatically recognizes code terms and technical jargon, keeping them in English while translating the rest naturally.',
-    ],
-  },
-  {
-    question: 'Where is my data stored?',
-    answer: [
-      'Your data is processed on our servers with a privacy-first approach. Voca is fully open source — you can inspect every line of code yourself.',
-      "If you don't want anything stored on our servers, simply toggle it off in Settings. Your recordings and transcripts won't be saved — it's entirely your choice.",
-      'No tracking, no analytics, no selling data. Period.',
-    ],
-  },
-  {
-    question: 'Does it work offline?',
-    answer: [
-      'Voca requires an internet connection. Your audio is sent to our servers where we process it for the best possible quality at the lowest cost.',
-      'Our cloud pipeline includes background noise cancellation, AI correction, code-aware transcription, and smart translation — delivering faster, more accurate results than any local solution could.',
-    ],
-  },
-];
-
 // ── Helpers ─────────────────────────────────────────────────────
-
-function periodLabel(periodEnd: string | null, status: SubscriptionStatus | null, cancelScheduled: boolean): string | null {
-  if (!periodEnd) return null;
-  const target = dayjs(periodEnd);
-  if (target.isBefore(dayjs())) return 'Expired';
-  if (cancelScheduled) return `Active until ${target.format('MMM D')}`;
-  if (status === 'trialing') return `Trial ends ${target.fromNow()}`;
-  if (status === 'canceled') return `Expired`;
-  return `Renews ${target.fromNow()}`;
-}
-
-const STATUS_LABELS: Record<SubscriptionStatus, { label: string; color: string }> = {
-  trialing: { label: 'Trial', color: '#3b82f6' },
-  active: { label: 'Active', color: '#22c55e' },
-  canceled: { label: 'Canceled', color: '#ef4444' },
-};
 
 function useTick(intervalMs: number) {
   const [, setTick] = useState(0);
@@ -139,6 +30,7 @@ function useTick(intervalMs: number) {
 // ── Component ───────────────────────────────────────────────────
 
 export const BillingView = () => {
+  const { t } = useTranslation();
   const { user } = useAuthStore();
   const [loading, setLoading] = useState<'checkout' | 'cancel' | null>(null);
   const paddleRef = useRef<Paddle | null>(null);
@@ -219,15 +111,18 @@ export const BillingView = () => {
   const canCancel = isLive;
   const canUpgrade = subStatus === 'active' && !cancelScheduled;
 
-  const period = periodLabel(user?.currentPeriodEnd ?? null, subStatus, cancelScheduled);
-  const statusInfo = subStatus ? STATUS_LABELS[subStatus] : null;
+  const period = periodLabel(t, user?.currentPeriodEnd ?? null, subStatus, cancelScheduled);
+  const statusInfo = subStatus ? STATUS_LABELS(t)[subStatus] : null;
+
+  const plans = buildPlans(t);
+  const faqItems: { question: string; answer: string[] }[] = t('billing.faqItems', { returnObjects: true });
 
   return (
     <div className="p-6 space-y-6">
       <Card variant="bordered" className="border-solid border-[#e5e5e5]">
         <CardContent className="p-4 flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-medium text-[#171717] mb-1">Remaining Credits</h3>
+            <h3 className="text-sm font-medium text-[#171717] mb-1">{t('billing.remainingCredits')}</h3>
             <p className="text-2xl font-bold text-[#171717]">${(user?.credits ?? 0).toFixed(2)}</p>
             {period && (
               <p className="text-xs text-[#737373] mt-1">{period}</p>
@@ -239,7 +134,7 @@ export const BillingView = () => {
                 className="inline-block text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded"
                 style={{ backgroundColor: cancelScheduled ? '#ef4444' : statusInfo.color, color: '#fff' }}
               >
-                {cancelScheduled ? 'Canceling' : statusInfo.label}
+                {cancelScheduled ? t('billing.canceling') : statusInfo.label}
               </span>
             )}
             {user?.plan && (
@@ -264,18 +159,17 @@ export const BillingView = () => {
           const showCancel = isCurrentPlan && canCancel;
           const isDowngrade = isLive && !isCurrentPlan && user?.plan && PLAN_RANK[key] < PLAN_RANK[user.plan];
 
-          let buttonText = 'Subscribe';
+          let buttonText = t('billing.subscribe');
           let buttonDisabled = loading !== null;
 
           if (!showCancel) {
             if (isDowngrade) {
-              buttonText = 'Current: ' + (user?.plan === 'max' ? 'Max' : 'Pro');
+              buttonText = t('billing.current', { plan: user?.plan === 'max' ? 'Max' : 'Pro' });
               buttonDisabled = true;
             } else if (canUpgrade && !isCurrentPlan) {
-              buttonText = 'Upgrade';
+              buttonText = t('billing.upgrade');
             } else if (isLive && !isCurrentPlan) {
-              // Trial on other plan → can't switch
-              buttonText = 'Upgrade';
+              buttonText = t('billing.upgrade');
               buttonDisabled = true;
             }
           }
@@ -291,7 +185,7 @@ export const BillingView = () => {
                   <h3 className="text-base font-semibold text-[#171717]">{label}</h3>
                   <p className="text-xs text-[#737373] mt-0.5">{description}</p>
                   <p className="text-3xl font-bold text-[#171717] mt-2">${price}</p>
-                  <p className="text-xs text-[#a3a3a3] mt-0.5">3-day free trial</p>
+                  <p className="text-xs text-[#a3a3a3] mt-0.5">{t('billing.freeTrial')}</p>
                 </div>
 
                 <ul className="space-y-2">
@@ -311,7 +205,7 @@ export const BillingView = () => {
                     disabled={loading !== null}
                     onClick={handleCancel}
                   >
-                    {loading === 'cancel' ? 'Cancelling...' : 'Cancel Subscription'}
+                    {loading === 'cancel' ? t('billing.cancelling') : t('billing.cancelSubscription')}
                   </Button>
                 ) : (
                   <Button
@@ -321,7 +215,7 @@ export const BillingView = () => {
                     disabled={buttonDisabled}
                     onClick={() => handleCheckout(key)}
                   >
-                    {loading === 'checkout' ? 'Opening...' : buttonText}
+                    {loading === 'checkout' ? t('billing.opening') : buttonText}
                   </Button>
                 )}
               </CardContent>
@@ -331,9 +225,9 @@ export const BillingView = () => {
       </div>
 
       <div className="pt-2">
-        <h3 className="text-sm font-medium text-[#171717] mb-3">Frequently Asked Questions</h3>
+        <h3 className="text-sm font-medium text-[#171717] mb-3">{t('billing.faq')}</h3>
         <Accordion type="single" collapsible>
-          {FAQ_ITEMS.map((item, i) => (
+          {faqItems.map((item, i) => (
             <AccordionItem key={i} value={`faq-${i}`}>
               <AccordionTrigger>{item.question}</AccordionTrigger>
               <AccordionContent>
@@ -348,7 +242,7 @@ export const BillingView = () => {
         </Accordion>
 
         <p className="mt-6 text-center text-xs text-[#a3a3a3]">
-          Can't find your question?{' '}
+          {t('billing.faqCta')}{' '}
           <a
             href={SOCIALS.linkedin}
             target="_blank"
@@ -371,3 +265,59 @@ export const BillingView = () => {
     </div>
   );
 };
+
+// ── Static helpers (use `t` at call time) ────────────────────
+
+function periodLabel(
+  t: (key: string, opts?: Record<string, string>) => string,
+  periodEnd: string | null,
+  status: SubscriptionStatus | null,
+  cancelScheduled: boolean,
+): string | null {
+  if (!periodEnd) return null;
+  const target = dayjs(periodEnd);
+  if (target.isBefore(dayjs())) return t('billing.expired');
+  if (cancelScheduled) return t('billing.activeUntil', { date: target.format('MMM D') });
+  if (status === 'trialing') return t('billing.trialEnds', { time: target.fromNow() });
+  if (status === 'canceled') return t('billing.expired');
+  return t('billing.renews', { time: target.fromNow() });
+}
+
+function STATUS_LABELS(t: (key: string) => string): Record<SubscriptionStatus, { label: string; color: string }> {
+  return {
+    trialing: { label: t('billing.trial'), color: '#3b82f6' },
+    active: { label: t('billing.active'), color: '#22c55e' },
+    canceled: { label: t('billing.canceled'), color: '#ef4444' },
+  };
+}
+
+function buildPlans(t: (key: string) => string) {
+  return [
+    {
+      key: 'pro' as BillingPlan,
+      label: 'Pro',
+      description: t('billing.pro.description'),
+      price: 3,
+      features: [
+        t('billing.features.proCredits'),
+        t('billing.features.stt'),
+        t('billing.features.tone'),
+        t('billing.features.addons'),
+        t('billing.features.proUpload'),
+      ],
+    },
+    {
+      key: 'max' as BillingPlan,
+      label: 'Max',
+      description: t('billing.max.description'),
+      price: 10,
+      features: [
+        t('billing.features.maxCredits'),
+        t('billing.features.stt'),
+        t('billing.features.tone'),
+        t('billing.features.addons'),
+        t('billing.features.maxUpload'),
+      ],
+    },
+  ];
+}

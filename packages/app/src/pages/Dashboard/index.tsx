@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ITranscript } from '@voca/shared';
 import { RecordButton } from '~/components/RecordButton';
 import { TranscriptCard } from '~/components/TranscriptCard';
@@ -17,6 +18,7 @@ export const DashboardView = ({
   transcripts,
   onDelete,
 }: DashboardViewProps) => {
+  const { t } = useTranslation();
   const recentTranscripts = transcripts.slice(0, 3);
 
   return (
@@ -26,20 +28,20 @@ export const DashboardView = ({
         <RecordButton isRecording={isRecording} isProcessing={isProcessing} onClick={onToggle} />
         <p className="text-[#737373] text-sm">
           {isProcessing
-            ? 'Processing...'
+            ? t('dashboard.processing')
             : isRecording
-            ? 'Click to stop recording'
-            : 'Click to start recording'}
+            ? t('dashboard.stopRecording')
+            : t('dashboard.startRecording')}
         </p>
       </div>
 
       {/* Recent Transcripts */}
       {recentTranscripts.length > 0 && (
         <section>
-          <h3 className="text-sm font-medium text-[#171717] mb-3">Recent Transcripts</h3>
+          <h3 className="text-sm font-medium text-[#171717] mb-3">{t('dashboard.recentTranscripts')}</h3>
           <div className="flex flex-col gap-3">
-            {recentTranscripts.map((t) => (
-              <TranscriptCard key={t.id} transcript={t} onDelete={onDelete} />
+            {recentTranscripts.map((tr) => (
+              <TranscriptCard key={tr.id} transcript={tr} onDelete={onDelete} />
             ))}
           </div>
         </section>

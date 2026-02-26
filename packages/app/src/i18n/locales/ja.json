@@ -1,0 +1,171 @@
+{
+  "sidebar.dashboard": "ダッシュボード",
+  "sidebar.history": "履歴",
+  "sidebar.settings": "設定",
+  "sidebar.billing": "請求",
+  "sidebar.signOut": "サインアウト",
+  "sidebar.language": "言語",
+  "header.dashboard": "ダッシュボード",
+  "header.history": "履歴",
+  "header.settings": "設定",
+  "header.billing": "請求",
+  "dashboard.processing": "処理中...",
+  "dashboard.stopRecording": "クリックして録音を停止",
+  "dashboard.startRecording": "クリックして録音を開始",
+  "dashboard.recentTranscripts": "最近の文字起こし",
+  "history.allTranscripts": "すべての文字起こし",
+  "history.empty": "文字起こしはまだありません。録音を始めましょう！",
+  "settings.speech": "音声",
+  "settings.provider": "プロバイダー",
+  "settings.language": "言語",
+  "settings.microphone": "マイク",
+  "settings.translation": "翻訳",
+  "settings.preferences": "環境設定",
+  "settings.resetDefaults": "デフォルトに戻す",
+  "settings.resetting": "リセット中...",
+  "settings.enableTranslation": "翻訳を有効にする",
+  "settings.targetLanguage": "翻訳先の言語",
+  "settings.tone": "トーン",
+  "settings.toneDeveloper": "開発者",
+  "settings.tonePersonal": "個人",
+  "settings.numeric": "数値変換",
+  "settings.numericTooltip": "話した数字を算用数字に変換します",
+  "settings.numericExample": "「二百五十」→ 250",
+  "settings.planning": "リスト整形",
+  "settings.planningTooltip": "番号付きリストを改行付きで整形します",
+  "settings.planningExample": "「まず…次に…」→ 1. 2. 3.",
+  "settings.translationNote": "Gemini 2.0 Flash を使用して文字起こしを自動翻訳します",
+  "settings.noiseSuppression": "ノイズ抑制",
+  "settings.noiseSuppressionDesc": "ファン、エアコン、交通騒音などの一定のバックグラウンドノイズを低減します。",
+  "settings.noiseSuppressionHint": "静かな環境ではオフにしてください — 音声品質がわずかに変わる場合があります。",
+  "settings.privacyMode": "プライバシーモード",
+  "settings.privacyModeDesc": "最新の文字起こしのみを保持します。有効にすると、既存の文字起こしがすべて削除されます。",
+  "mic.default": "デフォルト",
+  "mic.fallback": "マイク ({{id}}…)",
+  "mic.stop": "停止",
+  "mic.test": "テスト",
+  "transcript.copied": "クリップボードにコピーしました",
+  "transcript.original": "原文",
+  "transcript.ai": "AI",
+  "shortcuts.title": "キーボードショートカット",
+  "shortcuts.startStop": "録音の開始 / 停止",
+  "shortcuts.cancel": "録音をキャンセル",
+  "shortcuts.show": "ショートカットを表示",
+  "overlay.processing": "処理中...",
+  "overlay.timesUp": "時間切れ",
+  "overlay.recording": "録音中",
+  "overlay.stop": "停止して文字起こし",
+  "overlay.cancel": "録音をキャンセル",
+  "overlay.cancelBtn": "キャンセル",
+  "splash.checking": "アップデートを確認中...",
+  "splash.retrying": "アップデートを確認中... {{seconds}}秒後に再試行",
+  "update.available": "アップデート v{{version}} が利用可能",
+  "update.button": "アップデート",
+  "update.downloading": "アップデートをダウンロード中... {{percent}}%",
+  "update.ready": "v{{version}} のインストール準備完了",
+  "update.restart": "再起動",
+  "welcome.title": "Voca へようこそ",
+  "welcome.subtitle": "サインインして音声の録音と文字起こしを始めましょう。",
+  "welcome.google": "Google でサインイン",
+  "setup.title": "Voca のセットアップ",
+  "setup.subtitle": "アプリが正常に動作するために、以下の権限が必要です。",
+  "setup.microphone": "マイク",
+  "setup.microphoneDesc": "音声録音のためにマイクへのアクセスを許可します。",
+  "setup.grantAccess": "アクセスを許可",
+  "setup.openMicSettings": "マイク設定を開く →",
+  "setup.accessibility": "アクセシビリティ",
+  "setup.accessibilityDesc": "ターミナルやアプリへの文字起こしの自動貼り付けに必要です。",
+  "setup.openAccessibilitySettings": "アクセシビリティ設定を開く →",
+  "setup.hint": "権限が許可されると、アプリは自動的に続行します。",
+  "error.noMic": "マイクの音声が検出されません。マイクがオンになっているか確認してください。",
+  "billing.remainingCredits": "残りクレジット",
+  "billing.expired": "期限切れ",
+  "billing.activeUntil": "{{date}}まで有効",
+  "billing.trialEnds": "トライアル終了 {{time}}",
+  "billing.renews": "更新 {{time}}",
+  "billing.trial": "トライアル",
+  "billing.active": "有効",
+  "billing.canceled": "キャンセル済み",
+  "billing.canceling": "キャンセル中",
+  "billing.subscribe": "登録する",
+  "billing.upgrade": "アップグレード",
+  "billing.opening": "開いています...",
+  "billing.cancelSubscription": "サブスクリプションをキャンセル",
+  "billing.cancelling": "キャンセル中...",
+  "billing.current": "現在: {{plan}}",
+  "billing.freeTrial": "3日間の無料トライアル",
+  "billing.faq": "よくある質問",
+  "billing.faqCta": "お探しの質問が見つかりませんか？",
+  "billing.pro.description": "個人利用向け",
+  "billing.max.description": "ヘビーユーザー向け",
+  "billing.features.proCredits": "月$3の無料クレジット付き",
+  "billing.features.maxCredits": "月$10の無料クレジット付き",
+  "billing.features.stt": "Groq & Deepgram 文字起こし",
+  "billing.features.tone": "AI強化トーン＆翻訳",
+  "billing.features.addons": "数値＆リスト整形アドオン",
+  "billing.features.proUpload": "最大10 MBの音声アップロード",
+  "billing.features.maxUpload": "最大25 MBの音声アップロード",
+  "billing.faqItems": [
+    {
+      "question": "Vocaは無料ですか？",
+      "answer": [
+        "すべてのプランは3日間の無料トライアルから始まります — フル機能、制限なし。お好きなプランを選んで、リスクなしでお試しいただき、いつでもキャンセルできます。",
+        "トライアル後、プランはわずか月$3から。隠れた手数料や予期しない請求はありません。表示されている金額がお支払い金額です。",
+        "月~$8に加えてAPI キーの追加コストを請求する競合他社とは異なり、Vocaはすべてを1つのシンプルなサブスクリプションに含んでいます。"
+      ]
+    },
+    {
+      "question": "いつでもキャンセルできますか？",
+      "answer": [
+        "はい。いつでもキャンセルできます — 現在の期間は引き続き有効で、翌月は単に更新されません。",
+        "キャンセル料なし、隠れた条件なし、面倒な引き止めフローなし。ワンクリックで完了です。",
+        "すべてオープンソースです。請求、コード、約束をご自身で確認できます — 何も隠していません。"
+      ]
+    },
+    {
+      "question": "Vocaの特徴は何ですか？",
+      "answer": [
+        "実環境向けに構築されたバックグラウンドノイズキャンセレーション — 騒がしい場所にいる開発者に特に便利です。",
+        "関数名、コード用語、技術的な専門用語を認識し、推測ではなく正確に文字起こしするAI。",
+        "スマート自動ペースト：修正された文字起こしがカーソルの位置にそのまま挿入されます。コピー＆ペーストもアプリの切り替えも不要です。",
+        "AIは文字起こしだけでなく、文体を改善し、文法を修正し、実際に話した内容よりもきれいなテキストにします。"
+      ]
+    },
+    {
+      "question": "デベロッパーモードとは何ですか？",
+      "answer": [
+        "デベロッパーモードはソフトウェアエンジニア向けに特別に構築されたトーン設定です。有効にすると、VocaのAIがコード用語、関数名、ライブラリ名、技術的な専門用語を認識し、通常の単語として扱うのではなく正確に文字起こしします。",
+        "「reakt use state hook」と言えば「React useState hook」と書きます。「nahbar component」と言えば「navbar component」と書きます。",
+        "バックグラウンドノイズキャンセレーションと組み合わせることで、実環境でコードコメント、ドキュメント、メッセージをディクテーションする開発者向けに設計されています。"
+      ]
+    },
+    {
+      "question": "対応している言語は？",
+      "answer": [
+        "Deepgram と Groq エンジンによる35以上の言語での音声認識。",
+        "トーンコントロール付きAI翻訳で100以上の言語に対応 — フォーマル、カジュアル、デベロッパーモード。",
+        "デベロッパーモードはコード用語や技術的な専門用語を自動認識し、英語のまま維持しながら残りを自然に翻訳します。"
+      ]
+    },
+    {
+      "question": "データはどこに保存されますか？",
+      "answer": [
+        "お客様のデータはプライバシーファーストのアプローチで当社サーバーで処理されます。Vocaは完全にオープンソースです — すべてのコードをご自身で確認できます。",
+        "サーバーに何も保存したくない場合は、設定でオフに切り替えるだけです。録音や文字起こしは保存されません — 完全にお客様の選択です。",
+        "トラッキングなし、分析なし、データ販売なし。以上。"
+      ]
+    },
+    {
+      "question": "オフラインで使えますか？",
+      "answer": [
+        "Vocaはインターネット接続が必要です。音声は当社サーバーに送信され、最高品質を最低コストで処理します。",
+        "当社のクラウドパイプラインには、バックグラウンドノイズキャンセレーション、AI補正、コード対応の文字起こし、スマート翻訳が含まれており、ローカルソリューションよりも高速で正確な結果を提供します。"
+      ]
+    }
+  ],
+  "common.save": "保存",
+  "common.cancel": "キャンセル",
+  "common.delete": "削除",
+  "common.copy": "コピー",
+  "common.copied": "コピーしました！"
+}

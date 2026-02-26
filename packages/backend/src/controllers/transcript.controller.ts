@@ -41,7 +41,7 @@ export async function deleteUserTranscripts(userId: string, excludeId?: string) 
 
 export const createTranscript = async (req: Request, res: Response) => {
   if (!req.file) {
-    return sendError(res, 'Audio file is required', 400);
+    return sendError(res, req.t('transcript.audioRequired'), 400);
   }
 
   const filePath = req.file.path;
@@ -54,7 +54,7 @@ export const createTranscript = async (req: Request, res: Response) => {
   const { provider, language, translateTo, tone, numeric, planning } = parsed.data;
 
   if (translateTo && !env.GEMINI_API_KEY) {
-    return sendError(res, 'Translation requires a Gemini API key. Set GEMINI_API_KEY in your environment.', 400);
+    return sendError(res, req.t('transcript.geminiKeyRequired'), 400);
   }
 
   try {
@@ -63,7 +63,7 @@ export const createTranscript = async (req: Request, res: Response) => {
 
     if (result.hallucination) {
       safeUnlink(filePath);
-      return sendError(res, 'No speech detected, please try again.', 422);
+      return sendError(res, req.t('transcript.noSpeech'), 422);
     }
 
     let translatedText: string | undefined;
@@ -84,7 +84,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     const deducted = await deductCredits(req.user!.id, cost);
     if (!deducted) {
       safeUnlink(filePath);
-      return sendError(res, 'Insufficient credits', 402);
+      return sendError(res, req.t('transcript.insufficientCredits'), 402);
     }
 
     safeUnlink(filePath);
@@ -104,7 +104,7 @@ export const createTranscript = async (req: Request, res: Response) => {
       deleteUserTranscripts(req.user!.id, doc._id.toString());
     }
 
-    return sendSuccess(res, 'Transcription successful', toITranscript(doc));
+    return sendSuccess(res, req.t('transcript.success'), toITranscript(doc));
   } catch (err) {
     safeUnlink(filePath);
     throw err;
@@ -113,7 +113,7 @@ export const createTranscript = async (req: Request, res: Response) => {
 
 export const getTranscripts = async (req: Request, res: Response) => {
   const docs = await TranscriptModel.find({ userId: req.user!.id }).sort({ createdAt: -1 });
-  return sendSuccess(res, 'Transcripts fetched', docs.map(toITranscript));
+  return sendSuccess(res, req.t('transcript.fetched'), docs.map(toITranscript));
 };
 
 export const deleteTranscript = async (req: Request, res: Response) => {
@@ -121,8 +121,8 @@ export const deleteTranscript = async (req: Request, res: Response) => {
   const doc = await TranscriptModel.findOneAndDelete({ _id: id, userId: req.user!.id });
 
   if (!doc) {
-    return sendError(res, 'Transcript not found', 404);
+    return sendError(res, req.t('transcript.notFound'), 404);
   }
 
-  return sendSuccess(res, 'Transcript deleted', null);
+  return sendSuccess(res, req.t('transcript.deleted'), null);
 };

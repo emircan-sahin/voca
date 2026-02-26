@@ -1,0 +1,171 @@
+{
+  "sidebar.dashboard": "Tableau de bord",
+  "sidebar.history": "Historique",
+  "sidebar.settings": "Paramètres",
+  "sidebar.billing": "Facturation",
+  "sidebar.signOut": "Déconnexion",
+  "sidebar.language": "Langue",
+  "header.dashboard": "Tableau de bord",
+  "header.history": "Historique",
+  "header.settings": "Paramètres",
+  "header.billing": "Facturation",
+  "dashboard.processing": "Traitement...",
+  "dashboard.stopRecording": "Cliquez pour arrêter l'enregistrement",
+  "dashboard.startRecording": "Cliquez pour démarrer l'enregistrement",
+  "dashboard.recentTranscripts": "Transcriptions Récentes",
+  "history.allTranscripts": "Toutes les Transcriptions",
+  "history.empty": "Aucune transcription pour le moment. Commencez à enregistrer !",
+  "settings.speech": "Parole",
+  "settings.provider": "Fournisseur",
+  "settings.language": "Langue",
+  "settings.microphone": "Microphone",
+  "settings.translation": "Traduction",
+  "settings.preferences": "Préférences",
+  "settings.resetDefaults": "Réinitialiser par défaut",
+  "settings.resetting": "Réinitialisation...",
+  "settings.enableTranslation": "Activer la traduction",
+  "settings.targetLanguage": "Langue cible",
+  "settings.tone": "Style",
+  "settings.toneDeveloper": "Développeur",
+  "settings.tonePersonal": "Personnel",
+  "settings.numeric": "Numérique",
+  "settings.numericTooltip": "Convertit les nombres dictés en chiffres",
+  "settings.numericExample": "« deux cent cinquante » → 250",
+  "settings.planning": "Mode liste",
+  "settings.planningTooltip": "Formate les listes numérotées avec des sauts de ligne",
+  "settings.planningExample": "« premièrement … deuxièmement … » → 1. 2. 3.",
+  "settings.translationNote": "Traduire automatiquement les transcriptions avec Gemini 2.0 Flash",
+  "settings.noiseSuppression": "Suppression du bruit",
+  "settings.noiseSuppressionDesc": "Réduit le bruit de fond constant comme les ventilateurs, la climatisation ou la circulation.",
+  "settings.noiseSuppressionHint": "Désactivez-la dans les environnements calmes — elle peut légèrement altérer la qualité vocale.",
+  "settings.privacyMode": "Mode confidentialité",
+  "settings.privacyModeDesc": "Ne conserve que la dernière transcription. L'activation supprimera toutes les transcriptions existantes.",
+  "mic.default": "Par défaut",
+  "mic.fallback": "Microphone ({{id}}…)",
+  "mic.stop": "Arrêter",
+  "mic.test": "Tester",
+  "transcript.copied": "Copié dans le presse-papiers",
+  "transcript.original": "Original",
+  "transcript.ai": "AI",
+  "shortcuts.title": "Raccourcis clavier",
+  "shortcuts.startStop": "Démarrer / Arrêter l'enregistrement",
+  "shortcuts.cancel": "Annuler l'enregistrement",
+  "shortcuts.show": "Afficher les raccourcis",
+  "overlay.processing": "Traitement...",
+  "overlay.timesUp": "Temps écoulé",
+  "overlay.recording": "Enregistrement",
+  "overlay.stop": "Arrêter et transcrire",
+  "overlay.cancel": "Annuler l'enregistrement",
+  "overlay.cancelBtn": "Annuler",
+  "splash.checking": "Recherche de mises à jour...",
+  "splash.retrying": "Recherche de mises à jour... Nouvelle tentative dans {{seconds}}s",
+  "update.available": "Mise à jour v{{version}} disponible",
+  "update.button": "Mettre à jour",
+  "update.downloading": "Téléchargement de la mise à jour... {{percent}}%",
+  "update.ready": "v{{version}} prête à installer",
+  "update.restart": "Redémarrer",
+  "welcome.title": "Bienvenue sur Voca",
+  "welcome.subtitle": "Connectez-vous pour commencer à enregistrer et transcrire votre audio.",
+  "welcome.google": "Se connecter avec Google",
+  "setup.title": "Configurer Voca",
+  "setup.subtitle": "Les autorisations suivantes sont nécessaires au bon fonctionnement de l'application.",
+  "setup.microphone": "Microphone",
+  "setup.microphoneDesc": "Autorise l'accès au microphone pour l'enregistrement audio.",
+  "setup.grantAccess": "Autoriser l'accès",
+  "setup.openMicSettings": "Ouvrir les paramètres du microphone →",
+  "setup.accessibility": "Accessibilité",
+  "setup.accessibilityDesc": "Nécessaire pour le collage automatique des transcriptions dans les terminaux et applications.",
+  "setup.openAccessibilitySettings": "Ouvrir les paramètres d'accessibilité →",
+  "setup.hint": "L'application continuera automatiquement une fois les autorisations accordées.",
+  "error.noMic": "Aucun son de microphone détecté. Vérifiez que votre micro est allumé.",
+  "billing.remainingCredits": "Crédits Restants",
+  "billing.expired": "Expiré",
+  "billing.activeUntil": "Actif jusqu'au {{date}}",
+  "billing.trialEnds": "L'essai se termine {{time}}",
+  "billing.renews": "Renouvellement {{time}}",
+  "billing.trial": "Essai",
+  "billing.active": "Actif",
+  "billing.canceled": "Annulé",
+  "billing.canceling": "Annulation en cours",
+  "billing.subscribe": "S'abonner",
+  "billing.upgrade": "Mettre à niveau",
+  "billing.opening": "Ouverture...",
+  "billing.cancelSubscription": "Annuler l'abonnement",
+  "billing.cancelling": "Annulation...",
+  "billing.current": "Actuel : {{plan}}",
+  "billing.freeTrial": "Essai gratuit de 3 jours",
+  "billing.faq": "Questions Fréquentes",
+  "billing.faqCta": "Vous ne trouvez pas votre question ?",
+  "billing.pro.description": "Pour un usage personnel",
+  "billing.max.description": "Pour une utilisation intensive",
+  "billing.features.proCredits": "$3/mois de crédits gratuits inclus",
+  "billing.features.maxCredits": "$10/mois de crédits gratuits inclus",
+  "billing.features.stt": "Transcription Groq & Deepgram",
+  "billing.features.tone": "Style et traduction améliorés par AI",
+  "billing.features.addons": "Modules Numérique et Mode liste",
+  "billing.features.proUpload": "Téléchargement audio jusqu'à 10 Mo",
+  "billing.features.maxUpload": "Téléchargement audio jusqu'à 25 Mo",
+  "billing.faqItems": [
+    {
+      "question": "Voca est-il gratuit ?",
+      "answer": [
+        "Chaque plan commence par un essai gratuit de 3 jours — toutes les fonctionnalités, sans restrictions. Choisissez n'importe quel plan, essayez-le sans risque et annulez à tout moment.",
+        "Après l'essai, les plans commencent à seulement $3/mois. Pas de frais cachés, pas de surprises. Ce que vous voyez est ce que vous payez.",
+        "Contrairement aux concurrents qui facturent ~$8/mois plus des coûts supplémentaires de clé API, Voca inclut tout dans un seul abonnement simple."
+      ]
+    },
+    {
+      "question": "Puis-je annuler à tout moment ?",
+      "answer": [
+        "Oui. Annulez quand vous le souhaitez — votre période en cours reste active et le mois suivant ne sera tout simplement pas renouvelé.",
+        "Pas de frais d'annulation, pas de conditions cachées, pas de processus de rétention gênants. Un clic et c'est fait.",
+        "Tout est open source. Vous pouvez vérifier notre facturation, notre code et nos promesses — rien n'est caché."
+      ]
+    },
+    {
+      "question": "Qu'est-ce qui rend Voca différent ?",
+      "answer": [
+        "Annulation du bruit de fond conçue pour les environnements réels — particulièrement utile pour les développeurs dans des espaces bruyants.",
+        "Une AI qui reconnaît les noms de fonctions, les termes de code et le jargon technique, puis les transcrit correctement au lieu de deviner.",
+        "Collage automatique intelligent : la transcription corrigée apparaît exactement là où se trouvait votre curseur. Pas de copier-coller, pas de changement d'application.",
+        "L'AI ne se contente pas de transcrire — elle améliore votre style d'écriture, corrige la grammaire et rend votre texte plus propre que ce que vous avez réellement dit."
+      ]
+    },
+    {
+      "question": "Qu'est-ce que le Mode Développeur ?",
+      "answer": [
+        "Le Mode Développeur est un réglage de style conçu spécifiquement pour les ingénieurs logiciels. Lorsqu'il est activé, l'AI de Voca reconnaît les termes de code, les noms de fonctions, les noms de bibliothèques et le jargon technique — et les transcrit correctement au lieu de les traiter comme des mots ordinaires.",
+        "Dites « reakt use state hook » et il écrit « React useState hook ». Dites « nahbar component » et il écrit « navbar component ».",
+        "Combiné avec l'annulation du bruit de fond, il est conçu pour les développeurs qui dictent des commentaires de code, de la documentation ou des messages tout en travaillant dans des environnements réels."
+      ]
+    },
+    {
+      "question": "Quelles langues sont prises en charge ?",
+      "answer": [
+        "Plus de 35 langues pour la reconnaissance vocale via les moteurs Deepgram et Groq.",
+        "Plus de 100 langues pour la traduction alimentée par AI avec contrôle du style — formel, décontracté ou mode développeur.",
+        "Le mode développeur reconnaît automatiquement les termes de code et le jargon technique, les conservant en anglais tout en traduisant le reste naturellement."
+      ]
+    },
+    {
+      "question": "Où sont stockées mes données ?",
+      "answer": [
+        "Vos données sont traitées sur nos serveurs avec une approche axée sur la confidentialité. Voca est entièrement open source — vous pouvez inspecter chaque ligne de code vous-même.",
+        "Si vous ne souhaitez rien stocker sur nos serveurs, désactivez simplement l'option dans les Paramètres. Vos enregistrements et transcriptions ne seront pas sauvegardés — c'est entièrement votre choix.",
+        "Pas de suivi, pas d'analyses, pas de vente de données. Point final."
+      ]
+    },
+    {
+      "question": "Fonctionne-t-il hors ligne ?",
+      "answer": [
+        "Voca nécessite une connexion internet. Votre audio est envoyé à nos serveurs où nous le traitons pour la meilleure qualité possible au coût le plus bas.",
+        "Notre pipeline cloud comprend l'annulation du bruit de fond, la correction par AI, la transcription adaptée au code et la traduction intelligente — offrant des résultats plus rapides et plus précis que toute solution locale."
+      ]
+    }
+  ],
+  "common.save": "Enregistrer",
+  "common.cancel": "Annuler",
+  "common.delete": "Supprimer",
+  "common.copy": "Copier",
+  "common.copied": "Copié !"
+}

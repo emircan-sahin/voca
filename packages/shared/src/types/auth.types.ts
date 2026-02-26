@@ -1,5 +1,8 @@
 import { LANGUAGE_CODES, TranslationTone } from '../constants/languages';
 
+export const APP_LOCALES = ['en', 'es', 'hi', 'zh', 'de', 'pt', 'ja', 'fr', 'tr', 'ru', 'ko', 'it'] as const;
+export type AppLocale = (typeof APP_LOCALES)[number];
+
 export const BILLING_PLANS = ['pro', 'max'] as const;
 export type BillingPlan = (typeof BILLING_PLANS)[number];
 
@@ -55,6 +58,8 @@ export interface IAuthResponse {
 export interface IUserSettings {
   provider: SttProvider;
   language: LanguageCode;
+  programLanguage?: AppLocale;
+  programLanguageDefault?: AppLocale;
   noiseSuppression: boolean;
   privacyMode: boolean;
   translation: {
@@ -69,6 +74,7 @@ export interface IUserSettings {
 export const DEFAULT_USER_SETTINGS: IUserSettings = {
   provider: 'deepgram',
   language: 'en',
+  programLanguage: 'en',
   noiseSuppression: false,
   privacyMode: false,
   translation: {

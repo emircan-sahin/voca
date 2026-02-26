@@ -3,6 +3,7 @@ import { IUser, IUserSettings } from '@voca/shared';
 import { api } from '~/lib/axios';
 import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
+import { useProgramLanguageStore } from '~/stores/programLanguage.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
 import { usePrivacyModeStore } from '~/stores/privacyMode.store';
@@ -27,6 +28,9 @@ export function applyRemoteSettings(settings: IUserSettings) {
   remoteSettingsVersion++;
   useProviderStore.setState({ provider: settings.provider });
   useLanguageStore.setState({ language: settings.language });
+  if (settings.programLanguage) {
+    useProgramLanguageStore.getState().setProgramLanguage(settings.programLanguage);
+  }
   useNoiseSuppressionStore.setState({ enabled: settings.noiseSuppression });
   usePrivacyModeStore.setState({ enabled: settings.privacyMode });
   useTranslationStore.setState({
@@ -84,6 +88,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         if (settingsRes.data) {
           applyRemoteSettings(settingsRes.data);
           settingsLoaded = true;
+
+          if (!settingsRes.data.programLanguageDefault) {
+            const detected = useProgramLanguageStore.getState().programLanguage;
+            api.put('/auth/settings', { programLanguageDefault: detected }).catch(() => {});
+          }
         }
       } catch {
         // Settings fetch failed — keep settingsHydrated false to prevent

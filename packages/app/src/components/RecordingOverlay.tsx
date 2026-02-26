@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const BAR_COUNT = 48;
 const LERP = 0.18;
@@ -6,6 +7,7 @@ const ACCENT = '#dc2626';
 const MAX_SECONDS = 300;
 
 export function RecordingOverlay() {
+  const { t } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentHeights = useRef(new Float32Array(BAR_COUNT));
   const targetHeights = useRef(new Float32Array(BAR_COUNT));
@@ -173,7 +175,7 @@ export function RecordingOverlay() {
             : 'animate-pulse bg-red-600'
           }`} />
           <span className="text-[13px] font-semibold text-[#171717]">
-            {loading ? 'Processing...' : paused ? 'Time\'s up' : 'Recording'}
+            {loading ? t('overlay.processing') : paused ? t('overlay.timesUp') : t('overlay.recording')}
           </span>
         </div>
         <span className="font-mono text-[13px] text-[#737373]">{timer}</span>
@@ -201,16 +203,16 @@ export function RecordingOverlay() {
           <button
             onClick={handleStop}
             className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e5e5e5] bg-white transition-colors hover:bg-[#fafafa]"
-            title="Stop & Transcribe"
+            title={t('overlay.stop')}
           >
             <div className="h-4 w-4 rounded-sm bg-red-600" />
           </button>
           <button
             onClick={handleCancel}
             className="absolute right-0 text-[13px] text-[#737373] transition-colors hover:text-[#171717]"
-            title="Cancel Recording"
+            title={t('overlay.cancel')}
           >
-            Cancel
+            {t('overlay.cancelBtn')}
           </button>
         </div>
       )}

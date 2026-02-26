@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { clsx } from 'clsx';
 import { Mic } from 'lucide-react';
 import { useMicrophoneStore } from '~/stores/microphone.store';
@@ -19,6 +20,7 @@ interface MicrophoneSelectProps {
 }
 
 export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
+  const { t } = useTranslation();
   const { deviceId, setDeviceId } = useMicrophoneStore();
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
@@ -106,10 +108,10 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={DEFAULT_SENTINEL}>Default</SelectItem>
+            <SelectItem value={DEFAULT_SENTINEL}>{t('mic.default')}</SelectItem>
             {devices.map((d) => (
               <SelectItem key={d.deviceId} value={d.deviceId}>
-                {d.label || `Microphone (${d.deviceId.slice(0, 8)}…)`}
+                {d.label || t('mic.fallback', { id: d.deviceId.slice(0, 8) })}
               </SelectItem>
             ))}
           </SelectContent>
@@ -134,7 +136,7 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
         className={testing ? 'text-red-600 hover:text-red-700' : 'text-[#737373]'}
       >
         <Mic size={14} />
-        {testing ? 'Stop' : 'Test'}
+        {testing ? t('mic.stop') : t('mic.test')}
       </Button>
     </div>
   );

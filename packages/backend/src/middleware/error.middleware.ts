@@ -5,7 +5,7 @@ import { sendError } from '~/utils/response';
 
 export const errorMiddleware = (
   err: Error,
-  _req: Request,
+  req: Request,
   res: Response,
   _next: NextFunction
 ) => {
@@ -16,20 +16,21 @@ export const errorMiddleware = (
 
   if (err instanceof multer.MulterError) {
     const message = err.code === 'LIMIT_FILE_SIZE'
-      ? 'File too large (max 25 MB)'
+      ? req.t('error.fileTooLarge')
       : err.message;
     return sendError(res, message, 400);
   }
 
   if (err.message?.startsWith('Unsupported audio format')) {
-    return sendError(res, err.message, 400);
+    const format = err.message.split(': ')[1] ?? '';
+    return sendError(res, req.t('error.unsupportedFormat', { format }), 400);
   }
 
   if (err.name === 'CastError') {
-    return sendError(res, 'Invalid ID format', 400);
+    return sendError(res, req.t('error.invalidId'), 400);
   }
 
   console.error('[Error]', err.message);
   if (err.stack) console.error(err.stack);
-  sendError(res, 'Internal server error', 500);
+  sendError(res, req.t('error.internal'), 500);
 };

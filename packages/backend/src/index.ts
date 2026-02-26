@@ -4,6 +4,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
+import i18nextMiddleware from 'i18next-http-middleware';
+import i18n from '~/i18n/config';
 import { env } from '~/config/env';
 import authRoutes from '~/routes/auth.routes';
 import transcriptRoutes from '~/routes/transcript.routes';
@@ -23,6 +25,7 @@ app.use(cors({ origin: env.CORS_ORIGIN.split(',') }));
 app.post('/api/billing/webhook', express.text({ type: 'application/json' }), paddleWebhook);
 
 app.use(express.json());
+app.use(i18nextMiddleware.handle(i18n));
 app.use(globalLimiter);
 
 // Request/Response logging
@@ -37,16 +40,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/health', (_req, res) => {
+app.get('/api/health', (req, res) => {
   const config = getAppConfig();
-  sendSuccess(res, 'OK', { latestVersion: config.latestVersion });
+  sendSuccess(res, req.t('general.ok'), { latestVersion: config.latestVersion });
 });
 
 app.use('/api/auth', authRoutes);
 app.use('/api/transcripts', transcriptRoutes);
 app.use('/api/billing', billingRoutes);
 
-app.use((_req, res) => sendError(res, 'Route not found', 404));
+app.use((req, res) => sendError(res, req.t('error.routeNotFound'), 404));
 
 app.use(errorMiddleware);
 

@@ -7,7 +7,7 @@ export const requireNoActiveTranscription = async (req: Request, res: Response, 
   const acquired = await redis.set(key, '1', 'EX', 300, 'NX');
 
   if (!acquired) {
-    return sendError(res, 'A transcription is already in progress', 409);
+    return sendError(res, req.t('error.transcriptionInProgress'), 409);
   }
 
   res.on('finish', () => {

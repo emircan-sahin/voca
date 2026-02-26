@@ -24,8 +24,7 @@ function extractUser(req: Request): { id: string; email: string } | null {
 
 export const authenticate = (req: Request, res: Response, next: NextFunction) => {
   const user = extractUser(req);
-  if (!user) return sendError(res, 'Unauthorized', 401);
+  if (!user) return sendError(res, req.t('error.unauthorized'), 401);
   req.user = user;
   next();
 };
-

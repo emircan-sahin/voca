@@ -23,16 +23,16 @@ function htmlPage(title: string, subtitle: string, color = '#171717') {
 </body></html>`;
 }
 
-function requireAuthConfig(res: Response): boolean {
+function requireAuthConfig(req: Request, res: Response): boolean {
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || env.JWT_SECRET.length < 32) {
-    sendError(res, 'Auth not configured. Set GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and JWT_SECRET (min 32 chars).', 501);
+    sendError(res, req.t('auth.notConfigured'), 501);
     return false;
   }
   return true;
 }
 
-export const googleRedirect = (_req: Request, res: Response) => {
-  if (!requireAuthConfig(res)) return;
+export const googleRedirect = (req: Request, res: Response) => {
+  if (!requireAuthConfig(req, res)) return;
 
   const params = new URLSearchParams({
     client_id: env.GOOGLE_CLIENT_ID,
@@ -48,7 +48,7 @@ export const googleRedirect = (_req: Request, res: Response) => {
 export const googleCallback = async (req: Request, res: Response) => {
   const { code } = req.query;
   if (typeof code !== 'string') {
-    return sendError(res, 'Missing authorization code', 400);
+    return sendError(res, req.t('auth.missingCode'), 400);
   }
 
   try {
@@ -82,32 +82,32 @@ export const googleCallback = async (req: Request, res: Response) => {
 export const refresh = async (req: Request, res: Response) => {
   const parsed = refreshBodySchema.safeParse(req.body);
   if (!parsed.success) {
-    return sendError(res, 'Missing or invalid refresh token', 400);
+    return sendError(res, req.t('auth.missingRefreshToken'), 400);
   }
 
   try {
     const data = await refreshAccessToken(parsed.data.refreshToken);
-    return sendSuccess(res, 'Token refreshed', data);
+    return sendSuccess(res, req.t('auth.tokenRefreshed'), data);
   } catch {
-    return sendError(res, 'Invalid refresh token', 401);
+    return sendError(res, req.t('auth.invalidRefreshToken'), 401);
   }
 };
 
 export const getMe = async (req: Request, res: Response) => {
   const user = await UserModel.findById(req.user!.id);
-  if (!user) return sendError(res, 'User not found', 404);
-  return sendSuccess(res, 'User fetched', toIUser(user));
+  if (!user) return sendError(res, req.t('user.notFound'), 404);
+  return sendSuccess(res, req.t('user.fetched'), toIUser(user));
 };
 
 export const getSettings = async (req: Request, res: Response) => {
   const user = await UserModel.findById(req.user!.id);
-  if (!user) return sendError(res, 'User not found', 404);
-  return sendSuccess(res, 'Settings fetched', user.settings);
+  if (!user) return sendError(res, req.t('user.notFound'), 404);
+  return sendSuccess(res, req.t('user.settingsFetched'), user.settings);
 };
 
 export const updateSettings = async (req: Request, res: Response) => {
   const parsed = updateUserSettingsSchema.safeParse(req.body);
-  if (!parsed.success) return sendError(res, 'Invalid settings', 400);
+  if (!parsed.success) return sendError(res, req.t('user.invalidSettings'), 400);
 
   const s = parsed.data;
 
@@ -121,6 +121,8 @@ export const updateSettings = async (req: Request, res: Response) => {
   const $set: Record<string, unknown> = {};
   if (s.provider !== undefined) $set['settings.provider'] = s.provider;
   if (s.language !== undefined) $set['settings.language'] = s.language;
+  if (s.programLanguage !== undefined) $set['settings.programLanguage'] = s.programLanguage;
+  if (s.programLanguageDefault !== undefined) $set['settings.programLanguageDefault'] = s.programLanguageDefault;
   if (s.noiseSuppression !== undefined) $set['settings.noiseSuppression'] = s.noiseSuppression;
   if (s.privacyMode !== undefined) $set['settings.privacyMode'] = s.privacyMode;
   if (s.translation) {
@@ -133,7 +135,7 @@ export const updateSettings = async (req: Request, res: Response) => {
   }
 
   if (Object.keys($set).length === 0) {
-    return sendError(res, 'No settings to update', 400);
+    return sendError(res, req.t('user.noSettingsToUpdate'), 400);
   }
 
   const user = await UserModel.findByIdAndUpdate(
@@ -141,8 +143,8 @@ export const updateSettings = async (req: Request, res: Response) => {
     { $set },
     { new: true }
   );
-  if (!user) return sendError(res, 'User not found', 404);
-  return sendSuccess(res, 'Settings updated', user.settings);
+  if (!user) return sendError(res, req.t('user.notFound'), 404);
+  return sendSuccess(res, req.t('user.settingsUpdated'), user.settings);
 };
 
 export const resetSettings = async (req: Request, res: Response) => {
@@ -151,6 +153,6 @@ export const resetSettings = async (req: Request, res: Response) => {
     { $set: { settings: DEFAULT_USER_SETTINGS } },
     { new: true }
   );
-  if (!user) return sendError(res, 'User not found', 404);
-  return sendSuccess(res, 'Settings reset to defaults', user.settings);
+  if (!user) return sendError(res, req.t('user.notFound'), 404);
+  return sendSuccess(res, req.t('user.settingsReset'), user.settings);
 };

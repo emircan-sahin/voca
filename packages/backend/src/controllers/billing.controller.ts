@@ -84,13 +84,13 @@ export const webhook = async (req: Request, res: Response) => {
 
 export const checkout = async (req: Request, res: Response) => {
   const parsed = checkoutSchema.safeParse(req.body);
-  if (!parsed.success) return sendError(res, 'Invalid plan', 400);
+  if (!parsed.success) return sendError(res, req.t('billing.invalidPlan'), 400);
 
   const priceId = parsed.data.plan === 'pro' ? env.PADDLE_PRICE_PRO : env.PADDLE_PRICE_MAX;
 
   try {
     const user = await UserModel.findById(req.user!.id);
-    if (!user) return sendError(res, 'User not found', 404);
+    if (!user) return sendError(res, req.t('user.notFound'), 404);
 
     const hasLiveSub =
       user.paddleSubscriptionId &&
@@ -100,14 +100,14 @@ export const checkout = async (req: Request, res: Response) => {
 
     if (hasLiveSub) {
       if (user.subscriptionStatus === 'trialing') {
-        return sendError(res, 'Plan changes are not available during trial.', 400);
+        return sendError(res, req.t('billing.trialNoChanges'), 400);
       }
 
       const currentRank = user.plan ? PLAN_RANK[user.plan] : 0;
       const targetRank = PLAN_RANK[parsed.data.plan];
 
       if (targetRank <= currentRank) {
-        return sendError(res, 'Downgrades are not supported. Cancel and resubscribe instead.', 400);
+        return sendError(res, req.t('billing.noDowngrade'), 400);
       }
 
       // Upgrade → prorate to new plan
@@ -115,7 +115,7 @@ export const checkout = async (req: Request, res: Response) => {
         items: [{ priceId, quantity: 1 }],
         prorationBillingMode: 'prorated_immediately',
       });
-      return sendSuccess(res, 'Plan updated', { updated: true });
+      return sendSuccess(res, req.t('billing.planUpdated'), { updated: true });
     }
 
     // No live subscription → new checkout
@@ -125,19 +125,19 @@ export const checkout = async (req: Request, res: Response) => {
     });
 
     const url = transaction.checkout?.url;
-    if (!url) return sendError(res, 'Failed to create checkout', 500);
+    if (!url) return sendError(res, req.t('billing.checkoutFailed'), 500);
 
-    return sendSuccess(res, 'Checkout created', { url });
+    return sendSuccess(res, req.t('billing.checkoutCreated'), { url });
   } catch (err) {
     console.error('[Paddle] Checkout error:', getErrorMessage(err));
-    return sendError(res, 'Failed to create checkout', 500);
+    return sendError(res, req.t('billing.checkoutFailed'), 500);
   }
 };
 
 // ── Config ──────────────────────────────────────────────────────
 
-export const getConfig = async (_req: Request, res: Response) => {
-  return sendSuccess(res, 'Paddle config', {
+export const getConfig = async (req: Request, res: Response) => {
+  return sendSuccess(res, req.t('billing.paddleConfig'), {
     clientToken: env.PADDLE_CLIENT_TOKEN,
     sandbox: env.PADDLE_SANDBOX,
   });
@@ -149,8 +149,8 @@ export const cancel = async (req: Request, res: Response) => {
   try {
     await cancelSubscription(req.user!.id);
     const user = await UserModel.findById(req.user!.id);
-    if (!user) return sendError(res, 'User not found', 404);
-    return sendSuccess(res, 'Subscription will cancel at period end', toIUser(user));
+    if (!user) return sendError(res, req.t('user.notFound'), 404);
+    return sendSuccess(res, req.t('billing.cancelSuccess'), toIUser(user));
   } catch (err) {
     return sendError(res, getErrorMessage(err), 400);
   }

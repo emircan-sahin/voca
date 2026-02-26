@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Switch, Label, Checkbox } from 'poyraz-ui/atoms';
 import {
   Select,
@@ -13,22 +14,23 @@ import {
 import { LANGUAGES, TranslationTone } from '@voca/shared';
 import { useTranslationStore } from '~/stores/translation.store';
 
-const TONES: { value: TranslationTone; label: string }[] = [
-  { value: 'developer', label: 'Developer' },
-  { value: 'personal', label: 'Personal' },
-];
-
 export const TranslationSettings = () => {
+  const { t } = useTranslation();
   const {
     enabled, targetLanguage, tone, numeric, planning,
     setEnabled, setTargetLanguage, setTone, setNumeric, setPlanning,
   } = useTranslationStore();
 
+  const TONES: { value: TranslationTone; label: string }[] = [
+    { value: 'developer', label: t('settings.toneDeveloper') },
+    { value: 'personal', label: t('settings.tonePersonal') },
+  ];
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <Label htmlFor="translation-toggle" className="text-sm cursor-pointer">
-          Enable Translation
+          {t('settings.enableTranslation')}
         </Label>
         <Switch
           id="translation-toggle"
@@ -41,7 +43,7 @@ export const TranslationSettings = () => {
         <>
           <div className="flex items-start gap-4">
             <div className="space-y-1">
-              <label className="text-sm text-[#737373]">Target Language</label>
+              <label className="text-sm text-[#737373]">{t('settings.targetLanguage')}</label>
               <Select value={targetLanguage} onValueChange={setTargetLanguage}>
                 <SelectTrigger className="w-64 text-sm">
                   <SelectValue />
@@ -57,15 +59,15 @@ export const TranslationSettings = () => {
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-[#737373]">Tone</label>
+              <label className="text-sm text-[#737373]">{t('settings.tone')}</label>
               <Select value={tone} onValueChange={(v) => setTone(v as TranslationTone)}>
                 <SelectTrigger className="w-64 text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {TONES.map((t) => (
-                    <SelectItem key={t.value} value={t.value}>
-                      {t.label}
+                  {TONES.map((toneItem) => (
+                    <SelectItem key={toneItem.value} value={toneItem.value}>
+                      {toneItem.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -87,12 +89,12 @@ export const TranslationSettings = () => {
                       htmlFor="numeric-toggle"
                       className="text-sm cursor-pointer border-b border-dashed border-[#a3a3a3]"
                     >
-                      Numeric
+                      {t('settings.numeric')}
                     </Label>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Converts spoken numbers to digits</p>
-                    <p className="text-[#a3a3a3]">"two hundred fifty" → 250</p>
+                    <p>{t('settings.numericTooltip')}</p>
+                    <p className="text-[#a3a3a3]">{t('settings.numericExample')}</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -108,12 +110,12 @@ export const TranslationSettings = () => {
                       htmlFor="planning-toggle"
                       className="text-sm cursor-pointer border-b border-dashed border-[#a3a3a3]"
                     >
-                      Planning
+                      {t('settings.planning')}
                     </Label>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Formats numbered lists with line breaks</p>
-                    <p className="text-[#a3a3a3]">"first … second …" → 1. 2. 3.</p>
+                    <p>{t('settings.planningTooltip')}</p>
+                    <p className="text-[#a3a3a3]">{t('settings.planningExample')}</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -121,7 +123,7 @@ export const TranslationSettings = () => {
           </TooltipProvider>
 
           <p className="text-xs text-[#a3a3a3]">
-            Automatically translate transcriptions using Gemini 2.0 Flash
+            {t('settings.translationNote')}
           </p>
         </>
       )}

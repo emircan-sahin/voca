@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
 import { IUserSettings } from '@voca/shared';
 import { api } from '~/lib/axios';
@@ -11,6 +12,7 @@ import { NoiseSuppression } from '~/components/NoiseSuppression';
 import { PrivacyMode } from '~/components/PrivacyMode';
 
 export const SettingsView = () => {
+  const { t } = useTranslation();
   const [resetting, setResetting] = useState(false);
 
   const handleReset = async () => {
@@ -29,19 +31,19 @@ export const SettingsView = () => {
     <div className="p-6 space-y-4">
       <Card variant="bordered" className="border-solid border-[#e5e5e5]">
         <CardContent className="p-4 space-y-4">
-          <h3 className="text-sm font-medium text-[#171717]">Speech</h3>
+          <h3 className="text-sm font-medium text-[#171717]">{t('settings.speech')}</h3>
           <div className="flex items-start gap-4">
             <div className="space-y-1">
-              <label className="text-xs text-[#737373]">Provider</label>
+              <label className="text-xs text-[#737373]">{t('settings.provider')}</label>
               <ProviderSelect />
             </div>
             <div className="space-y-1">
-              <label className="text-xs text-[#737373]">Language</label>
+              <label className="text-xs text-[#737373]">{t('settings.language')}</label>
               <LanguageSelect />
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-xs text-[#737373]">Microphone</label>
+            <label className="text-xs text-[#737373]">{t('settings.microphone')}</label>
             <MicrophoneSelect />
           </div>
         </CardContent>
@@ -49,14 +51,14 @@ export const SettingsView = () => {
 
       <Card variant="bordered" className="border-solid border-[#e5e5e5]">
         <CardContent className="p-4">
-          <h3 className="text-sm font-medium text-[#171717] mb-3">Translation</h3>
+          <h3 className="text-sm font-medium text-[#171717] mb-3">{t('settings.translation')}</h3>
           <TranslationSettings />
         </CardContent>
       </Card>
 
       <Card variant="bordered" className="border-solid border-[#e5e5e5]">
         <CardContent className="p-4 space-y-4">
-          <h3 className="text-sm font-medium text-[#171717]">Preferences</h3>
+          <h3 className="text-sm font-medium text-[#171717]">{t('settings.preferences')}</h3>
           <NoiseSuppression />
           <div className="border-t border-dashed border-slate-200" />
           <PrivacyMode />
@@ -65,7 +67,7 @@ export const SettingsView = () => {
 
       <div className="flex justify-start">
         <Button variant="outline" size="sm" onClick={handleReset} disabled={resetting}>
-          {resetting ? 'Resetting...' : 'Reset to Defaults'}
+          {resetting ? t('settings.resetting') : t('settings.resetDefaults')}
         </Button>
       </div>
     </div>

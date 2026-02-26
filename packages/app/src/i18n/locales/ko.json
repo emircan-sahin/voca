@@ -1,0 +1,171 @@
+{
+  "sidebar.dashboard": "대시보드",
+  "sidebar.history": "기록",
+  "sidebar.settings": "설정",
+  "sidebar.billing": "결제",
+  "sidebar.signOut": "로그아웃",
+  "sidebar.language": "언어",
+  "header.dashboard": "대시보드",
+  "header.history": "기록",
+  "header.settings": "설정",
+  "header.billing": "결제",
+  "dashboard.processing": "처리 중...",
+  "dashboard.stopRecording": "클릭하여 녹음 중지",
+  "dashboard.startRecording": "클릭하여 녹음 시작",
+  "dashboard.recentTranscripts": "최근 텍스트 변환",
+  "history.allTranscripts": "전체 텍스트 변환",
+  "history.empty": "아직 텍스트 변환이 없습니다. 녹음을 시작하세요!",
+  "settings.speech": "음성",
+  "settings.provider": "제공자",
+  "settings.language": "언어",
+  "settings.microphone": "마이크",
+  "settings.translation": "번역",
+  "settings.preferences": "환경설정",
+  "settings.resetDefaults": "기본값으로 초기화",
+  "settings.resetting": "초기화 중...",
+  "settings.enableTranslation": "번역 활성화",
+  "settings.targetLanguage": "대상 언어",
+  "settings.tone": "톤",
+  "settings.toneDeveloper": "개발자",
+  "settings.tonePersonal": "개인",
+  "settings.numeric": "숫자 변환",
+  "settings.numericTooltip": "말한 숫자를 아라비아 숫자로 변환합니다",
+  "settings.numericExample": "\"이백오십\" → 250",
+  "settings.planning": "목록 형식",
+  "settings.planningTooltip": "번호 매긴 목록을 줄바꿈으로 정리합니다",
+  "settings.planningExample": "\"첫째 … 둘째 …\" → 1. 2. 3.",
+  "settings.translationNote": "Gemini 2.0 Flash를 사용하여 텍스트 변환을 자동 번역합니다",
+  "settings.noiseSuppression": "소음 억제",
+  "settings.noiseSuppressionDesc": "선풍기, 에어컨, 교통 소음 등 지속적인 배경 소음을 줄입니다.",
+  "settings.noiseSuppressionHint": "조용한 환경에서는 꺼두세요 — 음성 품질이 약간 달라질 수 있습니다.",
+  "settings.privacyMode": "개인정보 보호 모드",
+  "settings.privacyModeDesc": "최신 텍스트 변환만 유지합니다. 활성화하면 기존의 모든 텍스트 변환이 삭제됩니다.",
+  "mic.default": "기본",
+  "mic.fallback": "마이크 ({{id}}…)",
+  "mic.stop": "중지",
+  "mic.test": "테스트",
+  "transcript.copied": "클립보드에 복사됨",
+  "transcript.original": "원본",
+  "transcript.ai": "AI",
+  "shortcuts.title": "키보드 단축키",
+  "shortcuts.startStop": "녹음 시작 / 중지",
+  "shortcuts.cancel": "녹음 취소",
+  "shortcuts.show": "단축키 표시",
+  "overlay.processing": "처리 중...",
+  "overlay.timesUp": "시간 초과",
+  "overlay.recording": "녹음 중",
+  "overlay.stop": "중지 및 텍스트 변환",
+  "overlay.cancel": "녹음 취소",
+  "overlay.cancelBtn": "취소",
+  "splash.checking": "업데이트 확인 중...",
+  "splash.retrying": "업데이트 확인 중... {{seconds}}초 후 재시도",
+  "update.available": "업데이트 v{{version}} 사용 가능",
+  "update.button": "업데이트",
+  "update.downloading": "업데이트 다운로드 중... {{percent}}%",
+  "update.ready": "v{{version}} 설치 준비 완료",
+  "update.restart": "재시작",
+  "welcome.title": "Voca에 오신 것을 환영합니다",
+  "welcome.subtitle": "로그인하여 오디오 녹음 및 텍스트 변환을 시작하세요.",
+  "welcome.google": "Google로 로그인",
+  "setup.title": "Voca 설정",
+  "setup.subtitle": "앱이 정상적으로 작동하려면 다음 권한이 필요합니다.",
+  "setup.microphone": "마이크",
+  "setup.microphoneDesc": "오디오 녹음을 위해 마이크 접근을 허용합니다.",
+  "setup.grantAccess": "접근 허용",
+  "setup.openMicSettings": "마이크 설정 열기 →",
+  "setup.accessibility": "손쉬운 사용",
+  "setup.accessibilityDesc": "터미널 및 앱에 텍스트 변환을 자동 붙여넣기하는 데 필요합니다.",
+  "setup.openAccessibilitySettings": "손쉬운 사용 설정 열기 →",
+  "setup.hint": "권한이 부여되면 앱이 자동으로 계속됩니다.",
+  "error.noMic": "마이크 오디오가 감지되지 않았습니다. 마이크가 켜져 있는지 확인하세요.",
+  "billing.remainingCredits": "잔여 크레딧",
+  "billing.expired": "만료됨",
+  "billing.activeUntil": "{{date}}까지 활성",
+  "billing.trialEnds": "체험판 종료 {{time}}",
+  "billing.renews": "갱신 {{time}}",
+  "billing.trial": "체험판",
+  "billing.active": "활성",
+  "billing.canceled": "취소됨",
+  "billing.canceling": "취소 중",
+  "billing.subscribe": "구독하기",
+  "billing.upgrade": "업그레이드",
+  "billing.opening": "여는 중...",
+  "billing.cancelSubscription": "구독 취소",
+  "billing.cancelling": "취소 중...",
+  "billing.current": "현재: {{plan}}",
+  "billing.freeTrial": "3일 무료 체험",
+  "billing.faq": "자주 묻는 질문",
+  "billing.faqCta": "원하는 질문을 찾지 못하셨나요?",
+  "billing.pro.description": "개인 사용자용",
+  "billing.max.description": "대용량 사용자용",
+  "billing.features.proCredits": "월 $3 무료 크레딧 포함",
+  "billing.features.maxCredits": "월 $10 무료 크레딧 포함",
+  "billing.features.stt": "Groq 및 Deepgram 텍스트 변환",
+  "billing.features.tone": "AI 향상 톤 및 번역",
+  "billing.features.addons": "숫자 및 목록 형식 애드온",
+  "billing.features.proUpload": "최대 10 MB 오디오 업로드",
+  "billing.features.maxUpload": "최대 25 MB 오디오 업로드",
+  "billing.faqItems": [
+    {
+      "question": "Voca는 무료인가요?",
+      "answer": [
+        "모든 요금제는 3일 무료 체험으로 시작됩니다 — 모든 기능을 제한 없이 사용할 수 있습니다. 원하는 요금제를 선택하고 부담 없이 사용해 보세요. 언제든지 취소할 수 있습니다.",
+        "체험 기간 이후 요금제는 월 $3부터 시작합니다. 숨겨진 수수료나 예상치 못한 청구가 없습니다. 보이는 그대로 지불하시면 됩니다.",
+        "월 ~$8에 추가 API 키 비용을 청구하는 경쟁사와 달리, Voca는 하나의 간단한 구독에 모든 것을 포함합니다."
+      ]
+    },
+    {
+      "question": "언제든지 취소할 수 있나요?",
+      "answer": [
+        "네. 원할 때 언제든 취소하세요 — 현재 기간은 그대로 유지되며, 다음 달부터 갱신되지 않습니다.",
+        "취소 수수료, 숨겨진 약관, 번거로운 해지 절차가 없습니다. 한 번 클릭으로 완료됩니다.",
+        "모든 것이 오픈 소스입니다. 결제 시스템, 코드, 약속 사항을 직접 확인할 수 있습니다 — 숨기는 것이 없습니다."
+      ]
+    },
+    {
+      "question": "Voca는 무엇이 다른가요?",
+      "answer": [
+        "실제 환경을 위해 설계된 배경 소음 제거 — 시끄러운 공간에서 일하는 개발자에게 특히 유용합니다.",
+        "AI가 함수명, 코드 용어, 기술 전문 용어를 인식하고 추측 대신 정확하게 텍스트로 변환합니다.",
+        "스마트 자동 붙여넣기: 수정된 텍스트가 커서가 있던 위치에 바로 입력됩니다. 복사-붙여넣기도, 앱 전환도 필요 없습니다.",
+        "AI는 단순히 텍스트로 변환하는 것이 아니라 — 문체를 개선하고 문법을 수정하여 실제로 말한 것보다 더 깔끔한 텍스트를 만들어 줍니다."
+      ]
+    },
+    {
+      "question": "개발자 모드란 무엇인가요?",
+      "answer": [
+        "개발자 모드는 소프트웨어 엔지니어를 위해 특별히 설계된 톤 설정입니다. 활성화하면 Voca의 AI가 코드 용어, 함수명, 라이브러리명, 기술 전문 용어를 인식하고 일반 단어가 아닌 올바른 형태로 텍스트를 변환합니다.",
+        "\"리액트 유즈스테이트 훅\"이라고 말하면 \"React useState hook\"으로 작성합니다. \"내브바 컴포넌트\"라고 말하면 \"navbar component\"로 작성합니다.",
+        "배경 소음 제거와 결합하여, 실제 환경에서 코드 주석, 문서 또는 메시지를 음성으로 입력하는 개발자를 위해 설계되었습니다."
+      ]
+    },
+    {
+      "question": "어떤 언어가 지원되나요?",
+      "answer": [
+        "Deepgram 및 Groq 엔진을 통한 음성 인식에 35개 이상의 언어를 지원합니다.",
+        "공식, 비공식 또는 개발자 모드 등 톤 제어가 가능한 AI 기반 번역에 100개 이상의 언어를 지원합니다.",
+        "개발자 모드는 코드 용어와 기술 전문 용어를 자동으로 인식하여 영어로 유지하고 나머지는 자연스럽게 번역합니다."
+      ]
+    },
+    {
+      "question": "내 데이터는 어디에 저장되나요?",
+      "answer": [
+        "데이터는 개인정보 보호를 최우선으로 하여 서버에서 처리됩니다. Voca는 완전한 오픈 소스입니다 — 모든 코드를 직접 확인할 수 있습니다.",
+        "서버에 아무것도 저장하고 싶지 않다면 설정에서 간단히 끄세요. 녹음과 텍스트 변환이 저장되지 않습니다 — 전적으로 사용자의 선택입니다.",
+        "추적 없음, 분석 없음, 데이터 판매 없음. 확실합니다."
+      ]
+    },
+    {
+      "question": "오프라인에서도 작동하나요?",
+      "answer": [
+        "Voca는 인터넷 연결이 필요합니다. 오디오는 최상의 품질을 최저 비용으로 제공하기 위해 서버로 전송되어 처리됩니다.",
+        "클라우드 파이프라인에는 배경 소음 제거, AI 보정, 코드 인식 텍스트 변환, 스마트 번역이 포함되어 있어 — 어떤 로컬 솔루션보다 빠르고 정확한 결과를 제공합니다."
+      ]
+    }
+  ],
+  "common.save": "저장",
+  "common.cancel": "취소",
+  "common.delete": "삭제",
+  "common.copy": "복사",
+  "common.copied": "복사됨!"
+}

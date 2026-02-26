@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from 'poyraz-ui/atoms';
 import { IUser } from '@voca/shared';
 import { useAuthStore } from '~/stores/auth.store';
@@ -7,6 +8,7 @@ import axiosInstance from '~/lib/axios';
 import vocaLogo from '~/assets/voca_logo.png';
 
 export const WelcomePage = () => {
+  const { t } = useTranslation();
   const { setAuth } = useAuthStore();
 
   useEffect(() => {
@@ -40,10 +42,10 @@ export const WelcomePage = () => {
           </div>
 
           <h1 className="text-xl font-bold text-[#171717] text-center mb-2">
-            Welcome to Voca
+            {t('welcome.title')}
           </h1>
           <p className="text-[#737373] text-sm text-center mb-6 leading-relaxed">
-            Sign in to start recording and transcribing your audio.
+            {t('welcome.subtitle')}
           </p>
 
           <button
@@ -68,7 +70,7 @@ export const WelcomePage = () => {
                 fill="#EA4335"
               />
             </svg>
-            Sign in with Google
+            {t('welcome.google')}
           </button>
 
           <p className="text-xs text-[#737373] text-center mt-6">Voca v0.0.1</p>

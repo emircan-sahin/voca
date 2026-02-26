@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
+import i18n from 'i18next';
 import { ApiResponse } from '@voca/shared';
 import { useAuthStore } from '~/stores/auth.store';
 import { useNavigationStore } from '~/stores/navigation.store';
@@ -17,12 +18,13 @@ const axiosInstance = axios.create({
   baseURL: 'http://localhost:3100/api',
 });
 
-// Attach Bearer token to every request
+// Attach Bearer token and language to every request
 axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = useAuthStore.getState().token;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  config.headers['Accept-Language'] = i18n.language || 'en';
   return config;
 });
 

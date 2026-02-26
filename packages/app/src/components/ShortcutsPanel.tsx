@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Keyboard, X } from 'lucide-react';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
 
@@ -6,14 +7,15 @@ const isMac = window.electronAPI.platform === 'darwin';
 const recordingKey = isMac ? 'Right ⌘ (Cmd)' : 'Right ⊞ (Win)';
 const cancelKey = isMac ? 'Right ⌥ (Opt)' : 'Right Alt';
 
-const shortcuts = [
-  { action: 'Start / Stop Recording', keys: [recordingKey] },
-  { action: 'Cancel Recording', keys: [cancelKey] },
-  { action: 'Show Shortcuts', keys: ['?'] },
-];
-
 export const ShortcutsPanel = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+
+  const shortcuts = [
+    { action: t('shortcuts.startStop'), keys: [recordingKey] },
+    { action: t('shortcuts.cancel'), keys: [cancelKey] },
+    { action: t('shortcuts.show'), keys: ['?'] },
+  ];
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -48,7 +50,7 @@ export const ShortcutsPanel = () => {
         size="icon"
         onClick={() => setOpen(true)}
         className="fixed bottom-5 right-5 z-40"
-        aria-label="Keyboard shortcuts"
+        aria-label={t('shortcuts.title')}
       >
         <Keyboard size={18} />
       </Button>
@@ -67,12 +69,12 @@ export const ShortcutsPanel = () => {
             <CardContent className="p-5">
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-[#171717]">Keyboard Shortcuts</h3>
+                <h3 className="text-sm font-semibold text-[#171717]">{t('shortcuts.title')}</h3>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setOpen(false)}
-                  aria-label="Close"
+                  aria-label={t('common.cancel')}
                   className="h-6 w-6"
                 >
                   <X size={16} />

@@ -1,0 +1,171 @@
+{
+  "sidebar.dashboard": "仪表盘",
+  "sidebar.history": "历史记录",
+  "sidebar.settings": "设置",
+  "sidebar.billing": "账单",
+  "sidebar.signOut": "退出登录",
+  "sidebar.language": "语言",
+  "header.dashboard": "仪表盘",
+  "header.history": "历史记录",
+  "header.settings": "设置",
+  "header.billing": "账单",
+  "dashboard.processing": "处理中...",
+  "dashboard.stopRecording": "点击停止录音",
+  "dashboard.startRecording": "点击开始录音",
+  "dashboard.recentTranscripts": "最近的转录",
+  "history.allTranscripts": "所有转录",
+  "history.empty": "暂无转录记录。开始录音吧！",
+  "settings.speech": "语音",
+  "settings.provider": "服务商",
+  "settings.language": "语言",
+  "settings.microphone": "麦克风",
+  "settings.translation": "翻译",
+  "settings.preferences": "偏好设置",
+  "settings.resetDefaults": "恢复默认设置",
+  "settings.resetting": "正在重置...",
+  "settings.enableTranslation": "启用翻译",
+  "settings.targetLanguage": "目标语言",
+  "settings.tone": "语气",
+  "settings.toneDeveloper": "开发者",
+  "settings.tonePersonal": "个人",
+  "settings.numeric": "数字转换",
+  "settings.numericTooltip": "将口述的数字转换为阿拉伯数字",
+  "settings.numericExample": "\"二百五十\" → 250",
+  "settings.planning": "列表格式",
+  "settings.planningTooltip": "将编号列表格式化并添加换行",
+  "settings.planningExample": "\"第一 … 第二 …\" → 1. 2. 3.",
+  "settings.translationNote": "使用 Gemini 2.0 Flash 自动翻译转录内容",
+  "settings.noiseSuppression": "噪音抑制",
+  "settings.noiseSuppressionDesc": "减少持续的背景噪音，如风扇、空调或交通声。",
+  "settings.noiseSuppressionHint": "在安静环境中请关闭此功能 — 它可能会轻微影响语音质量。",
+  "settings.privacyMode": "隐私模式",
+  "settings.privacyModeDesc": "仅保留最新的转录。启用此功能将删除所有现有转录。",
+  "mic.default": "默认",
+  "mic.fallback": "麦克风 ({{id}}…)",
+  "mic.stop": "停止",
+  "mic.test": "测试",
+  "transcript.copied": "已复制到剪贴板",
+  "transcript.original": "原文",
+  "transcript.ai": "AI",
+  "shortcuts.title": "键盘快捷键",
+  "shortcuts.startStop": "开始 / 停止录音",
+  "shortcuts.cancel": "取消录音",
+  "shortcuts.show": "显示快捷键",
+  "overlay.processing": "处理中...",
+  "overlay.timesUp": "时间到",
+  "overlay.recording": "录音中",
+  "overlay.stop": "停止并转录",
+  "overlay.cancel": "取消录音",
+  "overlay.cancelBtn": "取消",
+  "splash.checking": "正在检查更新...",
+  "splash.retrying": "正在检查更新... {{seconds}}秒后重试",
+  "update.available": "更新 v{{version}} 可用",
+  "update.button": "更新",
+  "update.downloading": "正在下载更新... {{percent}}%",
+  "update.ready": "v{{version}} 已准备好安装",
+  "update.restart": "重启",
+  "welcome.title": "欢迎使用 Voca",
+  "welcome.subtitle": "登录以开始录音和转录你的音频。",
+  "welcome.google": "使用 Google 登录",
+  "setup.title": "设置 Voca",
+  "setup.subtitle": "应用正常运行需要以下权限。",
+  "setup.microphone": "麦克风",
+  "setup.microphoneDesc": "允许麦克风访问以进行音频录制。",
+  "setup.grantAccess": "授予权限",
+  "setup.openMicSettings": "打开麦克风设置 →",
+  "setup.accessibility": "辅助功能",
+  "setup.accessibilityDesc": "用于将转录自动粘贴到终端和应用程序中。",
+  "setup.openAccessibilitySettings": "打开辅助功能设置 →",
+  "setup.hint": "授予权限后，应用将自动继续。",
+  "error.noMic": "未检测到麦克风音频。请检查麦克风是否已开启。",
+  "billing.remainingCredits": "剩余额度",
+  "billing.expired": "已过期",
+  "billing.activeUntil": "有效期至 {{date}}",
+  "billing.trialEnds": "试用期于 {{time}} 结束",
+  "billing.renews": "{{time}} 续订",
+  "billing.trial": "试用",
+  "billing.active": "有效",
+  "billing.canceled": "已取消",
+  "billing.canceling": "取消中",
+  "billing.subscribe": "订阅",
+  "billing.upgrade": "升级",
+  "billing.opening": "正在打开...",
+  "billing.cancelSubscription": "取消订阅",
+  "billing.cancelling": "正在取消...",
+  "billing.current": "当前：{{plan}}",
+  "billing.freeTrial": "3 天免费试用",
+  "billing.faq": "常见问题",
+  "billing.faqCta": "没有找到你的问题？",
+  "billing.pro.description": "适合个人使用",
+  "billing.max.description": "适合高频使用",
+  "billing.features.proCredits": "每月包含 $3 免费额度",
+  "billing.features.maxCredits": "每月包含 $10 免费额度",
+  "billing.features.stt": "Groq 和 Deepgram 转录",
+  "billing.features.tone": "AI 增强的语气和翻译",
+  "billing.features.addons": "数字转换和列表格式附加功能",
+  "billing.features.proUpload": "最大 10 MB 音频上传",
+  "billing.features.maxUpload": "最大 25 MB 音频上传",
+  "billing.faqItems": [
+    {
+      "question": "Voca 是免费的吗？",
+      "answer": [
+        "每个方案都附带 3 天免费试用 — 全部功能，无任何限制。选择任意方案，零风险试用，随时取消。",
+        "试用结束后，方案起价仅为 $3/月。没有隐藏费用，没有意外收费。所见即所付。",
+        "与收费约 $8/月外加额外 API 密钥费用的竞品不同，Voca 将一切包含在一个简单的订阅中。"
+      ]
+    },
+    {
+      "question": "可以随时取消吗？",
+      "answer": [
+        "可以。随时取消 — 当前周期保持有效，下个月不会续费。",
+        "没有取消费用，没有隐藏条款，没有尴尬的挽留流程。一键完成。",
+        "所有代码完全开源。你可以验证我们的计费、代码和承诺 — 没有任何隐瞒。"
+      ]
+    },
+    {
+      "question": "Voca 有什么不同？",
+      "answer": [
+        "为真实环境打造的背景噪音消除 — 对在嘈杂环境中工作的开发者特别有用。",
+        "AI 能识别函数名、代码术语和技术行话，然后准确转录而非猜测。",
+        "智能自动粘贴：修正后的转录直接出现在光标所在位置。无需复制粘贴，无需切换应用。",
+        "AI 不仅仅是转录 — 它还能改善你的写作风格，修正语法，让文本比你实际说的更加流畅。"
+      ]
+    },
+    {
+      "question": "什么是开发者模式？",
+      "answer": [
+        "开发者模式是专为软件工程师打造的语气设置。启用后，Voca 的 AI 能识别代码术语、函数名、库名和技术行话 — 并准确转录，而非将其视为普通词汇。",
+        "说 \"reakt use state hook\"，它会写成 \"React useState hook\"。说 \"nahbar component\"，它会写成 \"navbar component\"。",
+        "结合背景噪音消除，专为在真实环境中工作时口述代码注释、文档或消息的开发者设计。"
+      ]
+    },
+    {
+      "question": "支持哪些语言？",
+      "answer": [
+        "通过 Deepgram 和 Groq 引擎支持 35 种以上语言的语音识别。",
+        "支持 100 种以上语言的 AI 翻译，带语气控制 — 正式、随意或开发者模式。",
+        "开发者模式自动识别代码术语和技术行话，将其保留为英文，同时自然翻译其余内容。"
+      ]
+    },
+    {
+      "question": "我的数据存储在哪里？",
+      "answer": [
+        "你的数据在我们的服务器上以隐私优先的方式处理。Voca 完全开源 — 你可以亲自审查每一行代码。",
+        "如果你不希望任何内容存储在我们的服务器上，只需在设置中关闭即可。你的录音和转录不会被保存 — 完全由你决定。",
+        "不跟踪，不分析，不出售数据。就是这样。"
+      ]
+    },
+    {
+      "question": "可以离线使用吗？",
+      "answer": [
+        "Voca 需要互联网连接。你的音频会发送到我们的服务器，以最低的成本获得最佳质量的处理。",
+        "我们的云端流水线包括背景噪音消除、AI 修正、代码感知转录和智能翻译 — 提供比任何本地方案更快、更准确的结果。"
+      ]
+    }
+  ],
+  "common.save": "保存",
+  "common.cancel": "取消",
+  "common.delete": "删除",
+  "common.copy": "复制",
+  "common.copied": "已复制！"
+}

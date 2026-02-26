@@ -1,0 +1,171 @@
+{
+  "sidebar.dashboard": "Dashboard",
+  "sidebar.history": "History",
+  "sidebar.settings": "Settings",
+  "sidebar.billing": "Billing",
+  "sidebar.signOut": "Sign out",
+  "sidebar.language": "Language",
+  "header.dashboard": "Dashboard",
+  "header.history": "History",
+  "header.settings": "Settings",
+  "header.billing": "Billing",
+  "dashboard.processing": "Processing...",
+  "dashboard.stopRecording": "Click to stop recording",
+  "dashboard.startRecording": "Click to start recording",
+  "dashboard.recentTranscripts": "Recent Transcripts",
+  "history.allTranscripts": "All Transcripts",
+  "history.empty": "No transcripts yet. Start recording!",
+  "settings.speech": "Speech",
+  "settings.provider": "Provider",
+  "settings.language": "Language",
+  "settings.microphone": "Microphone",
+  "settings.translation": "Translation",
+  "settings.preferences": "Preferences",
+  "settings.resetDefaults": "Reset to Defaults",
+  "settings.resetting": "Resetting...",
+  "settings.enableTranslation": "Enable Translation",
+  "settings.targetLanguage": "Target Language",
+  "settings.tone": "Tone",
+  "settings.toneDeveloper": "Developer",
+  "settings.tonePersonal": "Personal",
+  "settings.numeric": "Numeric",
+  "settings.numericTooltip": "Converts spoken numbers to digits",
+  "settings.numericExample": "\"two hundred fifty\" → 250",
+  "settings.planning": "Planning",
+  "settings.planningTooltip": "Formats numbered lists with line breaks",
+  "settings.planningExample": "\"first … second …\" → 1. 2. 3.",
+  "settings.translationNote": "Automatically translate transcriptions using Gemini 2.0 Flash",
+  "settings.noiseSuppression": "Noise Suppression",
+  "settings.noiseSuppressionDesc": "Reduces constant background noise like fans, air conditioning, or traffic.",
+  "settings.noiseSuppressionHint": "Keep it off in quiet environments — it may slightly alter voice quality.",
+  "settings.privacyMode": "Privacy Mode",
+  "settings.privacyModeDesc": "Only keeps the latest transcript. Enabling this will delete all existing transcripts.",
+  "mic.default": "Default",
+  "mic.fallback": "Microphone ({{id}}…)",
+  "mic.stop": "Stop",
+  "mic.test": "Test",
+  "transcript.copied": "Copied to clipboard",
+  "transcript.original": "Original",
+  "transcript.ai": "AI",
+  "shortcuts.title": "Keyboard Shortcuts",
+  "shortcuts.startStop": "Start / Stop Recording",
+  "shortcuts.cancel": "Cancel Recording",
+  "shortcuts.show": "Show Shortcuts",
+  "overlay.processing": "Processing...",
+  "overlay.timesUp": "Time's up",
+  "overlay.recording": "Recording",
+  "overlay.stop": "Stop & Transcribe",
+  "overlay.cancel": "Cancel Recording",
+  "overlay.cancelBtn": "Cancel",
+  "splash.checking": "Checking for updates...",
+  "splash.retrying": "Checking for updates... Retrying in {{seconds}}s",
+  "update.available": "Update v{{version}} available",
+  "update.button": "Update",
+  "update.downloading": "Downloading update... {{percent}}%",
+  "update.ready": "v{{version}} ready to install",
+  "update.restart": "Restart",
+  "welcome.title": "Welcome to Voca",
+  "welcome.subtitle": "Sign in to start recording and transcribing your audio.",
+  "welcome.google": "Sign in with Google",
+  "setup.title": "Set Up Voca",
+  "setup.subtitle": "The following permissions are required for the app to work properly.",
+  "setup.microphone": "Microphone",
+  "setup.microphoneDesc": "Allows microphone access for audio recording.",
+  "setup.grantAccess": "Grant Access",
+  "setup.openMicSettings": "Open Microphone Settings →",
+  "setup.accessibility": "Accessibility",
+  "setup.accessibilityDesc": "Required for auto-pasting transcripts into terminals and apps.",
+  "setup.openAccessibilitySettings": "Open Accessibility Settings →",
+  "setup.hint": "The app will continue automatically once permissions are granted.",
+  "error.noMic": "No microphone audio detected. Check if your mic is on.",
+  "billing.remainingCredits": "Remaining Credits",
+  "billing.expired": "Expired",
+  "billing.activeUntil": "Active until {{date}}",
+  "billing.trialEnds": "Trial ends {{time}}",
+  "billing.renews": "Renews {{time}}",
+  "billing.trial": "Trial",
+  "billing.active": "Active",
+  "billing.canceled": "Canceled",
+  "billing.canceling": "Canceling",
+  "billing.subscribe": "Subscribe",
+  "billing.upgrade": "Upgrade",
+  "billing.opening": "Opening...",
+  "billing.cancelSubscription": "Cancel Subscription",
+  "billing.cancelling": "Cancelling...",
+  "billing.current": "Current: {{plan}}",
+  "billing.freeTrial": "3-day free trial",
+  "billing.faq": "Frequently Asked Questions",
+  "billing.faqCta": "Can't find your question?",
+  "billing.pro.description": "For personal use",
+  "billing.max.description": "For heavy usage",
+  "billing.features.proCredits": "$3/mo free credits included",
+  "billing.features.maxCredits": "$10/mo free credits included",
+  "billing.features.stt": "Groq & Deepgram transcription",
+  "billing.features.tone": "AI-enhanced tone & translation",
+  "billing.features.addons": "Numeric & Planning add-ons",
+  "billing.features.proUpload": "Up to 10 MB audio uploads",
+  "billing.features.maxUpload": "Up to 25 MB audio uploads",
+  "billing.faqItems": [
+    {
+      "question": "Is Voca free?",
+      "answer": [
+        "Every plan starts with a 3-day free trial — fully featured, no restrictions. Pick any plan, try it risk-free, and cancel anytime.",
+        "After the trial, plans start at just $3/month. No hidden fees, no surprise charges. What you see is what you pay.",
+        "Unlike competitors who charge ~$8/month plus extra API key costs, Voca includes everything in one simple subscription."
+      ]
+    },
+    {
+      "question": "Can I cancel anytime?",
+      "answer": [
+        "Yes. Cancel whenever you want — your current period stays active, and the next month simply won't renew.",
+        "No cancellation fees, no hidden terms, no awkward retention flows. One click and you're done.",
+        "Everything is open source. You can verify our billing, our code, and our promises — nothing is hidden."
+      ]
+    },
+    {
+      "question": "What makes Voca different?",
+      "answer": [
+        "Background noise cancellation built for real-world environments — especially useful for developers in noisy spaces.",
+        "AI that recognizes function names, code terms, and technical jargon, then transcribes them correctly instead of guessing.",
+        "Smart auto-paste: the corrected transcript lands right where your cursor was. No copy-paste, no switching apps.",
+        "AI doesn't just transcribe — it improves your writing style, fixes grammar, and makes your text cleaner than what you actually said."
+      ]
+    },
+    {
+      "question": "What is Developer Mode?",
+      "answer": [
+        "Developer Mode is a tone setting built specifically for software engineers. When enabled, Voca's AI recognizes code terms, function names, library names, and technical jargon — and transcribes them correctly instead of treating them as regular words.",
+        "Say \"reakt use state hook\" and it writes \"React useState hook\". Say \"nahbar component\" and it writes \"navbar component\".",
+        "Combined with background noise cancellation, it's designed for developers who dictate code comments, documentation, or messages while working in real-world environments."
+      ]
+    },
+    {
+      "question": "Which languages are supported?",
+      "answer": [
+        "35+ languages for speech recognition through Deepgram and Groq engines.",
+        "100+ languages for AI-powered translation with tone control — formal, casual, or developer mode.",
+        "Developer mode automatically recognizes code terms and technical jargon, keeping them in English while translating the rest naturally."
+      ]
+    },
+    {
+      "question": "Where is my data stored?",
+      "answer": [
+        "Your data is processed on our servers with a privacy-first approach. Voca is fully open source — you can inspect every line of code yourself.",
+        "If you don't want anything stored on our servers, simply toggle it off in Settings. Your recordings and transcripts won't be saved — it's entirely your choice.",
+        "No tracking, no analytics, no selling data. Period."
+      ]
+    },
+    {
+      "question": "Does it work offline?",
+      "answer": [
+        "Voca requires an internet connection. Your audio is sent to our servers where we process it for the best possible quality at the lowest cost.",
+        "Our cloud pipeline includes background noise cancellation, AI correction, code-aware transcription, and smart translation — delivering faster, more accurate results than any local solution could."
+      ]
+    }
+  ],
+  "common.save": "Save",
+  "common.cancel": "Cancel",
+  "common.delete": "Delete",
+  "common.copy": "Copy",
+  "common.copied": "Copied!"
+}

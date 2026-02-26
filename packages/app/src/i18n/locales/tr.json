@@ -1,0 +1,171 @@
+{
+  "sidebar.dashboard": "Ana Sayfa",
+  "sidebar.history": "Geçmiş",
+  "sidebar.settings": "Ayarlar",
+  "sidebar.billing": "Faturalandırma",
+  "sidebar.signOut": "Çıkış yap",
+  "sidebar.language": "Dil",
+  "header.dashboard": "Ana Sayfa",
+  "header.history": "Geçmiş",
+  "header.settings": "Ayarlar",
+  "header.billing": "Faturalandırma",
+  "dashboard.processing": "İşleniyor...",
+  "dashboard.stopRecording": "Kaydı durdurmak için tıklayın",
+  "dashboard.startRecording": "Kayda başlamak için tıklayın",
+  "dashboard.recentTranscripts": "Son Transkriptler",
+  "history.allTranscripts": "Tüm Transkriptler",
+  "history.empty": "Henüz transkript yok. Kayda başlayın!",
+  "settings.speech": "Konuşma",
+  "settings.provider": "Sağlayıcı",
+  "settings.language": "Dil",
+  "settings.microphone": "Mikrofon",
+  "settings.translation": "Çeviri",
+  "settings.preferences": "Tercihler",
+  "settings.resetDefaults": "Varsayılanlara Sıfırla",
+  "settings.resetting": "Sıfırlanıyor...",
+  "settings.enableTranslation": "Çeviriyi Etkinleştir",
+  "settings.targetLanguage": "Hedef Dil",
+  "settings.tone": "Üslup",
+  "settings.toneDeveloper": "Yazılımcı",
+  "settings.tonePersonal": "Kişisel",
+  "settings.numeric": "Sayısal",
+  "settings.numericTooltip": "Söylenen sayıları rakamlara dönüştürür",
+  "settings.numericExample": "\"iki yüz elli\" → 250",
+  "settings.planning": "Listeleme",
+  "settings.planningTooltip": "Numaralı listeleri satır sonlarıyla biçimlendirir",
+  "settings.planningExample": "\"birinci … ikinci …\" → 1. 2. 3.",
+  "settings.translationNote": "Gemini 2.0 Flash kullanarak transkriptleri otomatik çevir",
+  "settings.noiseSuppression": "Gürültü Engelleme",
+  "settings.noiseSuppressionDesc": "Fan, klima veya trafik gibi sürekli arka plan gürültüsünü azaltır.",
+  "settings.noiseSuppressionHint": "Sessiz ortamlarda kapalı tutun — ses kalitesini hafifçe değiştirebilir.",
+  "settings.privacyMode": "Gizlilik Modu",
+  "settings.privacyModeDesc": "Yalnızca son transkripti tutar. Etkinleştirmek mevcut tüm transkriptleri siler.",
+  "mic.default": "Varsayılan",
+  "mic.fallback": "Mikrofon ({{id}}…)",
+  "mic.stop": "Durdur",
+  "mic.test": "Test",
+  "transcript.copied": "Panoya kopyalandı",
+  "transcript.original": "Orijinal",
+  "transcript.ai": "AI",
+  "shortcuts.title": "Klavye Kısayolları",
+  "shortcuts.startStop": "Kaydı Başlat / Durdur",
+  "shortcuts.cancel": "Kaydı İptal Et",
+  "shortcuts.show": "Kısayolları Göster",
+  "overlay.processing": "İşleniyor...",
+  "overlay.timesUp": "Süre doldu",
+  "overlay.recording": "Kayıt",
+  "overlay.stop": "Durdur ve Yazıya Dök",
+  "overlay.cancel": "Kaydı İptal Et",
+  "overlay.cancelBtn": "İptal",
+  "splash.checking": "Güncellemeler kontrol ediliyor...",
+  "splash.retrying": "Güncellemeler kontrol ediliyor... {{seconds}}s sonra tekrar denenecek",
+  "update.available": "v{{version}} güncellemesi mevcut",
+  "update.button": "Güncelle",
+  "update.downloading": "Güncelleme indiriliyor... %{{percent}}",
+  "update.ready": "v{{version}} yüklenmeye hazır",
+  "update.restart": "Yeniden Başlat",
+  "welcome.title": "Voca'ya Hoş Geldiniz",
+  "welcome.subtitle": "Ses kaydı ve transkripsiyon için giriş yapın.",
+  "welcome.google": "Google ile giriş yap",
+  "setup.title": "Voca'yı Kur",
+  "setup.subtitle": "Uygulamanın düzgün çalışması için aşağıdaki izinler gereklidir.",
+  "setup.microphone": "Mikrofon",
+  "setup.microphoneDesc": "Ses kaydı için mikrofon erişimine izin verir.",
+  "setup.grantAccess": "Erişim Ver",
+  "setup.openMicSettings": "Mikrofon Ayarlarını Aç →",
+  "setup.accessibility": "Erişilebilirlik",
+  "setup.accessibilityDesc": "Transkriptleri terminal ve uygulamalara otomatik yapıştırmak için gereklidir.",
+  "setup.openAccessibilitySettings": "Erişilebilirlik Ayarlarını Aç →",
+  "setup.hint": "İzinler verildiğinde uygulama otomatik olarak devam edecek.",
+  "error.noMic": "Mikrofon sesi algılanmadı. Mikrofonunuzun açık olduğundan emin olun.",
+  "billing.remainingCredits": "Kalan Kredi",
+  "billing.expired": "Süresi Doldu",
+  "billing.activeUntil": "{{date}} tarihine kadar aktif",
+  "billing.trialEnds": "Deneme {{time}} sona eriyor",
+  "billing.renews": "{{time}} yenilenir",
+  "billing.trial": "Deneme",
+  "billing.active": "Aktif",
+  "billing.canceled": "İptal Edildi",
+  "billing.canceling": "İptal Ediliyor",
+  "billing.subscribe": "Abone Ol",
+  "billing.upgrade": "Yükselt",
+  "billing.opening": "Açılıyor...",
+  "billing.cancelSubscription": "Aboneliği İptal Et",
+  "billing.cancelling": "İptal ediliyor...",
+  "billing.current": "Mevcut: {{plan}}",
+  "billing.freeTrial": "3 günlük ücretsiz deneme",
+  "billing.faq": "Sıkça Sorulan Sorular",
+  "billing.faqCta": "Sorunuz burada yok mu?",
+  "billing.pro.description": "Kişisel kullanım için",
+  "billing.max.description": "Yoğun kullanım için",
+  "billing.features.proCredits": "Aylık $3 ücretsiz kredi dahil",
+  "billing.features.maxCredits": "Aylık $10 ücretsiz kredi dahil",
+  "billing.features.stt": "Groq ve Deepgram transkripsiyon",
+  "billing.features.tone": "AI destekli üslup ve çeviri",
+  "billing.features.addons": "Sayısal ve Listeleme eklentileri",
+  "billing.features.proUpload": "10 MB'a kadar ses yükleme",
+  "billing.features.maxUpload": "25 MB'a kadar ses yükleme",
+  "billing.faqItems": [
+    {
+      "question": "Voca ücretsiz mi?",
+      "answer": [
+        "Her plan 3 günlük ücretsiz deneme ile başlar — tüm özellikler açık, kısıtlama yok. İstediğiniz planı seçin, risksiz deneyin, istediğiniz zaman iptal edin.",
+        "Deneme sonrası planlar sadece aylık $3'dan başlar. Gizli ücret yok, sürpriz fatura yok. Ne görüyorsanız onu ödersiniz.",
+        "Rakipler aylık ~$8 abonelik üzerine ekstra API key ücreti alıyor. Voca'da her şey tek bir aboneliğe dahil."
+      ]
+    },
+    {
+      "question": "İstediğim zaman iptal edebilir miyim?",
+      "answer": [
+        "Evet. İstediğiniz zaman iptal edin — mevcut dönem aktif kalır, bir sonraki ay yenilenmez.",
+        "İptal ücreti yok, gizli şart yok, zorlayıcı süreç yok. Tek tıkla tamam.",
+        "Her şey açık kaynak. Faturalandırmamızı, kodumuzu ve vaatlerimizi doğrulayabilirsiniz — hiçbir şey gizli değil."
+      ]
+    },
+    {
+      "question": "Voca'yı farklı kılan ne?",
+      "answer": [
+        "Gerçek ortamlar için tasarlanmış arka plan gürültü engelleme — özellikle gürültülü mekanlarda kod yazan geliştiriciler için ideal.",
+        "Fonksiyon adlarını, kod terimlerini ve teknik jargonu tanıyan AI — tahmin etmek yerine doğru şekilde yazıya döker.",
+        "Akıllı otomatik yapıştırma: düzeltilmiş transkript imlecinizin olduğu yere anında gelir. Kopyala-yapıştır yok, uygulama değiştirme yok.",
+        "AI sadece yazıya dökmez — yazım stilinizi iyileştirir, dilbilgisi hatalarını düzeltir ve metninizi söylediğinizden daha temiz hale getirir."
+      ]
+    },
+    {
+      "question": "Yazılımcı Modu nedir?",
+      "answer": [
+        "Yazılımcı Modu, özellikle yazılım geliştiriciler için tasarlanmış bir üslup ayarıdır. Aktifken Voca'nın AI'ı kod terimlerini, fonksiyon adlarını, kütüphane isimlerini ve teknik jargonu tanır — bunları sıradan kelimeler gibi değil, doğru şekilde yazıya döker.",
+        "\"reakt yuz steyt huk\" deyin, \"React useState hook\" yazar. \"nahbar komponenti\" deyin, \"navbar component\" yazar.",
+        "Arka plan gürültü engelleme ile birleştiğinde, gerçek ortamlarda çalışırken kod yorumları, dokümantasyon veya mesajlar dikte eden geliştiriciler için idealdir."
+      ]
+    },
+    {
+      "question": "Hangi dilleri destekliyor?",
+      "answer": [
+        "Deepgram ve Groq motorları ile 35'ten fazla dilde konuşma tanıma.",
+        "Üslup kontrollü AI çeviri ile 100'den fazla dile çeviri — resmi, günlük veya geliştirici modu.",
+        "Geliştirici modu kod terimlerini ve teknik jargonu otomatik tanır, bunları İngilizce tutarken geri kalanını doğal şekilde çevirir."
+      ]
+    },
+    {
+      "question": "Verilerim nerede saklanıyor?",
+      "answer": [
+        "Verileriniz gizlilik odaklı bir yaklaşımla sunucularımızda işlenir. Voca tamamen açık kaynak — her satır kodu kendiniz inceleyebilirsiniz.",
+        "Sunucuda hiçbir şeyin saklanmasını istemiyorsanız Ayarlar'dan tek tuşla kapatabilirsiniz. Kayıtlarınız ve transkriptleriniz tutulmaz — karar tamamen sizin.",
+        "Takip yok, analitik yok, veri satışı yok. Nokta."
+      ]
+    },
+    {
+      "question": "Çevrimdışı çalışıyor mu?",
+      "answer": [
+        "Voca internet bağlantısı gerektirir. Sesiniz en iyi kaliteyi en düşük maliyetle sunmak için sunucularımızda işlenir.",
+        "Bulut altyapımız arka plan gürültü engelleme, AI düzeltme, koda duyarlı transkripsiyon ve akıllı çeviri içerir — yerel bir çözümün sunabileceğinden çok daha hızlı ve doğru sonuçlar sunar."
+      ]
+    }
+  ],
+  "common.save": "Kaydet",
+  "common.cancel": "İptal",
+  "common.delete": "Sil",
+  "common.copy": "Kopyala",
+  "common.copied": "Kopyalandı!"
+}

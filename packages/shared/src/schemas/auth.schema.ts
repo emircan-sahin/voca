@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { LANGUAGE_CODES, TONES } from '../constants/languages';
-import { BILLING_PLANS, OAUTH_PROVIDERS, STT_PROVIDERS, SUBSCRIPTION_STATUSES } from '../types/auth.types';
+import { APP_LOCALES, BILLING_PLANS, OAUTH_PROVIDERS, STT_PROVIDERS, SUBSCRIPTION_STATUSES } from '../types/auth.types';
 
 export const userSchema = z.object({
   id: z.string(),
@@ -33,6 +33,8 @@ export const refreshBodySchema = z.object({
 export const userSettingsSchema = z.object({
   provider: z.enum(STT_PROVIDERS),
   language: z.enum(LANGUAGE_CODES),
+  programLanguage: z.enum(APP_LOCALES).optional(),
+  programLanguageDefault: z.enum(APP_LOCALES).optional(),
   noiseSuppression: z.boolean(),
   privacyMode: z.boolean(),
   translation: z.object({
@@ -49,6 +51,8 @@ export const userSettingsSchema = z.object({
 export const updateUserSettingsSchema = z.object({
   provider: z.enum(STT_PROVIDERS).optional(),
   language: z.enum(LANGUAGE_CODES).optional(),
+  programLanguage: z.enum(APP_LOCALES).optional(),
+  programLanguageDefault: z.enum(APP_LOCALES).optional(),
   noiseSuppression: z.boolean().optional(),
   privacyMode: z.boolean().optional(),
   translation: z.object({

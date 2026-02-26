@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useRecorder } from '~/hooks/useRecorder';
@@ -14,6 +15,7 @@ import { ApiError } from '~/lib/axios';
 import { ApiResponse, ITranscript } from '@voca/shared';
 
 export const useTranscription = () => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { deviceId } = useMicrophoneStore();
   const { isRecording, stream, start, stop, pause, cancel } = useRecorder(deviceId);
@@ -80,7 +82,7 @@ export const useTranscription = () => {
     if (isRecording) {
       const blob = await stop();
       if (blob.size < 2000) {
-        toast.error('No microphone audio detected. Check if your mic is on.');
+        toast.error(t('error.noMic'));
         triggeredByShortcut.current = false;
         window.electronAPI.hideOverlay();
         return;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Trash2, Copy, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ITranscript } from '@voca/shared';
@@ -11,6 +12,7 @@ interface TranscriptCardProps {
 }
 
 export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) => {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [showTranslated, setShowTranslated] = useState(true);
   const duration = dayjs.duration(transcript.duration, 'seconds').format('m:ss');
@@ -24,7 +26,7 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
   const handleCopy = async () => {
     await navigator.clipboard.writeText(displayText);
     setCopied(true);
-    toast.success('Copied to clipboard');
+    toast.success(t('transcript.copied'));
     setTimeout(() => setCopied(false), 1500);
   };
 
@@ -59,7 +61,7 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
                       : 'bg-transparent text-[#737373]'
                   }`}
                 >
-                  Original
+                  {t('transcript.original')}
                 </button>
                 <button
                   onClick={(e) => {
@@ -72,7 +74,7 @@ export const TranscriptCard = ({ transcript, onDelete }: TranscriptCardProps) =>
                       : 'bg-transparent text-[#737373]'
                   }`}
                 >
-                  AI
+                  {t('transcript.ai')}
                 </button>
               </div>
             ) : (

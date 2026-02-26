@@ -1,6 +1,13 @@
 import { LayoutDashboard, Clock, Settings, CreditCard, LogOut } from 'lucide-react';
 import { Badge } from 'poyraz-ui/atoms';
 import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from 'poyraz-ui/molecules';
+import {
   Sidebar,
   SidebarHeader,
   SidebarContent,
@@ -8,8 +15,11 @@ import {
   SidebarMenuItem,
   SidebarFooter,
 } from 'poyraz-ui/organisms';
+import { useTranslation } from 'react-i18next';
+import { APP_LOCALES, AppLocale } from '@voca/shared';
 import { View, useNavigationStore } from '~/stores/navigation.store';
 import { useAuthStore } from '~/stores/auth.store';
+import { useProgramLanguageStore } from '~/stores/programLanguage.store';
 import vocaLogo from '~/assets/voca_logo.png';
 
 interface AppSidebarProps {
@@ -17,11 +27,11 @@ interface AppSidebarProps {
   appVersion: string | null;
 }
 
-const menuItems: { key: View; label: string; icon: React.ReactNode }[] = [
-  { key: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-  { key: 'history', label: 'History', icon: <Clock size={18} /> },
-  { key: 'settings', label: 'Settings', icon: <Settings size={18} /> },
-  { key: 'billing', label: 'Billing', icon: <CreditCard size={18} /> },
+const MENU_KEYS: { key: View; i18nKey: string; icon: React.ReactNode }[] = [
+  { key: 'dashboard', i18nKey: 'sidebar.dashboard', icon: <LayoutDashboard size={18} /> },
+  { key: 'history', i18nKey: 'sidebar.history', icon: <Clock size={18} /> },
+  { key: 'settings', i18nKey: 'sidebar.settings', icon: <Settings size={18} /> },
+  { key: 'billing', i18nKey: 'sidebar.billing', icon: <CreditCard size={18} /> },
 ];
 
 function planBadgeStyle(plan: string | null): { label: string; bg: string; text: string } {
@@ -36,9 +46,26 @@ const PLATFORM_LABELS: Record<string, string> = {
   linux: 'Linux',
 };
 
+const LOCALE_LABELS: Record<AppLocale, { flag: string; label: string }> = {
+  en: { flag: '🇬🇧', label: 'English' },
+  es: { flag: '🇪🇸', label: 'Español' },
+  hi: { flag: '🇮🇳', label: 'हिन्दी' },
+  zh: { flag: '🇨🇳', label: '中文' },
+  de: { flag: '🇩🇪', label: 'Deutsch' },
+  pt: { flag: '🇧🇷', label: 'Português' },
+  ja: { flag: '🇯🇵', label: '日本語' },
+  fr: { flag: '🇫🇷', label: 'Français' },
+  tr: { flag: '🇹🇷', label: 'Türkçe' },
+  ru: { flag: '🇷🇺', label: 'Русский' },
+  ko: { flag: '🇰🇷', label: '한국어' },
+  it: { flag: '🇮🇹', label: 'Italiano' },
+};
+
 export const AppSidebar = ({ transcriptCount, appVersion }: AppSidebarProps) => {
+  const { t } = useTranslation();
   const { view, setView } = useNavigationStore();
   const { user, clearAuth } = useAuthStore();
+  const { programLanguage, setProgramLanguage } = useProgramLanguageStore();
   const platformLabel = PLATFORM_LABELS[window.electronAPI.platform] ?? window.electronAPI.platform;
 
   return (
@@ -50,7 +77,7 @@ export const AppSidebar = ({ transcriptCount, appVersion }: AppSidebarProps) => 
 
       <SidebarContent className="px-3">
         <SidebarMenu>
-          {menuItems.map((item) => (
+          {MENU_KEYS.map((item) => (
             <SidebarMenuItem
               key={item.key}
               active={view === item.key}
@@ -62,19 +89,36 @@ export const AppSidebar = ({ transcriptCount, appVersion }: AppSidebarProps) => 
               }
               onClick={() => setView(item.key)}
             >
-              {item.label}
+              {t(item.i18nKey)}
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
       </SidebarContent>
 
       {appVersion && (
-        <button
-          onClick={() => window.electronAPI.updater.checkForUpdates()}
-          className="text-[10px] text-[#a3a3a3] hover:text-[#737373] transition-colors px-3 pb-2 text-left cursor-pointer"
-        >
-          v{appVersion} · {platformLabel}
-        </button>
+        <div className="flex items-center justify-between px-3 pb-2">
+          <button
+            onClick={() => window.electronAPI.updater.checkForUpdates()}
+            className="text-[10px] text-[#a3a3a3] hover:text-[#737373] transition-colors text-left cursor-pointer"
+          >
+            v{appVersion} · {platformLabel}
+          </button>
+          <Select value={programLanguage} onValueChange={(v) => setProgramLanguage(v as AppLocale)}>
+            <SelectTrigger className="h-7 w-auto justify-end gap-1 px-1.5 text-xs border-0 shadow-none text-[#a3a3a3] hover:text-[#737373]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {APP_LOCALES.map((code) => {
+                const loc = LOCALE_LABELS[code];
+                return (
+                  <SelectItem key={code} value={code}>
+                    {loc.flag} {loc.label}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
+        </div>
       )}
 
       <SidebarFooter>
@@ -108,7 +152,7 @@ export const AppSidebar = ({ transcriptCount, appVersion }: AppSidebarProps) => 
                 <button
                   onClick={clearAuth}
                   className="p-1 text-[#737373] hover:text-[#171717] transition-colors"
-                  title="Sign out"
+                  title={t('sidebar.signOut')}
                 >
                   <LogOut size={16} />
                 </button>

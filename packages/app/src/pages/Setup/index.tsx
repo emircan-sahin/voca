@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Mic, MousePointerClick } from 'lucide-react';
 import { Card, CardContent, Button } from 'poyraz-ui/atoms';
 
@@ -26,6 +27,7 @@ const EmptyCircle = () => (
 );
 
 export const SetupPage = ({ onGranted }: Props) => {
+  const { t } = useTranslation();
   const [perms, setPerms] = useState<PermissionState>({
     microphone: 'not-determined',
     accessibility: false,
@@ -93,10 +95,10 @@ export const SetupPage = ({ onGranted }: Props) => {
 
           {/* Header */}
           <h1 className="text-xl font-bold text-[#171717] text-center mb-2">
-            Set Up Voca
+            {t('setup.title')}
           </h1>
           <p className="text-[#737373] text-sm text-center mb-6 leading-relaxed">
-            The following permissions are required for the app to work properly.
+            {t('setup.subtitle')}
           </p>
 
           {/* Permission items */}
@@ -108,9 +110,9 @@ export const SetupPage = ({ onGranted }: Props) => {
                   <Mic className="w-4 h-4 text-[#737373]" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[#171717] text-sm font-medium">Microphone</p>
+                  <p className="text-[#171717] text-sm font-medium">{t('setup.microphone')}</p>
                   <p className="text-[#737373] text-xs mt-0.5 mb-2">
-                    Allows microphone access for audio recording.
+                    {t('setup.microphoneDesc')}
                   </p>
                   {perms.microphone !== 'granted' && (
                     <Button
@@ -119,8 +121,8 @@ export const SetupPage = ({ onGranted }: Props) => {
                       onClick={handleMicrophone}
                     >
                       {perms.microphone === 'not-determined'
-                        ? 'Grant Access'
-                        : 'Open Microphone Settings →'}
+                        ? t('setup.grantAccess')
+                        : t('setup.openMicSettings')}
                     </Button>
                   )}
                 </div>
@@ -137,9 +139,9 @@ export const SetupPage = ({ onGranted }: Props) => {
                   <MousePointerClick className="w-4 h-4 text-[#737373]" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[#171717] text-sm font-medium">Accessibility</p>
+                  <p className="text-[#171717] text-sm font-medium">{t('setup.accessibility')}</p>
                   <p className="text-[#737373] text-xs mt-0.5 mb-2">
-                    Required for auto-pasting transcripts into terminals and apps.
+                    {t('setup.accessibilityDesc')}
                   </p>
                   {!perms.accessibility && (
                     <Button
@@ -147,7 +149,7 @@ export const SetupPage = ({ onGranted }: Props) => {
                       className="text-red-600 text-xs font-semibold p-0 h-auto"
                       onClick={handleAccessibility}
                     >
-                      Open Accessibility Settings →
+                      {t('setup.openAccessibilitySettings')}
                     </Button>
                   )}
                 </div>
@@ -161,7 +163,7 @@ export const SetupPage = ({ onGranted }: Props) => {
           {/* Hint */}
           {!allGranted && (
             <p className="text-[#737373] text-xs text-center mt-4 leading-relaxed">
-              The app will continue automatically once permissions are granted.
+              {t('setup.hint')}
             </p>
           )}
         </CardContent>
