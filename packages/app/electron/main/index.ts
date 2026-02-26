@@ -1,6 +1,5 @@
 import { app, BrowserWindow, screen, shell, ipcMain, systemPreferences, clipboard, nativeImage } from 'electron';
 import path, { join } from 'path';
-import fs from 'fs';
 import { exec } from 'child_process';
 import { registerShortcuts, unregisterShortcuts } from './shortcuts';
 import { showOverlay, hideOverlay, sendLoadingToOverlay } from './overlay';
@@ -115,33 +114,15 @@ ipcMain.on('overlay:pause', () => {
   }
 });
 
-const windowStatePath = join(app.getPath('userData'), 'window-state.json');
-
-function loadWindowPosition(): { x: number; y: number } | undefined {
-  try {
-    const data = JSON.parse(fs.readFileSync(windowStatePath, 'utf-8'));
-    const { x, y } = data;
-    if (typeof x !== 'number' || typeof y !== 'number') return undefined;
-    // Validate position is on a visible display
-    const displays = screen.getAllDisplays();
-    const visible = displays.some((d) => {
-      const { x: dx, y: dy, width, height } = d.bounds;
-      return x >= dx && x < dx + width && y >= dy && y < dy + height;
-    });
-    return visible ? { x, y } : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-function saveWindowPosition(win: BrowserWindow) {
-  const [x, y] = win.getPosition();
-  fs.writeFileSync(windowStatePath, JSON.stringify({ x, y }));
-}
-
 function createWindow() {
   const iconPath = join(assetsPath, 'icon.png');
-  const saved = loadWindowPosition();
+
+  // Open on the screen where the cursor is
+  const cursor = screen.getCursorScreenPoint();
+  const display = screen.getDisplayNearestPoint(cursor);
+  const { x: dx, y: dy, width, height } = display.workArea;
+  const x = Math.round(dx + (width - 1050) / 2);
+  const y = Math.round(dy + (height - 740) / 2);
 
   const win = new BrowserWindow({
     width: 1050,
@@ -151,7 +132,8 @@ function createWindow() {
     maxWidth: 1050,
     maxHeight: 740,
     resizable: false,
-    ...(saved && { x: saved.x, y: saved.y }),
+    x,
+    y,
     icon: iconPath,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -159,8 +141,6 @@ function createWindow() {
       nodeIntegration: false,
     },
   });
-
-  win.on('moved', () => saveWindowPosition(win));
 
   if (process.env['ELECTRON_RENDERER_URL']) {
     win.loadURL(process.env['ELECTRON_RENDERER_URL']);
