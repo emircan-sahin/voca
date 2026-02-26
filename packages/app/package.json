@@ -32,8 +32,11 @@
     "mac": {
       "target": "dmg",
       "icon": "../../assets/icon.icns",
-      "hardenedRuntime": false,
+      "hardenedRuntime": true,
       "gatekeeperAssess": false,
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist",
+      "notarize": true,
       "protocols": [
         {
           "name": "Voca",
