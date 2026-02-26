@@ -34,7 +34,7 @@
   "settings.planning": "Listenformat",
   "settings.planningTooltip": "Formatiert nummerierte Listen mit Zeilenumbrüchen",
   "settings.planningExample": "\"erstens … zweitens …\" → 1. 2. 3.",
-  "settings.translationNote": "Transkriptionen automatisch mit Gemini 2.0 Flash übersetzen",
+  "settings.translationNote": "KI-gestützte Ausgabe — flüssiger, sauberer und präziser als rohe Sprache",
   "settings.noiseSuppression": "Geräuschunterdrückung",
   "settings.noiseSuppressionDesc": "Reduziert gleichmäßige Hintergrundgeräusche wie Ventilatoren, Klimaanlagen oder Verkehr.",
   "settings.noiseSuppressionHint": "In ruhigen Umgebungen ausgeschaltet lassen — kann die Stimmqualität leicht beeinträchtigen.",

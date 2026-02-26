@@ -34,7 +34,7 @@
   "settings.planning": "Формат списка",
   "settings.planningTooltip": "Форматирует нумерованные списки с переносами строк",
   "settings.planningExample": "«во-первых … во-вторых …» → 1. 2. 3.",
-  "settings.translationNote": "Автоматический перевод транскрипций с помощью Gemini 2.0 Flash",
+  "settings.translationNote": "ИИ-обработка — более гладкий, чистый и точный результат, чем необработанная речь",
   "settings.noiseSuppression": "Шумоподавление",
   "settings.noiseSuppressionDesc": "Снижает постоянный фоновый шум, такой как вентиляторы, кондиционеры или дорожное движение.",
   "settings.noiseSuppressionHint": "Отключайте в тихой обстановке — может незначительно повлиять на качество голоса.",

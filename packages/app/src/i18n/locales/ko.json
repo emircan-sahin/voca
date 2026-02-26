@@ -34,7 +34,7 @@
   "settings.planning": "목록 형식",
   "settings.planningTooltip": "번호 매긴 목록을 줄바꿈으로 정리합니다",
   "settings.planningExample": "\"첫째 … 둘째 …\" → 1. 2. 3.",
-  "settings.translationNote": "Gemini 2.0 Flash를 사용하여 텍스트 변환을 자동 번역합니다",
+  "settings.translationNote": "AI 기반 출력 — 원시 음성보다 더 매끄럽고, 깔끔하고, 정확하게",
   "settings.noiseSuppression": "소음 억제",
   "settings.noiseSuppressionDesc": "선풍기, 에어컨, 교통 소음 등 지속적인 배경 소음을 줄입니다.",
   "settings.noiseSuppressionHint": "조용한 환경에서는 꺼두세요 — 음성 품질이 약간 달라질 수 있습니다.",

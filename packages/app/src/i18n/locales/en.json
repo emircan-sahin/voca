@@ -34,7 +34,7 @@
   "settings.planning": "Planning",
   "settings.planningTooltip": "Formats numbered lists with line breaks",
   "settings.planningExample": "\"first … second …\" → 1. 2. 3.",
-  "settings.translationNote": "Automatically translate transcriptions using Gemini 2.0 Flash",
+  "settings.translationNote": "AI-powered output — smoother, cleaner, and more accurate than raw speech",
   "settings.noiseSuppression": "Noise Suppression",
   "settings.noiseSuppressionDesc": "Reduces constant background noise like fans, air conditioning, or traffic.",
   "settings.noiseSuppressionHint": "Keep it off in quiet environments — it may slightly alter voice quality.",

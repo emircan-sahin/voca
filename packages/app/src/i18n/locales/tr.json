@@ -34,7 +34,7 @@
   "settings.planning": "Listeleme",
   "settings.planningTooltip": "Numaralı listeleri satır sonlarıyla biçimlendirir",
   "settings.planningExample": "\"birinci … ikinci …\" → 1. 2. 3.",
-  "settings.translationNote": "Gemini 2.0 Flash kullanarak transkriptleri otomatik çevir",
+  "settings.translationNote": "AI destekli çıktı — ham konuşmadan daha akıcı, temiz ve doğru",
   "settings.noiseSuppression": "Gürültü Engelleme",
   "settings.noiseSuppressionDesc": "Fan, klima veya trafik gibi sürekli arka plan gürültüsünü azaltır.",
   "settings.noiseSuppressionHint": "Sessiz ortamlarda kapalı tutun — ses kalitesini hafifçe değiştirebilir.",

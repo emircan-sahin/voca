@@ -34,7 +34,7 @@
   "settings.planning": "リスト整形",
   "settings.planningTooltip": "番号付きリストを改行付きで整形します",
   "settings.planningExample": "「まず…次に…」→ 1. 2. 3.",
-  "settings.translationNote": "Gemini 2.0 Flash を使用して文字起こしを自動翻訳します",
+  "settings.translationNote": "AI による出力 — 生の音声よりも滑らかで、きれいで、正確に",
   "settings.noiseSuppression": "ノイズ抑制",
   "settings.noiseSuppressionDesc": "ファン、エアコン、交通騒音などの一定のバックグラウンドノイズを低減します。",
   "settings.noiseSuppressionHint": "静かな環境ではオフにしてください — 音声品質がわずかに変わる場合があります。",

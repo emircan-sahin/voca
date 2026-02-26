@@ -34,7 +34,7 @@
   "settings.planning": "列表格式",
   "settings.planningTooltip": "将编号列表格式化并添加换行",
   "settings.planningExample": "\"第一 … 第二 …\" → 1. 2. 3.",
-  "settings.translationNote": "使用 Gemini 2.0 Flash 自动翻译转录内容",
+  "settings.translationNote": "AI 驱动输出 — 比原始语音更流畅、更干净、更准确",
   "settings.noiseSuppression": "噪音抑制",
   "settings.noiseSuppressionDesc": "减少持续的背景噪音，如风扇、空调或交通声。",
   "settings.noiseSuppressionHint": "在安静环境中请关闭此功能 — 它可能会轻微影响语音质量。",

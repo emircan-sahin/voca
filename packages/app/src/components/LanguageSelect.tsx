@@ -19,7 +19,7 @@ export const LanguageSelect = () => {
       <SelectContent>
         {LANGUAGES.map((l) => (
           <SelectItem key={l.code} value={l.code}>
-            {l.name}
+            {l.flag} {l.name}
           </SelectItem>
         ))}
       </SelectContent>

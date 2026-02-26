@@ -34,7 +34,7 @@
   "settings.planning": "सूची प्रारूप",
   "settings.planningTooltip": "क्रमांकित सूचियों को लाइन ब्रेक के साथ फ़ॉर्मेट करता है",
   "settings.planningExample": "\"पहला … दूसरा …\" → 1. 2. 3.",
-  "settings.translationNote": "Gemini 2.0 Flash का उपयोग करके ट्रांसक्रिप्शन का स्वचालित अनुवाद करें",
+  "settings.translationNote": "AI-संचालित आउटपुट — कच्ची बोली से अधिक प्रवाहपूर्ण, स्वच्छ और सटीक",
   "settings.noiseSuppression": "शोर दमन",
   "settings.noiseSuppressionDesc": "पंखे, एयर कंडीशनिंग या ट्रैफ़िक जैसे लगातार बैकग्राउंड शोर को कम करता है।",
   "settings.noiseSuppressionHint": "शांत वातावरण में इसे बंद रखें — यह आवाज़ की गुणवत्ता को थोड़ा प्रभावित कर सकता है।",
