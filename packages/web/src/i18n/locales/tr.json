@@ -150,6 +150,7 @@
     "faq": "SSS",
     "terms": "Şartlar",
     "privacy": "Gizlilik",
+    "refund": "İade",
     "copyright": "© {{year}} Voca. Tüm hakları saklıdır."
   },
   "notFound": {
@@ -285,6 +286,30 @@
     "contact": {
       "heading": "11. İletişim",
       "content": "Bu Gizlilik Politikası hakkında sorularınız varsa <email>contact@usevoca.dev</email> adresinden bize ulaşın."
+    }
+  },
+  "refund": {
+    "title": "İade Politikası",
+    "lastUpdated": "Son güncelleme: 26 Şubat 2026",
+    "trial": {
+      "heading": "1. Ücretsiz Deneme",
+      "content": "Tüm planlar 3 günlük ücretsiz deneme içerir. Deneme süresi boyunca ücretlendirilmezsiniz. Deneme süresi bitmeden iptal ederseniz herhangi bir ödeme alınmaz."
+    },
+    "cancellation": {
+      "heading": "2. İptal",
+      "content": "Aboneliğinizi istediğiniz zaman iptal edebilirsiniz. Erişiminiz mevcut fatura döneminin sonuna kadar devam eder ve bir sonraki ay yenilenmez. İptal ücreti uygulanmaz."
+    },
+    "refunds": {
+      "heading": "3. İadeler",
+      "content": "Ödemeler, Kayıtlı Satıcımız olan Paddle tarafından işlenir. Hatalı bir ücretlendirme olduğuna inanıyorsanız veya iade talep etmek istiyorsanız, lütfen Paddle ile doğrudan <paddleHelp>yardım merkezi</paddleHelp> üzerinden iletişime geçin."
+    },
+    "credits": {
+      "heading": "4. Krediler",
+      "content": "Aylık krediler devredilemez ve bir sonraki fatura dönemine aktarılmaz. Kullanılmayan krediler iade edilemez."
+    },
+    "contact": {
+      "heading": "5. İletişim",
+      "content": "Bu İade Politikası hakkında sorularınız varsa <email>contact@usevoca.dev</email> adresinden bize ulaşın."
     }
   }
 }

@@ -150,6 +150,7 @@
     "faq": "常见问题",
     "terms": "条款",
     "privacy": "隐私",
+    "refund": "退款",
     "copyright": "© {{year}} Voca. 保留所有权利。"
   },
   "notFound": {
@@ -186,5 +187,29 @@
     "children": { "heading": "9. 儿童隐私", "content": "本服务不面向13岁以下的儿童。我们不会故意收集儿童的个人信息。" },
     "changes": { "heading": "10. 政策变更", "content": "我们可能会不时更新本隐私政策。变更后继续使用服务即表示接受更新后的政策。" },
     "contact": { "heading": "11. 联系方式", "content": "如对本隐私政策有疑问，请通过 <email>contact@usevoca.dev</email> 联系我们。" }
+  },
+  "refund": {
+    "title": "退款政策",
+    "lastUpdated": "最后更新：2026年2月26日",
+    "trial": {
+      "heading": "1. 免费试用",
+      "content": "所有计划均包含 3 天免费试用。试用期间不会收取任何费用。如果您在试用结束前取消，将不会产生任何付款。"
+    },
+    "cancellation": {
+      "heading": "2. 取消",
+      "content": "您可以随时取消订阅。您的访问权限将持续到当前计费周期结束，下个月不会续费。不收取任何取消费用。"
+    },
+    "refunds": {
+      "heading": "3. 退款",
+      "content": "付款由我们的注册商户 Paddle 处理。如果您认为被错误收费或希望申请退款，请通过 Paddle 的<paddleHelp>帮助中心</paddleHelp>直接联系他们。"
+    },
+    "credits": {
+      "heading": "4. 额度",
+      "content": "月度额度不可转让，不会结转到下一个计费周期。未使用的额度不符合退款条件。"
+    },
+    "contact": {
+      "heading": "5. 联系方式",
+      "content": "如对本退款政策有疑问，请通过 <email>contact@usevoca.dev</email> 联系我们。"
+    }
   }
 }

@@ -150,6 +150,7 @@
     "faq": "FAQ",
     "terms": "Términos",
     "privacy": "Privacidad",
+    "refund": "Reembolso",
     "copyright": "© {{year}} Voca. Todos los derechos reservados."
   },
   "notFound": {
@@ -285,6 +286,30 @@
     "contact": {
       "heading": "11. Contacto",
       "content": "Si tiene preguntas sobre esta Política de Privacidad, contáctenos en <email>contact@usevoca.dev</email>."
+    }
+  },
+  "refund": {
+    "title": "Política de Reembolso",
+    "lastUpdated": "Última actualización: 26 de febrero de 2026",
+    "trial": {
+      "heading": "1. Prueba Gratuita",
+      "content": "Todos los planes incluyen una prueba gratuita de 3 días. No se le cobrará durante el período de prueba. Si cancela antes de que finalice la prueba, no se realizará ningún cobro."
+    },
+    "cancellation": {
+      "heading": "2. Cancelación",
+      "content": "Puede cancelar su suscripción en cualquier momento. Su acceso continúa hasta el final del período de facturación actual y el siguiente mes simplemente no se renovará. No se aplican tarifas de cancelación."
+    },
+    "refunds": {
+      "heading": "3. Reembolsos",
+      "content": "Los pagos son procesados por Paddle, nuestro Comerciante Registrado. Si cree que se le cobró por error o desea solicitar un reembolso, comuníquese directamente con Paddle a través de su <paddleHelp>centro de ayuda</paddleHelp>."
+    },
+    "credits": {
+      "heading": "4. Créditos",
+      "content": "Los créditos mensuales no son transferibles y no se transfieren al siguiente período de facturación. Los créditos no utilizados no son elegibles para reembolso."
+    },
+    "contact": {
+      "heading": "5. Contacto",
+      "content": "Si tiene preguntas sobre esta Política de Reembolso, contáctenos en <email>contact@usevoca.dev</email>."
     }
   }
 }

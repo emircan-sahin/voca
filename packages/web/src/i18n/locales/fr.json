@@ -150,6 +150,7 @@
     "faq": "FAQ",
     "terms": "Conditions",
     "privacy": "Confidentialité",
+    "refund": "Remboursement",
     "copyright": "© {{year}} Voca. Tous droits réservés."
   },
   "notFound": {
@@ -186,5 +187,29 @@
     "children": { "heading": "9. Confidentialité des Enfants", "content": "Le Service n'est pas destiné aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations personnelles auprès d'enfants." },
     "changes": { "heading": "10. Modifications de Cette Politique", "content": "Nous pouvons mettre à jour cette Politique de Confidentialité de temps à autre. L'utilisation continue du Service après les modifications constitue l'acceptation de la politique mise à jour." },
     "contact": { "heading": "11. Contact", "content": "Pour toute question concernant cette Politique de Confidentialité, contactez-nous à <email>contact@usevoca.dev</email>." }
+  },
+  "refund": {
+    "title": "Politique de Remboursement",
+    "lastUpdated": "Dernière mise à jour : 26 février 2026",
+    "trial": {
+      "heading": "1. Essai Gratuit",
+      "content": "Tous les forfaits incluent un essai gratuit de 3 jours. Aucun frais ne sera facturé pendant la période d'essai. Si vous annulez avant la fin de l'essai, aucun paiement ne sera prélevé."
+    },
+    "cancellation": {
+      "heading": "2. Annulation",
+      "content": "Vous pouvez annuler votre abonnement à tout moment. Votre accès continue jusqu'à la fin de la période de facturation en cours, et le mois suivant ne sera simplement pas renouvelé. Aucun frais d'annulation ne s'applique."
+    },
+    "refunds": {
+      "heading": "3. Remboursements",
+      "content": "Les paiements sont traités par Paddle, notre Commerçant Enregistré. Si vous pensez avoir été facturé par erreur ou souhaitez demander un remboursement, veuillez contacter Paddle directement via leur <paddleHelp>centre d'aide</paddleHelp>."
+    },
+    "credits": {
+      "heading": "4. Crédits",
+      "content": "Les crédits mensuels ne sont pas transférables et ne sont pas reportés à la période de facturation suivante. Les crédits non utilisés ne sont pas éligibles au remboursement."
+    },
+    "contact": {
+      "heading": "5. Contact",
+      "content": "Pour toute question concernant cette Politique de Remboursement, contactez-nous à <email>contact@usevoca.dev</email>."
+    }
   }
 }

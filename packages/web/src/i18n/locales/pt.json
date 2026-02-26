@@ -150,6 +150,7 @@
     "faq": "FAQ",
     "terms": "Termos",
     "privacy": "Privacidade",
+    "refund": "Reembolso",
     "copyright": "© {{year}} Voca. Todos os direitos reservados."
   },
   "notFound": {
@@ -186,5 +187,29 @@
     "children": { "heading": "9. Privacidade de Menores", "content": "O Serviço não é destinado a menores de 13 anos. Não coletamos conscientemente informações pessoais de menores." },
     "changes": { "heading": "10. Alterações nesta Política", "content": "Podemos atualizar esta Política de Privacidade periodicamente. O uso continuado do Serviço após as alterações constitui aceitação da política atualizada." },
     "contact": { "heading": "11. Contato", "content": "Se tiver dúvidas sobre esta Política de Privacidade, entre em contato conosco em <email>contact@usevoca.dev</email>." }
+  },
+  "refund": {
+    "title": "Política de Reembolso",
+    "lastUpdated": "Última atualização: 26 de fevereiro de 2026",
+    "trial": {
+      "heading": "1. Teste Grátis",
+      "content": "Todos os planos incluem um teste grátis de 3 dias. Você não será cobrado durante o período de teste. Se cancelar antes do término do teste, nenhum pagamento será realizado."
+    },
+    "cancellation": {
+      "heading": "2. Cancelamento",
+      "content": "Você pode cancelar sua assinatura a qualquer momento. Seu acesso continua até o final do período de cobrança atual, e o próximo mês simplesmente não será renovado. Não há taxas de cancelamento."
+    },
+    "refunds": {
+      "heading": "3. Reembolsos",
+      "content": "Os pagamentos são processados pelo Paddle, nosso Comerciante Registrado. Se você acredita que foi cobrado por engano ou deseja solicitar um reembolso, entre em contato diretamente com o Paddle através do <paddleHelp>centro de ajuda</paddleHelp>."
+    },
+    "credits": {
+      "heading": "4. Créditos",
+      "content": "Os créditos mensais não são transferíveis e não são acumulados para o próximo período de cobrança. Créditos não utilizados não são elegíveis para reembolso."
+    },
+    "contact": {
+      "heading": "5. Contato",
+      "content": "Se tiver dúvidas sobre esta Política de Reembolso, entre em contato conosco em <email>contact@usevoca.dev</email>."
+    }
   }
 }

@@ -150,6 +150,7 @@
     "faq": "FAQ",
     "terms": "AGB",
     "privacy": "Datenschutz",
+    "refund": "Erstattung",
     "copyright": "© {{year}} Voca. Alle Rechte vorbehalten."
   },
   "notFound": {
@@ -285,6 +286,30 @@
     "contact": {
       "heading": "11. Kontakt",
       "content": "Bei Fragen zu dieser Datenschutzrichtlinie kontaktieren Sie uns unter <email>contact@usevoca.dev</email>."
+    }
+  },
+  "refund": {
+    "title": "Erstattungsrichtlinie",
+    "lastUpdated": "Zuletzt aktualisiert: 26. Februar 2026",
+    "trial": {
+      "heading": "1. Kostenlose Testphase",
+      "content": "Alle Pläne beinhalten eine 3-tägige kostenlose Testphase. Während der Testphase werden keine Gebühren erhoben. Wenn Sie vor Ablauf der Testphase kündigen, wird keine Zahlung eingezogen."
+    },
+    "cancellation": {
+      "heading": "2. Kündigung",
+      "content": "Sie können Ihr Abonnement jederzeit kündigen. Ihr Zugang bleibt bis zum Ende des aktuellen Abrechnungszeitraums bestehen, und der nächste Monat wird einfach nicht verlängert. Es fallen keine Kündigungsgebühren an."
+    },
+    "refunds": {
+      "heading": "3. Erstattungen",
+      "content": "Zahlungen werden von Paddle, unserem Händler, abgewickelt. Wenn Sie glauben, dass Ihnen fälschlicherweise eine Gebühr berechnet wurde, oder wenn Sie eine Erstattung beantragen möchten, wenden Sie sich bitte direkt an Paddle über deren <paddleHelp>Hilfecenter</paddleHelp>."
+    },
+    "credits": {
+      "heading": "4. Guthaben",
+      "content": "Monatliches Guthaben ist nicht übertragbar und wird nicht in den nächsten Abrechnungszeitraum übertragen. Ungenutztes Guthaben ist nicht erstattungsfähig."
+    },
+    "contact": {
+      "heading": "5. Kontakt",
+      "content": "Bei Fragen zu dieser Erstattungsrichtlinie kontaktieren Sie uns unter <email>contact@usevoca.dev</email>."
     }
   }
 }

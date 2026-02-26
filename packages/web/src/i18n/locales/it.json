@@ -150,6 +150,7 @@
     "faq": "FAQ",
     "terms": "Termini",
     "privacy": "Privacy",
+    "refund": "Rimborso",
     "copyright": "© {{year}} Voca. Tutti i diritti riservati."
   },
   "notFound": {
@@ -186,5 +187,29 @@
     "children": { "heading": "9. Privacy dei Minori", "content": "Il Servizio non è destinato ai minori di 13 anni. Non raccogliamo consapevolmente informazioni personali dai minori." },
     "changes": { "heading": "10. Modifiche a Questa Informativa", "content": "Possiamo aggiornare questa Informativa sulla Privacy di tanto in tanto. L'uso continuato del Servizio dopo le modifiche costituisce accettazione dell'informativa aggiornata." },
     "contact": { "heading": "11. Contatto", "content": "Per domande su questa Informativa sulla Privacy, contattaci a <email>contact@usevoca.dev</email>." }
+  },
+  "refund": {
+    "title": "Politica di Rimborso",
+    "lastUpdated": "Ultimo aggiornamento: 26 febbraio 2026",
+    "trial": {
+      "heading": "1. Prova Gratuita",
+      "content": "Tutti i piani includono una prova gratuita di 3 giorni. Non ti verrà addebitato nulla durante il periodo di prova. Se annulli prima della fine della prova, non verrà effettuato alcun pagamento."
+    },
+    "cancellation": {
+      "heading": "2. Cancellazione",
+      "content": "Puoi cancellare il tuo abbonamento in qualsiasi momento. Il tuo accesso continua fino alla fine del periodo di fatturazione corrente, e il mese successivo semplicemente non si rinnoverà. Non si applicano penali di cancellazione."
+    },
+    "refunds": {
+      "heading": "3. Rimborsi",
+      "content": "I pagamenti sono elaborati da Paddle, il nostro Merchant of Record. Se ritieni di essere stato addebitato per errore o desideri richiedere un rimborso, contatta direttamente Paddle tramite il loro <paddleHelp>centro di assistenza</paddleHelp>."
+    },
+    "credits": {
+      "heading": "4. Crediti",
+      "content": "I crediti mensili non sono trasferibili e non vengono trasferiti al periodo di fatturazione successivo. I crediti non utilizzati non sono rimborsabili."
+    },
+    "contact": {
+      "heading": "5. Contatto",
+      "content": "Per domande su questa Politica di Rimborso, contattaci a <email>contact@usevoca.dev</email>."
+    }
   }
 }

@@ -150,6 +150,7 @@
     "faq": "FAQ",
     "terms": "Terms",
     "privacy": "Privacy",
+    "refund": "Refund",
     "copyright": "© {{year}} Voca. All rights reserved."
   },
   "notFound": {
@@ -285,6 +286,30 @@
     "contact": {
       "heading": "11. Contact",
       "content": "If you have questions about this Privacy Policy, contact us at <email>contact@usevoca.dev</email>."
+    }
+  },
+  "refund": {
+    "title": "Refund Policy",
+    "lastUpdated": "Last updated: February 26, 2026",
+    "trial": {
+      "heading": "1. Free Trial",
+      "content": "All plans include a 3-day free trial. You will not be charged during the trial period. If you cancel before the trial ends, no payment will be taken."
+    },
+    "cancellation": {
+      "heading": "2. Cancellation",
+      "content": "You may cancel your subscription at any time. Your access continues until the end of the current billing period, and the next month simply won't renew. No cancellation fees apply."
+    },
+    "refunds": {
+      "heading": "3. Refunds",
+      "content": "Payments are processed by Paddle, our Merchant of Record. If you believe you were charged in error or would like to request a refund, please contact Paddle directly through their <paddleHelp>help center</paddleHelp>."
+    },
+    "credits": {
+      "heading": "4. Credits",
+      "content": "Monthly credits are non-transferable and do not roll over to the next billing period. Unused credits are not eligible for refunds."
+    },
+    "contact": {
+      "heading": "5. Contact",
+      "content": "If you have questions about this Refund Policy, contact us at <email>contact@usevoca.dev</email>."
     }
   }
 }

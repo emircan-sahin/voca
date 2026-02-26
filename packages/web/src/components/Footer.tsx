@@ -38,6 +38,9 @@ export default function Footer() {
             <a href="/privacy" className="transition-colors hover:text-neutral-900">
               {t('footer.privacy')}
             </a>
+            <a href="/refund" className="transition-colors hover:text-neutral-900">
+              {t('footer.refund')}
+            </a>
           </div>
           <div className="flex items-center gap-4 text-neutral-400">
             {socialLinks.map(({ href, icon: Icon, label }) => (
