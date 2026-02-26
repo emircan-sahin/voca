@@ -147,7 +147,15 @@ export const AppSidebar = ({ transcriptCount, appVersion }: AppSidebarProps) => 
                     {badge.label}
                   </span>
                   <p className="text-sm font-medium text-[#171717] truncate">{user.name}</p>
-                  <p className="text-xs text-[#737373] truncate">{user.email}</p>
+                  <p className="text-xs text-[#737373] truncate">
+                    {(() => {
+                      const [local, domain] = user.email.split('@');
+                      const dot = domain.lastIndexOf('.');
+                      const name = domain.slice(0, dot);
+                      const ext = domain.slice(dot);
+                      return `${local.slice(0, 2)}***@${name.slice(0, 2)}***${ext}`;
+                    })()}
+                  </p>
                 </div>
                 <button
                   onClick={clearAuth}
