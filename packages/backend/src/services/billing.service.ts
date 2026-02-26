@@ -2,6 +2,7 @@ import { PLAN_CREDITS, TRIAL_CREDITS, BillingPlan, SubscriptionStatus } from '@v
 import { UserModel, IUserDocument } from '~/models/user.model';
 import { paddle } from '~/config/paddle';
 import { env } from '~/config/env';
+import { logger } from '~/config/logger';
 
 // 25% markup on API costs
 // Gemini 2.0 Flash: $0.10/1M input, $0.40/1M output
@@ -85,7 +86,7 @@ function resolveCredits(
 export async function handleSubscriptionEvent(data: SubscriptionEventData): Promise<void> {
   const user = await UserModel.findById(data.userId);
   if (!user) {
-    console.warn(`[Billing] User not found: ${data.userId}`);
+    logger.warn('Billing', `User not found: ${data.userId}`);
     return;
   }
 
@@ -103,13 +104,13 @@ export async function handleSubscriptionEvent(data: SubscriptionEventData): Prom
         currentPeriodEnd: null,
       },
     });
-    console.log(`[Billing] ${data.subscriptionId} → canceled`);
+    logger.info('Billing', `${data.subscriptionId} → canceled`, { subscriptionId: data.subscriptionId });
     return;
   }
 
   const plan = priceIdToPlan(data.priceId);
   if (!plan) {
-    console.warn(`[Billing] Unknown price ID: ${data.priceId}`);
+    logger.warn('Billing', `Unknown price ID: ${data.priceId}`);
     return;
   }
 
@@ -137,10 +138,7 @@ export async function handleSubscriptionEvent(data: SubscriptionEventData): Prom
   }
 
   await UserModel.findByIdAndUpdate(data.userId, { $set: update });
-  console.log(
-    `[Billing] ${data.subscriptionId} → ${status} (${plan})` +
-    (credits !== undefined ? ` credits=$${credits}` : ''),
-  );
+  logger.info('Billing', `${data.subscriptionId} → ${status} (${plan})${credits !== undefined ? ` credits=$${credits}` : ''}`, { subscriptionId: data.subscriptionId, status, plan, credits });
 }
 
 export async function cancelSubscription(userId: string): Promise<void> {

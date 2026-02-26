@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
 import multer from 'multer';
 import { sendError } from '~/utils/response';
+import { logger } from '~/config/logger';
 
 export const errorMiddleware = (
   err: Error,
@@ -30,7 +31,7 @@ export const errorMiddleware = (
     return sendError(res, req.t('error.invalidId'), 400);
   }
 
-  console.error('[Error]', err.message);
-  if (err.stack) console.error(err.stack);
+  logger.error('Error', err.message, { stack: err.stack });
+  logger.flush();
   sendError(res, req.t('error.internal'), 500);
 };

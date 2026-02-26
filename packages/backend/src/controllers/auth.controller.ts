@@ -9,6 +9,7 @@ import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
 import { refreshBodySchema, updateUserSettingsSchema, DEFAULT_USER_SETTINGS } from '@voca/shared';
 import { deleteUserTranscripts } from '~/controllers/transcript.controller';
+import { logger } from '~/config/logger';
 
 const REDIRECT_URI = `http://localhost:${env.PORT}/api/auth/google/callback`;
 
@@ -74,7 +75,7 @@ export const googleCallback = async (req: Request, res: Response) => {
 </script>
 </body></html>`);
   } catch (err) {
-    console.error('[Auth] Google callback error:', (err as Error).message);
+    logger.error('Auth', `Google callback error: ${(err as Error).message}`);
     return res.status(401).send(htmlPage('Authentication failed', 'Please close this tab and try again.', '#dc2626'));
   }
 };

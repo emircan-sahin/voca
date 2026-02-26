@@ -16,6 +16,7 @@ import { sendError, sendSuccess } from '~/utils/response';
 import { globalLimiter, webhookLimiter } from '~/middleware/rateLimit.middleware';
 import { redis, clearTranscriptionLocks } from '~/config/redis';
 import { ensureAppConfig, getAppConfig } from '~/models/appConfig.model';
+import { logger } from '~/config/logger';
 
 const app = express();
 
@@ -32,10 +33,10 @@ app.use(globalLimiter);
 app.use((req, res, next) => {
   const start = Date.now();
   const { method, originalUrl } = req;
-  console.log(`→ ${method} ${originalUrl}`);
+  logger.info('HTTP', `→ ${method} ${originalUrl}`);
   res.on('finish', () => {
     const ms = Date.now() - start;
-    console.log(`← ${method} ${originalUrl} ${res.statusCode} (${ms}ms)`);
+    logger.info('HTTP', `← ${method} ${originalUrl} ${res.statusCode} (${ms}ms)`, { method, url: originalUrl, status: res.statusCode, ms });
   });
   next();
 });
@@ -56,7 +57,7 @@ app.use(errorMiddleware);
 mongoose
   .connect(env.MONGODB_URI)
   .then(async () => {
-    console.log('[MongoDB] Connected');
+    logger.local('MongoDB', 'Connected');
     await clearTranscriptionLocks();
     await ensureAppConfig();
 
@@ -66,18 +67,19 @@ mongoose
       for (const file of fs.readdirSync(uploadDir)) {
         fs.unlinkSync(path.join(uploadDir, file));
       }
-      console.log('[Startup] Cleared uploads directory');
+      logger.local('Startup', 'Cleared uploads directory');
     }
     const server = app.listen(env.PORT, () => {
-      console.log(`[Server] Running on http://localhost:${env.PORT}`);
+      logger.local('Server', `Running on http://localhost:${env.PORT}`);
     });
 
     const shutdown = () => {
-      console.log('[Server] Shutting down...');
+      logger.local('Server', 'Shutting down...');
       server.close(() => {
+        logger.flush();
         Promise.all([mongoose.disconnect(), redis.quit()]).then(() => {
-          console.log('[MongoDB] Disconnected');
-          console.log('[Redis] Disconnected');
+          logger.local('MongoDB', 'Disconnected');
+          logger.local('Redis', 'Disconnected');
           process.exit(0);
         });
       });
@@ -87,6 +89,6 @@ mongoose
     process.on('SIGTERM', shutdown);
   })
   .catch((err) => {
-    console.error('[MongoDB] Connection failed:', err.message);
+    logger.error('MongoDB', `Connection failed: ${err.message}`);
     process.exit(1);
   });

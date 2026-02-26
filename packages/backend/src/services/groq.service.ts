@@ -1,6 +1,7 @@
 import Groq from 'groq-sdk';
 import fs from 'fs';
 import { env } from '~/config/env';
+import { logger } from '~/config/logger';
 
 const groq = new Groq({ apiKey: env.GROQ_API_KEY });
 
@@ -30,7 +31,7 @@ export interface TranscriptionResult {
 
 export const transcribeAudio = async (filePath: string, language: string): Promise<TranscriptionResult> => {
   const stat = fs.statSync(filePath);
-  console.log(`[Groq] Transcribing ${filePath} (${(stat.size / 1024).toFixed(1)} KB) lang:${language}`);
+  logger.info('Groq', `Transcribing ${filePath} (${(stat.size / 1024).toFixed(1)} KB) lang:${language}`);
 
   const transcription = (await groq.audio.transcriptions.create({
     file: fs.createReadStream(filePath),
@@ -43,9 +44,7 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
   const cost = (duration / 3600) * 0.111; // $0.111/hour — whisper-large-v3-turbo
   const hallucination = isHallucination(transcription);
 
-  console.log(
-    `[Groq] Done — lang:${transcription.language} dur:${duration.toFixed(1)}s cost:$${cost.toFixed(6)}${hallucination ? ' [HALLUCINATION]' : ''} text:"${transcription.text.slice(0, 80)}..."`
-  );
+  logger.info('Groq', `Done — lang:${transcription.language} dur:${duration.toFixed(1)}s cost:$${cost.toFixed(6)}${hallucination ? ' [HALLUCINATION]' : ''}`, { language: transcription.language, duration, cost, hallucination });
 
   return {
     text: transcription.text,

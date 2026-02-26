@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.30",
+    "@axiomhq/js": "^1.4.0",
     "@deepgram/sdk": "^4.11.3",
     "@paddle/paddle-node-sdk": "^3.6.0",
     "@voca/shared": "workspace:*",

@@ -10,6 +10,7 @@ import { safeUnlink } from '~/utils/fs';
 import { env } from '~/config/env';
 import { ITranscript, LANGUAGE_CODES, TONES, STT_PROVIDERS } from '@voca/shared';
 import { UserModel } from '~/models/user.model';
+import { logger } from '~/config/logger';
 
 const transcribeQuerySchema = z.object({
   provider: z.enum(STT_PROVIDERS).default('groq'),
@@ -78,9 +79,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     }
 
     const cost = calculateCost(result.cost, tokenUsage);
-    console.log(
-      `[Billing] stt:$${result.cost.toFixed(6)} gemini:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`
-    );
+    logger.info('Billing', `stt:$${result.cost.toFixed(6)} gemini:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`, { sttCost: result.cost, totalCost: cost, provider });
     const deducted = await deductCredits(req.user!.id, cost);
     if (!deducted) {
       safeUnlink(filePath);

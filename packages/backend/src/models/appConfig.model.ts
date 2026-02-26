@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { Schema, model } from 'mongoose';
+import { logger } from '~/config/logger';
 
 interface IAppConfig {
   _id: string;
@@ -25,7 +26,7 @@ async function refreshConfig(): Promise<void> {
       cachedConfig = { latestVersion: doc.latestVersion };
     }
   } catch (err) {
-    console.error('[AppConfig] Refresh failed, using cached value:', (err as Error).message);
+    logger.error('AppConfig', `Refresh failed, using cached value: ${(err as Error).message}`);
   }
 }
 
@@ -37,7 +38,7 @@ export async function ensureAppConfig(): Promise<void> {
   );
   await refreshConfig();
   setInterval(refreshConfig, dayjs().add(3, 'minute').diff(dayjs()));
-  console.log('[AppConfig] Ensured');
+  logger.local('AppConfig', 'Ensured');
 }
 
 export function getAppConfig(): { latestVersion: string } {

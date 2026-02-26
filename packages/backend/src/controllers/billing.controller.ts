@@ -14,6 +14,7 @@ import { toIUser } from '~/services/auth.service';
 import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
 import { getErrorMessage } from '~/utils/error';
+import { logger } from '~/config/logger';
 
 // ── Paddle webhook types ────────────────────────────────────────
 
@@ -60,7 +61,7 @@ export const webhook = async (req: Request, res: Response) => {
     const userId = customData?.userId;
 
     if (!userId) {
-      console.warn('[Paddle] Webhook missing customData.userId, skipping');
+      logger.warn('Paddle', 'Webhook missing customData.userId, skipping');
       return res.status(200).send('OK');
     }
 
@@ -75,7 +76,7 @@ export const webhook = async (req: Request, res: Response) => {
 
     return res.status(200).send('OK');
   } catch (err) {
-    console.error('[Paddle] Webhook error:', getErrorMessage(err));
+    logger.error('Paddle', `Webhook error: ${getErrorMessage(err)}`);
     return res.status(400).send('Bad request');
   }
 };
@@ -129,7 +130,7 @@ export const checkout = async (req: Request, res: Response) => {
 
     return sendSuccess(res, req.t('billing.checkoutCreated'), { url });
   } catch (err) {
-    console.error('[Paddle] Checkout error:', getErrorMessage(err));
+    logger.error('Paddle', `Checkout error: ${getErrorMessage(err)}`);
     return sendError(res, req.t('billing.checkoutFailed'), 500);
   }
 };
@@ -152,7 +153,7 @@ export const cancel = async (req: Request, res: Response) => {
     if (!user) return sendError(res, req.t('user.notFound'), 404);
     return sendSuccess(res, req.t('billing.cancelSuccess'), toIUser(user));
   } catch (err) {
-    console.error('[Billing] Cancel error:', getErrorMessage(err));
+    logger.error('Billing', `Cancel error: ${getErrorMessage(err)}`);
     return sendError(res, req.t('billing.cancelFailed'), 400);
   }
 };

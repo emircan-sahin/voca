@@ -17,6 +17,8 @@ const envSchema = z.object({
   PADDLE_PRICE_PRO: z.string().default(''),
   PADDLE_PRICE_MAX: z.string().default(''),
   PADDLE_SANDBOX: z.coerce.boolean().default(true),
+  AXIOM_TOKEN: z.string().default(''),
+  AXIOM_DATASET: z.string().default(''),
 });
 
 export const env = envSchema.parse(process.env);

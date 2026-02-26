@@ -213,6 +213,9 @@ const envSchema = z.object({
   PADDLE_PRICE_PRO: z.string(),
   PADDLE_PRICE_MAX: z.string(),
   PADDLE_SANDBOX: z.boolean().default(true),
+  // Axiom Logging (optional)
+  AXIOM_TOKEN: z.string().default(''),
+  AXIOM_DATASET: z.string().default(''),
 });
 export const env = envSchema.parse(process.env);
 ```
@@ -250,8 +253,34 @@ Always log errors with context:
 .catch(() => {});
 
 // Right
-.catch((err) => console.warn('[Context]', err.message ?? err));
+.catch((err) => logger.warn('Context', err.message ?? err));
 ```
+
+## Logging (Axiom)
+Centralized logging via `~/config/logger` with Axiom integration (`@axiomhq/js`).
+
+```typescript
+import { logger } from '~/config/logger';
+
+// Runtime logs → console + Axiom (structured metadata for dashboards)
+logger.info('Groq', `Done — dur:${duration}s`, { duration, cost, language });
+logger.warn('Billing', `User not found: ${userId}`);
+logger.error('Paddle', `Webhook error: ${message}`);
+
+// Startup/shutdown logs → console only (no value in Axiom)
+logger.local('MongoDB', 'Connected');
+
+// Flush pending events to Axiom (called on shutdown and after 500 errors)
+logger.flush();
+```
+
+**Rules**:
+- `logger.info/warn/error` for runtime logs (HTTP, STT, billing, translation, errors)
+- `logger.local` for startup/shutdown messages (console only)
+- `logger.flush()` in shutdown handler and `errorMiddleware` (after 500s)
+- Always pass structured `meta` object for Axiom queryability
+- **Never** use `console.log/warn/error` directly — always use `logger`
+- Env: `AXIOM_TOKEN` + `AXIOM_DATASET` (optional, gracefully disabled when empty)
 
 ### External API Results
 Always validate external API responses before accessing nested properties:

@@ -2,6 +2,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateText } from 'ai';
 import { LANGUAGES } from '@voca/shared';
 import { env } from '~/config/env';
+import { logger } from '~/config/logger';
 
 const langName = (code: string) =>
   LANGUAGES.find((l) => l.code === code)?.name ?? code;
@@ -110,9 +111,7 @@ Do not add any introductory or concluding remarks — just the numbered list or 
     options?.planning && 'planning',
   ].filter(Boolean);
 
-  console.log(
-    `[Translation] ${sourceLang} → ${targetLang} (${tone}${flags.length ? `, ${flags.join(', ')}` : ''}) | in:${usage.inputTokens} out:${usage.outputTokens} cached:${(usage as any).inputTokenDetails?.cacheReadTokens ?? 0}`
-  );
+  logger.info('Translation', `${sourceLang} → ${targetLang} (${tone}${flags.length ? `, ${flags.join(', ')}` : ''})`, { sourceLang, targetLang, tone, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens, cacheReadTokens: (usage as any).inputTokenDetails?.cacheReadTokens ?? 0 });
 
   return {
     translatedText,
