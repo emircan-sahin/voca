@@ -147,11 +147,43 @@
     "features": "Recursos",
     "pricing": "Preços",
     "faq": "FAQ",
+    "terms": "Termos",
+    "privacy": "Privacidade",
     "copyright": "© {{year}} Voca. Todos os direitos reservados."
   },
   "notFound": {
     "title": "404",
     "message": "Esta página não existe. Talvez tenha sido mal transcrita.",
     "backHome": "Voltar ao início"
+  },
+  "terms": {
+    "title": "Termos de Serviço",
+    "lastUpdated": "Última atualização: 26 de fevereiro de 2026",
+    "agreement": { "heading": "1. Aceitação dos Termos", "content": "Ao baixar, instalar ou usar o Voca (\"Serviço\"), você concorda com estes Termos de Serviço. Se não concordar, não use o Serviço. O Voca é operado por Emircan Sahin (\"nós\", \"nosso\")." },
+    "service": { "heading": "2. Descrição do Serviço", "content": "O Voca é um aplicativo de desktop para macOS e Windows que transcreve fala para texto, opcionalmente traduz e cola o resultado onde seu cursor está." },
+    "accounts": { "heading": "3. Contas", "content": "Você deve fazer login com uma conta Google para usar o Serviço. Você é responsável por manter a segurança da sua conta e não deve compartilhar suas credenciais nem permitir que outros acessem." },
+    "billing": { "heading": "4. Assinaturas e Cobrança", "items": ["O Voca oferece dois planos pagos: <b>Pro ($3/mês)</b> e <b>Max ($10/mês)</b>. Ambos os planos incluem todos os recursos.", "Cada plano inclui créditos mensais que são consumidos com base no uso.", "Todos os planos incluem um <b>teste grátis de 3 dias</b>. Você não será cobrado durante o período de teste.", "Os pagamentos são processados pelo <b>Paddle</b>, nosso Comerciante Registrado. O Paddle gerencia cobrança, impostos, faturamento e reembolsos. Ao assinar, você também concorda com os <paddleTerms>Termos do Paddle</paddleTerms>.", "As assinaturas são renovadas automaticamente. Você pode cancelar a qualquer momento — seu acesso continua até o final do período de cobrança atual.", "Créditos não utilizados não são transferidos para o próximo período de cobrança."] },
+    "use": { "heading": "5. Uso Aceitável", "intro": "Você concorda em não:", "items": ["Usar o Serviço para qualquer finalidade ilegal.", "Tentar fazer engenharia reversa, explorar ou interromper o Serviço.", "Enviar conteúdo que viole os direitos de propriedade intelectual de terceiros.", "Compartilhar, revender ou redistribuir o acesso à sua conta."] },
+    "ip": { "heading": "6. Propriedade Intelectual", "content": "O Voca é software de código aberto lançado sob a <b>Licença MIT</b>. Você mantém a propriedade de todo o conteúdo que criar usando o Serviço, incluindo suas transcrições e traduções." },
+    "warranties": { "heading": "7. Isenção de Garantias", "content": "O Serviço é fornecido \"como está\" e \"conforme disponível\" sem garantias de qualquer tipo, expressas ou implícitas. Não garantimos a precisão das transcrições ou traduções." },
+    "liability": { "heading": "8. Limitação de Responsabilidade", "content": "Na máxima extensão permitida por lei, não seremos responsáveis por danos indiretos, incidentais, especiais, consequenciais ou punitivos decorrentes do uso do Serviço." },
+    "termination": { "heading": "9. Rescisão", "content": "Podemos suspender ou encerrar seu acesso por violação destes Termos. Você pode parar de usar o Serviço e cancelar sua assinatura a qualquer momento." },
+    "changes": { "heading": "10. Alterações nos Termos", "content": "Podemos atualizar estes Termos periodicamente. O uso continuado do Serviço após as alterações constitui aceitação dos Termos atualizados." },
+    "contact": { "heading": "11. Contato", "content": "Se tiver dúvidas sobre estes Termos, entre em contato conosco em <email>contact@usevoca.dev</email>." }
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "lastUpdated": "Última atualização: 26 de fevereiro de 2026",
+    "intro": { "heading": "1. Introdução", "content": "Esta Política de Privacidade explica como o Voca (\"Serviço\"), operado por Emircan Sahin (\"nós\", \"nosso\"), coleta, usa e protege suas informações." },
+    "collection": { "heading": "2. Informações que Coletamos", "account": "<b>Informações da conta:</b> Ao fazer login com o Google, recebemos seu nome, endereço de e-mail e foto de perfil. Usado apenas para autenticação.", "transcripts": "<b>Transcrições:</b> Seus textos transcritos e traduções são armazenados para que você possa acessá-los no aplicativo.", "billing": "<b>Informações de cobrança:</b> Os dados de pagamento são coletados e processados inteiramente pelo <b>Paddle</b>, nosso Comerciante Registrado. Não armazenamos nem temos acesso às informações do seu cartão de pagamento." },
+    "audio": { "heading": "3. Dados de Áudio", "items": ["Os arquivos de áudio são <b>excluídos imediatamente</b> após a transcrição. Nunca armazenamos gravações além do processamento.", "O áudio é enviado a provedores de fala para texto para transcrição. Não retemos nenhuma cópia."] },
+    "privacyMode": { "heading": "4. Modo Privacidade", "content": "O Voca oferece um Modo Privacidade opcional nas Configurações. Quando ativado, apenas a transcrição mais recente é mantida — cada nova transcrição exclui a anterior. Ativá-lo também exclui todas as transcrições existentes." },
+    "thirdParty": { "heading": "5. Serviços de Terceiros", "intro": "Usamos serviços de terceiros para fornecer funcionalidade principal. Seus dados podem ser processados por estes provedores de acordo com suas próprias políticas de privacidade:", "paddle": "<b>Paddle</b> — Processamento de pagamentos. <paddlePrivacy>Política de Privacidade</paddlePrivacy>", "google": "<b>Google</b> — Autenticação e tradução. <googlePrivacy>Política de Privacidade</googlePrivacy>" },
+    "noCollect": { "heading": "6. O que NÃO Coletamos", "items": ["Sem análises ou rastreamento.", "Sem identificadores publicitários.", "Sem venda ou compartilhamento de seus dados para fins de marketing."] },
+    "retention": { "heading": "7. Retenção de Dados", "items": ["<b>Áudio:</b> Excluído imediatamente após o processamento.", "<b>Transcrições:</b> Armazenadas até você excluí-las ou o Modo Privacidade removê-las.", "<b>Conta:</b> Mantida enquanto ativa. Entre em contato para solicitar exclusão."] },
+    "rights": { "heading": "8. Seus Direitos", "intro": "Você tem o direito de:", "items": ["Acessar seus dados pelo aplicativo.", "Excluir suas transcrições individualmente ou pelo Modo Privacidade.", "Solicitar a exclusão completa da sua conta entrando em contato conosco.", "Cancelar sua assinatura a qualquer momento."] },
+    "children": { "heading": "9. Privacidade de Menores", "content": "O Serviço não é destinado a menores de 13 anos. Não coletamos conscientemente informações pessoais de menores." },
+    "changes": { "heading": "10. Alterações nesta Política", "content": "Podemos atualizar esta Política de Privacidade periodicamente. O uso continuado do Serviço após as alterações constitui aceitação da política atualizada." },
+    "contact": { "heading": "11. Contato", "content": "Se tiver dúvidas sobre esta Política de Privacidade, entre em contato conosco em <email>contact@usevoca.dev</email>." }
   }
 }

@@ -147,11 +147,43 @@
     "features": "Fonctionnalités",
     "pricing": "Tarifs",
     "faq": "FAQ",
+    "terms": "Conditions",
+    "privacy": "Confidentialité",
     "copyright": "© {{year}} Voca. Tous droits réservés."
   },
   "notFound": {
     "title": "404",
     "message": "Cette page n'existe pas. Peut-être a-t-elle été mal transcrite.",
     "backHome": "Retour à l'accueil"
+  },
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "lastUpdated": "Dernière mise à jour : 26 février 2026",
+    "agreement": { "heading": "1. Acceptation des Conditions", "content": "En téléchargeant, installant ou utilisant Voca (\"Service\"), vous acceptez ces Conditions d'Utilisation. Si vous n'êtes pas d'accord, n'utilisez pas le Service. Voca est exploité par Emircan Sahin (\"nous\", \"notre\")." },
+    "service": { "heading": "2. Description du Service", "content": "Voca est une application de bureau pour macOS et Windows qui transcrit la parole en texte, le traduit optionnellement et colle le résultat là où se trouve votre curseur." },
+    "accounts": { "heading": "3. Comptes", "content": "Vous devez vous connecter avec un compte Google pour utiliser le Service. Vous êtes responsable de la sécurité de votre compte et ne devez pas partager vos identifiants ni permettre à d'autres d'y accéder." },
+    "billing": { "heading": "4. Abonnements et Facturation", "items": ["Voca propose deux forfaits payants : <b>Pro (3$/mois)</b> et <b>Max (10$/mois)</b>. Les deux forfaits incluent toutes les fonctionnalités.", "Chaque forfait inclut des crédits mensuels consommés selon l'utilisation.", "Tous les forfaits incluent un <b>essai gratuit de 3 jours</b>. Aucun frais pendant la période d'essai.", "Les paiements sont traités par <b>Paddle</b>, notre Commerçant Enregistré. Paddle gère la facturation, les taxes et les remboursements. En vous abonnant, vous acceptez également les <paddleTerms>Conditions de Paddle</paddleTerms>.", "Les abonnements se renouvellent automatiquement. Vous pouvez annuler à tout moment — votre accès continue jusqu'à la fin de la période de facturation en cours.", "Les crédits non utilisés ne sont pas reportés à la période suivante."] },
+    "use": { "heading": "5. Utilisation Acceptable", "intro": "Vous acceptez de ne pas :", "items": ["Utiliser le Service à des fins illégales.", "Tenter de désosser, exploiter ou perturber le Service.", "Télécharger du contenu portant atteinte aux droits de propriété intellectuelle d'autrui.", "Partager, revendre ou redistribuer l'accès à votre compte."] },
+    "ip": { "heading": "6. Propriété Intellectuelle", "content": "Voca est un logiciel open source publié sous la <b>Licence MIT</b>. Vous conservez la propriété de tout contenu que vous créez avec le Service, y compris vos transcriptions et traductions." },
+    "warranties": { "heading": "7. Exclusion de Garanties", "content": "Le Service est fourni \"tel quel\" et \"selon disponibilité\" sans aucune garantie, expresse ou implicite. Nous ne garantissons pas l'exactitude des transcriptions ou traductions." },
+    "liability": { "heading": "8. Limitation de Responsabilité", "content": "Dans toute la mesure permise par la loi, nous ne serons pas responsables des dommages indirects, accessoires, spéciaux, consécutifs ou punitifs résultant de votre utilisation du Service." },
+    "termination": { "heading": "9. Résiliation", "content": "Nous pouvons suspendre ou résilier votre accès en cas de violation de ces Conditions. Vous pouvez cesser d'utiliser le Service et annuler votre abonnement à tout moment." },
+    "changes": { "heading": "10. Modifications des Conditions", "content": "Nous pouvons mettre à jour ces Conditions de temps à autre. L'utilisation continue du Service après les modifications constitue l'acceptation des Conditions mises à jour." },
+    "contact": { "heading": "11. Contact", "content": "Pour toute question concernant ces Conditions, contactez-nous à <email>contact@usevoca.dev</email>." }
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "lastUpdated": "Dernière mise à jour : 26 février 2026",
+    "intro": { "heading": "1. Introduction", "content": "Cette Politique de Confidentialité explique comment Voca (\"Service\"), exploité par Emircan Sahin (\"nous\", \"notre\"), collecte, utilise et protège vos informations." },
+    "collection": { "heading": "2. Informations Collectées", "account": "<b>Informations de compte :</b> Lors de la connexion avec Google, nous recevons votre nom, adresse e-mail et photo de profil. Ceci est utilisé uniquement pour l'authentification.", "transcripts": "<b>Transcriptions :</b> Vos textes transcrits et traductions sont stockés pour que vous puissiez y accéder dans l'application.", "billing": "<b>Informations de facturation :</b> Les données de paiement sont collectées et traitées entièrement par <b>Paddle</b>, notre Commerçant Enregistré. Nous ne stockons pas et n'avons pas accès à vos informations de carte de paiement." },
+    "audio": { "heading": "3. Données Audio", "items": ["Les fichiers audio sont <b>supprimés immédiatement</b> après la transcription. Nous ne conservons jamais les enregistrements au-delà du traitement.", "L'audio est envoyé aux fournisseurs de reconnaissance vocale pour la transcription. Nous ne conservons aucune copie."] },
+    "privacyMode": { "heading": "4. Mode Confidentialité", "content": "Voca propose un Mode Confidentialité optionnel dans les Paramètres. Lorsqu'il est activé, seule la transcription la plus récente est conservée — chaque nouvelle transcription supprime la précédente. L'activer supprime également toutes les transcriptions existantes." },
+    "thirdParty": { "heading": "5. Services Tiers", "intro": "Nous utilisons des services tiers pour fournir les fonctionnalités principales. Vos données peuvent être traitées par ces fournisseurs conformément à leurs propres politiques de confidentialité :", "paddle": "<b>Paddle</b> — Traitement des paiements. <paddlePrivacy>Politique de Confidentialité</paddlePrivacy>", "google": "<b>Google</b> — Authentification et traduction. <googlePrivacy>Politique de Confidentialité</googlePrivacy>" },
+    "noCollect": { "heading": "6. Ce que Nous ne Collectons PAS", "items": ["Aucune analyse ni suivi.", "Aucun identifiant publicitaire.", "Aucune vente ni partage de vos données à des fins marketing."] },
+    "retention": { "heading": "7. Conservation des Données", "items": ["<b>Audio :</b> Supprimé immédiatement après le traitement.", "<b>Transcriptions :</b> Conservées jusqu'à leur suppression ou retrait par le Mode Confidentialité.", "<b>Compte :</b> Conservé tant qu'il est actif. Contactez-nous pour demander la suppression."] },
+    "rights": { "heading": "8. Vos Droits", "intro": "Vous avez le droit de :", "items": ["Accéder à vos données via l'application.", "Supprimer vos transcriptions individuellement ou via le Mode Confidentialité.", "Demander la suppression complète de votre compte en nous contactant.", "Annuler votre abonnement à tout moment."] },
+    "children": { "heading": "9. Confidentialité des Enfants", "content": "Le Service n'est pas destiné aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations personnelles auprès d'enfants." },
+    "changes": { "heading": "10. Modifications de Cette Politique", "content": "Nous pouvons mettre à jour cette Politique de Confidentialité de temps à autre. L'utilisation continue du Service après les modifications constitue l'acceptation de la politique mise à jour." },
+    "contact": { "heading": "11. Contact", "content": "Pour toute question concernant cette Politique de Confidentialité, contactez-nous à <email>contact@usevoca.dev</email>." }
   }
 }

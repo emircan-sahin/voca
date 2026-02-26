@@ -147,11 +147,143 @@
     "features": "Funktionen",
     "pricing": "Preise",
     "faq": "FAQ",
+    "terms": "AGB",
+    "privacy": "Datenschutz",
     "copyright": "© {{year}} Voca. Alle Rechte vorbehalten."
   },
   "notFound": {
     "title": "404",
     "message": "Diese Seite existiert nicht. Vielleicht wurde sie falsch transkribiert.",
     "backHome": "Zurück zur Startseite"
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Zuletzt aktualisiert: 26. Februar 2026",
+    "agreement": {
+      "heading": "1. Zustimmung zu den Bedingungen",
+      "content": "Durch das Herunterladen, Installieren oder Nutzen von Voca (\"Dienst\") stimmen Sie diesen Nutzungsbedingungen zu. Wenn Sie nicht zustimmen, nutzen Sie den Dienst nicht. Voca wird von Emircan Sahin (\"wir\", \"uns\", \"unser\") betrieben."
+    },
+    "service": {
+      "heading": "2. Beschreibung des Dienstes",
+      "content": "Voca ist eine Desktop-Anwendung für macOS und Windows, die Sprache in Text umwandelt, optional übersetzt und das Ergebnis an der Cursorposition einfügt."
+    },
+    "accounts": {
+      "heading": "3. Konten",
+      "content": "Sie müssen sich mit einem Google-Konto anmelden, um den Dienst zu nutzen. Sie sind für die Sicherheit Ihres Kontos verantwortlich und dürfen Ihre Anmeldedaten nicht teilen oder anderen Zugriff gewähren."
+    },
+    "billing": {
+      "heading": "4. Abonnements und Abrechnung",
+      "items": [
+        "Voca bietet zwei kostenpflichtige Pläne: <b>Pro ($3/Monat)</b> und <b>Max ($10/Monat)</b>. Beide Pläne enthalten alle Funktionen.",
+        "Jeder Plan enthält monatliches Guthaben, das nach Nutzung verbraucht wird.",
+        "Alle Pläne beinhalten eine <b>3-tägige kostenlose Testphase</b>. Während der Testphase werden keine Gebühren erhoben.",
+        "Zahlungen werden von <b>Paddle</b>, unserem Händler, abgewickelt. Paddle verwaltet Abrechnung, Steuern, Rechnungsstellung und Erstattungen. Mit dem Abonnement stimmen Sie auch den <paddleTerms>Nutzungsbedingungen von Paddle</paddleTerms> zu.",
+        "Abonnements verlängern sich automatisch. Sie können jederzeit kündigen — Ihr Zugang bleibt bis zum Ende des aktuellen Abrechnungszeitraums bestehen.",
+        "Ungenutztes Guthaben wird nicht in den nächsten Abrechnungszeitraum übertragen."
+      ]
+    },
+    "use": {
+      "heading": "5. Akzeptable Nutzung",
+      "intro": "Sie verpflichten sich, Folgendes zu unterlassen:",
+      "items": [
+        "Den Dienst für rechtswidrige Zwecke zu nutzen.",
+        "Den Dienst zurückzuentwickeln, auszunutzen oder zu stören.",
+        "Inhalte hochzuladen, die die geistigen Eigentumsrechte anderer verletzen.",
+        "Ihren Kontozugang zu teilen, weiterzuverkaufen oder weiterzugeben."
+      ]
+    },
+    "ip": {
+      "heading": "6. Geistiges Eigentum",
+      "content": "Voca ist Open-Source-Software unter der <b>MIT-Lizenz</b>. Sie behalten das Eigentum an allen Inhalten, die Sie mit dem Dienst erstellen, einschließlich Ihrer Transkripte und Übersetzungen."
+    },
+    "warranties": {
+      "heading": "7. Gewährleistungsausschluss",
+      "content": "Der Dienst wird \"wie besehen\" und \"wie verfügbar\" ohne jegliche Gewährleistung bereitgestellt, weder ausdrücklich noch stillschweigend. Wir garantieren nicht die Genauigkeit von Transkriptionen oder Übersetzungen."
+    },
+    "liability": {
+      "heading": "8. Haftungsbeschränkung",
+      "content": "Im größtmöglichen gesetzlich zulässigen Umfang haften wir nicht für indirekte, zufällige, besondere, Folge- oder Strafschäden, die aus Ihrer Nutzung des Dienstes entstehen."
+    },
+    "termination": {
+      "heading": "9. Kündigung",
+      "content": "Wir können Ihren Zugang bei Verstoß gegen diese Bedingungen aussetzen oder beenden. Sie können den Dienst jederzeit nicht mehr nutzen und Ihr Abonnement kündigen."
+    },
+    "changes": {
+      "heading": "10. Änderungen der Bedingungen",
+      "content": "Wir können diese Bedingungen von Zeit zu Zeit aktualisieren. Die fortgesetzte Nutzung des Dienstes nach Änderungen gilt als Annahme der aktualisierten Bedingungen."
+    },
+    "contact": {
+      "heading": "11. Kontakt",
+      "content": "Bei Fragen zu diesen Bedingungen kontaktieren Sie uns unter <email>contact@usevoca.dev</email>."
+    }
+  },
+  "privacy": {
+    "title": "Datenschutzrichtlinie",
+    "lastUpdated": "Zuletzt aktualisiert: 26. Februar 2026",
+    "intro": {
+      "heading": "1. Einleitung",
+      "content": "Diese Datenschutzrichtlinie erklärt, wie Voca (\"Dienst\"), betrieben von Emircan Sahin (\"wir\", \"uns\", \"unser\"), Ihre Informationen erfasst, verwendet und schützt."
+    },
+    "collection": {
+      "heading": "2. Informationen, die wir erfassen",
+      "account": "<b>Kontoinformationen:</b> Bei der Anmeldung mit Google erhalten wir Ihren Namen, Ihre E-Mail-Adresse und Ihr Profilbild. Dies wird ausschließlich zur Authentifizierung verwendet.",
+      "transcripts": "<b>Transkripte:</b> Ihre transkribierten Texte und Übersetzungen werden gespeichert, damit Sie in der App darauf zugreifen können.",
+      "billing": "<b>Zahlungsinformationen:</b> Zahlungsdaten werden vollständig von <b>Paddle</b>, unserem Händler, erfasst und verarbeitet. Wir speichern keine Zahlungskartendaten und haben keinen Zugriff darauf."
+    },
+    "audio": {
+      "heading": "3. Audiodaten",
+      "items": [
+        "Audiodateien werden nach der Transkription <b>sofort gelöscht</b>. Wir speichern Aufnahmen niemals über den Verarbeitungszeitraum hinaus.",
+        "Audio wird zur Transkription an Sprache-zu-Text-Anbieter gesendet. Wir behalten keine Kopie."
+      ]
+    },
+    "privacyMode": {
+      "heading": "4. Datenschutzmodus",
+      "content": "Voca bietet einen optionalen Datenschutzmodus in den Einstellungen. Wenn aktiviert, wird nur das neueste Transkript behalten — jede neue Transkription löscht die vorherige. Die Aktivierung löscht auch alle bestehenden Transkripte."
+    },
+    "thirdParty": {
+      "heading": "5. Drittanbieterdienste",
+      "intro": "Wir nutzen Drittanbieterdienste für Kernfunktionalität. Ihre Daten können von diesen Anbietern gemäß deren eigenen Datenschutzrichtlinien verarbeitet werden:",
+      "paddle": "<b>Paddle</b> — Zahlungsabwicklung. <paddlePrivacy>Datenschutzrichtlinie</paddlePrivacy>",
+      "google": "<b>Google</b> — Authentifizierung und Übersetzung. <googlePrivacy>Datenschutzrichtlinie</googlePrivacy>"
+    },
+    "noCollect": {
+      "heading": "6. Was wir NICHT erfassen",
+      "items": [
+        "Keine Analysen oder Tracking.",
+        "Keine Werbe-Identifikatoren.",
+        "Kein Verkauf oder Teilen Ihrer Daten zu Marketingzwecken."
+      ]
+    },
+    "retention": {
+      "heading": "7. Datenspeicherung",
+      "items": [
+        "<b>Audio:</b> Wird sofort nach der Verarbeitung gelöscht.",
+        "<b>Transkripte:</b> Werden gespeichert, bis Sie sie löschen oder der Datenschutzmodus sie entfernt.",
+        "<b>Konto:</b> Wird beibehalten, solange es aktiv ist. Kontaktieren Sie uns für eine Löschungsanfrage."
+      ]
+    },
+    "rights": {
+      "heading": "8. Ihre Rechte",
+      "intro": "Sie haben das Recht:",
+      "items": [
+        "Über die App auf Ihre Daten zuzugreifen.",
+        "Ihre Transkripte einzeln oder über den Datenschutzmodus zu löschen.",
+        "Die vollständige Löschung Ihres Kontos durch Kontaktaufnahme zu beantragen.",
+        "Ihr Abonnement jederzeit zu kündigen."
+      ]
+    },
+    "children": {
+      "heading": "9. Datenschutz für Kinder",
+      "content": "Der Dienst ist nicht für Kinder unter 13 Jahren bestimmt. Wir erfassen wissentlich keine personenbezogenen Daten von Kindern."
+    },
+    "changes": {
+      "heading": "10. Änderungen dieser Richtlinie",
+      "content": "Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Die fortgesetzte Nutzung des Dienstes nach Änderungen gilt als Annahme der aktualisierten Richtlinie."
+    },
+    "contact": {
+      "heading": "11. Kontakt",
+      "content": "Bei Fragen zu dieser Datenschutzrichtlinie kontaktieren Sie uns unter <email>contact@usevoca.dev</email>."
+    }
   }
 }

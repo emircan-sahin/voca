@@ -147,11 +147,143 @@
     "features": "Features",
     "pricing": "Pricing",
     "faq": "FAQ",
+    "terms": "Terms",
+    "privacy": "Privacy",
     "copyright": "© {{year}} Voca. All rights reserved."
   },
   "notFound": {
     "title": "404",
     "message": "This page doesn't exist. Maybe it was transcribed wrong.",
     "backHome": "Back to home"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: February 26, 2026",
+    "agreement": {
+      "heading": "1. Agreement to Terms",
+      "content": "By downloading, installing, or using Voca (\"Service\"), you agree to these Terms of Service. If you do not agree, do not use the Service. Voca is operated by Emircan Sahin (\"we\", \"us\", \"our\")."
+    },
+    "service": {
+      "heading": "2. Description of Service",
+      "content": "Voca is a desktop application for macOS and Windows that transcribes speech to text, optionally translates it, and pastes the result where your cursor is."
+    },
+    "accounts": {
+      "heading": "3. Accounts",
+      "content": "You must sign in with a Google account to use the Service. You are responsible for maintaining the security of your account and must not share your credentials or allow others to access it."
+    },
+    "billing": {
+      "heading": "4. Subscriptions and Billing",
+      "items": [
+        "Voca offers two paid plans: <b>Pro ($3/month)</b> and <b>Max ($10/month)</b>. Both plans include all features.",
+        "Each plan includes monthly credits that are consumed based on usage.",
+        "All plans include a <b>3-day free trial</b>. You will not be charged during the trial period.",
+        "Payments are processed by <b>Paddle</b>, our Merchant of Record. Paddle handles billing, taxes, invoicing, and refunds. By subscribing, you also agree to <paddleTerms>Paddle's Terms</paddleTerms>.",
+        "Subscriptions renew automatically. You may cancel at any time — your access continues until the end of the current billing period.",
+        "Unused credits do not roll over to the next billing period."
+      ]
+    },
+    "use": {
+      "heading": "5. Acceptable Use",
+      "intro": "You agree not to:",
+      "items": [
+        "Use the Service for any unlawful purpose.",
+        "Attempt to reverse-engineer, exploit, or disrupt the Service.",
+        "Upload content that infringes on the intellectual property rights of others.",
+        "Share, resell, or redistribute your account access."
+      ]
+    },
+    "ip": {
+      "heading": "6. Intellectual Property",
+      "content": "Voca is open-source software released under the <b>MIT License</b>. You retain ownership of all content you create using the Service, including your transcripts and translations."
+    },
+    "warranties": {
+      "heading": "7. Disclaimer of Warranties",
+      "content": "The Service is provided \"as is\" and \"as available\" without warranties of any kind, either express or implied. We do not guarantee the accuracy of transcriptions or translations."
+    },
+    "liability": {
+      "heading": "8. Limitation of Liability",
+      "content": "To the fullest extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Service."
+    },
+    "termination": {
+      "heading": "9. Termination",
+      "content": "We may suspend or terminate your access for violation of these Terms. You may stop using the Service and cancel your subscription at any time."
+    },
+    "changes": {
+      "heading": "10. Changes to Terms",
+      "content": "We may update these Terms from time to time. Continued use of the Service after changes constitutes acceptance of the updated Terms."
+    },
+    "contact": {
+      "heading": "11. Contact",
+      "content": "If you have questions about these Terms, contact us at <email>contact@usevoca.dev</email>."
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: February 26, 2026",
+    "intro": {
+      "heading": "1. Introduction",
+      "content": "This Privacy Policy explains how Voca (\"Service\"), operated by Emircan Sahin (\"we\", \"us\", \"our\"), collects, uses, and protects your information."
+    },
+    "collection": {
+      "heading": "2. Information We Collect",
+      "account": "<b>Account information:</b> When you sign in with Google, we receive your name, email address, and profile picture. This is used solely for authentication.",
+      "transcripts": "<b>Transcripts:</b> Your transcribed text and translations are stored so you can access them within the app.",
+      "billing": "<b>Billing information:</b> Payment details are collected and processed entirely by <b>Paddle</b>, our Merchant of Record. We do not store or have access to your payment card information."
+    },
+    "audio": {
+      "heading": "3. Audio Data",
+      "items": [
+        "Audio files are <b>deleted immediately</b> after transcription. We never store recordings beyond the processing window.",
+        "Audio is sent to speech-to-text providers for transcription. We do not retain any copy."
+      ]
+    },
+    "privacyMode": {
+      "heading": "4. Privacy Mode",
+      "content": "Voca offers an optional Privacy Mode in Settings. When enabled, only the most recent transcript is kept — each new transcription deletes the previous one. Enabling it also deletes all existing transcripts."
+    },
+    "thirdParty": {
+      "heading": "5. Third-Party Services",
+      "intro": "We use third-party services to provide core functionality. Your data may be processed by these providers in accordance with their own privacy policies:",
+      "paddle": "<b>Paddle</b> — Payment processing. <paddlePrivacy>Privacy Policy</paddlePrivacy>",
+      "google": "<b>Google</b> — Authentication and translation. <googlePrivacy>Privacy Policy</googlePrivacy>"
+    },
+    "noCollect": {
+      "heading": "6. What We Do NOT Collect",
+      "items": [
+        "No analytics or tracking.",
+        "No advertising identifiers.",
+        "No selling or sharing of your data for marketing purposes."
+      ]
+    },
+    "retention": {
+      "heading": "7. Data Retention",
+      "items": [
+        "<b>Audio:</b> Deleted immediately after processing.",
+        "<b>Transcripts:</b> Stored until you delete them or Privacy Mode removes them.",
+        "<b>Account:</b> Retained while active. Contact us to request deletion."
+      ]
+    },
+    "rights": {
+      "heading": "8. Your Rights",
+      "intro": "You have the right to:",
+      "items": [
+        "Access your data through the app.",
+        "Delete your transcripts individually or via Privacy Mode.",
+        "Request complete deletion of your account by contacting us.",
+        "Cancel your subscription at any time."
+      ]
+    },
+    "children": {
+      "heading": "9. Children's Privacy",
+      "content": "The Service is not intended for children under 13. We do not knowingly collect personal information from children."
+    },
+    "changes": {
+      "heading": "10. Changes to This Policy",
+      "content": "We may update this Privacy Policy from time to time. Continued use of the Service after changes constitutes acceptance of the updated policy."
+    },
+    "contact": {
+      "heading": "11. Contact",
+      "content": "If you have questions about this Privacy Policy, contact us at <email>contact@usevoca.dev</email>."
+    }
   }
 }

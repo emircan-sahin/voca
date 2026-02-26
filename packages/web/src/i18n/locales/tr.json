@@ -147,11 +147,143 @@
     "features": "Özellikler",
     "pricing": "Fiyatlar",
     "faq": "SSS",
+    "terms": "Şartlar",
+    "privacy": "Gizlilik",
     "copyright": "© {{year}} Voca. Tüm hakları saklıdır."
   },
   "notFound": {
     "title": "404",
     "message": "Bu sayfa mevcut değil. Belki yanlış transkript edilmiştir.",
     "backHome": "Ana sayfaya dön"
+  },
+  "terms": {
+    "title": "Kullanım Koşulları",
+    "lastUpdated": "Son güncelleme: 26 Şubat 2026",
+    "agreement": {
+      "heading": "1. Koşulların Kabulü",
+      "content": "Voca'yı (\"Hizmet\") indirerek, yükleyerek veya kullanarak bu Kullanım Koşullarını kabul etmiş olursunuz. Kabul etmiyorsanız Hizmeti kullanmayın. Voca, Emircan Şahin (\"biz\", \"bizim\") tarafından işletilmektedir."
+    },
+    "service": {
+      "heading": "2. Hizmet Tanımı",
+      "content": "Voca, macOS ve Windows için konuşmayı metne dönüştüren, isteğe bağlı olarak çeviren ve sonucu imlecinizin bulunduğu yere yapıştıran bir masaüstü uygulamasıdır."
+    },
+    "accounts": {
+      "heading": "3. Hesaplar",
+      "content": "Hizmeti kullanmak için bir Google hesabıyla oturum açmanız gerekir. Hesabınızın güvenliğini sağlamak sizin sorumluluğunuzdadır ve kimlik bilgilerinizi paylaşmamalı veya başkalarının hesabınıza erişmesine izin vermemelisiniz."
+    },
+    "billing": {
+      "heading": "4. Abonelikler ve Faturalandırma",
+      "items": [
+        "Voca iki ücretli plan sunar: <b>Pro ($3/ay)</b> ve <b>Max ($10/ay)</b>. Her iki plan da tüm özellikleri içerir.",
+        "Her plan, kullanıma göre tüketilen aylık krediler içerir.",
+        "Tüm planlar <b>3 günlük ücretsiz deneme</b> içerir. Deneme süresi boyunca ücretlendirilmezsiniz.",
+        "Ödemeler, Kayıtlı Satıcımız olan <b>Paddle</b> tarafından işlenir. Paddle faturalandırma, vergiler, faturalama ve iadeleri yönetir. Abone olarak <paddleTerms>Paddle'ın Koşullarını</paddleTerms> da kabul etmiş olursunuz.",
+        "Abonelikler otomatik olarak yenilenir. İstediğiniz zaman iptal edebilirsiniz — erişiminiz mevcut fatura döneminin sonuna kadar devam eder.",
+        "Kullanılmayan krediler bir sonraki fatura dönemine aktarılmaz."
+      ]
+    },
+    "use": {
+      "heading": "5. Kabul Edilebilir Kullanım",
+      "intro": "Aşağıdakileri yapmamayı kabul edersiniz:",
+      "items": [
+        "Hizmeti herhangi bir yasa dışı amaçla kullanmak.",
+        "Hizmeti tersine mühendislik yapmaya, istismar etmeye veya bozmaya çalışmak.",
+        "Başkalarının fikri mülkiyet haklarını ihlal eden içerik yüklemek.",
+        "Hesap erişiminizi paylaşmak, yeniden satmak veya dağıtmak."
+      ]
+    },
+    "ip": {
+      "heading": "6. Fikri Mülkiyet",
+      "content": "Voca, <b>MIT Lisansı</b> altında yayınlanan açık kaynaklı bir yazılımdır. Transkriptleriniz ve çevirileriniz dahil olmak üzere Hizmeti kullanarak oluşturduğunuz tüm içeriklerin mülkiyeti size aittir."
+    },
+    "warranties": {
+      "heading": "7. Garanti Reddi",
+      "content": "Hizmet, açık veya zımni herhangi bir garanti olmaksızın \"olduğu gibi\" ve \"mevcut olduğu şekilde\" sunulmaktadır. Transkripsiyon veya çevirilerin doğruluğunu garanti etmiyoruz."
+    },
+    "liability": {
+      "heading": "8. Sorumluluk Sınırlaması",
+      "content": "Yasaların izin verdiği en geniş ölçüde, Hizmeti kullanımınızdan kaynaklanan dolaylı, arızi, özel, sonuç niteliğinde veya cezai zararlardan sorumlu olmayacağız."
+    },
+    "termination": {
+      "heading": "9. Fesih",
+      "content": "Bu Koşulların ihlali durumunda erişiminizi askıya alabilir veya sonlandırabiliriz. Hizmeti kullanmayı bırakabilir ve aboneliğinizi istediğiniz zaman iptal edebilirsiniz."
+    },
+    "changes": {
+      "heading": "10. Koşullarda Değişiklikler",
+      "content": "Bu Koşulları zaman zaman güncelleyebiliriz. Değişikliklerden sonra Hizmeti kullanmaya devam etmeniz, güncellenen Koşulların kabulü anlamına gelir."
+    },
+    "contact": {
+      "heading": "11. İletişim",
+      "content": "Bu Koşullar hakkında sorularınız varsa <email>contact@usevoca.dev</email> adresinden bize ulaşın."
+    }
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "lastUpdated": "Son güncelleme: 26 Şubat 2026",
+    "intro": {
+      "heading": "1. Giriş",
+      "content": "Bu Gizlilik Politikası, Emircan Şahin (\"biz\", \"bizim\") tarafından işletilen Voca'nın (\"Hizmet\") bilgilerinizi nasıl topladığını, kullandığını ve koruduğunu açıklar."
+    },
+    "collection": {
+      "heading": "2. Topladığımız Bilgiler",
+      "account": "<b>Hesap bilgileri:</b> Google ile oturum açtığınızda adınızı, e-posta adresinizi ve profil fotoğrafınızı alırız. Bu yalnızca kimlik doğrulama için kullanılır.",
+      "transcripts": "<b>Transkriptler:</b> Yazıya dökülen metinleriniz ve çevirileriniz uygulama içinde erişebilmeniz için saklanır.",
+      "billing": "<b>Fatura bilgileri:</b> Ödeme detayları tamamen Kayıtlı Satıcımız olan <b>Paddle</b> tarafından toplanır ve işlenir. Ödeme kartı bilgilerinizi saklamıyor veya bunlara erişmiyoruz."
+    },
+    "audio": {
+      "heading": "3. Ses Verileri",
+      "items": [
+        "Ses dosyaları transkripsiyon sonrası <b>hemen silinir</b>. Kayıtları işleme süresinin ötesinde asla saklamayız.",
+        "Ses, transkripsiyon için konuşma-metin sağlayıcılarına gönderilir. Herhangi bir kopya tutmuyoruz."
+      ]
+    },
+    "privacyMode": {
+      "heading": "4. Gizlilik Modu",
+      "content": "Voca, Ayarlar'da isteğe bağlı bir Gizlilik Modu sunar. Etkinleştirildiğinde yalnızca en son transkript tutulur — her yeni transkripsiyon öncekini siler. Etkinleştirmek ayrıca mevcut tüm transkriptleri siler."
+    },
+    "thirdParty": {
+      "heading": "5. Üçüncü Taraf Hizmetleri",
+      "intro": "Temel işlevselliği sağlamak için üçüncü taraf hizmetleri kullanıyoruz. Verileriniz bu sağlayıcılar tarafından kendi gizlilik politikalarına uygun olarak işlenebilir:",
+      "paddle": "<b>Paddle</b> — Ödeme işleme. <paddlePrivacy>Gizlilik Politikası</paddlePrivacy>",
+      "google": "<b>Google</b> — Kimlik doğrulama ve çeviri. <googlePrivacy>Gizlilik Politikası</googlePrivacy>"
+    },
+    "noCollect": {
+      "heading": "6. Toplamadığımız Bilgiler",
+      "items": [
+        "Analitik veya takip yok.",
+        "Reklam tanımlayıcıları yok.",
+        "Verilerinizi pazarlama amacıyla satma veya paylaşma yok."
+      ]
+    },
+    "retention": {
+      "heading": "7. Veri Saklama",
+      "items": [
+        "<b>Ses:</b> İşlemden hemen sonra silinir.",
+        "<b>Transkriptler:</b> Siz silinceye veya Gizlilik Modu onları kaldırıncaya kadar saklanır.",
+        "<b>Hesap:</b> Aktif olduğu sürece tutulur. Silme talebi için bizimle iletişime geçin."
+      ]
+    },
+    "rights": {
+      "heading": "8. Haklarınız",
+      "intro": "Aşağıdaki haklara sahipsiniz:",
+      "items": [
+        "Uygulama aracılığıyla verilerinize erişme.",
+        "Transkriptlerinizi tek tek veya Gizlilik Modu ile silme.",
+        "Bizimle iletişime geçerek hesabınızın tamamen silinmesini talep etme.",
+        "Aboneliğinizi istediğiniz zaman iptal etme."
+      ]
+    },
+    "children": {
+      "heading": "9. Çocukların Gizliliği",
+      "content": "Hizmet 13 yaşın altındaki çocuklara yönelik değildir. Çocuklardan bilerek kişisel bilgi toplamıyoruz."
+    },
+    "changes": {
+      "heading": "10. Bu Politikadaki Değişiklikler",
+      "content": "Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Değişikliklerden sonra Hizmeti kullanmaya devam etmeniz, güncellenen politikanın kabulü anlamına gelir."
+    },
+    "contact": {
+      "heading": "11. İletişim",
+      "content": "Bu Gizlilik Politikası hakkında sorularınız varsa <email>contact@usevoca.dev</email> adresinden bize ulaşın."
+    }
   }
 }

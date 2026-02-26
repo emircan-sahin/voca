@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-dashed border-slate-300 bg-white/80 px-4 backdrop-blur-md sm:px-6">
       <div className="mx-auto flex max-w-4xl items-center justify-between py-3">
-        <a href="#" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2">
           <img src="/voca_logo.png" alt="Voca" className="h-8 w-8" />
           <span className="text-lg font-semibold tracking-tight text-neutral-900">use<span className="text-red-600">voca</span>.dev</span>
         </a>
