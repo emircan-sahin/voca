@@ -1,4 +1,5 @@
 import rateLimit from 'express-rate-limit';
+import { Request } from 'express';
 import { sendError } from '~/utils/response';
 
 function createLimiter(limit: number, messageKey: string) {
@@ -7,6 +8,7 @@ function createLimiter(limit: number, messageKey: string) {
     limit,
     standardHeaders: 'draft-7',
     legacyHeaders: false,
+    keyGenerator: (req: Request) => req.user?.id ?? req.ip ?? 'unknown',
     handler: (req, res) => sendError(res, req.t(messageKey), 429),
   });
 }

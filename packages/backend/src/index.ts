@@ -24,7 +24,7 @@ app.use(cors({ origin: env.CORS_ORIGIN.split(',').map((o) => o.trim()) }));
 // Paddle webhook needs raw body BEFORE express.json() parses it
 app.post('/api/billing/webhook', webhookLimiter, express.text({ type: 'application/json' }), paddleWebhook);
 
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
 app.use(i18nextMiddleware.handle(i18n));
 app.use(globalLimiter);
 
