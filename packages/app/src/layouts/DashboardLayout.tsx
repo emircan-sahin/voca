@@ -5,7 +5,7 @@ import { ShortcutsPanel } from '~/components/ShortcutsPanel';
 import { DashboardView } from '~/pages/Dashboard';
 import { HistoryView } from '~/pages/History';
 import { SettingsView } from '~/pages/Settings';
-import { BillingView } from '~/pages/Billing';
+// import { BillingView } from '~/pages/Billing';
 import { useTranscription } from '~/hooks/useTranscription';
 import { useNavigationStore } from '~/stores/navigation.store';
 import { useAuthStore, refreshUser } from '~/stores/auth.store';
@@ -59,7 +59,7 @@ export const DashboardLayout = () => {
             />
           )}
           {view === 'settings' && <SettingsView />}
-          {view === 'billing' && <BillingView />}
+          {/* {view === 'billing' && <BillingView />} */}
         </div>
       </div>
       <ShortcutsPanel />

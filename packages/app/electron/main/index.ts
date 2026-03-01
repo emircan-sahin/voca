@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, shell, ipcMain, systemPreferences, clipboard, nativeImage } from 'electron';
+import { app, BrowserWindow, screen, shell, ipcMain, systemPreferences, clipboard, nativeImage, session } from 'electron';
 import path, { join } from 'path';
 import { exec } from 'child_process';
 import { registerShortcuts, unregisterShortcuts } from './shortcuts';
@@ -143,6 +143,16 @@ function createWindow() {
       nodeIntegration: false,
       sandbox: true,
     },
+  });
+
+  // Allow requests to the API regardless of CORS (desktop app, no browser origin)
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Access-Control-Allow-Origin': ['*'],
+      },
+    });
   });
 
   if (process.env['ELECTRON_RENDERER_URL']) {

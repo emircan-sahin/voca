@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import PromoBanner from '~/components/PromoBanner';
 import Navbar from '~/components/Navbar';
 import Hero from '~/components/Hero';
 import FeatureHighlight from '~/components/FeatureHighlight';
@@ -23,6 +24,7 @@ const PAGE_TITLES: Record<string, string> = {
 function Homepage() {
   return (
     <div className="min-h-screen">
+      <PromoBanner />
       <Navbar />
       <Hero />
       <FeatureHighlight />

@@ -31,7 +31,7 @@ const MENU_KEYS: { key: View; i18nKey: string; icon: React.ReactNode }[] = [
   { key: 'dashboard', i18nKey: 'sidebar.dashboard', icon: <LayoutDashboard size={18} /> },
   { key: 'history', i18nKey: 'sidebar.history', icon: <Clock size={18} /> },
   { key: 'settings', i18nKey: 'sidebar.settings', icon: <Settings size={18} /> },
-  { key: 'billing', i18nKey: 'sidebar.billing', icon: <CreditCard size={18} /> },
+  // { key: 'billing', i18nKey: 'sidebar.billing', icon: <CreditCard size={18} /> },
 ];
 
 function planBadgeStyle(plan: string | null): { label: string; bg: string; text: string } {

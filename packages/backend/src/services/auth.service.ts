@@ -61,6 +61,10 @@ export async function loginWithGoogleCode(authCode: string, redirectUri: string)
       $setOnInsert: {
         provider: 'google',
         providerId: payload.sub,
+        plan: 'max',
+        credits: 3,
+        subscriptionStatus: 'active',
+        currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       },
     },
     { upsert: true, new: true }
