@@ -1,6 +1,6 @@
 {
   "name": "@voca/app",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "description": "Voice transcription desktop app",
   "author": "Voca <contact@usevoca.dev>",
   "main": "out/main/index.js",
