@@ -44,7 +44,7 @@ export function initAutoUpdater(mainWindow: BrowserWindow) {
   });
 
   ipcMain.handle('updater:install', () => {
-    autoUpdater.quitAndInstall(false, true);
+    setImmediate(() => autoUpdater.quitAndInstall());
   });
 
   // Periodic check every hour
