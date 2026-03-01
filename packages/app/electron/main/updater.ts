@@ -47,8 +47,6 @@ export function initAutoUpdater(mainWindow: BrowserWindow) {
     autoUpdater.quitAndInstall(false, true);
   });
 
-  // First check after 5s, then every 4 hours
-  const check = () => autoUpdater.checkForUpdates().catch(() => {});
-  setTimeout(check, 5_000);
-  setInterval(check, 4 * 60 * 60 * 1_000);
+  // Periodic check every hour
+  setInterval(() => autoUpdater.checkForUpdates().catch(() => {}), 60 * 60 * 1_000);
 }

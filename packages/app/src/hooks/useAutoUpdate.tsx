@@ -62,6 +62,8 @@ export function useAutoUpdate() {
       })
     );
 
+    window.electronAPI.updater.check();
+
     return () => cleanups.forEach((fn) => fn());
   }, [t]);
 }
