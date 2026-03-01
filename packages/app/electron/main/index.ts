@@ -85,11 +85,7 @@ ipcMain.on('transcript:paste-text', (_event, text: string) => {
 // App info
 ipcMain.handle('app:getVersion', () => app.getVersion());
 
-// Auth
-ipcMain.handle('auth:get', () => getAuthData());
-ipcMain.handle('auth:set', (_, data) => setAuthData(data));
-ipcMain.handle('auth:clear', () => clearAuthData());
-ipcMain.handle('auth:open-provider', (_, url: string) => openAuthProvider(url));
+// Auth — registered in whenReady() to ensure safeStorage uses correct keychain name
 
 // Recording overlay
 ipcMain.on('overlay:show', (_, deviceId?: string) => {
@@ -218,6 +214,12 @@ if (!gotTheLock) {
 }
 
 app.whenReady().then(() => {
+  // Auth IPC — must be after app ready so safeStorage uses correct keychain name
+  ipcMain.handle('auth:get', () => getAuthData());
+  ipcMain.handle('auth:set', (_, data) => setAuthData(data));
+  ipcMain.handle('auth:clear', () => clearAuthData());
+  ipcMain.handle('auth:open-provider', (_, url: string) => openAuthProvider(url));
+
   // Set dock icon on macOS (dev mode uses Electron's default otherwise)
   if (process.platform === 'darwin') {
     const dockIcon = nativeImage.createFromPath(join(assetsPath, 'icon.png'));
