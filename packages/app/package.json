@@ -30,7 +30,10 @@
       }
     ],
     "mac": {
-      "target": ["dmg", "zip"],
+      "target": [
+        "dmg",
+        "zip"
+      ],
       "icon": "../../assets/icon.icns",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -71,6 +74,7 @@
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
+    "electron-store": "^11.0.2",
     "electron-updater": "^6.3.9",
     "i18next": "^25.8.13",
     "lucide-react": "^0.400.0",
