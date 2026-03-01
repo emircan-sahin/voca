@@ -33,8 +33,8 @@ importers:
         specifier: ^1.11.11
         version: 1.11.19
       electron-store:
-        specifier: ^11.0.2
-        version: 11.0.2
+        specifier: ^10.1.0
+        version: 10.1.0
       electron-updater:
         specifier: ^6.3.9
         version: 6.8.3
@@ -2361,8 +2361,8 @@ packages:
     resolution: {integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==}
     engines: {'0': node >= 0.8}
 
-  conf@15.1.0:
-    resolution: {integrity: sha512-Uy5YN9KEu0WWDaZAVJ5FAmZoaJt9rdK6kH+utItPyGsCqCgaTKkrmZx3zoE0/3q6S3bcp3Ihkk+ZqPxWxFK5og==}
+  conf@14.0.0:
+    resolution: {integrity: sha512-L6BuueHTRuJHQvQVc6YXYZRtN5vJUtOdCTLn0tRYYV5azfbAFcPghB5zEE40mVrV6w7slMTqUfkDomutIK14fw==}
     engines: {node: '>=20'}
 
   config-file-ts@0.2.8-rc1:
@@ -2534,9 +2534,9 @@ packages:
     os: [darwin]
     hasBin: true
 
-  dot-prop@10.1.0:
-    resolution: {integrity: sha512-MVUtAugQMOff5RnBy2d9N31iG0lNwg1qAoAOn7pOK5wf94WIaE3My2p3uwTQuvS2AcqchkcR3bHByjaM0mmi7Q==}
-    engines: {node: '>=20'}
+  dot-prop@9.0.0:
+    resolution: {integrity: sha512-1gxPBJpI/pcjQhKgIU91II6Wkay+dLcN3M6rf2uwP8hRur3HtQXjVrdAK3sjC0piaEuxzMwjXChcETiJl47lAQ==}
+    engines: {node: '>=18'}
 
   dotenv-expand@11.0.7:
     resolution: {integrity: sha512-zIHwmZPRshsCdpMDyVsqGmgyP0yT8GAgXUnkdAoJisxvf33k7yO6OuoKmcTGuXPWSsm8Oh88nZicRLA9Y0rUeA==}
@@ -2578,8 +2578,8 @@ packages:
   electron-publish@25.1.7:
     resolution: {integrity: sha512-+jbTkR9m39eDBMP4gfbqglDd6UvBC7RLh5Y0MhFSsc6UkGHj9Vj9TWobxevHYMMqmoujL11ZLjfPpMX+Pt6YEg==}
 
-  electron-store@11.0.2:
-    resolution: {integrity: sha512-4VkNRdN+BImL2KcCi41WvAYbh6zLX5AUTi4so68yPqiItjbgTjqpEnGAqasgnG+lB6GuAyUltKwVopp6Uv+gwQ==}
+  electron-store@10.1.0:
+    resolution: {integrity: sha512-oL8bRy7pVCLpwhmXy05Rh/L6O93+k9t6dqSw0+MckIc3OmCTZm6Mp04Q4f/J0rtu84Ky6ywkR8ivtGOmrq+16w==}
     engines: {node: '>=20'}
 
   electron-to-chromium@1.5.302:
@@ -4224,10 +4224,6 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  tagged-tag@1.0.0:
-    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
-    engines: {node: '>=20'}
-
   tailwind-merge@2.6.1:
     resolution: {integrity: sha512-Oo6tHdpZsGpkKG88HJ8RR1rg/RdnEkQEfMoEk2x1XRI3F1AxeU+ijRXpiVUF4UbLfcxxRGw6TbUINKYdWVsQTQ==}
 
@@ -4345,9 +4341,9 @@ packages:
     resolution: {integrity: sha512-34R7HTnG0XIJcBSn5XhDd7nNFPRcXYRZrBB2O2jdKqYODldSzBAqzsWoZYYvduky73toYS/ESqxPvkDf/F0XMg==}
     engines: {node: '>=10'}
 
-  type-fest@5.4.4:
-    resolution: {integrity: sha512-JnTrzGu+zPV3aXIUhnyWJj4z/wigMsdYajGLIYakqyOW1nPllzXEJee0QQbHj+CTIQtXGlAjuK0UY+2xTyjVAw==}
-    engines: {node: '>=20'}
+  type-fest@4.41.0:
+    resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
+    engines: {node: '>=16'}
 
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
@@ -6728,13 +6724,13 @@ snapshots:
       readable-stream: 2.3.8
       typedarray: 0.0.6
 
-  conf@15.1.0:
+  conf@14.0.0:
     dependencies:
       ajv: 8.18.0
       ajv-formats: 3.0.1(ajv@8.18.0)
       atomically: 2.1.1
       debounce-fn: 6.0.0
-      dot-prop: 10.1.0
+      dot-prop: 9.0.0
       env-paths: 3.0.0
       json-schema-typed: 8.0.2
       semver: 7.7.4
@@ -6901,9 +6897,9 @@ snapshots:
       verror: 1.10.1
     optional: true
 
-  dot-prop@10.1.0:
+  dot-prop@9.0.0:
     dependencies:
-      type-fest: 5.4.4
+      type-fest: 4.41.0
 
   dotenv-expand@11.0.7:
     dependencies:
@@ -6973,10 +6969,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-store@11.0.2:
+  electron-store@10.1.0:
     dependencies:
-      conf: 15.1.0
-      type-fest: 5.4.4
+      conf: 14.0.0
+      type-fest: 4.41.0
 
   electron-to-chromium@1.5.302: {}
 
@@ -8804,8 +8800,6 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  tagged-tag@1.0.0: {}
-
   tailwind-merge@2.6.1: {}
 
   tailwind-merge@3.5.0: {}
@@ -8942,9 +8936,7 @@ snapshots:
   type-fest@0.13.1:
     optional: true
 
-  type-fest@5.4.4:
-    dependencies:
-      tagged-tag: 1.0.0
+  type-fest@4.41.0: {}
 
   type-is@1.6.18:
     dependencies:
