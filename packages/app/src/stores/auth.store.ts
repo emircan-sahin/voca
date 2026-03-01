@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { IUser, IUserSettings } from '@voca/shared';
+import { IUser, IUserSettings, LANGUAGE_CODES } from '@voca/shared';
 import { api } from '~/lib/axios';
 import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
@@ -91,8 +91,10 @@ export const useAuthStore = create<AuthState>((set) => ({
 
           if (!settingsRes.data.programLanguageDefault) {
             const detected = useProgramLanguageStore.getState().programLanguage;
-            api.put('/auth/settings', { programLanguageDefault: detected })
-              .catch((err) => console.warn('[Auth] Failed to save programLanguageDefault:', err.message ?? err));
+            const lang = detected && LANGUAGE_CODES.includes(detected) ? detected : useLanguageStore.getState().language;
+            api.put('/auth/settings', { programLanguageDefault: detected, language: lang })
+              .then(() => useLanguageStore.setState({ language: lang }))
+              .catch((err) => console.warn('[Auth] Failed to save settings:', err.message ?? err));
           }
         }
       } catch {

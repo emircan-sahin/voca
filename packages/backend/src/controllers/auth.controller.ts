@@ -8,7 +8,7 @@ import {
 } from '~/services/auth.service';
 import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
-import { refreshBodySchema, updateUserSettingsSchema, DEFAULT_USER_SETTINGS } from '@voca/shared';
+import { refreshBodySchema, updateUserSettingsSchema, DEFAULT_USER_SETTINGS, LANGUAGE_CODES } from '@voca/shared';
 import { deleteUserTranscripts } from '~/controllers/transcript.controller';
 import { logger } from '~/config/logger';
 
@@ -162,9 +162,21 @@ export const updateSettings = async (req: Request, res: Response) => {
 };
 
 export const resetSettings = async (req: Request, res: Response) => {
+  const existing = await UserModel.findById(req.user!.id).select('settings.programLanguageDefault').lean();
+  const pld = existing?.settings?.programLanguageDefault;
+
+  const settings = { ...DEFAULT_USER_SETTINGS };
+  if (pld) {
+    settings.programLanguageDefault = pld;
+    settings.programLanguage = pld;
+    if ((LANGUAGE_CODES as readonly string[]).includes(pld)) {
+      settings.language = pld as typeof settings.language;
+    }
+  }
+
   const user = await UserModel.findByIdAndUpdate(
     req.user!.id,
-    { $set: { settings: DEFAULT_USER_SETTINGS } },
+    { $set: { settings } },
     { new: true }
   );
   if (!user) return sendError(res, req.t('user.notFound'), 404);
