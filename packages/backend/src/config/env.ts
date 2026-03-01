@@ -19,6 +19,7 @@ const envSchema = z.object({
   PADDLE_SANDBOX: z.coerce.boolean().default(true),
   AXIOM_TOKEN: z.string().default(''),
   AXIOM_DATASET: z.string().default(''),
+  BASE_URL: z.string().url('BASE_URL is required (e.g. http://localhost:3100/api)'),
 });
 
 export const env = envSchema.parse(process.env);

@@ -19,11 +19,12 @@ import { ensureAppConfig, getAppConfig } from '~/models/appConfig.model';
 import { logger } from '~/config/logger';
 
 const app = express();
+const api = process.env.NODE_ENV === 'production' ? '' : '/api';
 
 app.use(cors({ origin: env.CORS_ORIGIN.split(',').map((o) => o.trim()) }));
 
 // Paddle webhook needs raw body BEFORE express.json() parses it
-app.post('/api/billing/webhook', webhookLimiter, express.text({ type: 'application/json' }), paddleWebhook);
+app.post(`${api}/billing/webhook`, webhookLimiter, express.text({ type: 'application/json' }), paddleWebhook);
 
 app.use(express.json({ limit: '1mb' }));
 app.use(i18nextMiddleware.handle(i18n));
@@ -41,14 +42,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/health', (req, res) => {
+app.get(`${api}/health`, (req, res) => {
   const config = getAppConfig();
   sendSuccess(res, req.t('general.ok'), { latestVersion: config.latestVersion });
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/transcripts', transcriptRoutes);
-app.use('/api/billing', billingRoutes);
+app.use(`${api}/auth`, authRoutes);
+app.use(`${api}/transcripts`, transcriptRoutes);
+app.use(`${api}/billing`, billingRoutes);
 
 app.use((req, res) => sendError(res, req.t('error.routeNotFound'), 404));
 

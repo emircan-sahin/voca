@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-const HEALTH_URL = 'http://localhost:3100/api/health';
+const HEALTH_URL = `${import.meta.env.VITE_API_BASE_URL}/health`;
 const RETRY_INTERVALS = [3, 5, 15, 30, 60];
 
 export const useBackendReady = () => {

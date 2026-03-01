@@ -15,7 +15,7 @@ export class ApiError extends Error {
 }
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3100/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 // Attach Bearer token and language to every request

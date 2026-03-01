@@ -16,7 +16,7 @@ const oauthCallbackSchema = z.object({
   code: z.string().min(1).max(500),
 });
 
-const REDIRECT_URI = `http://localhost:${env.PORT}/api/auth/google/callback`;
+const REDIRECT_URI = `${env.BASE_URL}/auth/google/callback`;
 
 function htmlPage(title: string, subtitle: string, color = '#171717') {
   return `<!DOCTYPE html>
