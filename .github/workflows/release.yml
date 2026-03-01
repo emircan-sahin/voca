@@ -34,8 +34,8 @@ jobs:
       - name: Set version from tag
         run: |
           VERSION=${GITHUB_REF_NAME#v}
-          npm --no-git-tag-version --prefix packages/app version $VERSION
-          npm --no-git-tag-version version $VERSION
+          npm --no-git-tag-version --allow-same-version --prefix packages/app version $VERSION
+          npm --no-git-tag-version --allow-same-version version $VERSION
         shell: bash
 
       - name: Install dependencies
