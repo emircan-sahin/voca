@@ -23,7 +23,7 @@ const CheckIcon = () => (
 );
 
 const EmptyCircle = () => (
-  <div className="w-6 h-6 rounded-full border-2 border-dashed border-[#e5e5e5]" />
+  <div className="w-6 h-6 rounded-full border-2 border-dashed border-slate-300" />
 );
 
 export const SetupPage = ({ onGranted }: Props) => {
@@ -104,9 +104,9 @@ export const SetupPage = ({ onGranted }: Props) => {
           {/* Permission items */}
           <div className="flex flex-col gap-3">
             {/* Microphone */}
-            <div className="border border-dashed border-[#e5e5e5] p-4">
+            <div className="border border-dashed border-slate-300 p-4">
               <div className="flex items-start gap-3">
-                <div className="w-9 h-9 bg-[#fafafa] border border-dashed border-[#e5e5e5] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-9 h-9 bg-[#fafafa] border border-dashed border-slate-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Mic className="w-4 h-4 text-[#737373]" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -133,9 +133,9 @@ export const SetupPage = ({ onGranted }: Props) => {
             </div>
 
             {/* Accessibility */}
-            <div className="border border-dashed border-[#e5e5e5] p-4">
+            <div className="border border-dashed border-slate-300 p-4">
               <div className="flex items-start gap-3">
-                <div className="w-9 h-9 bg-[#fafafa] border border-dashed border-[#e5e5e5] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-9 h-9 bg-[#fafafa] border border-dashed border-slate-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <MousePointerClick className="w-4 h-4 text-[#737373]" />
                 </div>
                 <div className="flex-1 min-w-0">
