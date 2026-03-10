@@ -39,6 +39,7 @@ const settingsSchema = new Schema(
     programLanguage: { type: String },
     programLanguageDefault: { type: String },
     noiseSuppression: { type: Boolean, default: d.noiseSuppression },
+    echoCancellation: { type: Boolean, default: d.echoCancellation },
     privacyMode: { type: Boolean, default: d.privacyMode },
     translation: { type: translationSettingsSchema, default: () => ({}) },
   },

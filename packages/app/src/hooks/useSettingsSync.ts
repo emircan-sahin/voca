@@ -5,6 +5,7 @@ import { useLanguageStore } from '~/stores/language.store';
 import { useProgramLanguageStore } from '~/stores/programLanguage.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
+import { useEchoCancellationStore } from '~/stores/echoCancellation.store';
 import { usePrivacyModeStore } from '~/stores/privacyMode.store';
 import { api } from '~/lib/axios';
 import { queryClient } from '~/lib/queryClient';
@@ -17,6 +18,7 @@ export function useSettingsSync() {
   const programLanguage = useProgramLanguageStore((s) => s.programLanguage);
   const { enabled, targetLanguage, tone, numeric, planning } = useTranslationStore();
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
+  const echoCancellation = useEchoCancellationStore((s) => s.enabled);
   const privacyMode = usePrivacyModeStore((s) => s.enabled);
 
   // Tracks the last remoteSettingsVersion we saw, so we can skip syncing
@@ -48,6 +50,7 @@ export function useSettingsSync() {
           language,
           programLanguage,
           noiseSuppression,
+          echoCancellation,
           privacyMode,
           translation: { enabled, targetLanguage, tone, numeric, planning },
         }, { signal: controller.signal })
@@ -64,5 +67,5 @@ export function useSettingsSync() {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [user, settingsHydrated, provider, language, programLanguage, noiseSuppression, privacyMode, enabled, targetLanguage, tone, numeric, planning]);
+  }, [user, settingsHydrated, provider, language, programLanguage, noiseSuppression, echoCancellation, privacyMode, enabled, targetLanguage, tone, numeric, planning]);
 }

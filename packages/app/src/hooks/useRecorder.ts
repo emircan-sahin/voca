@@ -1,8 +1,10 @@
 import { useState, useRef, useCallback } from 'react';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
+import { useEchoCancellationStore } from '~/stores/echoCancellation.store';
 
 export const useRecorder = (deviceId: string) => {
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
+  const echoCancellation = useEchoCancellationStore((s) => s.enabled);
   const [isRecording, setIsRecording] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
@@ -13,6 +15,7 @@ export const useRecorder = (deviceId: string) => {
       audio: {
         ...(deviceId && { deviceId: { exact: deviceId } }),
         noiseSuppression,
+        echoCancellation,
       },
     });
     setStream(s);
@@ -22,7 +25,7 @@ export const useRecorder = (deviceId: string) => {
     };
     mediaRecorder.current.start();
     setIsRecording(true);
-  }, [deviceId, noiseSuppression]);
+  }, [deviceId, noiseSuppression, echoCancellation]);
 
   const stop = useCallback(
     (): Promise<Blob> =>

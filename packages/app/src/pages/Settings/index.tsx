@@ -9,6 +9,7 @@ import { LanguageSelect } from '~/components/LanguageSelect';
 import { MicrophoneSelect } from '~/components/MicrophoneSelect';
 import { TranslationSettings } from '~/components/TranslationSettings';
 import { NoiseSuppression } from '~/components/NoiseSuppression';
+import { EchoCancellation } from '~/components/EchoCancellation';
 import { PrivacyMode } from '~/components/PrivacyMode';
 import { ShortcutSettings } from '~/components/ShortcutSettings';
 import { useShortcutStore } from '~/stores/shortcut.store';
@@ -64,6 +65,8 @@ export const SettingsView = () => {
         <CardContent className="p-4 space-y-4">
           <h3 className="text-sm font-medium text-[#171717]">{t('settings.preferences')}</h3>
           <NoiseSuppression />
+          <div className="border-t border-dashed border-slate-200" />
+          <EchoCancellation />
           <div className="border-t border-dashed border-slate-200" />
           <PrivacyMode />
         </CardContent>

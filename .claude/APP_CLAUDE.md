@@ -110,6 +110,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 ## MediaRecorder
 - Format: `audio/webm`
 - Noise suppression: `getUserMedia({ audio: { noiseSuppression } })` — controlled by `noiseSuppression.store.ts`, synced to backend
+- Echo cancellation: `getUserMedia({ audio: { echoCancellation } })` — controlled by `echoCancellation.store.ts`, synced to backend. Filters speaker audio from mic input.
 - Privacy mode: `privacyMode.store.ts` — same toggle pattern as noise suppression, synced to backend. When active, `useSettingsSync` invalidates `['transcripts']` query after settings save.
 - Stop stream tracks after stopping: `stream.getTracks().forEach(t => t.stop())`
 - Create blob: `new Blob(chunks, { type: 'audio/webm' })`

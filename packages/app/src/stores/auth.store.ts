@@ -6,6 +6,7 @@ import { useLanguageStore } from '~/stores/language.store';
 import { useProgramLanguageStore } from '~/stores/programLanguage.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
+import { useEchoCancellationStore } from '~/stores/echoCancellation.store';
 import { usePrivacyModeStore } from '~/stores/privacyMode.store';
 
 interface AuthState {
@@ -32,6 +33,7 @@ export function applyRemoteSettings(settings: IUserSettings) {
     useProgramLanguageStore.getState().setProgramLanguage(settings.programLanguage);
   }
   useNoiseSuppressionStore.setState({ enabled: settings.noiseSuppression });
+  useEchoCancellationStore.setState({ enabled: settings.echoCancellation });
   usePrivacyModeStore.setState({ enabled: settings.privacyMode });
   useTranslationStore.setState({
     enabled: settings.translation.enabled,

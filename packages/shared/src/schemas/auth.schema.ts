@@ -36,6 +36,7 @@ export const userSettingsSchema = z.object({
   programLanguage: z.enum(APP_LOCALES).optional(),
   programLanguageDefault: z.enum(APP_LOCALES).optional(),
   noiseSuppression: z.boolean(),
+  echoCancellation: z.boolean(),
   privacyMode: z.boolean(),
   translation: z.object({
     enabled: z.boolean(),
@@ -54,6 +55,7 @@ export const updateUserSettingsSchema = z.object({
   programLanguage: z.enum(APP_LOCALES).optional(),
   programLanguageDefault: z.enum(APP_LOCALES).optional(),
   noiseSuppression: z.boolean().optional(),
+  echoCancellation: z.boolean().optional(),
   privacyMode: z.boolean().optional(),
   translation: z.object({
     enabled: z.boolean().optional(),

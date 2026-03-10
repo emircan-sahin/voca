@@ -61,6 +61,7 @@ export interface IUserSettings {
   programLanguage?: AppLocale;
   programLanguageDefault?: AppLocale;
   noiseSuppression: boolean;
+  echoCancellation: boolean;
   privacyMode: boolean;
   translation: {
     enabled: boolean;
@@ -76,6 +77,7 @@ export const DEFAULT_USER_SETTINGS: IUserSettings = {
   language: 'en',
   programLanguage: 'en',
   noiseSuppression: false,
+  echoCancellation: false,
   privacyMode: false,
   translation: {
     enabled: false,

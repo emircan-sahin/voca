@@ -157,6 +157,7 @@ settings: {
   provider: SttProvider;             // 'groq' | 'deepgram'
   language: LanguageCode;            // STT language (35 codes)
   noiseSuppression: boolean;
+  echoCancellation: boolean;
   privacyMode: boolean;
   translation: { enabled, tone, targetLanguage, numeric, planning };
   programLanguage: AppLocale;        // UI language chosen by user (12 codes)

@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { Mic } from 'lucide-react';
 import { useMicrophoneStore } from '~/stores/microphone.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
+import { useEchoCancellationStore } from '~/stores/echoCancellation.store';
 import { Button } from 'poyraz-ui/atoms';
 import {
   Select,
@@ -23,6 +24,7 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
   const { t } = useTranslation();
   const { deviceId, setDeviceId } = useMicrophoneStore();
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
+  const echoCancellation = useEchoCancellationStore((s) => s.enabled);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const [testing, setTesting] = useState(false);
   const [level, setLevel] = useState(0);
@@ -56,6 +58,7 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
       audio: {
         ...(deviceId && { deviceId: { exact: deviceId } }),
         noiseSuppression,
+        echoCancellation,
       },
     });
     streamRef.current = s;
@@ -76,7 +79,7 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
     };
     tick();
     setTesting(true);
-  }, [deviceId, noiseSuppression]);
+  }, [deviceId, noiseSuppression, echoCancellation]);
 
   // Stop test when deviceId changes or component unmounts
   useEffect(() => {

@@ -138,6 +138,7 @@ export const updateSettings = async (req: Request, res: Response) => {
   if (s.programLanguage !== undefined) $set['settings.programLanguage'] = s.programLanguage;
   if (s.programLanguageDefault !== undefined) $set['settings.programLanguageDefault'] = s.programLanguageDefault;
   if (s.noiseSuppression !== undefined) $set['settings.noiseSuppression'] = s.noiseSuppression;
+  if (s.echoCancellation !== undefined) $set['settings.echoCancellation'] = s.echoCancellation;
   if (s.privacyMode !== undefined) $set['settings.privacyMode'] = s.privacyMode;
   if (s.translation) {
     const t = s.translation;
