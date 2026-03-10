@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const DEADLINE = new Date('2026-03-08T00:00:00Z').getTime();
-const TOTAL_DURATION = 7 * 24 * 60 * 60 * 1000;
+const DEADLINE = new Date('2026-04-01T00:00:00Z').getTime();
+const TOTAL_DURATION = 22 * 24 * 60 * 60 * 1000;
 
 function useCountdown() {
   const [now, setNow] = useState(Date.now());
