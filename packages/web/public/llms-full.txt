@@ -1,0 +1,166 @@
+# Voca - Full Documentation
+
+> Open-source desktop app that transcribes your voice with AI corrections and translates into 100+ languages.
+
+Voca is a cross-platform desktop application for macOS and Windows built for developers and professionals who want to dictate text faster than typing. Press a global keyboard shortcut from any app, speak, and the AI-corrected transcript is automatically pasted where your cursor was - no switching windows, no copy-pasting.
+
+The project is fully open source under the MIT license: https://github.com/emircan-sahin/voca
+
+---
+
+## How It Works
+
+1. Press the global keyboard shortcut (configurable)
+2. Speak - Voca records your microphone
+3. Audio is sent to our cloud pipeline
+4. Background noise is removed
+5. Deepgram Nova-3 or Groq Whisper transcribes the audio
+6. xAI Grok corrects and improves the text
+7. The result is auto-pasted where your cursor was
+
+No manual copy-paste. No switching apps. The transcript appears instantly in whatever app you were using.
+
+---
+
+## Key Features
+
+- Global keyboard shortcut - works from any app on macOS and Windows
+- AI-corrected transcription - fixes grammar, improves wording, removes filler words
+- Auto-paste to cursor position - result lands exactly where you left off
+- Developer Mode - recognizes code terms, function names, library names, and technical jargon
+- 100+ language translation with tone control (casual, formal, developer)
+- Background noise cancellation - built for real-world environments
+- Deepgram Nova-3 and Groq Whisper STT engines
+- Numeric add-on - dictate numbers and they are formatted correctly
+- Planning add-on - structures spoken ideas into organized notes
+- Open source under MIT license - inspect every line of code
+
+---
+
+## Speech Recognition
+
+- Engine options: Deepgram Nova-3, Groq Whisper
+- 35+ supported languages for speech recognition
+- Languages include: English, Spanish, French, German, Portuguese, Italian, Dutch, Polish, Russian, Japanese, Korean, Chinese, Hindi, Turkish, Arabic, and many more
+
+---
+
+## Translation
+
+- Powered by xAI Grok
+- 100+ languages supported
+- Tone options: Casual, Formal, Developer
+- Developer mode keeps code terms in English while translating the rest naturally
+
+---
+
+## Plans and Pricing
+
+### Free Month (all new accounts)
+- First month free automatically on sign up
+- $3 in credits included
+- Fully featured - no restrictions
+- No credit card required
+- No plan selection needed
+- After the free month, choose a plan to continue
+
+### Pro - $3/month
+- $3 in monthly API credits included
+- Groq and Deepgram STT engines
+- AI tone and translation
+- Numeric and Planning add-ons
+- Max upload size: 10 MB per file
+
+### Max - $10/month
+- $10 in monthly API credits included
+- Groq and Deepgram STT engines
+- AI tone and translation
+- Numeric and Planning add-ons
+- Max upload size: 25 MB per file
+
+### How credits work
+- Credits are consumed based on audio duration processed
+- Unused credits do not roll over to the next month
+- If credits run out, top up or wait for the next billing cycle
+
+---
+
+## Payment
+
+- Payments processed by Paddle (paddle.com)
+- Accepted methods: Credit card, debit card, PayPal (where available)
+- Billed monthly, cancel anytime
+- No annual lock-in
+
+---
+
+## Refund Policy
+
+- New accounts get the first month free - no credit card required, no charge if you do not subscribe after
+- Refund requests handled through Paddle's customer portal
+- Contact contact@usevoca.dev for refund assistance
+- Partial month refunds are evaluated case by case
+
+---
+
+## Privacy and Data
+
+- Audio is processed on our servers and is not stored unless you enable transcript history in Settings
+- Transcript storage can be toggled off in app Settings
+- No tracking, no analytics on app usage, no selling data
+- Full source code is available for audit: https://github.com/emircan-sahin/voca
+- Authentication via Google OAuth (Google account required)
+
+---
+
+## Frequently Asked Questions
+
+### Is Voca free?
+New accounts automatically get the first month free - $3 in credits, fully featured, no credit card required, no plan selection needed. After the free month, plans start at $3/month. No hidden fees, no surprise charges.
+
+### Can I cancel anytime?
+Yes. Cancel whenever you want - your current period stays active, and the next month simply will not renew. No cancellation fees, no hidden terms. One click and you are done.
+
+### What makes Voca different?
+Background noise cancellation built for real-world environments. AI that recognizes function names, code terms, and technical jargon. Smart auto-paste that lands the corrected transcript right where your cursor was. No copy-paste, no switching apps.
+
+### What is Developer Mode?
+Developer Mode is a tone setting for software engineers. When enabled, Voca's AI recognizes code terms, function names, library names, and technical jargon and transcribes them correctly. Say "reakt use state hook" and it writes "React useState hook".
+
+### Which languages are supported?
+35+ languages for speech recognition through Deepgram and Groq. 100+ languages for AI-powered translation with tone control.
+
+### Where is my data stored?
+Your data is processed on our servers. If you do not want anything stored, toggle it off in Settings. Voca is fully open source - you can inspect every line of code yourself.
+
+### Does it work offline?
+No. Voca requires an internet connection. Audio is processed in our cloud pipeline for the best quality at the lowest cost.
+
+### Will new features be added?
+Yes. Voca is actively developed and ships updates regularly. Your feedback directly shapes the roadmap.
+
+---
+
+## System Requirements
+
+- macOS 12+ or Windows 10+
+- Internet connection required
+- Microphone access required
+- Google account for authentication
+
+---
+
+## Download
+
+- macOS: https://github.com/emircan-sahin/voca/releases/latest/download/Voca.dmg
+- Windows: https://github.com/emircan-sahin/voca/releases/latest/download/Voca-Setup.exe
+
+---
+
+## Contact and Support
+
+- Email: contact@usevoca.dev
+- GitHub Issues: https://github.com/emircan-sahin/voca/issues
+- LinkedIn: https://www.linkedin.com/in/emircan-sahin/
+
+Response time: typically within 1-2 business days.
