@@ -9,7 +9,7 @@
     "faq": "FAQ"
   },
   "hero": {
-    "badge": "Open Source · Gratis-Guthaben inklusive",
+    "badge": "Open Source · 1 Monat gratis, keine Karte nötig",
     "headingTop": "Sprich, und es ist",
     "headingBottom": "bereits eingefügt.",
     "description": "Drücke eine Taste, sprich, und das KI-korrigierte Transkript landet genau dort, wo dein Cursor war. Übersetze in über 100 Sprachen in Echtzeit.",
@@ -68,7 +68,7 @@
       "Bis zu {{limit}} pro Aufnahme"
     ],
     "downloadToGet": "Herunterladen & kostenlos testen",
-    "freeTrial": "3 Tage kostenlos testen inklusive"
+    "freeTrial": "1 Monat gratis bei Registrierung — keine Kreditkarte erforderlich"
   },
   "faq": {
     "heading": "Häufig gestellte Fragen",
@@ -78,8 +78,8 @@
       {
         "question": "Ist es kostenlos?",
         "answer": [
-          "Jeder Plan beginnt mit einer 3-tägigen kostenlosen Testphase — alle Funktionen, keine Einschränkungen. Wähle einen Plan, teste ihn risikofrei und kündige jederzeit.",
-          "Nach der Testphase starten Pläne ab nur 3$/Monat. Keine versteckten Gebühren, keine Überraschungen. Was du siehst, ist was du zahlst.",
+          "Registriere dich und erhalte deinen ersten Monat gratis — alle Funktionen, $3 Guthaben, keine Kreditkarte erforderlich. Keine Planauswahl nötig.",
+          "Nach dem Gratismonat starten Pläne ab nur $3/Monat. Keine versteckten Gebühren, keine Überraschungen. Was du siehst, ist was du zahlst.",
           "Wettbewerber verlangen ~8$/Monat plus zusätzliche API-Key-Kosten. Voca beinhaltet alles in einem einfachen Abo."
         ]
       },
@@ -181,7 +181,7 @@
       "items": [
         "Voca bietet zwei kostenpflichtige Pläne: <b>Pro ($3/Monat)</b> und <b>Max ($10/Monat)</b>. Beide Pläne enthalten alle Funktionen.",
         "Jeder Plan enthält monatliches Guthaben, das nach Nutzung verbraucht wird.",
-        "Alle Pläne beinhalten eine <b>3-tägige kostenlose Testphase</b>. Während der Testphase werden keine Gebühren erhoben.",
+        "Neue Konten erhalten automatisch ihren <b>ersten Monat gratis</b> — $3 Guthaben, keine Kreditkarte erforderlich.",
         "Zahlungen werden von <b>Paddle</b>, unserem Händler, abgewickelt. Paddle verwaltet Abrechnung, Steuern, Rechnungsstellung und Erstattungen. Mit dem Abonnement stimmen Sie auch den <paddleTerms>Nutzungsbedingungen von Paddle</paddleTerms> zu.",
         "Abonnements verlängern sich automatisch. Sie können jederzeit kündigen — Ihr Zugang bleibt bis zum Ende des aktuellen Abrechnungszeitraums bestehen.",
         "Ungenutztes Guthaben wird nicht in den nächsten Abrechnungszeitraum übertragen."
@@ -295,8 +295,8 @@
     "title": "Erstattungsrichtlinie",
     "lastUpdated": "Zuletzt aktualisiert: 26. Februar 2026",
     "trial": {
-      "heading": "1. Kostenlose Testphase",
-      "content": "Alle Pläne beinhalten eine 3-tägige kostenlose Testphase. Während der Testphase werden keine Gebühren erhoben. Wenn Sie vor Ablauf der Testphase kündigen, wird keine Zahlung eingezogen."
+      "heading": "1. Gratismonat",
+      "content": "Alle neuen Konten erhalten automatisch den ersten Monat gratis — $3 Guthaben, alle Funktionen, keine Kreditkarte erforderlich. Bei der Registrierung ist keine Aktion erforderlich. Nach dem Gratismonat kannst du einen Plan wählen, um fortzufahren."
     },
     "cancellation": {
       "heading": "2. Kündigung",

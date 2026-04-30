@@ -9,7 +9,7 @@
     "faq": "FAQ"
   },
   "hero": {
-    "badge": "Open source · Free credits included",
+    "badge": "Open source · 1 free month, no card needed",
     "headingTop": "Speak, and it's",
     "headingBottom": "already pasted.",
     "description": "Press a shortcut, talk, and the AI-corrected transcript lands right where your cursor was. Translate into 100+ languages on the fly.",
@@ -68,7 +68,7 @@
       "Up to {{limit}} per recording"
     ],
     "downloadToGet": "Download & try free",
-    "freeTrial": "3-day free trial included"
+    "freeTrial": "1 month free on sign up — no card required"
   },
   "faq": {
     "heading": "Frequently Asked Questions",
@@ -78,8 +78,8 @@
       {
         "question": "Is Voca free?",
         "answer": [
-          "Every plan starts with a 3-day free trial — fully featured, no restrictions. Pick any plan, try it risk-free, and cancel anytime.",
-          "After the trial, plans start at just $3/month. No hidden fees, no surprise charges. What you see is what you pay.",
+          "Sign up and get your first month free — fully featured, $3 in credits, no credit card required. No plan selection needed.",
+          "After the free month, plans start at just $3/month. No hidden fees, no surprise charges. What you see is what you pay.",
           "Unlike competitors who charge ~$8/month plus extra API key costs, Voca includes everything in one simple subscription."
         ]
       },
@@ -181,7 +181,7 @@
       "items": [
         "Voca offers two paid plans: <b>Pro ($3/month)</b> and <b>Max ($10/month)</b>. Both plans include all features.",
         "Each plan includes monthly credits that are consumed based on usage.",
-        "All plans include a <b>3-day free trial</b>. You will not be charged during the trial period.",
+        "New accounts automatically receive their <b>first month free</b> — $3 in credits, no credit card required.",
         "Payments are processed by <b>Paddle</b>, our Merchant of Record. Paddle handles billing, taxes, invoicing, and refunds. By subscribing, you also agree to <paddleTerms>Paddle's Terms</paddleTerms>.",
         "Subscriptions renew automatically. You may cancel at any time — your access continues until the end of the current billing period.",
         "Unused credits do not roll over to the next billing period."
@@ -295,8 +295,8 @@
     "title": "Refund Policy",
     "lastUpdated": "Last updated: February 26, 2026",
     "trial": {
-      "heading": "1. Free Trial",
-      "content": "All plans include a 3-day free trial. You will not be charged during the trial period. If you cancel before the trial ends, no payment will be taken."
+      "heading": "1. Free Month",
+      "content": "All new accounts automatically receive the first month free — $3 in credits, fully featured, no credit card required. No action needed at sign up. After the free month, you can choose a plan to continue."
     },
     "cancellation": {
       "heading": "2. Cancellation",

@@ -9,7 +9,7 @@
     "faq": "FAQ"
   },
   "hero": {
-    "badge": "Open source · Crediti gratuiti inclusi",
+    "badge": "Open source · 1 mese gratis, nessuna carta",
     "headingTop": "Parla, ed è già",
     "headingBottom": "incollato.",
     "description": "Premi una scorciatoia, parla e la trascrizione corretta dall'IA appare esattamente dove si trovava il cursore. Traduci in oltre 100 lingue all'istante.",
@@ -68,7 +68,7 @@
       "Fino a {{limit}} per registrazione"
     ],
     "downloadToGet": "Scarica e prova gratis",
-    "freeTrial": "Prova gratuita di 3 giorni inclusa"
+    "freeTrial": "1 mese gratis alla registrazione — nessuna carta richiesta"
   },
   "faq": {
     "heading": "Domande Frequenti",
@@ -78,8 +78,8 @@
       {
         "question": "Voca è gratuito?",
         "answer": [
-          "Ogni piano inizia con una prova gratuita di 3 giorni — tutte le funzionalità, nessuna restrizione. Scegli un piano, provalo senza rischi e cancella in qualsiasi momento.",
-          "Dopo la prova, i piani partono da soli $3/mese. Nessun costo nascosto, nessun addebito a sorpresa. Quello che vedi è quello che paghi.",
+          "Registrati e ottieni il tuo primo mese gratis — tutte le funzionalità, $3 di crediti, senza carta di credito. Nessuna selezione del piano necessaria.",
+          "Dopo il mese gratuito, i piani partono da soli $3/mese. Nessun costo nascosto, nessun addebito a sorpresa. Quello che vedi è quello che paghi.",
           "I concorrenti fanno pagare ~$8/mese più costi aggiuntivi per le chiavi API. Voca include tutto in un unico abbonamento."
         ]
       },
@@ -167,7 +167,7 @@
     "agreement": { "heading": "1. Accettazione dei Termini", "content": "Scaricando, installando o utilizzando Voca (\"Servizio\"), accetti questi Termini di Servizio. Se non sei d'accordo, non utilizzare il Servizio. Voca è gestito da Emircan Sahin (\"noi\", \"nostro\")." },
     "service": { "heading": "2. Descrizione del Servizio", "content": "Voca è un'applicazione desktop per macOS e Windows che trascrive il parlato in testo, lo traduce opzionalmente e incolla il risultato dove si trova il cursore." },
     "accounts": { "heading": "3. Account", "content": "Devi accedere con un account Google per utilizzare il Servizio. Sei responsabile della sicurezza del tuo account e non devi condividere le tue credenziali né permettere ad altri di accedervi." },
-    "billing": { "heading": "4. Abbonamenti e Fatturazione", "items": ["Voca offre due piani a pagamento: <b>Pro ($3/mese)</b> e <b>Max ($10/mese)</b>. Entrambi i piani includono tutte le funzionalità.", "Ogni piano include crediti mensili consumati in base all'utilizzo.", "Tutti i piani includono una <b>prova gratuita di 3 giorni</b>. Non ti verrà addebitato nulla durante il periodo di prova.", "I pagamenti sono elaborati da <b>Paddle</b>, il nostro Merchant of Record. Paddle gestisce fatturazione, tasse e rimborsi. Abbonandoti, accetti anche i <paddleTerms>Termini di Paddle</paddleTerms>.", "Gli abbonamenti si rinnovano automaticamente. Puoi cancellare in qualsiasi momento — il tuo accesso continua fino alla fine del periodo di fatturazione corrente.", "I crediti non utilizzati non vengono trasferiti al periodo di fatturazione successivo."] },
+    "billing": { "heading": "4. Abbonamenti e Fatturazione", "items": ["Voca offre due piani a pagamento: <b>Pro ($3/mese)</b> e <b>Max ($10/mese)</b>. Entrambi i piani includono tutte le funzionalità.", "Ogni piano include crediti mensili consumati in base all'utilizzo.", "I nuovi account ricevono automaticamente il <b>primo mese gratuito</b> — $3 di crediti, senza carta di credito.", "I pagamenti sono elaborati da <b>Paddle</b>, il nostro Merchant of Record. Paddle gestisce fatturazione, tasse e rimborsi. Abbonandoti, accetti anche i <paddleTerms>Termini di Paddle</paddleTerms>.", "Gli abbonamenti si rinnovano automaticamente. Puoi cancellare in qualsiasi momento — il tuo accesso continua fino alla fine del periodo di fatturazione corrente.", "I crediti non utilizzati non vengono trasferiti al periodo di fatturazione successivo."] },
     "use": { "heading": "5. Uso Accettabile", "intro": "Accetti di non:", "items": ["Utilizzare il Servizio per scopi illegali.", "Tentare di decompilare, sfruttare o interrompere il Servizio.", "Caricare contenuti che violino i diritti di proprietà intellettuale altrui.", "Condividere, rivendere o ridistribuire l'accesso al tuo account."] },
     "ip": { "heading": "6. Proprietà Intellettuale", "content": "Voca è software open source rilasciato sotto la <b>Licenza MIT</b>. Mantieni la proprietà di tutti i contenuti che crei usando il Servizio, incluse le tue trascrizioni e traduzioni." },
     "warranties": { "heading": "7. Esclusione di Garanzie", "content": "Il Servizio è fornito \"così com'è\" e \"come disponibile\" senza garanzie di alcun tipo, espresse o implicite. Non garantiamo l'accuratezza delle trascrizioni o traduzioni." },
@@ -195,8 +195,8 @@
     "title": "Politica di Rimborso",
     "lastUpdated": "Ultimo aggiornamento: 26 febbraio 2026",
     "trial": {
-      "heading": "1. Prova Gratuita",
-      "content": "Tutti i piani includono una prova gratuita di 3 giorni. Non ti verrà addebitato nulla durante il periodo di prova. Se annulli prima della fine della prova, non verrà effettuato alcun pagamento."
+      "heading": "1. Mese Gratuito",
+      "content": "Tutti i nuovi account ricevono automaticamente il primo mese gratuito — $3 di crediti, tutte le funzionalità, senza carta di credito. Nessuna azione richiesta alla registrazione. Dopo il mese gratuito, puoi scegliere un piano per continuare."
     },
     "cancellation": {
       "heading": "2. Cancellazione",

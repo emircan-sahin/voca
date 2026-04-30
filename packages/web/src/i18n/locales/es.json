@@ -9,7 +9,7 @@
     "faq": "FAQ"
   },
   "hero": {
-    "badge": "Código abierto · Créditos gratuitos incluidos",
+    "badge": "Código abierto · 1 mes gratis, sin tarjeta",
     "headingTop": "Habla, y ya está",
     "headingBottom": "pegado.",
     "description": "Pulsa un atajo, habla y la transcripción corregida por IA aparece justo donde estaba tu cursor. Traduce a más de 100 idiomas al instante.",
@@ -68,7 +68,7 @@
       "Hasta {{limit}} por grabación"
     ],
     "downloadToGet": "Descarga y prueba gratis",
-    "freeTrial": "Prueba gratuita de 3 días incluida"
+    "freeTrial": "1 mes gratis al registrarte — sin tarjeta requerida"
   },
   "faq": {
     "heading": "Preguntas Frecuentes",
@@ -78,8 +78,8 @@
       {
         "question": "¿Es gratis?",
         "answer": [
-          "Cada plan comienza con una prueba gratuita de 3 días — todas las funciones, sin restricciones. Elige cualquier plan, pruébalo sin riesgo y cancela cuando quieras.",
-          "Después de la prueba, los planes empiezan desde solo $3/mes. Sin tarifas ocultas, sin cargos sorpresa. Lo que ves es lo que pagas.",
+          "Regístrate y obtén tu primer mes gratis — todas las funciones, $3 en créditos, sin tarjeta de crédito. No necesitas elegir un plan.",
+          "Después del mes gratuito, los planes comienzan desde solo $3/mes. Sin tarifas ocultas, sin cargos sorpresa. Lo que ves es lo que pagas.",
           "Los competidores cobran ~$8/mes más costes extra de API key. Voca incluye todo en una sola suscripción."
         ]
       },
@@ -181,7 +181,7 @@
       "items": [
         "Voca ofrece dos planes de pago: <b>Pro ($3/mes)</b> y <b>Max ($10/mes)</b>. Ambos planes incluyen todas las funciones.",
         "Cada plan incluye créditos mensuales que se consumen según el uso.",
-        "Todos los planes incluyen una <b>prueba gratuita de 3 días</b>. No se le cobrará durante el período de prueba.",
+        "Las cuentas nuevas reciben automáticamente su <b>primer mes gratis</b> — $3 en créditos, sin tarjeta de crédito.",
         "Los pagos son procesados por <b>Paddle</b>, nuestro Comerciante Registrado. Paddle gestiona la facturación, impuestos y reembolsos. Al suscribirse, también acepta los <paddleTerms>Términos de Paddle</paddleTerms>.",
         "Las suscripciones se renuevan automáticamente. Puede cancelar en cualquier momento — su acceso continúa hasta el final del período de facturación actual.",
         "Los créditos no utilizados no se transfieren al siguiente período de facturación."
@@ -295,8 +295,8 @@
     "title": "Política de Reembolso",
     "lastUpdated": "Última actualización: 26 de febrero de 2026",
     "trial": {
-      "heading": "1. Prueba Gratuita",
-      "content": "Todos los planes incluyen una prueba gratuita de 3 días. No se le cobrará durante el período de prueba. Si cancela antes de que finalice la prueba, no se realizará ningún cobro."
+      "heading": "1. Mes Gratuito",
+      "content": "Todas las cuentas nuevas reciben automáticamente el primer mes gratis — $3 en créditos, todas las funciones, sin tarjeta de crédito. No se requiere ninguna acción al registrarse. Después del mes gratuito, puedes elegir un plan para continuar."
     },
     "cancellation": {
       "heading": "2. Cancelación",

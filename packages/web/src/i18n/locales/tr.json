@@ -9,7 +9,7 @@
     "faq": "SSS"
   },
   "hero": {
-    "badge": "Açık kaynak · Ücretsiz kredi dahil",
+    "badge": "Açık kaynak · 1 ay ücretsiz, kart gerekmez",
     "headingTop": "Konuş, zaten",
     "headingBottom": "yapıştırıldı.",
     "description": "Bir kısayola bas, konuş ve AI ile düzeltilmiş transkript imleçinizin olduğu yere gelsin. 100'den fazla dile anında çevirin.",
@@ -68,7 +68,7 @@
       "Kayıt başına en fazla {{limit}}"
     ],
     "downloadToGet": "İndir ve ücretsiz dene",
-    "freeTrial": "3 günlük ücretsiz deneme dahil"
+    "freeTrial": "Kayıtta 1 ay ücretsiz — kredi kartı gerekmez"
   },
   "faq": {
     "heading": "Sıkça Sorulan Sorular",
@@ -78,8 +78,8 @@
       {
         "question": "Ücretsiz mi?",
         "answer": [
-          "Her plan 3 günlük ücretsiz deneme ile başlar — tüm özellikler açık, kısıtlama yok. İstediğiniz planı seçin, risksiz deneyin, istediğiniz zaman iptal edin.",
-          "Deneme sonrası planlar sadece aylık $3'dan başlar. Gizli ücret yok, sürpriz fatura yok. Ne görüyorsanız onu ödersiniz.",
+          "Kaydolun ve ilk ayınızı ücretsiz kullanın — tüm özellikler, $3 kredi, kredi kartı gerekmez. Plan seçmenize gerek yok.",
+          "Ücretsiz ayın ardından planlar sadece aylık $3'dan başlar. Gizli ücret yok, sürpriz fatura yok. Ne görüyorsanız onu ödersiniz.",
           "Rakipler aylık ~$8 abonelik üzerine ekstra API key ücreti alıyor. Voca'da her şey tek bir aboneliğe dahil."
         ]
       },
@@ -181,7 +181,7 @@
       "items": [
         "Voca iki ücretli plan sunar: <b>Pro ($3/ay)</b> ve <b>Max ($10/ay)</b>. Her iki plan da tüm özellikleri içerir.",
         "Her plan, kullanıma göre tüketilen aylık krediler içerir.",
-        "Tüm planlar <b>3 günlük ücretsiz deneme</b> içerir. Deneme süresi boyunca ücretlendirilmezsiniz.",
+        "Yeni hesaplar otomatik olarak <b>ilk ayı ücretsiz</b> alır — $3 kredi, kredi kartı gerekmez.",
         "Ödemeler, Kayıtlı Satıcımız olan <b>Paddle</b> tarafından işlenir. Paddle faturalandırma, vergiler, faturalama ve iadeleri yönetir. Abone olarak <paddleTerms>Paddle'ın Koşullarını</paddleTerms> da kabul etmiş olursunuz.",
         "Abonelikler otomatik olarak yenilenir. İstediğiniz zaman iptal edebilirsiniz — erişiminiz mevcut fatura döneminin sonuna kadar devam eder.",
         "Kullanılmayan krediler bir sonraki fatura dönemine aktarılmaz."
@@ -295,8 +295,8 @@
     "title": "İade Politikası",
     "lastUpdated": "Son güncelleme: 26 Şubat 2026",
     "trial": {
-      "heading": "1. Ücretsiz Deneme",
-      "content": "Tüm planlar 3 günlük ücretsiz deneme içerir. Deneme süresi boyunca ücretlendirilmezsiniz. Deneme süresi bitmeden iptal ederseniz herhangi bir ödeme alınmaz."
+      "heading": "1. Ücretsiz Ay",
+      "content": "Tüm yeni hesaplar otomatik olarak ilk ayı ücretsiz alır — $3 kredi, tüm özellikler, kredi kartı gerekmez. Kayıt sırasında herhangi bir işlem yapmanız gerekmez. Ücretsiz ayın ardından devam etmek için bir plan seçebilirsiniz."
     },
     "cancellation": {
       "heading": "2. İptal",
