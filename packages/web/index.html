@@ -10,7 +10,23 @@
     <meta name="keywords" content="voice to text, speech to text, transcription, translation, AI transcription, Deepgram, Groq, open source, desktop app, macOS, Windows, STT, voice transcriber" />
     <meta name="author" content="Emircan Sahin" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="referrer" content="origin-when-cross-origin" />
     <link rel="canonical" href="https://usevoca.dev" />
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="en" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="es" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="hi" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="zh" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="de" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="pt" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="ja" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="fr" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="tr" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="ru" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="ko" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="it" href="https://usevoca.dev" />
+    <link rel="alternate" hreflang="x-default" href="https://usevoca.dev" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -22,6 +38,17 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Voca" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="hi_IN" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="pt_BR" />
+    <meta property="og:locale:alternate" content="ja_JP" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="tr_TR" />
+    <meta property="og:locale:alternate" content="ru_RU" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+    <meta property="og:locale:alternate" content="it_IT" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -54,53 +81,96 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Voca",
-        "url": "https://usevoca.dev",
-        "description": "Open-source desktop app that transcribes your voice with AI-powered corrections and translates into 100+ languages.",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "macOS, Windows",
-        "offers": [
+        "@graph": [
           {
-            "@type": "Offer",
-            "name": "Pro",
-            "price": "3.00",
-            "priceCurrency": "USD",
-            "billingDuration": "P1M"
+            "@type": "Organization",
+            "name": "Voca",
+            "url": "https://usevoca.dev",
+            "logo": "https://usevoca.dev/voca_logo.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "contact@usevoca.dev",
+              "contactType": "customer support"
+            },
+            "sameAs": [
+              "https://github.com/emircan-sahin/voca",
+              "https://www.linkedin.com/in/emircan-sahin/"
+            ]
           },
           {
-            "@type": "Offer",
-            "name": "Max",
-            "price": "10.00",
-            "priceCurrency": "USD",
-            "billingDuration": "P1M"
+            "@type": "SoftwareApplication",
+            "name": "Voca",
+            "url": "https://usevoca.dev",
+            "description": "Open-source desktop app that transcribes your voice with AI-powered corrections and translates into 100+ languages.",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "macOS, Windows",
+            "availableLanguage": ["en", "es", "hi", "zh", "de", "pt", "ja", "fr", "tr", "ru", "ko", "it"],
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "Pro",
+                "price": "3.00",
+                "priceCurrency": "USD",
+                "billingDuration": "P1M"
+              },
+              {
+                "@type": "Offer",
+                "name": "Max",
+                "price": "10.00",
+                "priceCurrency": "USD",
+                "billingDuration": "P1M"
+              }
+            ],
+            "author": {
+              "@type": "Person",
+              "name": "Emircan Sahin",
+              "url": "https://github.com/emircan-sahin"
+            },
+            "isAccessibleForFree": false,
+            "license": "https://opensource.org/licenses/MIT",
+            "softwareVersion": "0.0.1",
+            "featureList": [
+              "AI-powered voice transcription",
+              "Auto-paste to cursor position",
+              "100+ language translation",
+              "35+ STT language support",
+              "Deepgram Nova-3 and Groq Whisper engines",
+              "Developer and Personal tone modes",
+              "Numeric and Planning add-ons",
+              "Noise suppression",
+              "Open source under MIT license"
+            ]
           }
-        ],
-        "author": {
-          "@type": "Person",
-          "name": "Emircan Sahin",
-          "url": "https://github.com/emircan-sahin"
-        },
-        "sourceOrganization": {
-          "@type": "Organization",
-          "name": "Voca",
-          "url": "https://usevoca.dev"
-        },
-        "isAccessibleForFree": false,
-        "license": "https://opensource.org/licenses/MIT",
-        "softwareVersion": "0.0.1",
-        "featureList": [
-          "AI-powered voice transcription",
-          "Auto-paste to cursor position",
-          "100+ language translation",
-          "35+ STT language support",
-          "Deepgram Nova-3 and Groq Whisper engines",
-          "Developer and Personal tone modes",
-          "Numeric and Planning add-ons",
-          "Noise suppression",
-          "Open source under MIT license"
         ]
       }
+    </script>
+
+    <!-- LLM inline content (SPA/CSR fallback for AI tools) -->
+    <script type="text/llms.txt">
+# Voca
+
+> Open-source desktop app that transcribes voice with AI corrections and translates into 100+ languages.
+
+Voca is a cross-platform desktop app for macOS and Windows. Press a global keyboard shortcut from any app, speak, and the AI-corrected transcript is auto-pasted where your cursor was. Uses Deepgram Nova-3 and Groq Whisper for STT (35+ languages) and xAI Grok for translation (100+ languages). Plans from $3/month with a 3-day free trial.
+
+## Key Features
+- Global shortcut triggers recording from any app
+- AI-corrected transcription (grammar, wording, filler word removal)
+- Auto-paste to cursor position - no copy-paste required
+- Developer Mode for code terms, function names, and technical jargon
+- 100+ language translation with tone control
+- Background noise cancellation
+- Deepgram Nova-3 and Groq Whisper STT engines
+
+## Plans
+- Pro: $3/month - $3 monthly credits, 10 MB upload limit
+- Max: $10/month - $10 monthly credits, 25 MB upload limit
+- Free: First month free on sign up - $3 in credits, no credit card required, no plan selection needed
+
+## Links
+- Full details: https://usevoca.dev/llms-full.txt
+- GitHub: https://github.com/emircan-sahin/voca
+- Contact: contact@usevoca.dev
     </script>
   </head>
   <body>
