@@ -28,7 +28,7 @@
 
 ---
 
-Press a shortcut, speak, and the transcript is automatically pasted wherever your cursor is. Need it in another language? Voca translates it on the fly with Gemini 2.0 Flash — with a Developer tone that understands your technical jargon.
+Press a shortcut, speak, and the transcript is automatically pasted wherever your cursor is. Need it in another language? Voca translates it on the fly with xAI Grok 4.1 Fast — with a Developer tone that understands your technical jargon.
 
 **Stop paying $8/month for transcription apps.** Deepgram gives every new account **$200 in free credits** — that's essentially a lifetime of personal use. And since Voca is fully open-source, your audio never leaves your machine for any third party. You own your data.
 
@@ -37,7 +37,7 @@ Press a shortcut, speak, and the transcript is automatically pasted wherever you
 - **Free forever (practically)** — $200 free Deepgram credits covers hundreds of hours of transcription. No subscriptions, no hidden fees.
 - **Private by design** — 100% open-source. Audio is processed through your own API keys. No data collection, no analytics, no third-party servers storing your recordings.
 - **Blazing fast & accurate** — Powered by Deepgram Nova-3, one of the best speech-to-text models available. Supports **35+ languages** with automatic language detection.
-- **Instant translation** — Speak in one language, get the translation in another. Powered by Gemini 2.0 Flash.
+- **Instant translation** — Speak in one language, get the translation in another. Powered by xAI Grok 4.1 Fast.
 - **AI-powered corrections** — Developer tone fixes misheard technical jargon (e.g. "reakt" → React, "nahbar" → navbar) and keeps terms like API, middleware, deploy in English.
 - **Numeric & Planning add-ons** — Convert spoken numbers to digits ("two point five" → 2.5) and dictated steps into clean numbered lists.
 - **Noise suppression** — Toggle built-in noise suppression to filter out fans, AC, and traffic. Keep it off in quiet rooms for unaltered voice quality.
@@ -57,7 +57,7 @@ Press Right ⌘ (Mac) or Right ⊞ (Win)
         ↓
   Audio → Deepgram Nova-3 / Groq Whisper
         ↓
-  Translation enabled? → Gemini 2.0 Flash
+  Translation enabled? → xAI Grok 4.1 Fast
         ↓
   Transcript (or translation) auto-pasted into your app
 ```
@@ -79,7 +79,7 @@ All transcripts are also saved locally in MongoDB so you can search and revisit 
 | Auth | Google OAuth 2.0, JWT (access + refresh tokens) |
 | Billing | Paddle v2 (inline checkout, webhooks) |
 | STT | Deepgram Nova-3, Groq Whisper Large v3 Turbo |
-| Translation | Google Gemini 2.0 Flash (via Vercel AI SDK) |
+| Translation | xAI Grok 4.1 Fast (via Vercel AI SDK) |
 | i18n | react-i18next (app, 12 languages), i18next-http-middleware (backend) |
 | Database | MongoDB |
 | Language | TypeScript (monorepo with pnpm) |
@@ -92,7 +92,7 @@ voca/
 │   ├── shared/          # TypeScript types, Zod schemas & language constants
 │   ├── backend/         # Express API server (port 3100)
 │   │   ├── controllers/ # Request handling & response mapping
-│   │   ├── services/    # Deepgram, Groq, Gemini, auth & billing services
+│   │   ├── services/    # Deepgram, Groq, xAI, auth & billing services
 │   │   ├── middleware/  # Auth, billing, rate limiting, multer, error handling
 │   │   ├── models/      # Mongoose schemas (Transcript, User)
 │   │   └── uploads/     # Ephemeral audio processing (purged on startup)
@@ -125,7 +125,7 @@ voca/
   - [Deepgram](https://deepgram.com) — **$200 free credit** on signup (recommended)
   - [Groq](https://console.groq.com) — free tier available
 - **Google OAuth** — [Google Cloud Console](https://console.cloud.google.com) — create OAuth 2.0 credentials for authentication
-- **Translation (optional)** — [Google AI Studio](https://aistudio.google.com) — free Gemini API key for translation
+- **Translation (optional)** — [xAI Console](https://console.x.ai) — Grok API key for translation
 
 ### Installation
 
@@ -148,7 +148,7 @@ PORT=3100
 MONGODB_URI=mongodb://localhost:27017/voca
 GROQ_API_KEY=your_groq_api_key_here
 DEEPGRAM_API_KEY=your_deepgram_api_key_here
-GEMINI_API_KEY=your_gemini_api_key_here          # optional, for translation
+XAI_API_KEY=your_xai_api_key_here                # optional, for translation
 JWT_SECRET=your_jwt_secret_min_32_chars_here
 GOOGLE_CLIENT_ID=your_google_client_id_here
 GOOGLE_CLIENT_SECRET=your_google_client_secret_here
@@ -208,7 +208,7 @@ You can switch between providers in the app at any time.
 
 ## Translation
 
-Voca can automatically translate your transcriptions using **Gemini 2.0 Flash**. Enable it in Settings, pick a target language, and choose a tone:
+Voca can automatically translate your transcriptions using **xAI Grok 4.1 Fast**. Enable it in Settings, pick a target language, and choose a tone:
 
 | Tone | What it does |
 |------|-------------|

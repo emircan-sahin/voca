@@ -98,7 +98,7 @@ Three categorized cards:
 - **All UI strings must use `t()`** — hardcoded text is forbidden
 - Overlay has separate entry point (`overlay.tsx`) — must import `~/i18n/config` independently
 - Feature names: translate by meaning, not literally (e.g. "Planning" = list formatting, "Tone" = writing style)
-- Brand names (Voca, Google, Groq, Deepgram, Gemini) stay untranslated
+- Brand names (Voca, Google, Groq, Deepgram, xAI, Grok) stay untranslated
 - Interpolation: `{{variable}}` syntax (e.g. `t('update.available', { version })`)
 - Toast messages: use `t()` for all user-facing text
 

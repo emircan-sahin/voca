@@ -82,7 +82,7 @@ export const createFoo = async (req: Request, res: Response) => {
 ```
 
 ### 3. Service (if external API is involved — `src/services/`)
-- Move Groq, Deepgram, Gemini, etc. integrations into a service
+- Move Groq, Deepgram, xAI, etc. integrations into a service
 - Must be independent from controller business logic
 - Return a typed result (e.g. `TranscriptionResult`) including a `hallucination` flag
 

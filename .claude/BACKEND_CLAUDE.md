@@ -54,7 +54,7 @@ Existing helpers: `toIUser()` in `auth.service.ts`, `toITranscript()` in `transc
 - Plans: `pro` ($3, 300¢ credits, 10 MB upload) and `max` ($10, 1000¢ credits, 25 MB upload)
 - Upload size enforced in multer middleware via `PLAN_UPLOAD_LIMIT` from `@voca/shared`
 - `requireCredits` middleware gates `POST /api/transcripts`
-- Credits deducted **before** transcript creation (STT cost + Gemini cost + 25% markup)
+- Credits deducted **before** transcript creation (STT cost + xAI cost + 25% markup)
 - Both plans include: AI-enhanced tone & translation, Numeric & Planning formatting add-ons
 
 ### Paddle Integration
@@ -201,7 +201,7 @@ const envSchema = z.object({
   MONGODB_URI: z.string().min(1),
   GROQ_API_KEY: z.string().min(1),
   DEEPGRAM_API_KEY: z.string().default(''),
-  GEMINI_API_KEY: z.string().default(''),
+  XAI_API_KEY: z.string().default(''),
   JWT_SECRET: z.string().default(''),
   GOOGLE_CLIENT_ID: z.string().default(''),
   GOOGLE_CLIENT_SECRET: z.string().default(''),

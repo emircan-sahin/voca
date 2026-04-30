@@ -43,7 +43,7 @@
 - **Overlay has separate entry point** (`overlay.tsx`) — must import `~/i18n/config` independently
 - **Locale keys**: flat dot-notation (e.g. `settings.noiseSuppression`, `billing.faqItems`)
 - **Interpolation**: `{{variable}}` syntax (e.g. `t('update.available', { version })`)
-- **Brand names** (Voca, Google, Groq, Deepgram, Gemini) stay untranslated in all locales
+- **Brand names** (Voca, Google, Groq, Deepgram, xAI, Grok) stay untranslated in all locales
 - **Feature names**: translate by meaning, not literally (e.g. "Planning" = list formatting, "Tone" = writing style)
 
 ### Settings Page Layout
