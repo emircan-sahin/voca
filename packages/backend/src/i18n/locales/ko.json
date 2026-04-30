@@ -15,7 +15,7 @@
   "user.settingsReset": "설정이 기본값으로 초기화되었습니다",
 
   "transcript.audioRequired": "오디오 파일이 필요합니다",
-  "transcript.geminiKeyRequired": "번역에는 Gemini API 키가 필요합니다. 환경 변수에 GEMINI_API_KEY를 설정하세요.",
+  "transcript.translationKeyRequired": "번역에는 xAI API 키가 필요합니다. 환경 변수에 XAI_API_KEY를 설정하세요.",
   "transcript.noSpeech": "음성이 감지되지 않았습니다. 다시 시도해 주세요.",
   "transcript.insufficientCredits": "크레딧이 부족합니다",
   "transcript.success": "전사가 완료되었습니다",

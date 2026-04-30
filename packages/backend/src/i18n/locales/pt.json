@@ -15,7 +15,7 @@
   "user.settingsReset": "Configurações redefinidas para o padrão",
 
   "transcript.audioRequired": "Arquivo de áudio obrigatório",
-  "transcript.geminiKeyRequired": "A tradução requer uma chave de API Gemini. Defina GEMINI_API_KEY no seu ambiente.",
+  "transcript.translationKeyRequired": "A tradução requer uma chave de API xAI. Defina XAI_API_KEY no seu ambiente.",
   "transcript.noSpeech": "Nenhuma fala detectada, tente novamente.",
   "transcript.insufficientCredits": "Créditos insuficientes",
   "transcript.success": "Transcrição bem-sucedida",

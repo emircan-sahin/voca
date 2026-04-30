@@ -1,4 +1,4 @@
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { createXai } from '@ai-sdk/xai';
 import { generateText } from 'ai';
 import { LANGUAGES } from '@voca/shared';
 import { env } from '~/config/env';
@@ -7,7 +7,7 @@ import { logger } from '~/config/logger';
 const langName = (code: string) =>
   LANGUAGES.find((l) => l.code === code)?.name ?? code;
 
-const google = createGoogleGenerativeAI({ apiKey: env.GEMINI_API_KEY });
+const xai = createXai({ apiKey: env.XAI_API_KEY });
 
 const FEW_SHOT: Array<{ role: 'user' | 'assistant'; content: string }> = [
   // 1 — Same-language cleanup (non-dev)
@@ -95,7 +95,7 @@ Do not add any introductory or concluding remarks — just the numbered list or 
   ];
 
   const { text: translatedText, usage } = await generateText({
-    model: google('gemini-2.0-flash'),
+    model: xai('grok-4-1-fast-non-reasoning'),
     system,
     temperature: 0.1,
     maxOutputTokens: 12_000,

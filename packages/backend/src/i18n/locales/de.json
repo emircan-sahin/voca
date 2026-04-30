@@ -15,7 +15,7 @@
   "user.settingsReset": "Einstellungen auf Standard zurückgesetzt",
 
   "transcript.audioRequired": "Audiodatei erforderlich",
-  "transcript.geminiKeyRequired": "Übersetzung erfordert einen Gemini-API-Schlüssel. Setzen Sie GEMINI_API_KEY in Ihrer Umgebung.",
+  "transcript.translationKeyRequired": "Übersetzung erfordert einen xAI-API-Schlüssel. Setzen Sie XAI_API_KEY in Ihrer Umgebung.",
   "transcript.noSpeech": "Keine Sprache erkannt, bitte versuchen Sie es erneut.",
   "transcript.insufficientCredits": "Unzureichendes Guthaben",
   "transcript.success": "Transkription erfolgreich",

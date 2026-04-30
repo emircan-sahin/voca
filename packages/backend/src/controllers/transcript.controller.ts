@@ -54,8 +54,8 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
   const { provider, language, translateTo, tone, numeric, planning } = parsed.data;
 
-  if (translateTo && !env.GEMINI_API_KEY) {
-    return sendError(res, req.t('transcript.geminiKeyRequired'), 400);
+  if (translateTo && !env.XAI_API_KEY) {
+    return sendError(res, req.t('transcript.translationKeyRequired'), 400);
   }
 
   try {
@@ -79,7 +79,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     }
 
     const cost = calculateCost(result.cost, tokenUsage);
-    logger.info('Billing', `stt:$${result.cost.toFixed(6)} gemini:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`, { sttCost: result.cost, totalCost: cost, provider });
+    logger.info('Billing', `stt:$${result.cost.toFixed(6)} xai:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`, { sttCost: result.cost, totalCost: cost, provider });
     const deducted = await deductCredits(req.user!.id, cost);
     if (!deducted) {
       safeUnlink(filePath);

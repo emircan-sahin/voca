@@ -15,7 +15,7 @@
   "user.settingsReset": "Настройки сброшены до значений по умолчанию",
 
   "transcript.audioRequired": "Требуется аудиофайл",
-  "transcript.geminiKeyRequired": "Для перевода требуется ключ API Gemini. Установите GEMINI_API_KEY в переменных окружения.",
+  "transcript.translationKeyRequired": "Для перевода требуется ключ API xAI. Установите XAI_API_KEY в переменных окружения.",
   "transcript.noSpeech": "Речь не обнаружена, попробуйте снова.",
   "transcript.insufficientCredits": "Недостаточно кредитов",
   "transcript.success": "Транскрипция выполнена успешно",

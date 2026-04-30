@@ -5,12 +5,12 @@ import { env } from '~/config/env';
 import { logger } from '~/config/logger';
 
 // 25% markup on API costs
-// Gemini 2.0 Flash: $0.10/1M input, $0.40/1M output
+// xAI grok-4-1-fast-non-reasoning: $0.20/1M input, $0.50/1M output
 const MARKUP = 1.25;
 
-const GEMINI_TOKEN_RATES = {
-  input: (0.10 / 1_000_000) * MARKUP,
-  output: (0.40 / 1_000_000) * MARKUP,
+const XAI_TOKEN_RATES = {
+  input: (0.20 / 1_000_000) * MARKUP,
+  output: (0.50 / 1_000_000) * MARKUP,
 } as const;
 
 export function calculateCost(
@@ -19,8 +19,8 @@ export function calculateCost(
 ): number {
   let cost = sttCost * MARKUP;
   if (tokenUsage) {
-    cost += GEMINI_TOKEN_RATES.input * tokenUsage.inputTokens;
-    cost += GEMINI_TOKEN_RATES.output * tokenUsage.outputTokens;
+    cost += XAI_TOKEN_RATES.input * tokenUsage.inputTokens;
+    cost += XAI_TOKEN_RATES.output * tokenUsage.outputTokens;
   }
   return Math.round(cost * 10000) / 10000;
 }
