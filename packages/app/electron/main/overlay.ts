@@ -1,10 +1,14 @@
-import { BrowserWindow, screen } from 'electron';
+import { BrowserWindow, IpcMainEvent, screen } from 'electron';
 import { join } from 'path';
 import { execSync, execFile } from 'child_process';
 
 let overlayWin: BrowserWindow | null = null;
 
-export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWindow, deviceId?: string) {
+// Stop/cancel/pause drive the recording; only the overlay itself may send them
+export const isFromOverlayWindow = (e: IpcMainEvent) =>
+  !!overlayWin && !overlayWin.isDestroyed() && e.sender === overlayWin.webContents;
+
+export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWindow, deviceId?: string, locale?: string) {
   if (overlayWin) return;
 
   // Capture the frontmost app before we create any window
@@ -35,10 +39,11 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
     }
   }
 
-  // Use the display where the main window is, falling back to primary
-  const display = parentWin
-    ? screen.getDisplayMatching(parentWin.getBounds())
-    : screen.getPrimaryDisplay();
+  // Shortcut-triggered recordings belong on the display the user is working on
+  // (cursor), not wherever the hidden main window happens to be.
+  const display = refocusPreviousApp || !parentWin
+    ? screen.getDisplayNearestPoint(screen.getCursorScreenPoint())
+    : screen.getDisplayMatching(parentWin.getBounds());
   const { workArea } = display;
   const width = 340;
   const height = 210;
@@ -51,6 +56,8 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
     frame: false,
     transparent: true,
     alwaysOnTop: true,
+    // NSPanel can float over other apps' fullscreen Spaces; a regular NSWindow can't.
+    ...(process.platform === 'darwin' && { type: 'panel' }),
     resizable: false,
     skipTaskbar: true,
     hasShadow: false,
@@ -64,7 +71,10 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
     },
   });
 
-  overlayWin.setAlwaysOnTop(true, 'floating');
+  overlayWin.setAlwaysOnTop(true, 'screen-saver');
+  // skipTransformProcessType: the default path hides the Dock icon (app.dock.hide),
+  // which a panel doesn't need to appear above fullscreen apps.
+  overlayWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true, skipTransformProcessType: true });
   overlayWin.once('ready-to-show', () => {
     overlayWin?.showInactive();
 
@@ -100,13 +110,16 @@ export function showOverlay(refocusPreviousApp: boolean, parentWin?: BrowserWind
     overlayWin = null;
   });
 
-  // Load the React overlay page — pass deviceId as query param so it's
-  // available immediately (no IPC timing issues).
-  const qs = deviceId ? `?deviceId=${encodeURIComponent(deviceId)}` : '';
+  // Load the React overlay page — pass deviceId and the app language as query params so
+  // they're available immediately (no IPC timing issues).
+  const query: Record<string, string> = {};
+  if (deviceId) query.deviceId = deviceId;
+  if (locale) query.lang = locale;
   if (process.env['ELECTRON_RENDERER_URL']) {
-    overlayWin.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/overlay.html${qs}`);
+    const qs = new URLSearchParams(query).toString();
+    overlayWin.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/overlay.html${qs ? `?${qs}` : ''}`);
   } else {
-    overlayWin.loadFile(join(__dirname, '../renderer/overlay.html'), { query: deviceId ? { deviceId } : {} });
+    overlayWin.loadFile(join(__dirname, '../renderer/overlay.html'), { query });
   }
 }
 

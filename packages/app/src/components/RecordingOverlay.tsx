@@ -18,6 +18,7 @@ export function RecordingOverlay() {
   const rafRef = useRef(0);
   const startTime = useRef(Date.now());
   const autoPaused = useRef(false);
+  const loadingRef = useRef(false);
   const [timer, setTimer] = useState('00:00');
   const [paused, setPaused] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,8 @@ export function RecordingOverlay() {
   // Timer + auto-pause at MAX_SECONDS
   useEffect(() => {
     const id = setInterval(() => {
+      // Freeze the timer at the recorded length while the transcript is processed
+      if (loadingRef.current) return;
       const s = Math.floor((Date.now() - startTime.current) / 1000);
       const capped = Math.min(s, MAX_SECONDS);
       setTimer(
@@ -36,7 +39,9 @@ export function RecordingOverlay() {
         clearInterval(id);
         analyserRef.current = null;
         micStreamRef.current?.getTracks().forEach((t) => t.stop());
+        // Null it so the unmount cleanup doesn't close it again (rejects on a closed context)
         audioCtxRef.current?.close();
+        audioCtxRef.current = null;
         setPaused(true);
         window.electronAPI.requestPauseRecording();
       }
@@ -86,7 +91,14 @@ export function RecordingOverlay() {
   // Loading state listener
   useEffect(() => {
     const cleanup = window.electronAPI.onOverlayLoading((value) => {
+      loadingRef.current = value;
       setLoading(value);
+      // Recording is over — release the visualizer mic so the macOS mic indicator turns off
+      if (value) {
+        analyserRef.current = null;
+        micStreamRef.current?.getTracks().forEach((t) => t.stop());
+        micStreamRef.current = null;
+      }
     });
     return cleanup;
   }, []);

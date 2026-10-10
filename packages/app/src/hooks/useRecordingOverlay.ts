@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import i18n from 'i18next';
 
 export function useRecordingOverlay(stream: MediaStream | null, deviceId: string) {
   const deviceIdRef = useRef(deviceId);
@@ -6,6 +7,6 @@ export function useRecordingOverlay(stream: MediaStream | null, deviceId: string
 
   useEffect(() => {
     if (!stream) return;
-    window.electronAPI.showOverlay(deviceIdRef.current);
+    window.electronAPI.showOverlay(deviceIdRef.current, i18n.language);
   }, [stream]);
 }
