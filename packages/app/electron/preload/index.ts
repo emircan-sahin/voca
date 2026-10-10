@@ -17,12 +17,20 @@ contextBridge.exposeInMainWorld('electronAPI', {
       ipcRenderer.removeListener('shortcut:toggle-recording', handler);
     };
   },
-  pasteTranscript: (text: string) => {
-    ipcRenderer.send('transcript:paste-text', text);
+  pasteTranscript: (text: string, direct: boolean) => {
+    ipcRenderer.send('transcript:paste-text', { text, direct });
   },
+  onPasteFailed: (callback: () => void) => {
+    const handler = () => callback();
+    ipcRenderer.on('transcript:paste-failed', handler);
+    return () => {
+      ipcRenderer.removeListener('transcript:paste-failed', handler);
+    };
+  },
+  setRecordingState: (active: boolean) => ipcRenderer.send('recording:state', active),
 
   // Overlay
-  showOverlay: (deviceId?: string) => ipcRenderer.send('overlay:show', deviceId),
+  showOverlay: (deviceId?: string, locale?: string) => ipcRenderer.send('overlay:show', deviceId, locale),
   hideOverlay: () => ipcRenderer.send('overlay:hide'),
   setOverlayLoading: (loading: boolean) => ipcRenderer.send('overlay:loading', loading),
   onOverlayLoading: (callback: (loading: boolean) => void) => {
@@ -57,8 +65,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     set: (data: unknown) => ipcRenderer.invoke('auth:set', data),
     clear: () => ipcRenderer.invoke('auth:clear'),
     openProvider: (url: string) => ipcRenderer.invoke('auth:open-provider', url),
-    onAuthCallback: (cb: (data: { token: string; refreshToken: string }) => void) => {
-      const handler = (_: unknown, data: { token: string; refreshToken: string }) => cb(data);
+    onAuthCallback: (cb: (data: { code: string; verifier: string }) => void) => {
+      const handler = (_: unknown, data: { code: string; verifier: string }) => cb(data);
       ipcRenderer.on('auth:deep-link', handler);
       return () => {
         ipcRenderer.removeListener('auth:deep-link', handler);
@@ -84,6 +92,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
     },
   },
 
+  // Tray and launch at login
+  tray: {
+    setLabels: (labels: { open: string; copy: string; quit: string }) => ipcRenderer.send('tray:set-labels', labels),
+    setLastTranscript: (text: string) => ipcRenderer.send('tray:set-last-transcript', text),
+  },
+  loginItem: {
+    get: () => ipcRenderer.invoke('loginItem:get'),
+    set: (enabled: boolean) => ipcRenderer.invoke('loginItem:set', enabled),
+  },
+
   // Auto-updater
   updater: {
     checkForUpdates: () => ipcRenderer.invoke('updater:check'),
@@ -101,6 +119,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
       ipcRenderer.on('updater:download-progress', handler);
       return () => {
         ipcRenderer.removeListener('updater:download-progress', handler);
+      };
+    },
+    onUpdateError: (cb: () => void) => {
+      const handler = () => cb();
+      ipcRenderer.on('updater:error', handler);
+      return () => {
+        ipcRenderer.removeListener('updater:error', handler);
       };
     },
     onUpdateDownloaded: (cb: (data: { version: string }) => void) => {

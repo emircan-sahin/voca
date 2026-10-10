@@ -16,3 +16,5 @@ release/
 # Claude Code personal settings
 .claude/settings.json
 .mcp.json
+# Native helper build output (compiled by scripts/build-native.mjs)
+packages/app/resources/bin/

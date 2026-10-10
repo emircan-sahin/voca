@@ -1,23 +1,29 @@
 export {};
 
-type MicrophoneStatus = 'not-determined' | 'granted' | 'denied' | 'restricted';
-
-interface AuthData {
-  token: string;
-  refreshToken: string;
-}
-
-type ShortcutAction = 'toggle-recording' | 'cancel-recording';
-
-interface ShortcutBinding {
-  keycode: number;
-  label: string;
-  enabled: boolean;
-}
-
-type ShortcutConfig = Record<ShortcutAction, ShortcutBinding>;
-
 declare global {
+  type MicrophoneStatus = 'not-determined' | 'granted' | 'denied' | 'restricted';
+
+  interface AuthData {
+    token: string;
+    refreshToken: string;
+  }
+
+  /** voca:// deep link payload: one-time code + the PKCE verifier that redeems it */
+  interface AuthCallbackData {
+    code: string;
+    verifier: string;
+  }
+
+  type ShortcutAction = 'toggle-recording' | 'cancel-recording';
+
+  interface ShortcutBinding {
+    keycode: number;
+    label: string;
+    enabled: boolean;
+  }
+
+  type ShortcutConfig = Record<ShortcutAction, ShortcutBinding>;
+
   interface Window {
     electronAPI: {
       platform: string;
@@ -30,10 +36,12 @@ declare global {
         openAccessibilitySettings: () => Promise<void>;
       };
       onToggleRecording: (callback: () => void) => () => void;
-      pasteTranscript: (text: string) => void;
+      pasteTranscript: (text: string, direct: boolean) => void;
+      onPasteFailed: (callback: () => void) => () => void;
+      setRecordingState: (active: boolean) => void;
 
       // Overlay
-      showOverlay: (deviceId?: string) => void;
+      showOverlay: (deviceId?: string, locale?: string) => void;
       hideOverlay: () => void;
       setOverlayLoading: (loading: boolean) => void;
       onOverlayLoading: (callback: (loading: boolean) => void) => () => void;
@@ -59,7 +67,17 @@ declare global {
         set: (data: AuthData) => Promise<void>;
         clear: () => Promise<void>;
         openProvider: (url: string) => Promise<void>;
-        onAuthCallback: (cb: (data: AuthData) => void) => () => void;
+        onAuthCallback: (cb: (data: AuthCallbackData) => void) => () => void;
+      };
+
+      // Tray and launch at login
+      tray: {
+        setLabels: (labels: { open: string; copy: string; quit: string }) => void;
+        setLastTranscript: (text: string) => void;
+      };
+      loginItem: {
+        get: () => Promise<boolean>;
+        set: (enabled: boolean) => Promise<boolean>;
       };
 
       // Auto-updater
@@ -69,6 +87,7 @@ declare global {
         installUpdate: () => Promise<void>;
         onUpdateAvailable: (cb: (data: { version: string }) => void) => () => void;
         onDownloadProgress: (cb: (data: { percent: number }) => void) => () => void;
+        onUpdateError: (cb: () => void) => () => void;
         onUpdateDownloaded: (cb: (data: { version: string }) => void) => () => void;
       };
     };

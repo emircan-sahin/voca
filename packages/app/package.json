@@ -5,9 +5,9 @@
   "author": "Voca <contact@usevoca.dev>",
   "main": "out/main/index.js",
   "scripts": {
-    "dev": "electron-vite dev",
-    "build": "electron-vite build",
-    "build:mac": "rm -rf out release && electron-vite build && electron-builder --mac",
+    "dev": "node scripts/build-native.mjs && electron-vite dev",
+    "build": "node scripts/build-native.mjs && electron-vite build",
+    "build:mac": "rm -rf out release && node scripts/build-native.mjs && electron-vite build && electron-builder --mac",
     "build:win": "rm -rf out release && electron-vite build && electron-builder --win",
     "preview": "electron-vite preview",
     "lint": "eslint .",
@@ -46,6 +46,12 @@
           "schemes": [
             "voca"
           ]
+        }
+      ],
+      "extraResources": [
+        {
+          "from": "resources/bin",
+          "to": "bin"
         }
       ]
     },
