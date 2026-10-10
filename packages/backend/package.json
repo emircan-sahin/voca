@@ -28,7 +28,7 @@
     "ioredis": "^5.9.3",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.4.3",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.4.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

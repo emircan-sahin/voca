@@ -19,6 +19,8 @@ import { ensureAppConfig, getAppConfig } from '~/models/appConfig.model';
 import { logger } from '~/config/logger';
 
 const app = express();
+app.disable('x-powered-by');
+app.set('trust proxy', env.TRUST_PROXY === 'cloudflare' ? 0 : env.TRUST_PROXY);
 const api = process.env.NODE_ENV === 'production' ? '' : '/api';
 
 app.use(cors({ origin: env.CORS_ORIGIN.split(',').map((o) => o.trim()) }));
@@ -33,11 +35,12 @@ app.use(globalLimiter);
 // Request/Response logging
 app.use((req, res, next) => {
   const start = Date.now();
-  const { method, originalUrl } = req;
-  logger.local('HTTP', `→ ${method} ${originalUrl}`);
+  // req.path, not originalUrl: the query string carries the OAuth code.
+  const { method, path: urlPath } = req;
+  logger.local('HTTP', `→ ${method} ${urlPath}`);
   res.on('finish', () => {
     const ms = Date.now() - start;
-    logger.local('HTTP', `← ${method} ${originalUrl} ${res.statusCode} (${ms}ms)`);
+    logger.local('HTTP', `← ${method} ${urlPath} ${res.statusCode} (${ms}ms)`);
   });
   next();
 });

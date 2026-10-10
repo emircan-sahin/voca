@@ -4,7 +4,7 @@
 FROM node:20-alpine AS builder
 
 RUN corepack enable && corepack prepare pnpm@9 --activate \
-    && npm install -g tsc-alias
+    && npm install -g tsc-alias@1.8.16
 
 WORKDIR /app
 
@@ -45,4 +45,7 @@ ENV PORT=3000
 EXPOSE 3000
 
 WORKDIR /app/packages/backend
+# Run unprivileged; only the audio scratch dir needs to be writable.
+RUN mkdir -p uploads && chown node:node uploads
+USER node
 CMD ["node", "dist/index.js"]

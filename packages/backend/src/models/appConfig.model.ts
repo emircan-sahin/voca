@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { Schema, model } from 'mongoose';
 import { logger } from '~/config/logger';
+import { getErrorMessage } from '~/utils/error';
 
 interface IAppConfig {
   _id: string;
@@ -26,7 +27,7 @@ async function refreshConfig(): Promise<void> {
       cachedConfig = { latestVersion: doc.latestVersion };
     }
   } catch (err) {
-    logger.error('AppConfig', `Refresh failed, using cached value: ${(err as Error).message}`);
+    logger.error('AppConfig', `Refresh failed, using cached value: ${getErrorMessage(err)}`);
   }
 }
 

@@ -11,7 +11,8 @@ export const requireNoActiveTranscription = async (req: Request, res: Response, 
     return sendError(res, req.t('error.transcriptionInProgress'), 409);
   }
 
-  res.on('finish', () => {
+  // 'close' (not 'finish') so the lock is also released when the client aborts mid-upload.
+  res.on('close', () => {
     redis.del(key).catch((err) => logger.error('Redis', `Failed to release lock: ${err.message}`));
   });
 

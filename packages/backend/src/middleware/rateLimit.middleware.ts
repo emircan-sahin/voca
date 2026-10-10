@@ -1,6 +1,13 @@
 import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import { Request } from 'express';
 import { sendError } from '~/utils/response';
+import { env } from '~/config/env';
+
+const behindCloudflare = env.TRUST_PROXY === 'cloudflare';
+
+// Cloudflare overwrites CF-Connecting-IP with the visitor's IP, so it can't be spoofed as long as
+// the origin only accepts traffic through Cloudflare (tunnel or firewall).
+const clientIp = (req: Request) => (behindCloudflare && req.get('cf-connecting-ip')) || req.ip!;
 
 function createLimiter(limit: number, messageKey: string) {
   return rateLimit({
@@ -8,7 +15,9 @@ function createLimiter(limit: number, messageKey: string) {
     limit,
     standardHeaders: 'draft-7',
     legacyHeaders: false,
-    keyGenerator: (req: Request) => req.user?.id ?? ipKeyGenerator(req.ip!),
+    keyGenerator: (req: Request) => req.user?.id ?? ipKeyGenerator(clientIp(req)),
+    // Cloudflare always adds X-Forwarded-For; we read CF-Connecting-IP instead of trusting it
+    validate: { xForwardedForHeader: !behindCloudflare },
     handler: (req, res) => sendError(res, req.t(messageKey), 429),
   });
 }

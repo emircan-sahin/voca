@@ -8,8 +8,11 @@ export const errorMiddleware = (
   err: Error,
   req: Request,
   res: Response,
-  _next: NextFunction
+  next: NextFunction
 ) => {
+  // Express's default handler is the only safe way to abort a response that already started.
+  if (res.headersSent) return next(err);
+
   if (err instanceof ZodError) {
     const message = err.errors.map((e) => e.message).join(', ');
     return sendError(res, message, 400);
@@ -25,6 +28,12 @@ export const errorMiddleware = (
   if (err.message?.startsWith('Unsupported audio format')) {
     const format = err.message.split(': ')[1] ?? '';
     return sendError(res, req.t('error.unsupportedFormat', { format }), 400);
+  }
+
+  // body-parser errors (malformed JSON, payload too large, aborted body) carry a client status;
+  // without this a 413 is logged and returned as a 500.
+  if ('expose' in err && err.expose === true && 'status' in err && typeof err.status === 'number') {
+    return sendError(res, err.message, err.status);
   }
 
   if (err.name === 'CastError') {
