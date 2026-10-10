@@ -1,22 +1,650 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://usevoca.dev</loc>
+    <loc>https://usevoca.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://usevoca.dev/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/hi/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/tr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ko/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/it/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://usevoca.dev/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/es/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/hi/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/zh/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/de/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/pt/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ja/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/fr/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/tr/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ru/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ko/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/it/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/terms" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/terms" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/terms" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/terms" />
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://usevoca.dev/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://usevoca.dev/refund</loc>
+    <loc>https://usevoca.dev/es/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/hi/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/zh/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/de/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/pt/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ja/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/fr/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/tr/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ru/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/ko/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://usevoca.dev/it/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://usevoca.dev/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://usevoca.dev/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://usevoca.dev/hi/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://usevoca.dev/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://usevoca.dev/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://usevoca.dev/pt/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://usevoca.dev/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://usevoca.dev/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://usevoca.dev/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://usevoca.dev/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://usevoca.dev/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://usevoca.dev/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://usevoca.dev/privacy" />
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

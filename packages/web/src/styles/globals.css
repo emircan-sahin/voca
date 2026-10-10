@@ -12,8 +12,8 @@
     cursor: pointer;
   }
 
-  *:focus,
-  *:focus-visible {
+  /* Hide focus rings for mouse/touch only; keyboard users still need :focus-visible */
+  *:focus:not(:focus-visible) {
     outline: none !important;
     box-shadow: none !important;
     --tw-ring-shadow: 0 0 #0000 !important;

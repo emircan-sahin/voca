@@ -1,53 +1,55 @@
 import i18n from 'i18next';
+import type { BackendModule, ResourceKey } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { LOCALES } from '~/i18n/types';
 
 import en from '~/i18n/locales/en.json';
-import es from '~/i18n/locales/es.json';
-import hi from '~/i18n/locales/hi.json';
-import zh from '~/i18n/locales/zh.json';
-import de from '~/i18n/locales/de.json';
-import pt from '~/i18n/locales/pt.json';
-import ja from '~/i18n/locales/ja.json';
-import fr from '~/i18n/locales/fr.json';
-import tr from '~/i18n/locales/tr.json';
-import ru from '~/i18n/locales/ru.json';
-import ko from '~/i18n/locales/ko.json';
-import it from '~/i18n/locales/it.json';
 
-const resources = {
-  en: { translation: en },
-  es: { translation: es },
-  hi: { translation: hi },
-  zh: { translation: zh },
-  de: { translation: de },
-  pt: { translation: pt },
-  ja: { translation: ja },
-  fr: { translation: fr },
-  tr: { translation: tr },
-  ru: { translation: ru },
-  ko: { translation: ko },
-  it: { translation: it },
+export const LOCALE_STORAGE_KEY = 'voca-locale';
+
+// Only the English fallback ships in the main bundle; other locales are fetched on demand
+const localeLoaders = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<ResourceKey>(['~/i18n/locales/*.json', '!~/i18n/locales/en.json'], { import: 'default' }),
+  ).map(([path, load]) => [path.slice(path.lastIndexOf('/') + 1, -'.json'.length), load]),
+);
+
+const lazyLocales: BackendModule = {
+  type: 'backend',
+  init() {},
+  read(language, _namespace, callback) {
+    const load = localeLoaders[language];
+    if (!load) return callback(new Error(`Unknown locale: ${language}`), false);
+    load().then(
+      (resources) => callback(null, resources),
+      (err: Error) => callback(err, false),
+    );
+  },
 };
 
+// Registered before init: the detected language is applied during init and would be missed otherwise
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng;
+});
+
 i18n
+  .use(lazyLocales)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources,
+    resources: { en: { translation: en } },
+    partialBundledLanguages: true,
     fallbackLng: 'en',
     supportedLngs: [...LOCALES],
     interpolation: { escapeValue: false },
     detection: {
-      order: ['localStorage', 'navigator'],
-      lookupLocalStorage: 'voca-locale',
-      caches: ['localStorage'],
+      // A /<locale>/ URL prefix wins; unprefixed URLs fall back to the saved choice, then the browser
+      order: ['path', 'localStorage', 'navigator'],
+      lookupLocalStorage: LOCALE_STORAGE_KEY,
+      // Only the switcher saves a choice: opening one shared /tr/ link shouldn't make the root Turkish
+      caches: [],
     },
   });
-
-i18n.on('languageChanged', (lng) => {
-  document.documentElement.lang = lng;
-});
 
 export default i18n;

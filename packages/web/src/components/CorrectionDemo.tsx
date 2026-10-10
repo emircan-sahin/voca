@@ -27,15 +27,19 @@ export default function CorrectionDemo() {
   useEffect(() => {
     if (phase !== 'typing') return;
     let i = 0;
+    let pauseTimer: ReturnType<typeof setTimeout> | undefined;
     intervalRef.current = setInterval(() => {
       i++;
       setTyped(ORIGINAL.slice(0, i));
       if (i >= ORIGINAL.length) {
         clearInterval(intervalRef.current!);
-        setTimeout(() => setPhase('processing'), PAUSE_AFTER_TYPING);
+        pauseTimer = setTimeout(() => setPhase('processing'), PAUSE_AFTER_TYPING);
       }
     }, TYPING_SPEED);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      clearTimeout(pauseTimer);
+    };
   }, [phase]);
 
   // Processing → corrected

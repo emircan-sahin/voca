@@ -10,6 +10,16 @@ export default defineConfig({
       '@voca/shared': resolve(__dirname, '../shared/src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Third-party code changes far less often than the app; a separate chunk stays cached across deploys
+        manualChunks(id) {
+          if (id.includes('node_modules')) return 'vendor';
+        },
+      },
+    },
+  },
   server: {
     port: 3000,
   },
