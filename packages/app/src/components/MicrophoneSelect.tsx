@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { clsx } from 'clsx';
+import toast from 'react-hot-toast';
 import { Mic } from 'lucide-react';
 import { useMicrophoneStore } from '~/stores/microphone.store';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
@@ -31,11 +32,17 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
   const streamRef = useRef<MediaStream | null>(null);
   const ctxRef = useRef<AudioContext | null>(null);
   const rafRef = useRef<number>(0);
+  const startingRef = useRef(false);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     const loadDevices = async () => {
-      const all = await navigator.mediaDevices.enumerateDevices();
-      setDevices(all.filter((d) => d.kind === 'audioinput' && d.deviceId !== 'default'));
+      try {
+        const all = await navigator.mediaDevices.enumerateDevices();
+        setDevices(all.filter((d) => d.kind === 'audioinput' && d.deviceId !== 'default'));
+      } catch (err) {
+        console.warn('[Mic] Failed to list devices:', err instanceof Error ? err.message : err);
+      }
     };
 
     loadDevices();
@@ -54,36 +61,52 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
   }, []);
 
   const startTest = useCallback(async () => {
-    const s = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        ...(deviceId && { deviceId: { exact: deviceId } }),
-        noiseSuppression,
-        echoCancellation,
-      },
-    });
-    streamRef.current = s;
+    // A second click while getUserMedia is pending would leak the first stream.
+    if (startingRef.current) return;
+    startingRef.current = true;
+    try {
+      const s = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          ...(deviceId && { deviceId: { exact: deviceId } }),
+          noiseSuppression,
+          echoCancellation,
+        },
+      });
+      if (!mountedRef.current) {
+        s.getTracks().forEach((track) => track.stop());
+        return;
+      }
+      streamRef.current = s;
 
-    const ctx = new AudioContext();
-    ctxRef.current = ctx;
-    const source = ctx.createMediaStreamSource(s);
-    const analyser = ctx.createAnalyser();
-    analyser.fftSize = 256;
-    source.connect(analyser);
+      const ctx = new AudioContext();
+      ctxRef.current = ctx;
+      const source = ctx.createMediaStreamSource(s);
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 256;
+      source.connect(analyser);
 
-    const data = new Uint8Array(analyser.frequencyBinCount);
-    const tick = () => {
-      analyser.getByteFrequencyData(data);
-      const avg = data.reduce((a, b) => a + b, 0) / data.length;
-      setLevel(Math.min(avg / 128, 1));
-      rafRef.current = requestAnimationFrame(tick);
-    };
-    tick();
-    setTesting(true);
-  }, [deviceId, noiseSuppression, echoCancellation]);
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      const tick = () => {
+        analyser.getByteFrequencyData(data);
+        const avg = data.reduce((a, b) => a + b, 0) / data.length;
+        setLevel(Math.min(avg / 128, 1));
+        rafRef.current = requestAnimationFrame(tick);
+      };
+      tick();
+      setTesting(true);
+    } catch (err) {
+      console.warn('[Mic] Test failed:', err instanceof Error ? err.message : err);
+      toast.error(t('error.noMic'));
+    } finally {
+      startingRef.current = false;
+    }
+  }, [deviceId, noiseSuppression, echoCancellation, t]);
 
   // Stop test when deviceId changes or component unmounts
   useEffect(() => {
+    mountedRef.current = true;
     return () => {
+      mountedRef.current = false;
       cancelAnimationFrame(rafRef.current);
       streamRef.current?.getTracks().forEach((t) => t.stop());
       ctxRef.current?.close();
@@ -107,7 +130,7 @@ export const MicrophoneSelect = ({ className }: MicrophoneSelectProps) => {
     <div className={clsx('flex items-center gap-2', className)}>
       <div className="relative w-64">
         <Select value={selectValue} onValueChange={handleValueChange}>
-          <SelectTrigger className="w-64 text-sm">
+          <SelectTrigger className="w-64 text-sm" aria-label={t('settings.microphone')}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

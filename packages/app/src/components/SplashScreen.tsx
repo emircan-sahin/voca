@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import vocaLogo from '~/assets/voca_logo.png';
 
@@ -14,17 +14,21 @@ export const SplashScreen = ({ retryIn }: SplashScreenProps) => {
   const { t } = useTranslation();
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const interval = setInterval(() => {
       setVisible(false);
-      setTimeout(() => {
+      fadeTimerRef.current = setTimeout(() => {
         setIndex((prev) => (prev + 1) % SPLASH_MESSAGES.length);
         setVisible(true);
       }, FADE_DURATION);
     }, ROTATE_INTERVAL);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fadeTimerRef.current);
+    };
   }, []);
 
   return (

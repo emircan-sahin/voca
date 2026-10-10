@@ -22,11 +22,11 @@ export const DashboardView = ({
   const recentTranscripts = transcripts.slice(0, 3);
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 pb-20 space-y-8">
       {/* Record Section */}
       <div className="flex flex-col items-center gap-4">
         <RecordButton isRecording={isRecording} isProcessing={isProcessing} onClick={onToggle} />
-        <p className="text-[#737373] text-sm">
+        <p className="text-[#737373] text-sm" aria-live="polite">
           {isProcessing
             ? t('dashboard.processing')
             : isRecording

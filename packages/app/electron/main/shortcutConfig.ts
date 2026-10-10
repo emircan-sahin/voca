@@ -27,7 +27,7 @@ export const DEFAULT_SHORTCUT_CONFIG: ShortcutConfig = {
 };
 
 const ALLOWED_KEYCODES = new Set([
-  UiohookKey.MetaRight, UiohookKey.MetaLeft,
+  UiohookKey.MetaRight, UiohookKey.Meta,
   UiohookKey.AltRight, UiohookKey.Alt,
   UiohookKey.CtrlRight, UiohookKey.Ctrl,
   UiohookKey.ShiftRight, UiohookKey.Shift,
@@ -41,7 +41,7 @@ export function isAllowedKeycode(keycode: number): boolean {
 
 const KEYCODE_LABELS: Record<number, string> = {
   [UiohookKey.MetaRight]: 'MetaRight',
-  [UiohookKey.MetaLeft]: 'MetaLeft',
+  [UiohookKey.Meta]: 'MetaLeft',
   [UiohookKey.AltRight]: 'AltRight',
   [UiohookKey.Alt]: 'AltLeft',
   [UiohookKey.CtrlRight]: 'CtrlRight',
@@ -60,13 +60,33 @@ export function keycodeToLabel(keycode: number): string {
 
 const getStorePath = () => join(app.getPath('userData'), 'shortcuts.json');
 
+// Config crosses the IPC boundary and the disk — never trust its shape.
+// Returns null when malformed or when two enabled actions share a key.
+export function sanitizeShortcutConfig(input: unknown): ShortcutConfig | null {
+  if (typeof input !== 'object' || input === null) return null;
+  const raw = input as Record<string, unknown>;
+  const result = {} as ShortcutConfig;
+  const used = new Set<number>();
+
+  for (const action of Object.keys(DEFAULT_SHORTCUT_CONFIG) as ShortcutAction[]) {
+    const b = raw[action];
+    if (typeof b !== 'object' || b === null) return null;
+    const { keycode, enabled } = b as Record<string, unknown>;
+    if (typeof keycode !== 'number' || !isAllowedKeycode(keycode) || typeof enabled !== 'boolean') return null;
+    if (enabled) {
+      if (used.has(keycode)) return null;
+      used.add(keycode);
+    }
+    result[action] = { keycode, label: keycodeToLabel(keycode), enabled };
+  }
+  return result;
+}
+
 export function loadShortcutConfig(): ShortcutConfig {
   try {
     const path = getStorePath();
     if (!existsSync(path)) return { ...DEFAULT_SHORTCUT_CONFIG };
-    const raw = readFileSync(path, 'utf-8');
-    const parsed = JSON.parse(raw) as Partial<ShortcutConfig>;
-    return { ...DEFAULT_SHORTCUT_CONFIG, ...parsed };
+    return sanitizeShortcutConfig(JSON.parse(readFileSync(path, 'utf-8'))) ?? { ...DEFAULT_SHORTCUT_CONFIG };
   } catch {
     return { ...DEFAULT_SHORTCUT_CONFIG };
   }

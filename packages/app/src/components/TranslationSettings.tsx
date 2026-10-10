@@ -45,7 +45,7 @@ export const TranslationSettings = () => {
             <div className="space-y-1">
               <label className="text-sm text-[#737373]">{t('settings.targetLanguage')}</label>
               <Select value={targetLanguage} onValueChange={setTargetLanguage}>
-                <SelectTrigger className="w-64 text-sm">
+                <SelectTrigger className="w-64 text-sm" aria-label={t('settings.targetLanguage')}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -61,7 +61,7 @@ export const TranslationSettings = () => {
             <div className="space-y-1">
               <label className="text-sm text-[#737373]">{t('settings.tone')}</label>
               <Select value={tone} onValueChange={(v) => setTone(v as TranslationTone)}>
-                <SelectTrigger className="w-64 text-sm">
+                <SelectTrigger className="w-64 text-sm" aria-label={t('settings.tone')}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

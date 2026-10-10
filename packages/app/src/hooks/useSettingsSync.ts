@@ -9,6 +9,7 @@ import { useEchoCancellationStore } from '~/stores/echoCancellation.store';
 import { usePrivacyModeStore } from '~/stores/privacyMode.store';
 import { api } from '~/lib/axios';
 import { queryClient } from '~/lib/queryClient';
+import { TRANSCRIPTS_QUERY_KEY } from '~/hooks/useTranscription';
 
 export function useSettingsSync() {
   const user = useAuthStore((s) => s.user);
@@ -24,6 +25,8 @@ export function useSettingsSync() {
   // Tracks the last remoteSettingsVersion we saw, so we can skip syncing
   // server-driven changes (hydration, reset) back to the server.
   const lastRemoteVersion = useRef(remoteSettingsVersion);
+  // Privacy mode as the server last stored it: only its off→on switch wipes server transcripts
+  const savedPrivacyMode = useRef(privacyMode);
 
   // Reset version tracking when user changes (logout/login)
   useEffect(() => {
@@ -39,6 +42,7 @@ export function useSettingsSync() {
     // Skip when settings came from the server (hydration or reset)
     if (lastRemoteVersion.current !== remoteSettingsVersion) {
       lastRemoteVersion.current = remoteSettingsVersion;
+      savedPrivacyMode.current = privacyMode;
       return;
     }
 
@@ -55,7 +59,9 @@ export function useSettingsSync() {
           translation: { enabled, targetLanguage, tone, numeric, planning },
         }, { signal: controller.signal })
         .then(() => {
-          if (privacyMode) queryClient.invalidateQueries({ queryKey: ['transcripts'] });
+          // Any later save must leave the cache alone: it is the only copy of privacy-mode transcripts
+          if (privacyMode && !savedPrivacyMode.current) queryClient.resetQueries({ queryKey: TRANSCRIPTS_QUERY_KEY });
+          savedPrivacyMode.current = privacyMode;
         })
         .catch((err) => {
           if (controller.signal.aborted) return;

@@ -62,8 +62,13 @@ export function useAutoUpdate() {
       })
     );
 
-    window.electronAPI.updater.checkForUpdates();
+    cleanups.push(window.electronAPI.updater.onUpdateError(() => toast.dismiss(TOAST_ID)));
 
     return () => cleanups.forEach((fn) => fn());
   }, [t]);
+
+  // Separate from the listeners so a language change doesn't trigger another check
+  useEffect(() => {
+    window.electronAPI.updater.checkForUpdates();
+  }, []);
 }

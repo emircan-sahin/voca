@@ -57,15 +57,26 @@ export const SetupPage = ({ onGranted }: Props) => {
 
   // Always poll — detects changes when user comes back from System Preferences
   useEffect(() => {
+    let active = true;
     const interval = setInterval(async () => {
-      const current = await fetchStatus();
-      setPerms(current);
-      if (current.microphone === 'granted' && current.accessibility) {
-        clearInterval(interval);
-        onGranted();
+      try {
+        const current = await fetchStatus();
+        // Overlapping polls or a late response after unmount must not fire onGranted twice.
+        if (!active) return;
+        setPerms(current);
+        if (current.microphone === 'granted' && current.accessibility) {
+          active = false;
+          clearInterval(interval);
+          onGranted();
+        }
+      } catch (err) {
+        console.warn('[Setup] Permission check failed:', err instanceof Error ? err.message : err);
       }
     }, 800);
-    return () => clearInterval(interval);
+    return () => {
+      active = false;
+      clearInterval(interval);
+    };
   }, [onGranted]);
 
   const handleMicrophone = async () => {

@@ -69,6 +69,9 @@ export const ShortcutsPanel = () => {
         >
           <Card
             variant="bordered"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('shortcuts.title')}
             className="w-80 bg-white"
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >

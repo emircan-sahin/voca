@@ -18,6 +18,12 @@
     box-shadow: none !important;
     --tw-ring-shadow: 0 0 #0000 !important;
   }
+
+  /* Keyboard-only indicator. Text fields match :focus-visible on mouse click too, and select options have their own highlight. */
+  *:focus-visible:not([role="option"]):not(input):not(textarea) {
+    outline: 2px dashed #dc2626 !important;
+    outline-offset: 2px;
+  }
 }
 
 @theme {

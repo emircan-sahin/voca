@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Provider, useProviderStore } from '~/stores/provider.store';
 import {
   Select,
@@ -13,11 +14,12 @@ const providers: { value: Provider; label: string; description: string }[] = [
 ];
 
 export const ProviderSelect = () => {
+  const { t } = useTranslation();
   const { provider, setProvider } = useProviderStore();
 
   return (
     <Select value={provider} onValueChange={(v) => setProvider(v as Provider)}>
-      <SelectTrigger className="w-64 text-sm">
+      <SelectTrigger className="w-64 text-sm" aria-label={t('settings.provider')}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

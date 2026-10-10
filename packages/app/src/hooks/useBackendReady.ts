@@ -14,7 +14,8 @@ export const useBackendReady = () => {
 
   const checkHealth = useCallback(async (): Promise<boolean> => {
     try {
-      const res = await fetch(HEALTH_URL);
+      // A stalled connection would otherwise keep the splash up with no retry countdown
+      const res = await fetch(HEALTH_URL, { signal: AbortSignal.timeout(10_000) });
       const json = await res.json();
       if (json.success && json.data?.latestVersion) {
         setLatestVersion(json.data.latestVersion);

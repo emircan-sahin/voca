@@ -1,28 +1,34 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 import { Card, CardContent } from 'poyraz-ui/atoms';
-import { IUser } from '@voca/shared';
+import { AuthExchangeInput, IAuthResponse } from '@voca/shared';
 import { useAuthStore } from '~/stores/auth.store';
 import { api } from '~/lib/axios';
-import axiosInstance from '~/lib/axios';
+import axiosInstance, { ApiError } from '~/lib/axios';
 import vocaLogo from '~/assets/voca_logo.png';
 
 export const WelcomePage = () => {
   const { t } = useTranslation();
   const { setAuth } = useAuthStore();
+  const [appVersion, setAppVersion] = useState<string | null>(null);
 
   useEffect(() => {
-    const cleanup = window.electronAPI.auth.onAuthCallback(async ({ token, refreshToken }) => {
-      // Temporarily set tokens so the interceptor can attach the Bearer header
-      useAuthStore.setState({ token, refreshToken });
+    window.electronAPI.getVersion().then(setAppVersion).catch((err) => console.warn('[Welcome] Failed to get app version:', err.message ?? err));
+  }, []);
 
+  useEffect(() => {
+    const cleanup = window.electronAPI.auth.onAuthCallback(async ({ code, verifier }) => {
       try {
-        const res = await api.get<IUser>('/auth/me');
-        if (res.data) {
-          setAuth({ user: res.data, token, refreshToken });
-        }
-      } catch {
-        useAuthStore.setState({ token: null, refreshToken: null });
+        const body: AuthExchangeInput = { code, verifier };
+        const res = await api.post<IAuthResponse>('/auth/exchange', body);
+        if (!res.data) throw new ApiError(res.message);
+        setAuth(res.data);
+        // Fresh login skips App's startup hydrate; without it settingsHydrated stays false,
+        // so nothing (including the onboarding choices) would sync until the next launch
+        useAuthStore.getState().hydrate();
+      } catch (err) {
+        toast.error(err instanceof ApiError ? err.message : String(err));
       }
     });
 
@@ -73,7 +79,7 @@ export const WelcomePage = () => {
             {t('welcome.google')}
           </button>
 
-          <p className="text-xs text-[#737373] text-center mt-6">Voca v0.0.1</p>
+          {appVersion && <p className="text-xs text-[#737373] text-center mt-6">Voca v{appVersion}</p>}
         </CardContent>
       </Card>
     </div>

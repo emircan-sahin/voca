@@ -8,6 +8,7 @@ import { SplashScreen } from '~/components/SplashScreen';
 import { useAuthStore } from '~/stores/auth.store';
 import { useSettingsSync } from '~/hooks/useSettingsSync';
 import { useAutoUpdate } from '~/hooks/useAutoUpdate';
+import { useTrayLabels } from '~/hooks/useTray';
 import { useBackendReady } from '~/hooks/useBackendReady';
 import { queryClient } from '~/lib/queryClient';
 
@@ -22,6 +23,7 @@ const App = () => {
 
   useSettingsSync();
   useAutoUpdate();
+  useTrayLabels();
 
   useEffect(() => {
     const isMac = window.electronAPI.platform === 'darwin';

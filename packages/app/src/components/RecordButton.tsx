@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Mic, Square, Loader2 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -8,12 +9,20 @@ interface RecordButtonProps {
 }
 
 export const RecordButton = ({ isRecording, isProcessing, onClick }: RecordButtonProps) => {
+  const { t } = useTranslation();
   const disabled = isProcessing;
+  const label = isProcessing
+    ? t('dashboard.processing')
+    : isRecording
+    ? t('dashboard.stopRecording')
+    : t('dashboard.startRecording');
 
   return (
     <button
       onClick={onClick}
       disabled={disabled}
+      aria-label={label}
+      aria-busy={isProcessing}
       className={clsx(
         'flex items-center justify-center w-20 h-20 rounded-full transition-all duration-200 border-2 border-dashed',
         {

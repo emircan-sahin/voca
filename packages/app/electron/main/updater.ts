@@ -1,7 +1,11 @@
-import { BrowserWindow, ipcMain } from 'electron';
+import { BrowserWindow, ipcMain, IpcMainInvokeEvent } from 'electron';
 import { autoUpdater } from 'electron-updater';
 
-export function initAutoUpdater(mainWindow: BrowserWindow) {
+export function initAutoUpdater(
+  mainWindow: BrowserWindow,
+  onBeforeInstall: () => void,
+  isFromMainWindow: (e: IpcMainInvokeEvent) => boolean
+) {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = true;
 
@@ -27,7 +31,8 @@ export function initAutoUpdater(mainWindow: BrowserWindow) {
     console.error('[updater] Error:', err.message);
   });
 
-  ipcMain.handle('updater:check', async () => {
+  ipcMain.handle('updater:check', async (e) => {
+    if (!isFromMainWindow(e)) throw new Error('Unauthorized sender');
     try {
       await autoUpdater.checkForUpdates();
     } catch (err) {
@@ -35,18 +40,27 @@ export function initAutoUpdater(mainWindow: BrowserWindow) {
     }
   });
 
-  ipcMain.handle('updater:download', async () => {
+  ipcMain.handle('updater:download', async (e) => {
+    if (!isFromMainWindow(e)) throw new Error('Unauthorized sender');
     try {
       await autoUpdater.downloadUpdate();
     } catch (err) {
       console.error('[updater] Download failed:', err);
+      // Let the renderer drop its "downloading" toast instead of spinning forever
+      if (!mainWindow.isDestroyed()) mainWindow.webContents.send('updater:error');
     }
   });
 
-  ipcMain.handle('updater:install', () => {
+  ipcMain.handle('updater:install', (e) => {
+    if (!isFromMainWindow(e)) throw new Error('Unauthorized sender');
+    // macOS closes every window before before-quit fires; the hide-on-close handler would swallow that
+    onBeforeInstall();
     setImmediate(() => autoUpdater.quitAndInstall());
   });
 
   // Periodic check every hour
-  setInterval(() => autoUpdater.checkForUpdates().catch(() => {}), 60 * 60 * 1_000);
+  setInterval(
+    () => autoUpdater.checkForUpdates().catch((err) => console.warn('[updater] Periodic check failed:', err.message ?? err)),
+    60 * 60 * 1_000
+  );
 }

@@ -1,6 +1,10 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useNoiseSuppressionStore } from '~/stores/noiseSuppression.store';
 import { useEchoCancellationStore } from '~/stores/echoCancellation.store';
+
+const DEFAULT_MIME = 'audio/webm';
+// People release the shortcut while still finishing the last syllable
+const STOP_TAIL_MS = 300;
 
 export const useRecorder = (deviceId: string) => {
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
@@ -9,36 +13,71 @@ export const useRecorder = (deviceId: string) => {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
+  const pendingStop = useRef<{ timer: ReturnType<typeof setTimeout>; resolve: (blob: Blob | null) => void } | null>(null);
+  const unmounted = useRef(false);
 
   const start = useCallback(async () => {
-    const s = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        ...(deviceId && { deviceId: { exact: deviceId } }),
-        noiseSuppression,
-        echoCancellation,
-      },
-    });
-    setStream(s);
-    mediaRecorder.current = new MediaRecorder(s);
-    mediaRecorder.current.ondataavailable = (e) => {
+    // Guard against a second start (double shortcut press) leaking the first stream
+    if (mediaRecorder.current && mediaRecorder.current.state !== 'inactive') return;
+
+    const constraints = { noiseSuppression, echoCancellation };
+    let s: MediaStream;
+    try {
+      s = await navigator.mediaDevices.getUserMedia({
+        audio: { ...(deviceId && { deviceId: { exact: deviceId } }), ...constraints },
+      });
+    } catch (err) {
+      // Saved mic was unplugged — fall back to the system default instead of failing
+      if (!(deviceId && err instanceof DOMException && err.name === 'OverconstrainedError')) throw err;
+      s = await navigator.mediaDevices.getUserMedia({ audio: constraints });
+    }
+    // Unmounted (logout) while the mic was opening: nothing would ever stop this stream
+    if (unmounted.current) {
+      s.getTracks().forEach((t) => t.stop());
+      return;
+    }
+
+    chunks.current = [];
+    const recorder = new MediaRecorder(s);
+    recorder.ondataavailable = (e) => {
       if (e.data.size > 0) chunks.current.push(e.data);
     };
-    mediaRecorder.current.start();
+    mediaRecorder.current = recorder;
+    recorder.start();
+    setStream(s);
     setIsRecording(true);
   }, [deviceId, noiseSuppression, echoCancellation]);
 
+  // Resolves null when cancel() wins during the tail
   const stop = useCallback(
-    (): Promise<Blob> =>
+    (): Promise<Blob | null> =>
       new Promise((resolve) => {
-        mediaRecorder.current!.onstop = () => {
-          const blob = new Blob(chunks.current, { type: 'audio/webm' });
+        const recorder = mediaRecorder.current;
+        if (!recorder) {
+          resolve(new Blob([], { type: DEFAULT_MIME }));
+          return;
+        }
+        const finish = () => {
+          // Strip codec params (audio/webm;codecs=opus) — the backend matches the bare type
+          const type = recorder.mimeType.split(';')[0] || DEFAULT_MIME;
+          const blob = new Blob(chunks.current, { type });
           chunks.current = [];
           resolve(blob);
         };
-        mediaRecorder.current!.stop();
-        mediaRecorder.current!.stream.getTracks().forEach((t) => t.stop());
-        setStream(null);
-        setIsRecording(false);
+        const timer = setTimeout(() => {
+          pendingStop.current = null;
+          // Already stopped (e.g. device unplugged mid-recording) — stop() would throw
+          if (recorder.state === 'inactive') finish();
+          else {
+            recorder.onstop = finish;
+            recorder.stop();
+          }
+          recorder.stream.getTracks().forEach((t) => t.stop());
+          mediaRecorder.current = null;
+          setStream(null);
+          setIsRecording(false);
+        }, STOP_TAIL_MS);
+        pendingStop.current = { timer, resolve };
       }),
     []
   );
@@ -50,14 +89,30 @@ export const useRecorder = (deviceId: string) => {
   }, []);
 
   const cancel = useCallback(() => {
-    if (!mediaRecorder.current) return;
-    mediaRecorder.current.onstop = null;
-    mediaRecorder.current.stop();
-    mediaRecorder.current.stream.getTracks().forEach((t) => t.stop());
+    if (pendingStop.current) {
+      clearTimeout(pendingStop.current.timer);
+      pendingStop.current.resolve(null);
+      pendingStop.current = null;
+    }
+    const recorder = mediaRecorder.current;
+    if (!recorder) return;
+    recorder.onstop = null;
+    if (recorder.state !== 'inactive') recorder.stop();
+    recorder.stream.getTracks().forEach((t) => t.stop());
+    mediaRecorder.current = null;
     chunks.current = [];
     setStream(null);
     setIsRecording(false);
   }, []);
+
+  // Release the mic if the owner unmounts mid-recording (e.g. logout)
+  useEffect(() => {
+    unmounted.current = false;
+    return () => {
+      unmounted.current = true;
+      cancel();
+    };
+  }, [cancel]);
 
   return { isRecording, stream, start, stop, pause, cancel };
 };
