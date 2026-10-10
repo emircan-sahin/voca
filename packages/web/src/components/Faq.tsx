@@ -6,7 +6,7 @@ import {
 } from 'poyraz-ui/molecules';
 import { Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { SOCIALS } from '@voca/shared';
+import { SOCIALS } from '@voca/shared/constants/config';
 
 interface FaqItem {
   question: string;

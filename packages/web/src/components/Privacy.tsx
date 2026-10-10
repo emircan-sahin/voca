@@ -6,15 +6,21 @@ const linkClass = 'text-red-600 underline underline-offset-2 hover:text-red-700'
 
 const boldComponent = { b: <strong /> };
 
-const paddlePrivacyComponents = {
-  b: <strong />,
-  paddlePrivacy: <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer" className={linkClass} />,
-};
+const externalLink = (href: string) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass} />
+);
 
-const googlePrivacyComponents = {
-  b: <strong />,
-  googlePrivacy: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className={linkClass} />,
-};
+const optOutComponents = { b: <strong />, optOut: externalLink('https://tools.google.com/dlpage/gaoptout') };
+
+// Hosting is listed without a link: the repo is public, so infrastructure providers stay unnamed
+const THIRD_PARTIES = [
+  { key: 'google', policy: 'https://policies.google.com/privacy' },
+  { key: 'groq', policy: 'https://groq.com/privacy-policy/' },
+  { key: 'deepgram', policy: 'https://deepgram.com/privacy' },
+  { key: 'xai', policy: 'https://x.ai/legal/privacy-policy' },
+  { key: 'paddle', policy: 'https://www.paddle.com/legal/privacy' },
+  { key: 'hosting', policy: null },
+] as const;
 
 const emailComponents = {
   email: <a href="mailto:contact@usevoca.dev" className={linkClass} />,
@@ -29,7 +35,7 @@ export default function Privacy() {
       <main className="px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-4xl">
           <h1 className="mb-2 text-4xl font-bold tracking-tight text-neutral-900">{t('privacy.title')}</h1>
-          <p className="mb-12 text-sm text-neutral-400">{t('privacy.lastUpdated')}</p>
+          <p className="mb-12 text-sm text-neutral-500">{t('privacy.lastUpdated')}</p>
 
           <div className="space-y-10 text-neutral-700 [&_h2]:mb-3 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-neutral-900 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5">
             <section>
@@ -38,10 +44,21 @@ export default function Privacy() {
             </section>
 
             <section>
+              <h2>{t('privacy.website.heading')}</h2>
+              <p><Trans i18nKey="privacy.website.content" components={boldComponent} /></p>
+              <p className="mt-3"><Trans i18nKey="privacy.website.optOut" components={optOutComponents} /></p>
+            </section>
+
+            <section>
               <h2>{t('privacy.collection.heading')}</h2>
-              <p><Trans i18nKey="privacy.collection.account" components={boldComponent} /></p>
-              <p className="mt-3"><Trans i18nKey="privacy.collection.transcripts" components={boldComponent} /></p>
-              <p className="mt-3"><Trans i18nKey="privacy.collection.billing" components={boldComponent} /></p>
+              <p>{t('privacy.collection.intro')}</p>
+              <ul>
+                {(t('privacy.collection.items', { returnObjects: true }) as string[]).map((_, i) => (
+                  <li key={i}>
+                    <Trans i18nKey={`privacy.collection.items.${i}`} components={boldComponent} />
+                  </li>
+                ))}
+              </ul>
             </section>
 
             <section>
@@ -56,16 +73,33 @@ export default function Privacy() {
             </section>
 
             <section>
-              <h2>{t('privacy.privacyMode.heading')}</h2>
-              <p>{t('privacy.privacyMode.content')}</p>
+              <h2>{t('privacy.translation.heading')}</h2>
+              <p><Trans i18nKey="privacy.translation.content" components={boldComponent} /></p>
+            </section>
+
+            <section>
+              <h2>{t('privacy.transcripts.heading')}</h2>
+              <p>{t('privacy.transcripts.content')}</p>
+              <p className="mt-3"><Trans i18nKey="privacy.transcripts.privacyMode" components={boldComponent} /></p>
+            </section>
+
+            <section>
+              <h2>{t('privacy.logs.heading')}</h2>
+              <p>{t('privacy.logs.content')}</p>
             </section>
 
             <section>
               <h2>{t('privacy.thirdParty.heading')}</h2>
               <p>{t('privacy.thirdParty.intro')}</p>
               <ul>
-                <li><Trans i18nKey="privacy.thirdParty.paddle" components={paddlePrivacyComponents} /></li>
-                <li><Trans i18nKey="privacy.thirdParty.google" components={googlePrivacyComponents} /></li>
+                {THIRD_PARTIES.map(({ key, policy }) => (
+                  <li key={key}>
+                    <Trans
+                      i18nKey={`privacy.thirdParty.items.${key}`}
+                      components={policy ? { b: <strong />, policy: externalLink(policy) } : boldComponent}
+                    />
+                  </li>
+                ))}
               </ul>
             </section>
 

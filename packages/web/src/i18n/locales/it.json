@@ -1,15 +1,16 @@
 {
   "banner": {
-    "promo": "🎉 Scarica ora — 1 mese di piano MAX gratis (credito di $3 incluso)!"
+    "promo": "Voca ora è completamente gratis. Nessun piano, nessuna carta."
   },
   "navbar": {
     "features": "Funzionalità",
-    "pricing": "Prezzi",
+    "pricing": "Gratis",
     "download": "Scarica",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "language": "Lingua"
   },
   "hero": {
-    "badge": "Open source · 1 mese gratis, nessuna carta",
+    "badge": "Open source · Completamente gratis",
     "headingTop": "Parla, ed è già",
     "headingBottom": "incollato.",
     "description": "Premi una scorciatoia, parla e la trascrizione corretta dall'IA appare esattamente dove si trovava il cursore. Traduci in oltre 100 lingue all'istante.",
@@ -51,24 +52,26 @@
       },
       {
         "title": "Open source e privato",
-        "description": "Completamente open source sotto MIT. L'audio viene elaborato con le tue chiavi API — nessuna raccolta dati, nessuna analisi, nessun server di terze parti."
+        "description": "Completamente open source con licenza MIT, così vedi esattamente cosa succede alla tua voce. L'audio viene eliminato subito dopo la trascrizione, e con la Modalità Privacy le tue trascrizioni non vengono mai salvate sui nostri server."
       }
     ]
   },
   "pricing": {
-    "heading": "Piani accessibili, tutte le funzionalità incluse.",
-    "description": "Entrambi i piani sbloccano tutte le funzionalità. Nessun costo nascosto, nessuna sorpresa — scegli quello adatto al tuo utilizzo e inizia a trascrivere.",
-    "perMonth": "/mese",
-    "creditsIncluded": "${{credits}} di crediti inclusi ogni mese",
+    "heading": "Voca è gratis.",
+    "description": "Nessun piano, nessuna carta. Scaricalo e inizia a parlare.",
+    "badge": "Gratis",
+    "tagline": "Tutte le funzionalità incluse. Nessuna carta richiesta.",
     "features": [
       "Deepgram Nova-3 e Groq Whisper",
       "Traduzione IA in oltre 100 lingue",
       "Modalità tono Sviluppatore e Personale",
       "Componenti Numerico e Pianificazione",
-      "Fino a {{limit}} per registrazione"
+      "Dizionario personale per i tuoi nomi e termini",
+      "Scorciatoia da premere una volta o tenere premuta",
+      "Cronologia delle trascrizioni",
+      "Modalità privacy"
     ],
-    "downloadToGet": "Scarica e prova gratis",
-    "freeTrial": "1 mese gratis alla registrazione — nessuna carta richiesta"
+    "downloadToGet": "Scarica gratis"
   },
   "faq": {
     "heading": "Domande Frequenti",
@@ -78,17 +81,15 @@
       {
         "question": "Voca è gratuito?",
         "answer": [
-          "Registrati e ottieni il tuo primo mese gratis — tutte le funzionalità, $3 di crediti, senza carta di credito. Nessuna selezione del piano necessaria.",
-          "Dopo il mese gratuito, i piani partono da soli $3/mese. Nessun costo nascosto, nessun addebito a sorpresa. Quello che vedi è quello che paghi.",
-          "I concorrenti fanno pagare ~$8/mese più costi aggiuntivi per le chiavi API. Voca include tutto in un unico abbonamento."
+          "Sì, Voca è completamente gratis. Nessun piano, nessuna carta. Scaricalo e tutte le funzionalità sono tue.",
+          "È anche open source, quindi puoi leggere ogni riga di codice con i tuoi occhi."
         ]
       },
       {
-        "question": "Posso cancellare in qualsiasi momento?",
+        "question": "Devo pagare o inserire una carta?",
         "answer": [
-          "Sì. Cancella quando vuoi — il periodo corrente resta attivo e il mese successivo semplicemente non si rinnova.",
-          "Nessuna penale di cancellazione, nessuna clausola nascosta, nessun processo di fidelizzazione. Un clic e hai finito.",
-          "Tutto è open source. Puoi verificare la nostra fatturazione, il nostro codice e le nostre promesse — niente è nascosto."
+          "No. Accedi con Google e inizi a parlare.",
+          "Non ti chiediamo carte né dati di pagamento."
         ]
       },
       {
@@ -120,8 +121,8 @@
         "question": "Dove vengono archiviati i miei dati?",
         "answer": [
           "I tuoi dati vengono elaborati sui nostri server con un approccio incentrato sulla privacy. Voca è completamente open source — puoi ispezionare ogni riga di codice.",
-          "Se non vuoi che nulla venga archiviato sui nostri server, basta disattivarlo nelle Impostazioni. Le tue registrazioni e trascrizioni non verranno salvate — la scelta è interamente tua.",
-          "Nessun tracciamento, nessuna analisi, nessuna vendita di dati. Punto."
+          "Non vuoi che le tue trascrizioni restino sui nostri server? Attiva la Modalità Privacy nelle Impostazioni. Ogni trascrizione verrà mostrata una sola volta e mai salvata. La scelta è tutta tua.",
+          "Non vendiamo i tuoi dati e non mostriamo pubblicità. L'app non usa strumenti di analisi. Il sito web usa Google Analytics per le statistiche delle visite, come spiegato nella nostra Informativa sulla Privacy."
         ]
       },
       {
@@ -134,22 +135,21 @@
       {
         "question": "Verranno aggiunte nuove funzionalità?",
         "answer": [
-          "Assolutamente. Voca è una piattaforma in sviluppo attivo — rilasciamo aggiornamenti regolarmente con nuove funzionalità, miglioramenti e ottimizzazioni.",
-          "Il tuo feedback modella direttamente la nostra roadmap. Hai trovato un bug o hai una richiesta di funzionalità? Contattaci tramite email o i link social nel footer — leggiamo tutto.",
-          "Quando ti abboni, non stai ottenendo solo il prodotto di oggi. Ottieni ogni futuro aggiornamento senza costi aggiuntivi."
+          "Assolutamente. Voca è in sviluppo attivo. Rilasciamo aggiornamenti regolari con nuove funzionalità, miglioramenti e ottimizzazioni.",
+          "Il tuo feedback influenza direttamente la roadmap. Hai trovato un bug o vuoi proporre una funzionalità? Scrivici via email o tramite i link social nel footer. Leggiamo tutto."
         ]
       }
     ]
   },
   "finalCta": {
     "heading": "Premi un tasto, parla, fatto.",
-    "description": "Una scorciatoia per trascrivere, correggere, tradurre e incollare — tutto senza uscire dalla tua app. Open source, funziona su macOS e Windows.",
+    "description": "Una scorciatoia per trascrivere, correggere, tradurre e incollare senza uscire dalla tua app. Gratis, open source e funziona su macOS e Windows.",
     "downloadWindows": "Scarica per Windows",
     "downloadMac": "Scarica per macOS"
   },
   "footer": {
     "features": "Funzionalità",
-    "pricing": "Prezzi",
+    "pricing": "Gratis",
     "faq": "FAQ",
     "terms": "Termini",
     "privacy": "Privacy",
@@ -163,33 +163,149 @@
   },
   "terms": {
     "title": "Termini di Servizio",
-    "lastUpdated": "Ultimo aggiornamento: 26 febbraio 2026",
-    "agreement": { "heading": "1. Accettazione dei Termini", "content": "Scaricando, installando o utilizzando Voca (\"Servizio\"), accetti questi Termini di Servizio. Se non sei d'accordo, non utilizzare il Servizio. Voca è gestito da Emircan Sahin (\"noi\", \"nostro\")." },
-    "service": { "heading": "2. Descrizione del Servizio", "content": "Voca è un'applicazione desktop per macOS e Windows che trascrive il parlato in testo, lo traduce opzionalmente e incolla il risultato dove si trova il cursore." },
-    "accounts": { "heading": "3. Account", "content": "Devi accedere con un account Google per utilizzare il Servizio. Sei responsabile della sicurezza del tuo account e non devi condividere le tue credenziali né permettere ad altri di accedervi." },
-    "billing": { "heading": "4. Abbonamenti e Fatturazione", "items": ["Voca offre due piani a pagamento: <b>Pro ($3/mese)</b> e <b>Max ($10/mese)</b>. Entrambi i piani includono tutte le funzionalità.", "Ogni piano include crediti mensili consumati in base all'utilizzo.", "I nuovi account ricevono automaticamente il <b>primo mese gratuito</b> — $3 di crediti, senza carta di credito.", "I pagamenti sono elaborati da <b>Paddle</b>, il nostro Merchant of Record. Paddle gestisce fatturazione, tasse e rimborsi. Abbonandoti, accetti anche i <paddleTerms>Termini di Paddle</paddleTerms>.", "Gli abbonamenti si rinnovano automaticamente. Puoi cancellare in qualsiasi momento — il tuo accesso continua fino alla fine del periodo di fatturazione corrente.", "I crediti non utilizzati non vengono trasferiti al periodo di fatturazione successivo."] },
-    "use": { "heading": "5. Uso Accettabile", "intro": "Accetti di non:", "items": ["Utilizzare il Servizio per scopi illegali.", "Tentare di decompilare, sfruttare o interrompere il Servizio.", "Caricare contenuti che violino i diritti di proprietà intellettuale altrui.", "Condividere, rivendere o ridistribuire l'accesso al tuo account."] },
-    "ip": { "heading": "6. Proprietà Intellettuale", "content": "Voca è software open source rilasciato sotto la <b>Licenza MIT</b>. Mantieni la proprietà di tutti i contenuti che crei usando il Servizio, incluse le tue trascrizioni e traduzioni." },
-    "warranties": { "heading": "7. Esclusione di Garanzie", "content": "Il Servizio è fornito \"così com'è\" e \"come disponibile\" senza garanzie di alcun tipo, espresse o implicite. Non garantiamo l'accuratezza delle trascrizioni o traduzioni." },
-    "liability": { "heading": "8. Limitazione di Responsabilità", "content": "Nella misura massima consentita dalla legge, non saremo responsabili per danni indiretti, incidentali, speciali, consequenziali o punitivi derivanti dall'uso del Servizio." },
-    "termination": { "heading": "9. Risoluzione", "content": "Possiamo sospendere o terminare il tuo accesso per violazione di questi Termini. Puoi smettere di usare il Servizio e cancellare il tuo abbonamento in qualsiasi momento." },
-    "changes": { "heading": "10. Modifiche ai Termini", "content": "Possiamo aggiornare questi Termini di tanto in tanto. L'uso continuato del Servizio dopo le modifiche costituisce accettazione dei Termini aggiornati." },
-    "contact": { "heading": "11. Contatto", "content": "Per domande su questi Termini, contattaci a <email>contact@usevoca.dev</email>." }
+    "lastUpdated": "Ultimo aggiornamento: 10 ottobre 2026",
+    "agreement": {
+      "heading": "1. Accettazione dei Termini",
+      "content": "Scaricando, installando o utilizzando Voca (\"Servizio\"), accetti questi Termini di Servizio. Se non sei d'accordo, non utilizzare il Servizio. Voca è gestito da Emircan Sahin (\"noi\", \"nostro\")."
+    },
+    "service": {
+      "heading": "2. Descrizione del Servizio",
+      "content": "Voca è un'applicazione desktop per macOS e Windows che trascrive il parlato in testo, lo traduce opzionalmente e incolla il risultato dove si trova il cursore."
+    },
+    "accounts": {
+      "heading": "3. Account",
+      "content": "Devi accedere con un account Google per utilizzare il Servizio. Sei responsabile della sicurezza del tuo account e non devi condividere le tue credenziali né permettere ad altri di accedervi."
+    },
+    "pricing": {
+      "heading": "4. Prezzi",
+      "content": "L'uso di Voca è gratuito. In futuro potremmo aggiungere funzionalità a pagamento. In tal caso, annunceremo la modifica in anticipo e non ti addebiteremo mai costi retroattivi per l'uso passato."
+    },
+    "use": {
+      "heading": "5. Uso Accettabile",
+      "intro": "Accetti di non:",
+      "items": [
+        "Utilizzare il Servizio per scopi illegali.",
+        "Tentare di decompilare, sfruttare o interrompere il Servizio.",
+        "Caricare contenuti che violino i diritti di proprietà intellettuale altrui.",
+        "Condividere, rivendere o ridistribuire l'accesso al tuo account."
+      ]
+    },
+    "ip": {
+      "heading": "6. Proprietà Intellettuale",
+      "content": "Voca è software open source rilasciato sotto la <b>Licenza MIT</b>. Mantieni la proprietà di tutti i contenuti che crei usando il Servizio, incluse le tue trascrizioni e traduzioni."
+    },
+    "warranties": {
+      "heading": "7. Esclusione di Garanzie",
+      "content": "Il Servizio è fornito \"così com'è\" e \"come disponibile\" senza garanzie di alcun tipo, espresse o implicite. Non garantiamo l'accuratezza delle trascrizioni o traduzioni."
+    },
+    "liability": {
+      "heading": "8. Limitazione di Responsabilità",
+      "content": "Nella misura massima consentita dalla legge, non saremo responsabili per danni indiretti, incidentali, speciali, consequenziali o punitivi derivanti dall'uso del Servizio."
+    },
+    "termination": {
+      "heading": "9. Risoluzione",
+      "content": "Possiamo sospendere o terminare il tuo accesso per violazione di questi Termini. Puoi smettere di usare il Servizio in qualsiasi momento."
+    },
+    "changes": {
+      "heading": "10. Modifiche ai Termini",
+      "content": "Possiamo aggiornare questi Termini di tanto in tanto. L'uso continuato del Servizio dopo le modifiche costituisce accettazione dei Termini aggiornati."
+    },
+    "contact": {
+      "heading": "11. Contatto",
+      "content": "Per domande su questi Termini, contattaci a <email>contact@usevoca.dev</email>."
+    }
   },
   "privacy": {
     "title": "Informativa sulla Privacy",
-    "lastUpdated": "Ultimo aggiornamento: 26 febbraio 2026",
-    "intro": { "heading": "1. Introduzione", "content": "Questa Informativa sulla Privacy spiega come Voca (\"Servizio\"), gestito da Emircan Sahin (\"noi\", \"nostro\"), raccoglie, utilizza e protegge le tue informazioni." },
-    "collection": { "heading": "2. Informazioni Raccolte", "account": "<b>Informazioni account:</b> Accedendo con Google, riceviamo il tuo nome, indirizzo email e foto profilo. Utilizzato esclusivamente per l'autenticazione.", "transcripts": "<b>Trascrizioni:</b> I tuoi testi trascritti e traduzioni sono conservati per consentirti l'accesso nell'app.", "billing": "<b>Informazioni di fatturazione:</b> I dati di pagamento sono raccolti ed elaborati interamente da <b>Paddle</b>, il nostro Merchant of Record. Non conserviamo né abbiamo accesso ai dati della tua carta di pagamento." },
-    "audio": { "heading": "3. Dati Audio", "items": ["I file audio vengono <b>eliminati immediatamente</b> dopo la trascrizione. Non conserviamo mai le registrazioni oltre l'elaborazione.", "L'audio viene inviato ai fornitori di riconoscimento vocale per la trascrizione. Non conserviamo alcuna copia."] },
-    "privacyMode": { "heading": "4. Modalità Privacy", "content": "Voca offre una Modalità Privacy opzionale nelle Impostazioni. Quando attivata, viene conservata solo la trascrizione più recente — ogni nuova trascrizione elimina la precedente. Attivarla elimina anche tutte le trascrizioni esistenti." },
-    "thirdParty": { "heading": "5. Servizi di Terze Parti", "intro": "Utilizziamo servizi di terze parti per fornire funzionalità principali. I tuoi dati possono essere elaborati da questi fornitori secondo le loro politiche sulla privacy:", "paddle": "<b>Paddle</b> — Elaborazione pagamenti. <paddlePrivacy>Informativa sulla Privacy</paddlePrivacy>", "google": "<b>Google</b> — Autenticazione e traduzione. <googlePrivacy>Informativa sulla Privacy</googlePrivacy>" },
-    "noCollect": { "heading": "6. Cosa NON Raccogliamo", "items": ["Nessuna analisi o tracciamento.", "Nessun identificatore pubblicitario.", "Nessuna vendita o condivisione dei tuoi dati per scopi di marketing."] },
-    "retention": { "heading": "7. Conservazione dei Dati", "items": ["<b>Audio:</b> Eliminato immediatamente dopo l'elaborazione.", "<b>Trascrizioni:</b> Conservate fino alla cancellazione o rimozione dalla Modalità Privacy.", "<b>Account:</b> Mantenuto finché attivo. Contattaci per richiedere la cancellazione."] },
-    "rights": { "heading": "8. I Tuoi Diritti", "intro": "Hai il diritto di:", "items": ["Accedere ai tuoi dati tramite l'app.", "Eliminare le tue trascrizioni singolarmente o tramite la Modalità Privacy.", "Richiedere la cancellazione completa del tuo account contattandoci.", "Cancellare il tuo abbonamento in qualsiasi momento."] },
-    "children": { "heading": "9. Privacy dei Minori", "content": "Il Servizio non è destinato ai minori di 13 anni. Non raccogliamo consapevolmente informazioni personali dai minori." },
-    "changes": { "heading": "10. Modifiche a Questa Informativa", "content": "Possiamo aggiornare questa Informativa sulla Privacy di tanto in tanto. L'uso continuato del Servizio dopo le modifiche costituisce accettazione dell'informativa aggiornata." },
-    "contact": { "heading": "11. Contatto", "content": "Per domande su questa Informativa sulla Privacy, contattaci a <email>contact@usevoca.dev</email>." }
+    "lastUpdated": "Ultimo aggiornamento: 10 ottobre 2026",
+    "intro": {
+      "heading": "1. Introduzione",
+      "content": "Questa Informativa sulla Privacy spiega come Voca (\"Servizio\"), gestito da Emircan Sahin (\"noi\", \"nostro\"), raccoglie, utilizza e protegge le tue informazioni quando visiti usevoca.dev o usi l'app desktop Voca."
+    },
+    "website": {
+      "heading": "2. Il Nostro Sito Web",
+      "content": "Il sito usevoca.dev utilizza <b>Google Analytics</b> per mostrarci come lo usano i visitatori. Google Analytics imposta cookie e raccoglie statistiche di utilizzo, come le pagine che visiti, la tua posizione approssimativa e il tipo di dispositivo e browser. Esaminiamo queste statistiche in forma aggregata per migliorare il sito. Non le usiamo per la pubblicità e non sono collegate al tuo account Voca.",
+      "optOut": "Puoi bloccare Google Analytics dalle impostazioni dei cookie del browser, con un'estensione per il blocco dei contenuti o con il <optOut>componente aggiuntivo del browser per la disattivazione</optOut> di Google. Il sito funziona allo stesso modo anche senza. L'app desktop non usa Google Analytics né altri strumenti di analisi."
+    },
+    "collection": {
+      "heading": "3. Informazioni Raccolte nell'App",
+      "intro": "Accedi all'app desktop con il tuo account Google. Conserviamo:",
+      "items": [
+        "<b>Dati dell'account:</b> nome, indirizzo email, URL dell'immagine del profilo e ID dell'account Google. Li usiamo per farti accedere e identificare il tuo account.",
+        "<b>Impostazioni dell'app:</b> le tue preferenze, come il fornitore di riconoscimento vocale, le lingue e le opzioni di traduzione.",
+        "<b>Dizionario personale:</b> le parole che aggiungi perché la trascrizione scriva correttamente i tuoi nomi e termini."
+      ]
+    },
+    "audio": {
+      "heading": "4. Registrazioni Audio",
+      "items": [
+        "Voca registra l'audio solo mentre tieni premuta o attivi la scorciatoia di registrazione. Non ascolta mai in background.",
+        "La registrazione viene caricata sul nostro server tramite una connessione HTTPS cifrata e inviata al fornitore di riconoscimento vocale che hai scelto nelle Impostazioni (<b>Groq</b> o <b>Deepgram</b>).",
+        "Eliminiamo il file audio dal nostro server <b>subito dopo la trascrizione</b>, sia che vada a buon fine sia che non riesca. Non conserviamo alcuna copia delle tue registrazioni."
+      ]
+    },
+    "translation": {
+      "heading": "5. Traduzione e Tono",
+      "content": "Se attivi la traduzione nell'app, il testo trascritto viene inviato a <b>xAI (Grok)</b> per tradurlo e applicare il tono e i componenti aggiuntivi che hai selezionato. xAI riceve solo testo, mai il tuo audio."
+    },
+    "transcripts": {
+      "heading": "6. Trascrizioni e Modalità Privacy",
+      "content": "Per impostazione predefinita, le tue trascrizioni sono conservate nel nostro database per comparire nella Cronologia. Puoi eliminare qualsiasi trascrizione in qualsiasi momento.",
+      "privacyMode": "<b>Modalità Privacy</b> (nelle Impostazioni dell'app): quando è attiva, le tue trascrizioni non vengono mai salvate sui nostri server. Ogni risultato ti viene mostrato una sola volta e scompare quando chiudi l'app. Attivare la Modalità Privacy elimina anche tutte le trascrizioni esistenti."
+    },
+    "logs": {
+      "heading": "7. Log",
+      "content": "Il nostro server conserva log operativi per far funzionare il Servizio e risolvere i problemi. Contengono errori e metadati delle richieste, come la durata dell'audio, la lingua e il costo di elaborazione. I log non contengono mai il tuo audio né il testo delle tue trascrizioni."
+    },
+    "thirdParty": {
+      "heading": "8. Servizi di Terze Parti",
+      "intro": "Per far funzionare Voca ci affidiamo ai seguenti fornitori. Ognuno tratta i dati secondo la propria informativa sulla privacy:",
+      "items": {
+        "google": "<b>Google:</b> accesso all'app e statistiche del sito web. <policy>Informativa sulla Privacy</policy>",
+        "groq": "<b>Groq:</b> riconoscimento vocale. Riceve il tuo audio quando Groq è il fornitore selezionato. <policy>Informativa sulla Privacy</policy>",
+        "deepgram": "<b>Deepgram:</b> riconoscimento vocale. Riceve il tuo audio quando Deepgram è il fornitore selezionato. <policy>Informativa sulla Privacy</policy>",
+        "xai": "<b>xAI:</b> traduzione, tono e componenti aggiuntivi. Riceve il testo delle tue trascrizioni quando la traduzione è attiva. <policy>Informativa sulla Privacy</policy>",
+        "paddle": "<b>Paddle:</b> elaborazione dei pagamenti per i piani a pagamento. Al momento Voca è gratuito, quindi Paddle riceve dati solo se verranno introdotti piani a pagamento e sceglierai di abbonarti. <policy>Informativa sulla Privacy</policy>",
+        "hosting": "<b>Fornitori di hosting e database:</b> gestiscono i nostri server e conservano i dati del tuo account e le tue trascrizioni per nostro conto."
+      }
+    },
+    "noCollect": {
+      "heading": "9. Cosa Non Facciamo",
+      "items": [
+        "Non vendiamo né affittiamo i tuoi dati personali.",
+        "Non mostriamo pubblicità e non usiamo i tuoi dati a fini pubblicitari.",
+        "Non conserviamo copie delle tue registrazioni audio."
+      ]
+    },
+    "retention": {
+      "heading": "10. Conservazione dei Dati",
+      "items": [
+        "<b>Audio:</b> eliminato dal nostro server subito dopo la trascrizione.",
+        "<b>Trascrizioni:</b> conservate finché non le elimini. Mai salvate quando la Modalità Privacy è attiva.",
+        "<b>Account, impostazioni e dizionario:</b> conservati finché il tuo account è attivo. Contattaci per richiederne l'eliminazione."
+      ]
+    },
+    "rights": {
+      "heading": "11. I Tuoi Diritti",
+      "intro": "Hai il diritto di:",
+      "items": [
+        "Accedere alle tue trascrizioni e impostazioni nell'app.",
+        "Eliminare singole trascrizioni in qualsiasi momento, oppure tutte insieme attivando la Modalità Privacy.",
+        "Richiedere una copia o l'eliminazione completa dei dati del tuo account contattandoci."
+      ]
+    },
+    "children": {
+      "heading": "12. Privacy dei Minori",
+      "content": "Il Servizio non è destinato ai minori di 13 anni. Non raccogliamo consapevolmente informazioni personali dai minori."
+    },
+    "changes": {
+      "heading": "13. Modifiche a Questa Informativa",
+      "content": "Possiamo aggiornare questa Informativa sulla Privacy di tanto in tanto. La data in alto indica la versione più recente. L'uso continuato del Servizio dopo le modifiche costituisce accettazione dell'informativa aggiornata."
+    },
+    "contact": {
+      "heading": "14. Contatto",
+      "content": "Per domande su questa Informativa sulla Privacy, contattaci a <email>contact@usevoca.dev</email>."
+    }
   },
   "refund": {
     "title": "Politica di Rimborso",
@@ -213,6 +329,23 @@
     "contact": {
       "heading": "5. Contatto",
       "content": "Per domande su questa Politica di Rimborso, contattaci a <email>contact@usevoca.dev</email>."
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Voca | Da voce a testo con l'IA",
+      "description": "App desktop gratuita e open source: premi una scorciatoia, parla e il testo corretto dall'IA viene incollato dove si trova il cursore. Traduce in oltre 100 lingue."
+    },
+    "terms": {
+      "title": "Termini di Servizio | Voca",
+      "description": "Termini di Servizio di Voca: condizioni d'uso, uso consentito e regole per utilizzare l'app desktop Voca."
+    },
+    "privacy": {
+      "title": "Informativa sulla Privacy | Voca",
+      "description": "Informativa sulla Privacy di Voca: quali dati raccogliamo, come li trattiamo, a quali fornitori vengono inviati e quali sono i tuoi diritti."
+    },
+    "notFound": {
+      "title": "Pagina non trovata (404) | usevoca.dev"
     }
   }
 }

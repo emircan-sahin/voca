@@ -1,6 +1,6 @@
 # Voca - Full Documentation
 
-> Open-source desktop app that transcribes your voice with AI corrections and translates into 100+ languages.
+> Free, open-source desktop app that transcribes your voice with AI corrections and translates into 100+ languages.
 
 Voca is a cross-platform desktop application for macOS and Windows built for developers and professionals who want to dictate text faster than typing. Press a global keyboard shortcut from any app, speak, and the AI-corrected transcript is automatically pasted where your cursor was - no switching windows, no copy-pasting.
 
@@ -54,72 +54,43 @@ No manual copy-paste. No switching apps. The transcript appears instantly in wha
 
 ---
 
-## Plans and Pricing
+## Pricing
 
-### Free Month (all new accounts)
-- First month free automatically on sign up
-- $3 in credits included
-- Fully featured - no restrictions
-- No credit card required
-- No plan selection needed
-- After the free month, choose a plan to continue
+Voca is completely free. No plans, no card.
 
-### Pro - $3/month
-- $3 in monthly API credits included
+- Every feature included
 - Groq and Deepgram STT engines
 - AI tone and translation
 - Numeric and Planning add-ons
-- Max upload size: 10 MB per file
+- Personal vocabulary for names and terms
+- Push-to-talk and hold-to-talk shortcuts
+- Transcript history
+- Privacy mode
 
-### Max - $10/month
-- $10 in monthly API credits included
-- Groq and Deepgram STT engines
-- AI tone and translation
-- Numeric and Planning add-ons
-- Max upload size: 25 MB per file
-
-### How credits work
-- Credits are consumed based on audio duration processed
-- Unused credits do not roll over to the next month
-- If credits run out, top up or wait for the next billing cycle
-
----
-
-## Payment
-
-- Payments processed by Paddle (paddle.com)
-- Accepted methods: Credit card, debit card, PayPal (where available)
-- Billed monthly, cancel anytime
-- No annual lock-in
-
----
-
-## Refund Policy
-
-- New accounts get the first month free - no credit card required, no charge if you do not subscribe after
-- Refund requests handled through Paddle's customer portal
-- Contact contact@usevoca.dev for refund assistance
-- Partial month refunds are evaluated case by case
+We may add paid features in the future. Changes will be announced in advance and nobody is charged retroactively.
 
 ---
 
 ## Privacy and Data
 
-- Audio is processed on our servers and is not stored unless you enable transcript history in Settings
-- Transcript storage can be toggled off in app Settings
-- No tracking, no analytics on app usage, no selling data
+- Audio is recorded only while the shortcut is held or toggled, sent to the chosen STT provider (Groq or Deepgram), and deleted from our server right after transcription
+- If translation is on, the transcript text is sent to xAI (Grok); xAI never receives audio
+- Transcripts are saved to History by default and can be deleted any time; Privacy Mode never saves them on our servers
+- The desktop app has no analytics; the usevoca.dev website uses Google Analytics for visit statistics
+- No selling data, no ads
 - Full source code is available for audit: https://github.com/emircan-sahin/voca
 - Authentication via Google OAuth (Google account required)
+- Full policy: https://usevoca.dev/privacy
 
 ---
 
 ## Frequently Asked Questions
 
 ### Is Voca free?
-New accounts automatically get the first month free - $3 in credits, fully featured, no credit card required, no plan selection needed. After the free month, plans start at $3/month. No hidden fees, no surprise charges.
+Yes, Voca is completely free. No plans, no card. Download it and every feature is yours. It is also open source, so you can read every line of code yourself.
 
-### Can I cancel anytime?
-Yes. Cancel whenever you want - your current period stays active, and the next month simply will not renew. No cancellation fees, no hidden terms. One click and you are done.
+### Do I need to pay or add a card?
+No. You sign in with Google and start talking. We do not ask for a card or any payment details.
 
 ### What makes Voca different?
 Background noise cancellation built for real-world environments. AI that recognizes function names, code terms, and technical jargon. Smart auto-paste that lands the corrected transcript right where your cursor was. No copy-paste, no switching apps.
@@ -131,7 +102,7 @@ Developer Mode is a tone setting for software engineers. When enabled, Voca's AI
 35+ languages for speech recognition through Deepgram and Groq. 100+ languages for AI-powered translation with tone control.
 
 ### Where is my data stored?
-Your data is processed on our servers. If you do not want anything stored, toggle it off in Settings. Voca is fully open source - you can inspect every line of code yourself.
+Audio is deleted from our server right after transcription. Transcripts are saved to your History unless you turn on Privacy Mode in Settings, which never saves them on our servers. Voca is fully open source, so you can inspect every line of code yourself.
 
 ### Does it work offline?
 No. Voca requires an internet connection. Audio is processed in our cloud pipeline for the best quality at the lowest cost.

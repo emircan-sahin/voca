@@ -1,7 +1,7 @@
 import { Button } from 'poyraz-ui/atoms';
 import { Apple, Monitor } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { DOWNLOADS } from '@voca/shared';
+import { DOWNLOADS } from '@voca/shared/constants/config';
 
 export default function FinalCta() {
   const { t } = useTranslation();
@@ -16,18 +16,18 @@ export default function FinalCta() {
           {t('finalCta.description')}
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-          <a href={DOWNLOADS.windows} className="w-full sm:w-80">
-            <Button variant="outline" className="w-full border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-800">
+          <Button asChild variant="outline" className="w-full border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-800 sm:w-80">
+            <a href={DOWNLOADS.windows}>
               <Monitor className="mr-2 h-5 w-5" />
               {t('finalCta.downloadWindows')}
-            </Button>
-          </a>
-          <a href={DOWNLOADS.mac} className="w-full sm:w-80">
-            <Button className="w-full">
+            </a>
+          </Button>
+          <Button asChild className="w-full sm:w-80">
+            <a href={DOWNLOADS.mac}>
               <Apple className="mr-2 h-5 w-5" />
               {t('finalCta.downloadMac')}
-            </Button>
-          </a>
+            </a>
+          </Button>
         </div>
       </div>
     </section>

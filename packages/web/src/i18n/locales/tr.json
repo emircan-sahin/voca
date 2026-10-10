@@ -1,15 +1,16 @@
 {
   "banner": {
-    "promo": "🎉 Hemen indir — 1 ay MAX plan ücretsiz ($3 kredi dahil)!"
+    "promo": "Voca artık tamamen ücretsiz. Plan yok, kart yok."
   },
   "navbar": {
     "features": "Özellikler",
-    "pricing": "Fiyatlar",
+    "pricing": "Ücretsiz",
     "download": "İndir",
-    "faq": "SSS"
+    "faq": "SSS",
+    "language": "Dil"
   },
   "hero": {
-    "badge": "Açık kaynak · 1 ay ücretsiz, kart gerekmez",
+    "badge": "Açık kaynak · Tamamen ücretsiz",
     "headingTop": "Konuş, zaten",
     "headingBottom": "yapıştırıldı.",
     "description": "Bir kısayola bas, konuş ve AI ile düzeltilmiş transkript imleçinizin olduğu yere gelsin. 100'den fazla dile anında çevirin.",
@@ -51,24 +52,26 @@
       },
       {
         "title": "Açık kaynak ve özel",
-        "description": "MIT lisansı altında tamamen açık kaynak. Ses kendi API anahtarlarınızla işlenir — veri toplama yok, analitik yok, üçüncü taraf sunucu yok."
+        "description": "MIT lisansıyla tamamen açık kaynak, sesinize ne olduğunu kodda kendiniz görebilirsiniz. Ses, yazıya döküldükten hemen sonra silinir. Gizlilik Modu açıkken transkriptleriniz sunucularımıza hiç kaydedilmez."
       }
     ]
   },
   "pricing": {
-    "heading": "Uygun fiyatlı planlar, tüm özellikler dahil.",
-    "description": "Her iki plan da tüm özellikleri açar. Gizli ücret yok, sürpriz yok — kullanımınıza uygun olanı seçin.",
-    "perMonth": "/ay",
-    "creditsIncluded": "Her ay ${{credits}} kredi dahil",
+    "heading": "Voca ücretsiz.",
+    "description": "Plan yok, kart yok. İndirin ve konuşmaya başlayın.",
+    "badge": "Ücretsiz",
+    "tagline": "Her özellik dahil, kart gerekmez.",
     "features": [
       "Deepgram Nova-3 ve Groq Whisper",
       "100'den fazla dile AI çeviri",
       "Geliştirici ve Kişisel ton modları",
       "Sayısal ve Planlama eklentileri",
-      "Kayıt başına en fazla {{limit}}"
+      "Kişisel sözlük: isimleriniz ve terimleriniz doğru yazılır",
+      "Bas-konuş ve basılı tutarak konuş kısayolları",
+      "Transkript geçmişi",
+      "Gizlilik modu"
     ],
-    "downloadToGet": "İndir ve ücretsiz dene",
-    "freeTrial": "Kayıtta 1 ay ücretsiz — kredi kartı gerekmez"
+    "downloadToGet": "Ücretsiz indir"
   },
   "faq": {
     "heading": "Sıkça Sorulan Sorular",
@@ -78,17 +81,15 @@
       {
         "question": "Ücretsiz mi?",
         "answer": [
-          "Kaydolun ve ilk ayınızı ücretsiz kullanın — tüm özellikler, $3 kredi, kredi kartı gerekmez. Plan seçmenize gerek yok.",
-          "Ücretsiz ayın ardından planlar sadece aylık $3'dan başlar. Gizli ücret yok, sürpriz fatura yok. Ne görüyorsanız onu ödersiniz.",
-          "Rakipler aylık ~$8 abonelik üzerine ekstra API key ücreti alıyor. Voca'da her şey tek bir aboneliğe dahil."
+          "Evet, Voca tamamen ücretsiz. Plan yok, kart yok. İndirin, tüm özellikler sizin.",
+          "Üstelik açık kaynak. Kodun her satırını kendiniz inceleyebilirsiniz."
         ]
       },
       {
-        "question": "İstediğim zaman iptal edebilir miyim?",
+        "question": "Ödeme yapmam veya kart girmem gerekiyor mu?",
         "answer": [
-          "Evet. İstediğiniz zaman iptal edin — mevcut dönem aktif kalır, bir sonraki ay yenilenmez.",
-          "İptal ücreti yok, gizli şart yok, zorlayıcı süreç yok. Tek tıkla tamam.",
-          "Her şey açık kaynak. Faturalandırmamızı, kodumuzu ve vaatlerimizi doğrulayabilirsiniz — hiçbir şey gizli değil."
+          "Hayır. Google ile giriş yapıp konuşmaya başlıyorsunuz.",
+          "Sizden kart ya da ödeme bilgisi istemiyoruz."
         ]
       },
       {
@@ -120,8 +121,8 @@
         "question": "Verilerim nerede saklanıyor?",
         "answer": [
           "Verileriniz gizlilik odaklı bir yaklaşımla sunucularımızda işlenir. Voca tamamen açık kaynak — her satır kodu kendiniz inceleyebilirsiniz.",
-          "Sunucuda hiçbir şeyin saklanmasını istemiyorsanız Ayarlar'dan tek tuşla kapatabilirsiniz. Kayıtlarınız ve transkriptleriniz tutulmaz — karar tamamen sizin.",
-          "Takip yok, analitik yok, veri satışı yok. Nokta."
+          "Transkriptlerinizin sunucularımızda saklanmasını istemiyorsanız Ayarlar'dan Gizlilik Modu'nu açın. Her transkript size bir kez gösterilir ve hiç kaydedilmez. Karar tamamen sizin.",
+          "Verilerinizi satmıyoruz, reklam göstermiyoruz. Uygulamada analitik yok. Web sitesi ziyaret istatistikleri için Google Analytics kullanıyor, ayrıntılar Gizlilik Politikası'nda."
         ]
       },
       {
@@ -134,22 +135,21 @@
       {
         "question": "Yeni özellikler gelecek mi?",
         "answer": [
-          "Kesinlikle. Voca aktif olarak geliştirilen bir platform — düzenli olarak yeni özellikler, iyileştirmeler ve optimizasyonlar yayınlıyoruz.",
-          "Geri bildiriminiz yol haritamızı doğrudan şekillendiriyor. Bir hata buldunuz veya özellik isteğiniz mi var? Footer'daki email veya sosyal medya linklerinden bize ulaşın — her mesajı okuyoruz.",
-          "Abone olduğunuzda sadece bugünkü ürünü almıyorsunuz. Gelecekteki tüm güncellemeleri de ekstra ücret ödemeden alıyorsunuz."
+          "Kesinlikle. Voca aktif olarak geliştirilen bir platform. Düzenli olarak yeni özellikler, iyileştirmeler ve optimizasyonlar yayınlıyoruz.",
+          "Geri bildiriminiz yol haritamızı doğrudan şekillendiriyor. Bir hata buldunuz veya özellik isteğiniz mi var? Footer'daki email veya sosyal medya linklerinden bize ulaşın, her mesajı okuyoruz."
         ]
       }
     ]
   },
   "finalCta": {
     "heading": "Bir tuşa bas, konuş, tamam.",
-    "description": "Yazıya dökme, düzeltme, çeviri ve yapıştırma — hepsi tek kısayolla, uygumanızdan ayrılmadan. Açık kaynak, macOS ve Windows'da çalışır.",
+    "description": "Yazıya dökme, düzeltme, çeviri ve yapıştırma tek kısayolla, uygulamanızdan ayrılmadan. Ücretsiz, açık kaynak, macOS ve Windows'da çalışır.",
     "downloadWindows": "Windows için indir",
     "downloadMac": "macOS için indir"
   },
   "footer": {
     "features": "Özellikler",
-    "pricing": "Fiyatlar",
+    "pricing": "Ücretsiz",
     "faq": "SSS",
     "terms": "Şartlar",
     "privacy": "Gizlilik",
@@ -163,7 +163,7 @@
   },
   "terms": {
     "title": "Kullanım Koşulları",
-    "lastUpdated": "Son güncelleme: 26 Şubat 2026",
+    "lastUpdated": "Son güncelleme: 10 Ekim 2026",
     "agreement": {
       "heading": "1. Koşulların Kabulü",
       "content": "Voca'yı (\"Hizmet\") indirerek, yükleyerek veya kullanarak bu Kullanım Koşullarını kabul etmiş olursunuz. Kabul etmiyorsanız Hizmeti kullanmayın. Voca, Emircan Şahin (\"biz\", \"bizim\") tarafından işletilmektedir."
@@ -176,16 +176,9 @@
       "heading": "3. Hesaplar",
       "content": "Hizmeti kullanmak için bir Google hesabıyla oturum açmanız gerekir. Hesabınızın güvenliğini sağlamak sizin sorumluluğunuzdadır ve kimlik bilgilerinizi paylaşmamalı veya başkalarının hesabınıza erişmesine izin vermemelisiniz."
     },
-    "billing": {
-      "heading": "4. Abonelikler ve Faturalandırma",
-      "items": [
-        "Voca iki ücretli plan sunar: <b>Pro ($3/ay)</b> ve <b>Max ($10/ay)</b>. Her iki plan da tüm özellikleri içerir.",
-        "Her plan, kullanıma göre tüketilen aylık krediler içerir.",
-        "Yeni hesaplar otomatik olarak <b>ilk ayı ücretsiz</b> alır — $3 kredi, kredi kartı gerekmez.",
-        "Ödemeler, Kayıtlı Satıcımız olan <b>Paddle</b> tarafından işlenir. Paddle faturalandırma, vergiler, faturalama ve iadeleri yönetir. Abone olarak <paddleTerms>Paddle'ın Koşullarını</paddleTerms> da kabul etmiş olursunuz.",
-        "Abonelikler otomatik olarak yenilenir. İstediğiniz zaman iptal edebilirsiniz — erişiminiz mevcut fatura döneminin sonuna kadar devam eder.",
-        "Kullanılmayan krediler bir sonraki fatura dönemine aktarılmaz."
-      ]
+    "pricing": {
+      "heading": "4. Fiyatlandırma",
+      "content": "Voca ücretsizdir. İleride ücretli özellikler ekleyebiliriz. Böyle bir değişiklik olursa önceden duyurulur ve geçmiş kullanımınız için geriye dönük ücret alınmaz."
     },
     "use": {
       "heading": "5. Kabul Edilebilir Kullanım",
@@ -211,7 +204,7 @@
     },
     "termination": {
       "heading": "9. Fesih",
-      "content": "Bu Koşulların ihlali durumunda erişiminizi askıya alabilir veya sonlandırabiliriz. Hizmeti kullanmayı bırakabilir ve aboneliğinizi istediğiniz zaman iptal edebilirsiniz."
+      "content": "Bu Koşulların ihlali durumunda erişiminizi askıya alabilir veya sonlandırabiliriz. Hizmeti istediğiniz zaman kullanmayı bırakabilirsiniz."
     },
     "changes": {
       "heading": "10. Koşullarda Değişiklikler",
@@ -224,70 +217,93 @@
   },
   "privacy": {
     "title": "Gizlilik Politikası",
-    "lastUpdated": "Son güncelleme: 26 Şubat 2026",
+    "lastUpdated": "Son güncelleme: 10 Ekim 2026",
     "intro": {
       "heading": "1. Giriş",
-      "content": "Bu Gizlilik Politikası, Emircan Şahin (\"biz\", \"bizim\") tarafından işletilen Voca'nın (\"Hizmet\") bilgilerinizi nasıl topladığını, kullandığını ve koruduğunu açıklar."
+      "content": "Bu Gizlilik Politikası, Emircan Şahin (\"biz\", \"bizim\") tarafından işletilen Voca'nın (\"Hizmet\"), usevoca.dev sitesini ziyaret ettiğinizde ve Voca masaüstü uygulamasını kullandığınızda bilgilerinizi nasıl topladığını, kullandığını ve koruduğunu açıklar."
+    },
+    "website": {
+      "heading": "2. Web Sitemiz",
+      "content": "usevoca.dev web sitesi, ziyaretçilerin siteyi nasıl kullandığını görmek için <b>Google Analytics</b> kullanır. Google Analytics çerez yerleştirir ve ziyaret ettiğiniz sayfalar, yaklaşık konumunuz, cihaz ve tarayıcı türünüz gibi kullanım istatistiklerini toplar. Bu istatistikleri siteyi geliştirmek için toplu olarak inceleriz. Reklam amacıyla kullanmayız ve Voca hesabınızla ilişkilendirilmezler.",
+      "optOut": "Google Analytics'i tarayıcınızın çerez ayarlarından, bir içerik engelleyici eklentiyle ya da Google'ın <optOut>devre dışı bırakma eklentisiyle</optOut> engelleyebilirsiniz. Site engellendiğinde de aynı şekilde çalışır. Masaüstü uygulaması Google Analytics ya da başka bir analitik aracı kullanmaz."
     },
     "collection": {
-      "heading": "2. Topladığımız Bilgiler",
-      "account": "<b>Hesap bilgileri:</b> Google ile oturum açtığınızda adınızı, e-posta adresinizi ve profil fotoğrafınızı alırız. Bu yalnızca kimlik doğrulama için kullanılır.",
-      "transcripts": "<b>Transkriptler:</b> Yazıya dökülen metinleriniz ve çevirileriniz uygulama içinde erişebilmeniz için saklanır.",
-      "billing": "<b>Fatura bilgileri:</b> Ödeme detayları tamamen Kayıtlı Satıcımız olan <b>Paddle</b> tarafından toplanır ve işlenir. Ödeme kartı bilgilerinizi saklamıyor veya bunlara erişmiyoruz."
-    },
-    "audio": {
-      "heading": "3. Ses Verileri",
+      "heading": "3. Uygulamada Topladığımız Bilgiler",
+      "intro": "Masaüstü uygulamasına Google hesabınızla giriş yaparsınız. Sakladığımız bilgiler:",
       "items": [
-        "Ses dosyaları transkripsiyon sonrası <b>hemen silinir</b>. Kayıtları işleme süresinin ötesinde asla saklamayız.",
-        "Ses, transkripsiyon için konuşma-metin sağlayıcılarına gönderilir. Herhangi bir kopya tutmuyoruz."
+        "<b>Hesap bilgileri:</b> adınız, e-posta adresiniz, profil fotoğrafı bağlantınız ve Google hesap kimliğiniz. Bunları oturumunuzu açmak ve hesabınızı tanımak için kullanırız.",
+        "<b>Uygulama ayarları:</b> ses tanıma sağlayıcınız, diller ve çeviri seçenekleri gibi tercihleriniz.",
+        "<b>Kişisel sözlük:</b> isimlerinizin ve terimlerinizin doğru yazılması için eklediğiniz kelimeler."
       ]
     },
-    "privacyMode": {
-      "heading": "4. Gizlilik Modu",
-      "content": "Voca, Ayarlar'da isteğe bağlı bir Gizlilik Modu sunar. Etkinleştirildiğinde yalnızca en son transkript tutulur — her yeni transkripsiyon öncekini siler. Etkinleştirmek ayrıca mevcut tüm transkriptleri siler."
+    "audio": {
+      "heading": "4. Ses Kayıtları",
+      "items": [
+        "Voca yalnızca kayıt kısayolunu basılı tuttuğunuzda ya da açıp kapattığınızda ses kaydeder. Arka planda sizi dinlemez.",
+        "Kaydınız şifreli bir HTTPS bağlantısıyla sunucumuza yüklenir ve Ayarlar'da seçtiğiniz ses tanıma sağlayıcısına (<b>Groq</b> veya <b>Deepgram</b>) gönderilir.",
+        "Ses dosyası, yazıya dökme işlemi başarılı olsun ya da olmasın, biter bitmez sunucumuzdan <b>hemen silinir</b>. Kayıtlarınızın hiçbir kopyasını tutmayız."
+      ]
+    },
+    "translation": {
+      "heading": "5. Çeviri ve Üslup",
+      "content": "Uygulamada çeviriyi açarsanız, yazıya dökülen metin, çevrilmesi ve seçtiğiniz üslup ile eklentilerin uygulanması için <b>xAI (Grok)</b> hizmetine gönderilir. xAI yalnızca metni alır, sesinizi asla almaz."
+    },
+    "transcripts": {
+      "heading": "6. Transkriptler ve Gizlilik Modu",
+      "content": "Varsayılan olarak transkriptleriniz, Geçmiş'te görünmeleri için veritabanımızda saklanır. Dilediğiniz transkripti istediğiniz zaman silebilirsiniz.",
+      "privacyMode": "<b>Gizlilik Modu</b> (uygulamanın Ayarlar bölümünde): açıkken transkriptleriniz sunucularımıza hiç kaydedilmez. Her sonuç size bir kez gösterilir ve uygulamayı kapattığınızda kaybolur. Gizlilik Modu'nu açmak mevcut tüm transkriptlerinizi de siler."
+    },
+    "logs": {
+      "heading": "7. Sistem Kayıtları",
+      "content": "Sunucumuz, Hizmeti çalışır tutmak ve sorunları gidermek için teknik kayıtlar (log) tutar. Bu kayıtlar hataları ve ses süresi, dil, işlem maliyeti gibi istek bilgilerini içerir. Sesinizi ya da transkriptlerinizin metnini asla içermez."
     },
     "thirdParty": {
-      "heading": "5. Üçüncü Taraf Hizmetleri",
-      "intro": "Temel işlevselliği sağlamak için üçüncü taraf hizmetleri kullanıyoruz. Verileriniz bu sağlayıcılar tarafından kendi gizlilik politikalarına uygun olarak işlenebilir:",
-      "paddle": "<b>Paddle</b> — Ödeme işleme. <paddlePrivacy>Gizlilik Politikası</paddlePrivacy>",
-      "google": "<b>Google</b> — Kimlik doğrulama ve çeviri. <googlePrivacy>Gizlilik Politikası</googlePrivacy>"
+      "heading": "8. Üçüncü Taraf Hizmetleri",
+      "intro": "Voca'yı çalıştırmak için aşağıdaki sağlayıcılarla çalışıyoruz. Her biri verileri kendi gizlilik politikasına göre işler:",
+      "items": {
+        "google": "<b>Google:</b> uygulamada oturum açma ve web sitesi analitiği. <policy>Gizlilik Politikası</policy>",
+        "groq": "<b>Groq:</b> ses tanıma. Sağlayıcı olarak Groq'u seçtiğinizde sesinizi alır. <policy>Gizlilik Politikası</policy>",
+        "deepgram": "<b>Deepgram:</b> ses tanıma. Sağlayıcı olarak Deepgram'i seçtiğinizde sesinizi alır. <policy>Gizlilik Politikası</policy>",
+        "xai": "<b>xAI:</b> çeviri, üslup ve eklentiler. Çeviri açıkken transkript metninizi alır. <policy>Gizlilik Politikası</policy>",
+        "paddle": "<b>Paddle:</b> ücretli planlar için ödeme işlemleri. Voca şu anda ücretsiz. Paddle ancak ileride ücretli planlar sunulur ve siz abone olmayı seçerseniz veri alır. <policy>Gizlilik Politikası</policy>",
+        "hosting": "<b>Barındırma ve veritabanı sağlayıcıları:</b> sunucularımızı çalıştırır, hesap verilerinizi ve transkriptlerinizi bizim adımıza saklar."
+      }
     },
     "noCollect": {
-      "heading": "6. Toplamadığımız Bilgiler",
+      "heading": "9. Yapmadıklarımız",
       "items": [
-        "Analitik veya takip yok.",
-        "Reklam tanımlayıcıları yok.",
-        "Verilerinizi pazarlama amacıyla satma veya paylaşma yok."
+        "Kişisel verilerinizi satmaz veya kiralamayız.",
+        "Reklam göstermez, verilerinizi reklam amacıyla kullanmayız.",
+        "Ses kayıtlarınızın kopyasını tutmayız."
       ]
     },
     "retention": {
-      "heading": "7. Veri Saklama",
+      "heading": "10. Veri Saklama",
       "items": [
-        "<b>Ses:</b> İşlemden hemen sonra silinir.",
-        "<b>Transkriptler:</b> Siz silinceye veya Gizlilik Modu onları kaldırıncaya kadar saklanır.",
-        "<b>Hesap:</b> Aktif olduğu sürece tutulur. Silme talebi için bizimle iletişime geçin."
+        "<b>Ses:</b> yazıya döküldükten hemen sonra sunucumuzdan silinir.",
+        "<b>Transkriptler:</b> siz silene kadar saklanır. Gizlilik Modu açıkken hiç saklanmaz.",
+        "<b>Hesap, ayarlar ve sözlük:</b> hesabınız aktif olduğu sürece saklanır. Silinmesini talep etmek için bize ulaşın."
       ]
     },
     "rights": {
-      "heading": "8. Haklarınız",
+      "heading": "11. Haklarınız",
       "intro": "Aşağıdaki haklara sahipsiniz:",
       "items": [
-        "Uygulama aracılığıyla verilerinize erişme.",
-        "Transkriptlerinizi tek tek veya Gizlilik Modu ile silme.",
-        "Bizimle iletişime geçerek hesabınızın tamamen silinmesini talep etme.",
-        "Aboneliğinizi istediğiniz zaman iptal etme."
+        "Transkriptlerinize ve ayarlarınıza uygulama içinden erişme.",
+        "Transkriptleri istediğiniz zaman tek tek ya da Gizlilik Modu'nu açarak topluca silme.",
+        "Bize ulaşarak hesap verilerinizin bir kopyasını ya da tamamen silinmesini talep etme."
       ]
     },
     "children": {
-      "heading": "9. Çocukların Gizliliği",
+      "heading": "12. Çocukların Gizliliği",
       "content": "Hizmet 13 yaşın altındaki çocuklara yönelik değildir. Çocuklardan bilerek kişisel bilgi toplamıyoruz."
     },
     "changes": {
-      "heading": "10. Bu Politikadaki Değişiklikler",
-      "content": "Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Değişikliklerden sonra Hizmeti kullanmaya devam etmeniz, güncellenen politikanın kabulü anlamına gelir."
+      "heading": "13. Bu Politikadaki Değişiklikler",
+      "content": "Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Sayfanın başındaki tarih en güncel sürümü gösterir. Değişikliklerden sonra Hizmeti kullanmaya devam etmeniz, güncellenen politikanın kabulü anlamına gelir."
     },
     "contact": {
-      "heading": "11. İletişim",
+      "heading": "14. İletişim",
       "content": "Bu Gizlilik Politikası hakkında sorularınız varsa <email>contact@usevoca.dev</email> adresinden bize ulaşın."
     }
   },
@@ -313,6 +329,23 @@
     "contact": {
       "heading": "5. İletişim",
       "content": "Bu İade Politikası hakkında sorularınız varsa <email>contact@usevoca.dev</email> adresinden bize ulaşın."
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Voca | AI ile sesten yazıya",
+      "description": "Sesinizi AI düzeltmeleriyle yazıya döken ve 100'den fazla dile çeviren ücretsiz, açık kaynak masaüstü uygulaması. Kısayola basın, konuşun, sonuç imlecinizin olduğu yere yapıştırılsın."
+    },
+    "terms": {
+      "title": "Kullanım Koşulları | Voca",
+      "description": "Voca Kullanım Koşulları: Voca masaüstü uygulamasının kullanım şartları, kabul edilebilir kullanım kuralları ve koşulları."
+    },
+    "privacy": {
+      "title": "Gizlilik Politikası | Voca",
+      "description": "Voca Gizlilik Politikası: hangi verileri topladığımız, nasıl işlediğimiz, hangi sağlayıcılara gittiği ve gizlilik haklarınız."
+    },
+    "notFound": {
+      "title": "Sayfa bulunamadı (404) | usevoca.dev"
     }
   }
 }

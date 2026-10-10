@@ -4,11 +4,6 @@ import Footer from '~/components/Footer';
 
 const linkClass = 'text-red-600 underline underline-offset-2 hover:text-red-700';
 
-const billingComponents = {
-  b: <strong />,
-  paddleTerms: <a href="https://www.paddle.com/legal/terms" target="_blank" rel="noopener noreferrer" className={linkClass} />,
-};
-
 const boldComponent = { b: <strong /> };
 
 const emailComponents = {
@@ -24,7 +19,7 @@ export default function Terms() {
       <main className="px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-4xl">
           <h1 className="mb-2 text-4xl font-bold tracking-tight text-neutral-900">{t('terms.title')}</h1>
-          <p className="mb-12 text-sm text-neutral-400">{t('terms.lastUpdated')}</p>
+          <p className="mb-12 text-sm text-neutral-500">{t('terms.lastUpdated')}</p>
 
           <div className="space-y-10 text-neutral-700 [&_h2]:mb-3 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-neutral-900 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5">
             <section>
@@ -43,14 +38,8 @@ export default function Terms() {
             </section>
 
             <section>
-              <h2>{t('terms.billing.heading')}</h2>
-              <ul>
-                {(t('terms.billing.items', { returnObjects: true }) as string[]).map((_, i) => (
-                  <li key={i}>
-                    <Trans i18nKey={`terms.billing.items.${i}`} components={billingComponents} />
-                  </li>
-                ))}
-              </ul>
+              <h2>{t('terms.pricing.heading')}</h2>
+              <p>{t('terms.pricing.content')}</p>
             </section>
 
             <section>

@@ -21,7 +21,7 @@ export default function Refund() {
       <main className="px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-4xl">
           <h1 className="mb-2 text-4xl font-bold tracking-tight text-neutral-900">{t('refund.title')}</h1>
-          <p className="mb-12 text-sm text-neutral-400">{t('refund.lastUpdated')}</p>
+          <p className="mb-12 text-sm text-neutral-500">{t('refund.lastUpdated')}</p>
 
           <div className="space-y-10 text-neutral-700 [&_h2]:mb-3 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-neutral-900 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5">
             <section>
