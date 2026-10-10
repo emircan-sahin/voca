@@ -2,6 +2,7 @@ import Groq from 'groq-sdk';
 import fs from 'fs';
 import { env } from '~/config/env';
 import { logger } from '~/config/logger';
+import { buildBiasTerms, toPromptWords, WHISPER_PROMPT_TOKEN_BUDGET } from '~/config/stt';
 
 const groq = new Groq({ apiKey: env.GROQ_API_KEY });
 
@@ -29,20 +30,25 @@ export interface TranscriptionResult {
   hallucination: boolean;
 }
 
-export const transcribeAudio = async (filePath: string, language: string): Promise<TranscriptionResult> => {
+export const transcribeAudio = async (filePath: string, language: string, vocabulary: string[] = []): Promise<TranscriptionResult> => {
   const stat = fs.statSync(filePath);
   logger.info('Groq', `Transcribing ${filePath} (${(stat.size / 1024).toFixed(1)} KB) lang:${language}`);
+
+  const promptTerms = buildBiasTerms(vocabulary, language, { maxTokens: WHISPER_PROMPT_TOKEN_BUDGET });
 
   const transcription = (await groq.audio.transcriptions.create({
     file: fs.createReadStream(filePath),
     model: 'whisper-large-v3-turbo',
     response_format: 'verbose_json',
     language,
+    // Whisper treats the prompt as prior context, so it biases spelling toward these words
+    ...(promptTerms.length > 0 && { prompt: promptTerms.join(', ') }),
   })) as unknown as VerboseTranscription;
 
   const duration = transcription.duration ?? 0;
-  const cost = (duration / 3600) * 0.111; // $0.111/hour — whisper-large-v3-turbo
-  const hallucination = isHallucination(transcription);
+  // whisper-large-v3-turbo: $0.04/hour, billed with a 10 s minimum per request (console.groq.com/docs/models, 2026-10)
+  const cost = (Math.max(duration, 10) / 3600) * 0.04;
+  const hallucination = isHallucination(transcription, toPromptWords(promptTerms));
 
   logger.info('Groq', `Done — lang:${transcription.language} dur:${duration.toFixed(1)}s cost:$${cost.toFixed(6)}${hallucination ? ' [HALLUCINATION]' : ''}`, { language: transcription.language, duration, cost, hallucination });
 
@@ -55,7 +61,7 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
   };
 };
 
-function isHallucination(t: VerboseTranscription): boolean {
+function isHallucination(t: VerboseTranscription, promptWords: Set<string>): boolean {
   const duration = t.duration ?? 0;
   const segments = t.segments ?? [];
 
@@ -74,6 +80,12 @@ function isHallucination(t: VerboseTranscription): boolean {
   const normalized = t.text.trim().toLowerCase().replace(/\s+/g, ' ');
   const patterns = ['altyazı m.k.', 'altyazılar m.k.', 'alt yazı m.k.'];
   if (patterns.some((p) => normalized === p || normalized.startsWith(p))) {
+    return true;
+  }
+
+  // Signal 4: on near-silent audio Whisper echoes the prompt back (the terms we sent)
+  const words = normalized.split(/[^\p{L}]+/u).filter(Boolean);
+  if (words.length >= 4 && words.every((w) => promptWords.has(w))) {
     return true;
   }
 

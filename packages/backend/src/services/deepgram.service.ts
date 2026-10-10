@@ -2,15 +2,23 @@ import { createClient } from '@deepgram/sdk';
 import fs from 'fs';
 import { env } from '~/config/env';
 import { logger } from '~/config/logger';
+import { buildBiasTerms, DEEPGRAM_KEYTERM_MAX_COUNT, DEEPGRAM_KEYTERM_TOKEN_BUDGET } from '~/config/stt';
 import { TranscriptionResult } from '~/services/groq.service';
 
 const deepgram = createClient(env.DEEPGRAM_API_KEY);
 
-const COST_PER_HOUR = 0.462; // $0.0077/min — nova-3
+// Pay-as-you-go pre-recorded nova-3, $/min (deepgram.com/pricing, checked 2026-10)
+const COST_PER_MIN = 0.0043;
+const KEYTERM_COST_PER_MIN = 0.0013;
 
-export const transcribeAudio = async (filePath: string, language: string): Promise<TranscriptionResult> => {
+export const transcribeAudio = async (filePath: string, language: string, vocabulary: string[] = []): Promise<TranscriptionResult> => {
   const stat = fs.statSync(filePath);
   logger.info('Deepgram', `Transcribing ${filePath} (${(stat.size / 1024).toFixed(1)} KB) lang:${language}`);
+
+  const keyterms = buildBiasTerms(vocabulary, language, {
+    maxTokens: DEEPGRAM_KEYTERM_TOKEN_BUDGET,
+    maxCount: DEEPGRAM_KEYTERM_MAX_COUNT,
+  });
 
   const { result, error } = await deepgram.listen.prerecorded.transcribeFile(
     fs.readFileSync(filePath),
@@ -18,6 +26,8 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
       model: 'nova-3',
       smart_format: true,
       language,
+      // Turkish isn't in Deepgram's `multi` code-switching set, so bias the monolingual model instead
+      ...(keyterms.length > 0 && { keyterm: keyterms }),
     }
   );
 
@@ -32,7 +42,7 @@ export const transcribeAudio = async (filePath: string, language: string): Promi
   const text = alt.transcript;
   const confidence = alt.confidence;
   const duration = result.metadata.duration;
-  const cost = (duration / 3600) * COST_PER_HOUR;
+  const cost = (duration / 60) * (COST_PER_MIN + (keyterms.length > 0 ? KEYTERM_COST_PER_MIN : 0));
 
   const hallucination = !text.trim() || confidence < 0.3;
 
