@@ -93,3 +93,38 @@ Mistakes caught during development. Review at the start of every session.
 - **Wrong**: `setTimeout(() => setCopied(false), 1500)` inline — no cleanup on unmount
 - **Right**: Store timer in `useRef`, clear in `useEffect` cleanup: `return () => clearTimeout(ref.current)`
 - **Why**: If the component unmounts before the timeout fires, React warns about state updates on unmounted components. In strict mode, this causes double-fire bugs.
+
+### [Express] Async handler errors never reach errorMiddleware in Express 4
+- **Wrong**: `router.get('/x', authenticate, controller)` with an `async` controller that throws — unhandled rejection, request hangs, process can crash
+- **Right**: Wrap every async handler/middleware in `asyncHandler` (`~/utils/asyncHandler`) so rejections go to `next(err)`
+- **Why**: Only Express 5 forwards rejected promises; the "async controllers can throw" assumption came from Express 5 docs.
+
+### [Electron] alwaysOnTop windows don't show over other apps' fullscreen Spaces on macOS
+- **Wrong**: `setAlwaysOnTop(true, 'floating')` alone — overlay invisible while the user is in a fullscreen app
+- **Right**: macOS `type: 'panel'` + `setAlwaysOnTop(true, 'screen-saver')` + `setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true, skipTransformProcessType: true })`
+- **Why**: A regular NSWindow can't join a fullscreen Space; without `skipTransformProcessType` Electron hides the Dock icon to make it work.
+
+### [Zod] `z.coerce.boolean()` turns the string "false" into `true`
+- **Wrong**: `PADDLE_SANDBOX: z.coerce.boolean()` and `numeric: z.coerce.boolean()` for env vars / query params — `Boolean('false') === true`, so `PADDLE_SANDBOX=false` still hit the sandbox
+- **Right**: `z.enum(['true', 'false']).default('…').transform((v) => v === 'true')` for any string-sourced boolean
+- **Why**: `coerce` reads like "parse", but it is plain JS truthiness; every non-empty string is truthy.
+
+### [Edit] Trailing whitespace in an edit anchor gets dropped
+- **Wrong**: Replaced `export const TranscriptModel = ` (trailing space) and the new text came out as `TranscriptModel =model<`
+- **Right**: Anchor edits on whole tokens (`export const TranscriptModel = model<`), never on a string ending in whitespace
+- **Why**: The edit tool trims trailing whitespace from the strings, so the space between `=` and `model` silently disappeared.
+
+### [Workflow] Reverted another session's uncommitted work as "unrequested"
+- **Wrong**: A subagent reported index.html hunks it didn't make; assumed it was lying and restored them to HEAD
+- **Right**: Before reverting unexplained diffs, check file mtimes vs the agent's run window and `ListAgents` for other sessions in the same repo; ask if still unclear
+- **Why**: A second Claude session was editing packages/web concurrently; the working tree isn't only yours
+
+### [Express] A cleared cookie can come back as an empty value
+- **Wrong**: `challengeCookie === undefined ? null : schema.safeParse(challengeCookie)` — a client replaying `voca_oauth_challenge=` (from `clearCookie`) failed the legacy no-PKCE login with 400
+- **Right**: Treat an empty cookie like a missing one: `challengeCookie ? schema.safeParse(challengeCookie) : null`
+- **Why**: `res.clearCookie` sends `name=; Expires=1970`; browsers drop it, but proxies/test clients may still send the empty pair, and `readCookie` returns `''`, not `undefined`
+
+### [React Query] fetchNextPage/refetch never reject
+- **Wrong**: `fetchNextPage().catch((err) => console.warn(...))` in `useTranscription` — the catch was dead code
+- **Right**: Call it plainly; read failures from the query state (`error`, `isFetchNextPageError`). Only `throwOnError` makes it reject
+- **Why**: Assumed it behaves like the raw `queryFn` promise; the observer swallows the rejection into query state

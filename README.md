@@ -65,7 +65,7 @@ Press Right ⌘ (Mac) or Right ⊞ (Win)
 1. **Trigger** — Hit the global shortcut from anywhere. A small floating overlay confirms recording has started.
 2. **Speak** — Talk naturally. The overlay shows a live waveform and timer.
 3. **Stop** — Press the shortcut again (or click the stop button on the overlay).
-4. **Done** — The transcript is copied to your clipboard and automatically pasted into whatever app you were using.
+4. **Done** — The transcript is typed into whatever app you were using. On macOS it is typed directly without touching your clipboard; elsewhere it is pasted and your previous clipboard is restored.
 
 All transcripts are also saved locally in MongoDB so you can search and revisit them later.
 
@@ -159,6 +159,8 @@ PADDLE_WEBHOOK_SECRET=your_paddle_webhook_secret_here
 PADDLE_PRICE_PRO=pri_xxxxx                       # Paddle price ID for Pro plan
 PADDLE_PRICE_MAX=pri_xxxxx                       # Paddle price ID for Max plan
 PADDLE_SANDBOX=true                              # true for sandbox, false for production
+TRUST_PROXY=0                                    # proxy hops in front of the server, or 'cloudflare'
+DAILY_AUDIO_LIMIT_MINUTES=180                    # per-user audio cap per UTC day
 ```
 
 ### macOS — Grant Permissions First
@@ -228,17 +230,9 @@ When translation is active, the shortcut-paste workflow sends the translated tex
 
 Translation is fully optional — it requires a free [Google AI Studio](https://aistudio.google.com) API key and can be toggled on/off at any time.
 
-## Plans
+## Pricing
 
-| Feature | Pro ($3/mo) | Max ($10/mo) |
-|---------|-------------|--------------|
-| Monthly free credits | $3 | $10 |
-| Groq & Deepgram transcription | Yes | Yes |
-| AI-enhanced tone & translation | Yes | Yes |
-| Numeric & Planning add-ons | Yes | Yes |
-| Max audio upload | 10 MB | 25 MB |
-
-Both plans include all AI features — tone-aware translation (Developer / Personal), Numeric formatting (spoken numbers → digits), and Planning mode (dictated lists → clean numbered output). Credits are deducted based on real API usage (STT + translation + 25% markup), so light users get months of value from a single plan.
+Voca is free. There are no plans, credits or subscriptions: every account gets Groq & Deepgram transcription, AI tone & translation, and the Numeric & Planning add-ons. To keep the hosted service sustainable, each account can transcribe up to 3 hours of audio per day (`DAILY_AUDIO_LIMIT_MINUTES`).
 
 ## Security & Privacy
 
@@ -248,7 +242,7 @@ Both plans include all AI features — tone-aware translation (Developer / Perso
 - **Rate Limiting** — IP-based limits: 60 req/min global, 10 req/min for auth and transcription endpoints
 - **Input Validation** — Zod schemas for all inputs, `LANGUAGE_CODES` enum for language fields, magic bytes verification for audio uploads
 - **CORS** — Configurable via `CORS_ORIGIN` env var, not hardcoded
-- **Billing Protection** — Credit deduction before transcript creation, atomic MongoDB operations
+- **Usage cap** — Per-user daily audio limit checked before upload, counted atomically in MongoDB
 
 ## Roadmap
 
@@ -259,7 +253,7 @@ Both plans include all AI features — tone-aware translation (Developer / Perso
 - [x] Rewrite recording overlay with React
 - [x] Numeric & Planning formatting options for translation
 - [x] Google OAuth authentication with deep link callback
-- [x] Credit-based billing system (Pro / Max plans)
+- [x] Credit-based billing system (Pro / Max plans), since retired: Voca is now free
 - [x] Rate limiting and CORS hardening
 - [ ] Verify Windows build and end-to-end functionality
 - [x] Multi-language UI (12 languages) with localized content

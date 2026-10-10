@@ -53,7 +53,7 @@ Three categorized cards:
 3. **Preferences** — Noise Suppression, Privacy Mode
 
 ## Authentication
-- Google OAuth opens system browser → `voca://auth/callback` deep link returns tokens
+- Google OAuth opens system browser with a PKCE `code_challenge` → `voca://auth/callback?code=` deep link carries a one-time code, main process exchanges it via `POST /auth/exchange` with the verifier (`electron/main/auth.ts`)
 - `auth.store.ts` (Zustand) holds `user`, `token`, `refreshToken` in memory
 - **Token storage** (`electron/main/auth.ts`):
   - macOS/Windows: `safeStorage` encrypted → `auth.bin` (OS keychain)
@@ -67,7 +67,7 @@ The interceptor chain in `~/lib/axios.ts` handles:
 | Status | Behavior |
 |--------|----------|
 | 401 | Auto-refresh token via `/auth/refresh`, queue concurrent requests, retry original |
-| 402 | Toast error + redirect to billing view |
+| 402 | Disabled while the app is free (redirect commented out) |
 | 429 | Toast error ("Too many requests") |
 | Other | Reject with `ApiError(message, data, status)` |
 
@@ -131,12 +131,21 @@ const res = await axiosInstance.post('/transcripts', formData);
 - Access error: `err.message`, `err.data` (structured validation errors)
 - Refresh the list after mutation with `queryClient.invalidateQueries`
 
-## Billing UI (Paddle)
+## Billing UI (Paddle) — disabled
+The app is free: the sidebar plan badge, plan expiry watcher and 402 redirect are commented out, not deleted. The notes below describe the paused flow.
 - Checkout opens as **inline overlay** via Paddle.js (`Paddle.Checkout.open()`)
 - Plan cards show Pro ($3/mo) and Max ($10/mo) with feature comparison
 - Active plan highlighted, remaining credits bar + expiry countdown
 - Cancel subscription via API (`DELETE /api/billing/subscription`)
 - 402 response → toast + auto-redirect to billing view
+
+## Paste Into the Focused App
+- `transcript:paste-text` IPC (`electron/main/index.ts`): macOS types single-line text directly with the native `voca-type` helper (`native/voca-type.c`, built by `scripts/build-native.mjs` into `resources/bin/`, shipped via mac `extraResources`), so the clipboard is never touched
+- Multi-line text, Windows, a missing helper or no Accessibility permission fall back to clipboard backup → Cmd/Ctrl+V → restore after 1 s
+- Toggle: `directTyping.store.ts` + `DirectTyping.tsx` in Settings (macOS only, default on)
+
+## Onboarding
+- `OnboardingWizard.tsx` (language, translation, try step) shows for accounts younger than 7 days until `onboarding.store.ts` marks it completed; Settings can replay it
 
 ## Toast Notifications
 Toast calls belong in hooks/components — **not** in the interceptor (exception: 402 and 429 are handled in interceptor for global UX consistency):

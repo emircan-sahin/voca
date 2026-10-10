@@ -14,7 +14,7 @@ Electron Renderer (React)
   → api wrapper (http://localhost:3100/api)
   → Express Routes (rate limited, CORS)
   → authenticate middleware (JWT)
-  → requireCredits middleware (billing)
+  → requireDailyQuota middleware (per-user daily audio cap)
   → Controller
   → Groq/Deepgram Service (STT) + xAI Grok (translation)
   → MongoDB (Mongoose)
@@ -23,15 +23,17 @@ Electron Renderer (React)
 
 ## Authentication Flow
 ```
-App → Opens browser → Google OAuth consent
-  → Callback → voca:// deep link with tokens
+App → Opens browser with PKCE code_challenge → Google OAuth consent
+  → Callback → voca:// deep link with a one-time code
+  → App exchanges code + verifier at POST /auth/exchange for tokens
   → Electron registers protocol handler
   → Stores JWT (15m access) + refresh token (7d) via safeStorage (encrypted)
   → Linux fallback: plaintext auth.json (when OS keychain unavailable)
   → Axios interceptor auto-refreshes on 401
 ```
 
-## Billing Flow (Paddle v2)
+## Billing Flow (Paddle v2) — disabled, Voca is free
+The billing code is commented out, not deleted. Re-enabling it restores this flow:
 ```
 User clicks Subscribe → Paddle checkout overlay opens (inline)
   → Payment processed by Paddle

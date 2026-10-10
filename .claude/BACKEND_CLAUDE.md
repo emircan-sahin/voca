@@ -50,7 +50,8 @@ Existing helpers: `toIUser()` in `auth.service.ts`, `toITranscript()` in `transc
 - `authenticate` middleware extracts user from Bearer token, attaches `req.user`
 - `requireAuthConfig()` guard checks `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `JWT_SECRET` (min 32 chars)
 
-## Billing & Credits (Paddle v2)
+## Billing & Credits (Paddle v2) — disabled
+Voca is free: `requireCredits` and credit deduction are commented out (not deleted) in `transcript.routes.ts` / `transcript.controller.ts`, and multer uses the `max` upload limit for everyone. The STT + translation cost is still computed and logged. The only cost brake is `requireDailyQuota` (`DAILY_AUDIO_LIMIT_MINUTES` per user per UTC day, counted by `recordAudioUsage` in `usage.service.ts`, 429 when exceeded). The notes below describe the paused flow.
 - Plans: `pro` ($3, 300¢ credits, 10 MB upload) and `max` ($10, 1000¢ credits, 25 MB upload)
 - Upload size enforced in multer middleware via `PLAN_UPLOAD_LIMIT` from `@voca/shared`
 - `requireCredits` middleware gates `POST /api/transcripts`
@@ -106,7 +107,7 @@ const transcription = await groq.audio.transcriptions.create({
   response_format: 'verbose_json',
 });
 ```
-Model: `whisper-large-v3-turbo` only. Cost: $0.111/hour.
+Model: `whisper-large-v3-turbo` only. Cost: $0.04/hour, billed with a 10 s minimum. The `prompt` carries bias terms from `buildBiasTerms()` (`src/config/stt.ts`), and a transcript made only of prompt words is treated as a prompt echo hallucination.
 
 ### Deepgram SDK
 ```typescript
@@ -117,7 +118,7 @@ const { result } = await deepgram.listen.prerecorded.transcribeFile(buffer, {
   language,
 });
 ```
-Model: `nova-3` only. Cost: $0.0077/min ($0.462/hour).
+Model: `nova-3` only. Cost: $0.0043/min, plus $0.0013/min when `keyterm` is sent. Keyterms come from `buildBiasTerms()`: the user's vocabulary first, then `ENGLISH_TECH_TERMS` for non-English speech so code-switched words ("high", "deploy") are recognized.
 
 ## Hallucination Detection
 Both services return a `hallucination: boolean` flag. If true, the controller deletes the audio file and returns a 422 error.
@@ -133,7 +134,7 @@ The controller validates `language` against `LANGUAGE_CODES` from `@voca/shared`
 - **Query params**: `transcribeQuerySchema` with `safeParse()` — invalid params return 400 and clean up uploaded file
 - **Settings**: `userSettingsSchema` validates `language` and `targetLanguage` against `LANGUAGE_CODES` enum
 - **File upload**: MIME type whitelist + magic bytes verification (WAV, MP3/ID3, OGG, WebM, MP4 headers)
-- **Auth**: `refreshBodySchema` validates refresh token body
+- **Auth**: `refreshBodySchema`, `logoutBodySchema`, `authExchangeSchema` (one-time code + PKCE verifier) validate auth bodies. Apps ≤ v0.0.12 send no `code_challenge` and still get the legacy tokens-in-URL deep link
 
 ## Multer — Audio File Handling
 - `upload.single('audio')` middleware wraps multer with post-upload magic bytes check
@@ -182,11 +183,13 @@ For each new resource:
 ```
 cors → express.json → globalLimiter → logging → routes → 404 handler → errorMiddleware
 ```
-Per-route: `authenticate → [rateLimiter] → [requireCredits] → [multer] → controller`
+Per-route: `authenticate → [rateLimiter] → [requireDailyQuota] → [requireNoActiveTranscription] → [multer] → controller`
+
+Wrap every async handler/middleware in `asyncHandler()` (`src/utils/asyncHandler.ts`): Express 4 does not forward rejected promises to `errorMiddleware`.
 
 ## Error Handling
 - `errorMiddleware` handles: `ZodError` (400), `MulterError` (400), unsupported audio format (400), `CastError` (400), unknown (500)
-- Async controllers can throw — errors fall through to `errorMiddleware`
+- Async controllers can throw — errors reach `errorMiddleware` only through `asyncHandler()`
 
 ## Import Rules
 - `~/` alias is mandatory, relative imports (`../../`) are **forbidden**
@@ -213,7 +216,9 @@ const envSchema = z.object({
   PADDLE_WEBHOOK_SECRET: z.string(),
   PADDLE_PRICE_PRO: z.string(),
   PADDLE_PRICE_MAX: z.string(),
-  PADDLE_SANDBOX: z.boolean().default(true),
+  PADDLE_SANDBOX: z.enum(['true', 'false']).default('true').transform((v) => v === 'true'),
+  TRUST_PROXY: z.union([z.literal('cloudflare'), z.coerce.number().int().min(0)]).default(0), // hops or 'cloudflare' (CF-Connecting-IP)
+  DAILY_AUDIO_LIMIT_MINUTES: z.coerce.number().positive().default(180),
   // Axiom Logging (optional)
   AXIOM_TOKEN: z.string().default(''),
   AXIOM_DATASET: z.string().default(''),
