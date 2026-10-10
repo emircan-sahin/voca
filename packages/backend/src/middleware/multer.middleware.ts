@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import { Request, Response, NextFunction } from 'express';
 import { BillingPlan, PLAN_UPLOAD_LIMIT } from '@voca/shared';
-import { UserModel } from '~/models/user.model';
+// import { UserModel } from '~/models/user.model'; // plan lookup disabled (free for everyone)
 import { sendError } from '~/utils/response';
 import { safeUnlink } from '~/utils/fs';
 
@@ -28,8 +28,11 @@ const AUDIO_SIGNATURES: { check: (buf: Buffer) => boolean }[] = [
 function isValidAudioFile(filePath: string): boolean {
   const fd = fs.openSync(filePath, 'r');
   const buf = Buffer.alloc(12);
-  fs.readSync(fd, buf, 0, 12, 0);
-  fs.closeSync(fd);
+  try {
+    fs.readSync(fd, buf, 0, 12, 0);
+  } finally {
+    fs.closeSync(fd);
+  }
   return AUDIO_SIGNATURES.some((sig) => sig.check(buf));
 }
 
@@ -46,7 +49,8 @@ const storage = multer.diskStorage({
 
 const multerUpload = multer({
   storage,
-  limits: { fileSize: 25 * 1024 * 1024 }, // 25 MB
+  // Only the audio file is expected; busboy's defaults allow unlimited 1 MB text fields held in memory.
+  limits: { fileSize: 25 * 1024 * 1024, files: 1, fields: 5, fieldSize: 1024 },
   fileFilter: (_req, file, cb) => {
     if (ALLOWED_MIME.includes(file.mimetype)) {
       cb(null, true);
@@ -61,27 +65,36 @@ export const upload = {
     multerUpload.single(field)(req, res, async (err) => {
       if (err) return next(err);
       if (!req.file) return next();
+      const { path: filePath, size } = req.file;
 
-      if (!isValidAudioFile(req.file.path)) {
-        safeUnlink(req.file.path);
-        return sendError(res, req.t('error.invalidAudio'), 400);
-      }
+      try {
+        if (!isValidAudioFile(filePath)) {
+          safeUnlink(filePath);
+          return sendError(res, req.t('error.invalidAudio'), 400);
+        }
 
-      // Plan-based file size limit
-      if (!req.user) {
-        safeUnlink(req.file.path);
-        return sendError(res, req.t('auth.unauthorized'), 401);
-      }
-      const user = await UserModel.findById(req.user.id).select('plan').lean();
-      const plan = (user?.plan ?? 'pro') as BillingPlan;
-      const limit = PLAN_UPLOAD_LIMIT[plan];
-      if (req.file.size > limit) {
-        safeUnlink(req.file.path);
-        const limitMB = limit / (1024 * 1024);
-        return sendError(res, req.t('error.fileTooLargePlan', { limit: limitMB, plan }), 400);
-      }
+        // Plan-based file size limit
+        if (!req.user) {
+          safeUnlink(filePath);
+          return sendError(res, req.t('error.unauthorized'), 401);
+        }
+        // Paid plans are disabled: everyone gets the top plan's limit.
+        // const user = await UserModel.findById(req.user.id).select('plan').lean();
+        // const plan = (user?.plan ?? 'pro') as BillingPlan;
+        const plan: BillingPlan = 'max';
+        const limit = PLAN_UPLOAD_LIMIT[plan];
+        if (size > limit) {
+          safeUnlink(filePath);
+          const limitMB = limit / (1024 * 1024);
+          return sendError(res, req.t('error.fileTooLargePlan', { limit: limitMB, plan }), 400);
+        }
 
-      next();
+        next();
+      } catch (e) {
+        // Async callback: a throw here is an unhandled rejection and would leak the temp file.
+        safeUnlink(filePath);
+        next(e);
+      }
     });
   },
 };

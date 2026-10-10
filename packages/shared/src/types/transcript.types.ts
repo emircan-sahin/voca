@@ -13,4 +13,5 @@ export interface ITranscript {
   translatedText?: string;
   targetLanguage?: string;
   tokenUsage?: ITokenUsage;
+  translationFailed?: boolean; // only on the create response, never persisted
 }

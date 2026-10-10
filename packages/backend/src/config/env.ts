@@ -16,7 +16,13 @@ const envSchema = z.object({
   PADDLE_WEBHOOK_SECRET: z.string().default(''),
   PADDLE_PRICE_PRO: z.string().default(''),
   PADDLE_PRICE_MAX: z.string().default(''),
-  PADDLE_SANDBOX: z.coerce.boolean().default(true),
+  // Not z.coerce.boolean(): Boolean('false') is true, so production would silently hit the sandbox.
+  PADDLE_SANDBOX: z.enum(['true', 'false']).default('true').transform((v) => v === 'true'),
+  // Reverse-proxy hops in front of the app, or 'cloudflare' to read the visitor IP from CF-Connecting-IP.
+  // Without it req.ip is the proxy and every user shares one rate-limit bucket.
+  TRUST_PROXY: z.union([z.literal('cloudflare'), z.coerce.number().int().min(0)]).default(0),
+  // Per-user cap on audio sent to STT per UTC day; the only cost limit while paid plans are disabled.
+  DAILY_AUDIO_LIMIT_MINUTES: z.coerce.number().positive().default(180),
   AXIOM_TOKEN: z.string().default(''),
   AXIOM_DATASET: z.string().default(''),
   BASE_URL: z.string().url('BASE_URL is required (e.g. http://localhost:3100/api)'),

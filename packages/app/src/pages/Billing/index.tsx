@@ -121,7 +121,7 @@ export const BillingView = () => {
   const statusInfo = subStatus ? STATUS_LABELS(t)[subStatus] : null;
 
   const plans = buildPlans(t);
-  const faqItems: { question: string; answer: string[] }[] = t('billing.faqItems', { returnObjects: true });
+  const faqItems = t('billing.faqItems', { returnObjects: true }) as { question: string; answer: string[] }[];
 
   return (
     <div className="p-6 space-y-6">
