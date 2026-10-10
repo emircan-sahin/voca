@@ -1,4 +1,4 @@
-import { PLAN_CREDITS, TRIAL_CREDITS, BillingPlan, SubscriptionStatus } from '@voca/shared';
+import { PLAN_CREDITS, TRIAL_CREDITS, SUBSCRIPTION_STATUSES, BillingPlan, SubscriptionStatus } from '@voca/shared';
 import { UserModel, IUserDocument } from '~/models/user.model';
 import { paddle } from '~/config/paddle';
 import { env } from '~/config/env';
@@ -34,6 +34,7 @@ export interface SubscriptionEventData {
   priceId: string;
   currentPeriodEnd: string | null;
   userId: string;
+  occurredAt: string;
 }
 
 function priceIdToPlan(priceId: string): BillingPlan | null {
@@ -81,27 +82,54 @@ function resolveCredits(
   return undefined;
 }
 
+const isSubscriptionStatus = (s: string): s is SubscriptionStatus =>
+  (SUBSCRIPTION_STATUSES as readonly string[]).includes(s);
+
 // ── Public API ──────────────────────────────────────────────────
 
 export async function handleSubscriptionEvent(data: SubscriptionEventData): Promise<void> {
   const user = await UserModel.findById(data.userId);
   if (!user) {
-    logger.warn('Billing', `User not found: ${data.userId}`);
+    logger.warn('Billing', 'User not found for subscription event', { subscriptionId: data.subscriptionId });
     return;
   }
 
-  const status = data.status as SubscriptionStatus;
+  // Paddle doesn't guarantee delivery order (retries included), so an older event must never
+  // overwrite a newer one. The filter re-checks atomically against a concurrent delivery.
+  const occurredAt = new Date(data.occurredAt);
+  if (user.lastPaddleEventAt && occurredAt < user.lastPaddleEventAt) {
+    logger.info('Billing', 'Skipping out-of-order subscription event', { subscriptionId: data.subscriptionId });
+    return;
+  }
+  const filter = {
+    _id: data.userId,
+    $or: [{ lastPaddleEventAt: null }, { lastPaddleEventAt: { $lte: occurredAt } }],
+  };
+
+  // Paddle also sends past_due/paused. updateOne skips enum validation, so storing one would
+  // make every later user.save() (e.g. login) fail; leave the user's state untouched instead.
+  const status = data.status;
+  if (!isSubscriptionStatus(status)) {
+    logger.warn('Billing', `Unhandled subscription status: ${status}`, { subscriptionId: data.subscriptionId, status });
+    return;
+  }
 
   // ── Canceled: subscription fully ended — reset to free ──
   // Handled before plan check — canceled events don't need plan info
   if (status === 'canceled') {
-    await UserModel.findByIdAndUpdate(data.userId, {
+    // A late cancel for a previous subscription must not wipe the one the user has now.
+    if (data.subscriptionId !== user.paddleSubscriptionId) {
+      logger.info('Billing', 'Skipping cancel for a non-current subscription', { subscriptionId: data.subscriptionId });
+      return;
+    }
+    await UserModel.updateOne(filter, {
       $set: {
         subscriptionStatus: 'canceled',
         cancelScheduled: false,
         plan: null,
         credits: 0,
         currentPeriodEnd: null,
+        lastPaddleEventAt: occurredAt,
       },
     });
     logger.info('Billing', `${data.subscriptionId} → canceled`, { subscriptionId: data.subscriptionId });
@@ -125,6 +153,7 @@ export async function handleSubscriptionEvent(data: SubscriptionEventData): Prom
     paddleSubscriptionId: data.subscriptionId,
     subscriptionStatus: status,
     currentPeriodEnd: periodEnd,
+    lastPaddleEventAt: occurredAt,
   };
 
   // Only reset cancelScheduled when meaningful state changes happen,
@@ -137,7 +166,7 @@ export async function handleSubscriptionEvent(data: SubscriptionEventData): Prom
     update.credits = credits;
   }
 
-  await UserModel.findByIdAndUpdate(data.userId, { $set: update });
+  await UserModel.updateOne(filter, { $set: update });
   logger.info('Billing', `${data.subscriptionId} → ${status} (${plan})${credits !== undefined ? ` credits=$${credits}` : ''}`, { subscriptionId: data.subscriptionId, status, plan, credits });
 }
 
@@ -154,10 +183,8 @@ export async function cancelSubscription(userId: string): Promise<void> {
   await UserModel.findByIdAndUpdate(userId, { $set: { cancelScheduled: true } });
 }
 
-export async function deductCredits(userId: string, amount: number): Promise<boolean> {
-  const result = await UserModel.updateOne(
-    { _id: userId, credits: { $gte: amount } },
-    { $inc: { credits: -amount } }
-  );
-  return result.modifiedCount > 0;
+// Called after the transcription is already paid for, so it never refuses: the balance may dip
+// below zero, and requireCredits (credits <= 0) blocks the next request instead.
+export async function deductCredits(userId: string, amount: number): Promise<void> {
+  await UserModel.updateOne({ _id: userId }, { $inc: { credits: -amount } });
 }

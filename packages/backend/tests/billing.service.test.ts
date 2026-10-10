@@ -45,6 +45,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_pro',
         currentPeriodEnd: '2026-04-01T00:00:00Z',
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -66,6 +67,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_max',
         currentPeriodEnd: '2026-04-01T00:00:00Z',
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -90,6 +92,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_pro',
         currentPeriodEnd: '2026-05-01T00:00:00Z',
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -115,6 +118,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_pro',
         currentPeriodEnd: '2026-05-01T00:00:00Z', // advanced
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -137,6 +141,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_pro',
         currentPeriodEnd: '2026-05-01T00:00:00Z', // same period
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -161,6 +166,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_max', // upgraded to max
         currentPeriodEnd: '2026-05-01T00:00:00Z',
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -188,6 +194,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: '', // canceled events may have empty priceId
         currentPeriodEnd: null,
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -209,6 +216,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_pro',
         currentPeriodEnd: '2026-05-01T00:00:00Z',
         userId: '000000000000000000000000',
+        occurredAt: new Date().toISOString(),
       });
     });
 
@@ -222,6 +230,7 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_unknown',
         currentPeriodEnd: '2026-05-01T00:00:00Z',
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
@@ -246,10 +255,86 @@ describe('handleSubscriptionEvent', () => {
         priceId: 'pri_test_pro',
         currentPeriodEnd: '2026-05-01T00:00:00Z', // same period
         userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
       });
 
       const updated = await UserModel.findById(user._id);
       expect(updated!.cancelScheduled).toBe(true); // preserved
+    });
+
+    it('should ignore an event older than the last one applied', async () => {
+      const user = await createUser({
+        plan: 'pro',
+        subscriptionStatus: 'active',
+        paddleSubscriptionId: 'sub_001',
+        credits: 3,
+        currentPeriodEnd: new Date('2026-05-01'),
+      });
+      const base = {
+        subscriptionId: 'sub_001',
+        customerId: 'ctm_001',
+        userId: user._id.toString(),
+      };
+
+      await handleSubscriptionEvent({ ...base, status: 'canceled', priceId: '', currentPeriodEnd: null, occurredAt: '2026-04-03T00:00:00Z' });
+      // Paddle retry of an earlier update arrives after the cancel
+      await handleSubscriptionEvent({ ...base, status: 'active', priceId: 'pri_test_pro', currentPeriodEnd: '2026-05-01T00:00:00Z', occurredAt: '2026-04-01T00:00:00Z' });
+
+      const updated = await UserModel.findById(user._id);
+      expect(updated!.subscriptionStatus).toBe('canceled');
+      expect(updated!.plan).toBeNull();
+      expect(updated!.credits).toBe(0);
+    });
+
+    it('should leave state untouched for statuses the app does not model (past_due)', async () => {
+      const user = await createUser({
+        plan: 'pro',
+        subscriptionStatus: 'active',
+        paddleSubscriptionId: 'sub_001',
+        credits: 2,
+        currentPeriodEnd: new Date('2026-05-01'),
+      });
+
+      await handleSubscriptionEvent({
+        subscriptionId: 'sub_001',
+        customerId: 'ctm_001',
+        status: 'past_due',
+        priceId: 'pri_test_pro',
+        currentPeriodEnd: '2026-05-01T00:00:00Z',
+        userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
+      });
+
+      const updated = await UserModel.findById(user._id);
+      expect(updated!.subscriptionStatus).toBe('active');
+      // A stored out-of-enum status would make this save fail validation
+      updated!.refreshToken = 'x';
+      await expect(updated!.save()).resolves.toBeDefined();
+    });
+
+    it('should ignore a cancel for a subscription that is no longer current', async () => {
+      const user = await createUser({
+        plan: 'max',
+        subscriptionStatus: 'active',
+        paddleSubscriptionId: 'sub_new',
+        credits: 10,
+        currentPeriodEnd: new Date('2026-05-01'),
+      });
+
+      await handleSubscriptionEvent({
+        subscriptionId: 'sub_old',
+        customerId: 'ctm_001',
+        status: 'canceled',
+        priceId: '',
+        currentPeriodEnd: null,
+        userId: user._id.toString(),
+        occurredAt: new Date().toISOString(),
+      });
+
+      const updated = await UserModel.findById(user._id);
+      expect(updated!.plan).toBe('max');
+      expect(updated!.subscriptionStatus).toBe('active');
+      expect(updated!.credits).toBe(10);
     });
   });
 });
@@ -296,27 +381,28 @@ describe('deductCredits', () => {
   it('should deduct when sufficient credits', async () => {
     const user = await createUser({ credits: 2.0, plan: 'pro' });
 
-    const ok = await deductCredits(user._id.toString(), 0.5);
-    expect(ok).toBe(true);
+    await deductCredits(user._id.toString(), 0.5);
 
     const updated = await UserModel.findById(user._id);
     expect(updated!.credits).toBeCloseTo(1.5);
   });
 
-  it('should reject when insufficient credits', async () => {
+  // The transcription is already paid for: the balance goes negative instead of losing it
+  it('should go negative when credits run out mid-request', async () => {
     const user = await createUser({ credits: 0.1, plan: 'pro' });
 
-    const ok = await deductCredits(user._id.toString(), 0.5);
-    expect(ok).toBe(false);
+    await deductCredits(user._id.toString(), 0.5);
 
     const updated = await UserModel.findById(user._id);
-    expect(updated!.credits).toBeCloseTo(0.1); // unchanged
+    expect(updated!.credits).toBeCloseTo(-0.4);
   });
 
-  it('should reject when credits are exactly zero', async () => {
+  it('should keep later saves working with a negative balance', async () => {
     const user = await createUser({ credits: 0, plan: 'pro' });
+    await deductCredits(user._id.toString(), 0.01);
 
-    const ok = await deductCredits(user._id.toString(), 0.01);
-    expect(ok).toBe(false);
+    const updated = await UserModel.findById(user._id);
+    updated!.name = 'Renamed';
+    await expect(updated!.save()).resolves.toBeDefined();
   });
 });

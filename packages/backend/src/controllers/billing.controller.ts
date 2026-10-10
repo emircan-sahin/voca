@@ -72,6 +72,7 @@ export const webhook = async (req: Request, res: Response) => {
       priceId: data.items[0]?.price?.id ?? '',
       currentPeriodEnd: data.currentBillingPeriod?.endsAt ?? null,
       userId,
+      occurredAt: event.occurredAt,
     });
 
     return sendSuccess(res, 'OK', null);

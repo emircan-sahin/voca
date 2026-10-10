@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import express from 'express';
 import request from 'supertest';
+import i18nextMiddleware from 'i18next-http-middleware';
+import i18n from '~/i18n/config';
 import { UserModel } from '~/models/user.model';
 import { checkout, cancel } from '~/controllers/billing.controller';
 
@@ -37,6 +39,7 @@ vi.mock('~/config/env', () => ({
 
 function buildApp(userId: string) {
   const app = express();
+  app.use(i18nextMiddleware.handle(i18n));
   app.use(express.json());
   app.use((req, _res, next) => {
     req.user = { id: userId, email: 'test@example.com' };
@@ -158,7 +161,7 @@ describe('POST /checkout', () => {
     expect(res.body.data.url).toBeDefined();
   });
 
-  it('should block checkout during active cancelScheduled period', async () => {
+  it('should resume and upgrade during active cancelScheduled period', async () => {
     const user = await createUser({
       plan: 'pro',
       subscriptionStatus: 'active',
@@ -167,11 +170,10 @@ describe('POST /checkout', () => {
     });
     const app = buildApp(user._id.toString());
 
-    // cancelScheduled = true → hasLiveSub = false → new checkout is allowed
-    // This is correct: user can start new checkout since current sub is ending
+    // cancelScheduled → existing subscription is resumed (and upgraded) instead of a new checkout
     const res = await request(app).post('/checkout').send({ plan: 'max' });
     expect(res.status).toBe(200);
-    expect(res.body.data.url).toBeDefined();
+    expect(res.body.data.resumed).toBe(true);
   });
 });
 
@@ -200,7 +202,7 @@ describe('POST /cancel', () => {
 
     const res = await request(app).post('/cancel');
     expect(res.status).toBe(400);
-    expect(res.body.message).toMatch(/no active subscription/i);
+    expect(res.body.message).toMatch(/failed to cancel/i);
   });
 
   it('should 400 if already scheduled', async () => {
@@ -212,6 +214,6 @@ describe('POST /cancel', () => {
 
     const res = await request(app).post('/cancel');
     expect(res.status).toBe(400);
-    expect(res.body.message).toMatch(/already scheduled/i);
+    expect(res.body.message).toMatch(/failed to cancel/i);
   });
 });

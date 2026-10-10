@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import express from 'express';
 import request from 'supertest';
+import i18nextMiddleware from 'i18next-http-middleware';
+import i18n from '~/i18n/config';
 import { UserModel } from '~/models/user.model';
 import { requireCredits } from '~/middleware/billing.middleware';
 
@@ -18,6 +20,7 @@ vi.mock('~/config/env', () => ({
 
 function buildApp(userId: string) {
   const app = express();
+  app.use(i18nextMiddleware.handle(i18n));
   app.use((req, _res, next) => {
     req.user = { id: userId, email: 'test@example.com' };
     next();
@@ -60,6 +63,15 @@ describe('requireCredits middleware', () => {
 
   it('should 402 when credits are zero', async () => {
     const user = await createUser({ plan: 'pro', credits: 0, subscriptionStatus: 'active' });
+    const app = buildApp(user._id.toString());
+
+    const res = await request(app).post('/test');
+    expect(res.status).toBe(402);
+    expect(res.body.message).toMatch(/insufficient credits/i);
+  });
+
+  it('should 402 when credits went negative after the last transcription', async () => {
+    const user = await createUser({ plan: 'pro', credits: -0.2, subscriptionStatus: 'active' });
     const app = buildApp(user._id.toString());
 
     const res = await request(app).post('/test');
