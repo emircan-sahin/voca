@@ -8,7 +8,7 @@ export const userSchema = z.object({
   name: z.string().min(1).max(255).trim(),
   avatarUrl: z.string().url().optional(),
   provider: z.enum(OAUTH_PROVIDERS),
-  credits: z.number().min(0),
+  credits: z.number(), // may dip below zero after the last paid transcription
   plan: z.enum(BILLING_PLANS).nullable(),
   currentPeriodEnd: z.string().datetime().nullable(),
   subscriptionStatus: z.enum(SUBSCRIPTION_STATUSES).nullable(),
@@ -29,6 +29,19 @@ export const authResponseSchema = z.object({
 export const refreshBodySchema = z.object({
   refreshToken: z.string().min(1).max(10_000),
 });
+
+/** POST /auth/logout — without a refresh token every session of the user is revoked. */
+export const logoutBodySchema = z.object({
+  refreshToken: z.string().min(1).max(10_000).optional(),
+});
+export type LogoutInput = z.infer<typeof logoutBodySchema>;
+
+/** POST /auth/exchange — one-time code from the voca:// deep link + PKCE verifier (RFC 7636). */
+export const authExchangeSchema = z.object({
+  code: z.string().regex(/^[A-Za-z0-9_-]{43}$/),
+  verifier: z.string().regex(/^[A-Za-z0-9._~-]{43,128}$/),
+});
+export type AuthExchangeInput = z.infer<typeof authExchangeSchema>;
 
 export const userSettingsSchema = z.object({
   provider: z.enum(STT_PROVIDERS),

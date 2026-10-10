@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "अमान्य रिफ्रेश टोकन",
   "auth.missingRefreshToken": "रिफ्रेश टोकन गायब या अमान्य है",
   "auth.loggedOut": "सफलतापूर्वक लॉग आउट किया गया",
+  "auth.invalidCodeChallenge": "साइन इन अनुरोध अमान्य है",
+  "auth.invalidExchange": "साइन इन कोड नहीं मिला या अमान्य है",
+  "auth.invalidAuthCode": "साइन इन लिंक अमान्य है या उसकी समय सीमा खत्म हो गई है। कृपया फिर से साइन इन करें।",
+  "auth.signedIn": "साइन इन हो गया",
 
   "user.notFound": "उपयोगकर्ता नहीं मिला",
   "user.fetched": "उपयोगकर्ता प्राप्त किया गया",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "बहुत अधिक प्रमाणीकरण प्रयास, कृपया बाद में पुनः प्रयास करें",
   "error.tooManyTranscripts": "बहुत अधिक ट्रांसक्रिप्शन अनुरोध, कृपया बाद में पुनः प्रयास करें",
   "error.transcriptionInProgress": "एक ट्रांसक्रिप्शन पहले से चल रहा है",
+  "error.dailyLimitReached": "दैनिक ट्रांसक्रिप्शन सीमा पूरी हो गई है। यह UTC आधी रात को रीसेट होती है।",
   "error.invalidAudio": "अमान्य ऑडियो फ़ाइल सामग्री",
   "error.unsupportedFormat": "असमर्थित ऑडियो प्रारूप: {{format}}",
 

@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "Token de rafraîchissement invalide",
   "auth.missingRefreshToken": "Token de rafraîchissement manquant ou invalide",
   "auth.loggedOut": "Déconnexion réussie",
+  "auth.invalidCodeChallenge": "Demande de connexion invalide",
+  "auth.invalidExchange": "Code de connexion manquant ou invalide",
+  "auth.invalidAuthCode": "Le lien de connexion est invalide ou a expiré. Reconnecte-toi.",
+  "auth.signedIn": "Connecté",
 
   "user.notFound": "Utilisateur non trouvé",
   "user.fetched": "Utilisateur récupéré",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "Trop de tentatives d'authentification, veuillez réessayer plus tard",
   "error.tooManyTranscripts": "Trop de demandes de transcription, veuillez réessayer plus tard",
   "error.transcriptionInProgress": "Une transcription est déjà en cours",
+  "error.dailyLimitReached": "Limite quotidienne de transcription atteinte. Elle est réinitialisée à minuit UTC.",
   "error.invalidAudio": "Contenu de fichier audio invalide",
   "error.unsupportedFormat": "Format audio non pris en charge : {{format}}",
 

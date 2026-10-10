@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "Недействительный токен обновления",
   "auth.missingRefreshToken": "Токен обновления отсутствует или недействителен",
   "auth.loggedOut": "Выход выполнен успешно",
+  "auth.invalidCodeChallenge": "Неверный запрос на вход",
+  "auth.invalidExchange": "Код входа отсутствует или неверен",
+  "auth.invalidAuthCode": "Ссылка для входа недействительна или устарела. Войдите снова.",
+  "auth.signedIn": "Вы вошли",
 
   "user.notFound": "Пользователь не найден",
   "user.fetched": "Пользователь получен",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "Слишком много попыток авторизации, повторите попытку позже",
   "error.tooManyTranscripts": "Слишком много запросов на транскрипцию, повторите попытку позже",
   "error.transcriptionInProgress": "Транскрипция уже выполняется",
+  "error.dailyLimitReached": "Достигнут дневной лимит транскрипции. Он обновляется в полночь по UTC.",
   "error.invalidAudio": "Недопустимое содержимое аудиофайла",
   "error.unsupportedFormat": "Неподдерживаемый формат аудио: {{format}}",
 

@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "Token di aggiornamento non valido",
   "auth.missingRefreshToken": "Token di aggiornamento mancante o non valido",
   "auth.loggedOut": "Disconnessione effettuata",
+  "auth.invalidCodeChallenge": "Richiesta di accesso non valida",
+  "auth.invalidExchange": "Codice di accesso mancante o non valido",
+  "auth.invalidAuthCode": "Il link di accesso non è valido o è scaduto. Accedi di nuovo.",
+  "auth.signedIn": "Accesso effettuato",
 
   "user.notFound": "Utente non trovato",
   "user.fetched": "Utente recuperato",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "Troppi tentativi di autenticazione, riprova più tardi",
   "error.tooManyTranscripts": "Troppe richieste di trascrizione, riprova più tardi",
   "error.transcriptionInProgress": "Una trascrizione è già in corso",
+  "error.dailyLimitReached": "Limite giornaliero di trascrizione raggiunto. Si azzera a mezzanotte UTC.",
   "error.invalidAudio": "Contenuto del file audio non valido",
   "error.unsupportedFormat": "Formato audio non supportato: {{format}}",
 

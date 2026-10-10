@@ -1,22 +1,61 @@
+import crypto from 'crypto';
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { env } from '~/config/env';
 import {
-  loginWithGoogleCode,
+  InvalidAuthCodeError,
+  InvalidRefreshTokenError,
+  createAuthCode,
+  exchangeAuthCode,
+  issueTokens,
   refreshAccessToken,
+  revokeSessions,
   toIUser,
+  upsertGoogleUser,
 } from '~/services/auth.service';
 import { UserModel } from '~/models/user.model';
 import { sendSuccess, sendError } from '~/utils/response';
-import { refreshBodySchema, updateUserSettingsSchema, DEFAULT_USER_SETTINGS, LANGUAGE_CODES } from '@voca/shared';
+import {
+  authExchangeSchema,
+  logoutBodySchema,
+  refreshBodySchema,
+  updateUserSettingsSchema,
+  DEFAULT_USER_SETTINGS,
+  LANGUAGE_CODES,
+} from '@voca/shared';
 import { deleteUserTranscripts } from '~/controllers/transcript.controller';
 import { logger } from '~/config/logger';
+import { getErrorMessage } from '~/utils/error';
 
 const oauthCallbackSchema = z.object({
   code: z.string().min(1).max(500),
+  state: z.string().min(1).max(200),
 });
 
+// PKCE S256 challenge from the desktop app: base64url(sha256(verifier)), always 43 chars.
+const codeChallengeSchema = z.string().regex(/^[A-Za-z0-9_-]{43}$/);
+
 const REDIRECT_URI = `${env.BASE_URL}/auth/google/callback`;
+const STATE_COOKIE = 'voca_oauth_state';
+const CHALLENGE_COOKIE = 'voca_oauth_challenge';
+const STATE_COOKIE_OPTIONS = {
+  httpOnly: true,
+  sameSite: 'lax' as const,
+  secure: env.BASE_URL.startsWith('https:'),
+  path: new URL(REDIRECT_URI).pathname,
+};
+
+function readCookie(req: Request, name: string): string | undefined {
+  const pair = req.headers.cookie?.split(';').map((c) => c.trim()).find((c) => c.startsWith(`${name}=`));
+  return pair?.slice(name.length + 1);
+}
+
+function stateMatches(expected: string | undefined, actual: string): boolean {
+  if (!expected) return false;
+  const a = Buffer.from(expected);
+  const b = Buffer.from(actual);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
 
 function htmlPage(title: string, subtitle: string, color = '#171717') {
   return `<!DOCTYPE html>
@@ -40,8 +79,25 @@ function requireAuthConfig(req: Request, res: Response): boolean {
 export const googleRedirect = (req: Request, res: Response) => {
   if (!requireAuthConfig(req, res)) return;
 
+  const challenge = req.query.code_challenge;
+  const parsedChallenge = challenge === undefined ? null : codeChallengeSchema.safeParse(challenge);
+  if (parsedChallenge && !parsedChallenge.success) {
+    return sendError(res, req.t('auth.invalidCodeChallenge'), 400);
+  }
+
+  // Bind the flow (and the app's PKCE challenge) to this browser so a forged callback link can't
+  // sign the victim into the attacker's account.
+  const state = crypto.randomBytes(24).toString('hex');
+  res.cookie(STATE_COOKIE, state, { ...STATE_COOKIE_OPTIONS, maxAge: 10 * 60 * 1000 });
+  if (parsedChallenge) {
+    res.cookie(CHALLENGE_COOKIE, parsedChallenge.data, { ...STATE_COOKIE_OPTIONS, maxAge: 10 * 60 * 1000 });
+  } else {
+    res.clearCookie(CHALLENGE_COOKIE, STATE_COOKIE_OPTIONS);
+  }
+
   const params = new URLSearchParams({
     client_id: env.GOOGLE_CLIENT_ID,
+    state,
     redirect_uri: REDIRECT_URI,
     response_type: 'code',
     scope: 'openid email profile',
@@ -56,15 +112,31 @@ export const googleCallback = async (req: Request, res: Response) => {
   if (!parsed.success) {
     return sendError(res, req.t('auth.missingCode'), 400);
   }
-  const { code } = parsed.data;
+  const { code, state } = parsed.data;
+
+  const expectedState = readCookie(req, STATE_COOKIE);
+  const challengeCookie = readCookie(req, CHALLENGE_COOKIE);
+  res.clearCookie(STATE_COOKIE, STATE_COOKIE_OPTIONS);
+  res.clearCookie(CHALLENGE_COOKIE, STATE_COOKIE_OPTIONS);
+  const challenge = challengeCookie ? codeChallengeSchema.safeParse(challengeCookie) : null;
+  if (!stateMatches(expectedState, state) || (challenge && !challenge.success)) {
+    return res.status(400).send(
+      htmlPage('Authentication failed', 'Please close this tab and try again.', '#dc2626')
+    );
+  }
 
   try {
-    const authResponse = await loginWithGoogleCode(code, REDIRECT_URI);
-    const deepLinkParams = new URLSearchParams({
-      token: authResponse.token,
-      refreshToken: authResponse.refreshToken,
-    });
+    const user = await upsertGoogleUser(code, REDIRECT_URI);
+    let deepLinkParams: URLSearchParams;
+    if (challenge) {
+      deepLinkParams = new URLSearchParams({ code: await createAuthCode(user._id, challenge.data) });
+    } else {
+      // Legacy tokens-in-URL deep link for app versions <= v0.0.12, which send no code_challenge
+      const authResponse = await issueTokens(user);
+      deepLinkParams = new URLSearchParams({ token: authResponse.token, refreshToken: authResponse.refreshToken });
+    }
     const deepLink = `voca://auth/callback?${deepLinkParams}`;
+    res.setHeader('Cache-Control', 'no-store');
     return res.send(`<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Voca</title></head>
 <body style="font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fafafa">
@@ -81,10 +153,27 @@ export const googleCallback = async (req: Request, res: Response) => {
 </script>
 </body></html>`);
   } catch (err) {
-    logger.error('Auth', `Google callback error: ${(err as Error).message}`);
+    logger.error('Auth', `Google callback error: ${getErrorMessage(err)}`);
     return res.status(401).send(
       htmlPage('Authentication failed', 'Please close this tab and try again.', '#dc2626')
     );
+  }
+};
+
+export const exchange = async (req: Request, res: Response) => {
+  const parsed = authExchangeSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return sendError(res, req.t('auth.invalidExchange'), 400);
+  }
+
+  try {
+    const data = await exchangeAuthCode(parsed.data.code, parsed.data.verifier);
+    return sendSuccess(res, req.t('auth.signedIn'), data);
+  } catch (err) {
+    if (err instanceof InvalidAuthCodeError) {
+      return sendError(res, req.t('auth.invalidAuthCode'), 401);
+    }
+    throw err;
   }
 };
 
@@ -97,13 +186,21 @@ export const refresh = async (req: Request, res: Response) => {
   try {
     const data = await refreshAccessToken(parsed.data.refreshToken);
     return sendSuccess(res, req.t('auth.tokenRefreshed'), data);
-  } catch {
-    return sendError(res, req.t('auth.invalidRefreshToken'), 401);
+  } catch (err) {
+    // Only a definitive rejection is 401: the client logs out on 4xx, so DB errors must surface as 500.
+    if (err instanceof InvalidRefreshTokenError) {
+      return sendError(res, req.t('auth.invalidRefreshToken'), 401);
+    }
+    throw err;
   }
 };
 
 export const logout = async (req: Request, res: Response) => {
-  await UserModel.findByIdAndUpdate(req.user!.id, { $unset: { refreshToken: 1 } });
+  const parsed = logoutBodySchema.safeParse(req.body ?? {});
+  if (!parsed.success) {
+    return sendError(res, req.t('auth.missingRefreshToken'), 400);
+  }
+  await revokeSessions(req.user!.id, parsed.data.refreshToken);
   return sendSuccess(res, req.t('auth.loggedOut'), null);
 };
 

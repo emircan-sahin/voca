@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "無効なリフレッシュトークン",
   "auth.missingRefreshToken": "リフレッシュトークンが不足または無効です",
   "auth.loggedOut": "ログアウトしました",
+  "auth.invalidCodeChallenge": "サインインリクエストが無効です",
+  "auth.invalidExchange": "サインインコードがないか、無効です",
+  "auth.invalidAuthCode": "サインインリンクが無効か、期限切れです。もう一度サインインしてください。",
+  "auth.signedIn": "サインインしました",
 
   "user.notFound": "ユーザーが見つかりません",
   "user.fetched": "ユーザーを取得しました",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "認証試行回数が多すぎます。しばらくしてから再試行してください",
   "error.tooManyTranscripts": "文字起こしリクエストが多すぎます。しばらくしてから再試行してください",
   "error.transcriptionInProgress": "文字起こしが既に進行中です",
+  "error.dailyLimitReached": "本日の文字起こし上限に達しました。UTCの午前0時にリセットされます。",
   "error.invalidAudio": "無効な音声ファイルの内容",
   "error.unsupportedFormat": "サポートされていない音声フォーマット: {{format}}",
 

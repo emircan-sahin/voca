@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "Geçersiz yenileme tokeni",
   "auth.missingRefreshToken": "Eksik veya geçersiz yenileme tokeni",
   "auth.loggedOut": "Başarıyla çıkış yapıldı",
+  "auth.invalidCodeChallenge": "Geçersiz giriş isteği",
+  "auth.invalidExchange": "Giriş kodu eksik veya geçersiz",
+  "auth.invalidAuthCode": "Giriş bağlantısı geçersiz ya da süresi dolmuş. Lütfen tekrar giriş yap.",
+  "auth.signedIn": "Giriş yapıldı",
 
   "user.notFound": "Kullanıcı bulunamadı",
   "user.fetched": "Kullanıcı getirildi",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "Çok fazla giriş denemesi, lütfen daha sonra tekrar deneyin",
   "error.tooManyTranscripts": "Çok fazla transkripsiyon isteği, lütfen daha sonra tekrar deneyin",
   "error.transcriptionInProgress": "Bir transkripsiyon zaten devam ediyor",
+  "error.dailyLimitReached": "Günlük transkripsiyon limitine ulaşıldı. Limit UTC gece yarısında sıfırlanır.",
   "error.invalidAudio": "Geçersiz ses dosyası içeriği",
   "error.unsupportedFormat": "Desteklenmeyen ses formatı: {{format}}",
 

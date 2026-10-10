@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "Token de actualización inválido",
   "auth.missingRefreshToken": "Token de actualización faltante o inválido",
   "auth.loggedOut": "Sesión cerrada correctamente",
+  "auth.invalidCodeChallenge": "Solicitud de inicio de sesión no válida",
+  "auth.invalidExchange": "Falta el código de inicio de sesión o no es válido",
+  "auth.invalidAuthCode": "El enlace de inicio de sesión no es válido o ha caducado. Vuelve a iniciar sesión.",
+  "auth.signedIn": "Sesión iniciada",
 
   "user.notFound": "Usuario no encontrado",
   "user.fetched": "Usuario obtenido",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "Demasiados intentos de autenticación, intente más tarde",
   "error.tooManyTranscripts": "Demasiadas solicitudes de transcripción, intente más tarde",
   "error.transcriptionInProgress": "Ya hay una transcripción en progreso",
+  "error.dailyLimitReached": "Límite diario de transcripción alcanzado. Se restablece a medianoche UTC.",
   "error.invalidAudio": "Contenido de archivo de audio inválido",
   "error.unsupportedFormat": "Formato de audio no soportado: {{format}}",
 

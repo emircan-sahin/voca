@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "无效的刷新令牌",
   "auth.missingRefreshToken": "刷新令牌缺失或无效",
   "auth.loggedOut": "已成功退出登录",
+  "auth.invalidCodeChallenge": "登录请求无效",
+  "auth.invalidExchange": "登录代码缺失或无效",
+  "auth.invalidAuthCode": "登录链接无效或已过期，请重新登录。",
+  "auth.signedIn": "已登录",
 
   "user.notFound": "用户未找到",
   "user.fetched": "用户已获取",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "认证尝试过多，请稍后再试",
   "error.tooManyTranscripts": "转录请求过多，请稍后再试",
   "error.transcriptionInProgress": "转录正在进行中",
+  "error.dailyLimitReached": "已达到每日转录上限，将于 UTC 午夜重置。",
   "error.invalidAudio": "无效的音频文件内容",
   "error.unsupportedFormat": "不支持的音频格式: {{format}}",
 

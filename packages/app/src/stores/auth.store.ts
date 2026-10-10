@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { create } from 'zustand';
-import { IUser, IUserSettings, LANGUAGE_CODES } from '@voca/shared';
+import { IUser, IUserSettings, LANGUAGE_CODES, LogoutInput } from '@voca/shared';
 import { api } from '~/lib/axios';
+import { queryClient } from '~/lib/queryClient';
 import { useProviderStore } from '~/stores/provider.store';
 import { useLanguageStore } from '~/stores/language.store';
 import { useProgramLanguageStore } from '~/stores/programLanguage.store';
@@ -50,7 +52,7 @@ export function refreshUser() {
   }).catch((err) => console.warn('[Auth] Failed to refresh user:', err.message ?? err));
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   token: null,
   refreshToken: null,
@@ -65,6 +67,17 @@ export const useAuthStore = create<AuthState>((set) => ({
     window.electronAPI.auth.set({ token, refreshToken });
   },
   clearAuth: () => {
+    // Revoke the refresh token server-side (best effort, raw axios so a 401 can't loop
+    // through the refresh interceptor) and drop cached data so the next user can't see it
+    const { token, refreshToken } = get();
+    if (token) {
+      // Sending the refresh token signs out only this device; other devices keep their sessions
+      const body: LogoutInput = { refreshToken: refreshToken ?? undefined };
+      axios
+        .post(`${import.meta.env.VITE_API_BASE_URL}/auth/logout`, body, { headers: { Authorization: `Bearer ${token}` }, timeout: 10_000 })
+        .catch((err) => console.warn('[Auth] Logout revoke failed:', err.message ?? err));
+    }
+    queryClient.clear();
     set({ user: null, token: null, refreshToken: null, settingsHydrated: false });
     window.electronAPI.auth.clear();
   },

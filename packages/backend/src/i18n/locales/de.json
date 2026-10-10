@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "Ungültiges Aktualisierungstoken",
   "auth.missingRefreshToken": "Fehlendes oder ungültiges Aktualisierungstoken",
   "auth.loggedOut": "Erfolgreich abgemeldet",
+  "auth.invalidCodeChallenge": "Ungültige Anmeldeanfrage",
+  "auth.invalidExchange": "Anmeldecode fehlt oder ist ungültig",
+  "auth.invalidAuthCode": "Der Anmeldelink ist ungültig oder abgelaufen. Bitte melde dich erneut an.",
+  "auth.signedIn": "Angemeldet",
 
   "user.notFound": "Benutzer nicht gefunden",
   "user.fetched": "Benutzer abgerufen",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "Zu viele Anmeldeversuche, bitte versuchen Sie es später erneut",
   "error.tooManyTranscripts": "Zu viele Transkriptionsanfragen, bitte versuchen Sie es später erneut",
   "error.transcriptionInProgress": "Eine Transkription ist bereits in Bearbeitung",
+  "error.dailyLimitReached": "Tägliches Transkriptionslimit erreicht. Es wird um Mitternacht UTC zurückgesetzt.",
   "error.invalidAudio": "Ungültiger Audiodateiinhalt",
   "error.unsupportedFormat": "Nicht unterstütztes Audioformat: {{format}}",
 

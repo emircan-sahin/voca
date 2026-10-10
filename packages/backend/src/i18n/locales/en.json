@@ -5,6 +5,10 @@
   "auth.invalidRefreshToken": "Invalid refresh token",
   "auth.missingRefreshToken": "Missing or invalid refresh token",
   "auth.loggedOut": "Logged out successfully",
+  "auth.invalidCodeChallenge": "Invalid sign-in request",
+  "auth.invalidExchange": "Missing or invalid sign-in code",
+  "auth.invalidAuthCode": "Sign-in link is invalid or expired. Please sign in again.",
+  "auth.signedIn": "Signed in",
 
   "user.notFound": "User not found",
   "user.fetched": "User fetched",
@@ -46,6 +50,7 @@
   "error.tooManyAuth": "Too many auth attempts, please try again later",
   "error.tooManyTranscripts": "Too many transcription requests, please try again later",
   "error.transcriptionInProgress": "A transcription is already in progress",
+  "error.dailyLimitReached": "Daily transcription limit reached. It resets at midnight UTC.",
   "error.invalidAudio": "Invalid audio file content",
   "error.unsupportedFormat": "Unsupported audio format: {{format}}",
 
