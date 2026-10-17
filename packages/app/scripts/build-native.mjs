@@ -21,7 +21,7 @@ if (existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs) process.e
 mkdirSync(outDir, { recursive: true });
 execFileSync('clang', [
   '-O2', '-arch', 'arm64', '-arch', 'x86_64', '-mmacosx-version-min=11.0',
-  '-framework', 'ApplicationServices', '-framework', 'CoreFoundation',
+  '-framework', 'ApplicationServices', '-framework', 'Carbon', '-framework', 'CoreFoundation',
   src, '-o', out,
 ], { stdio: 'inherit' });
 console.log('  ✓ Built resources/bin/voca-type');

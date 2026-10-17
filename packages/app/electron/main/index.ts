@@ -132,12 +132,23 @@ const typeHelperPath = app.isPackaged
 /** Types the text at the cursor without the clipboard. Resolves false if it couldn't start (caller falls back). */
 function typeDirectly(text: string): Promise<boolean> {
   return new Promise((resolve) => {
-    // Exits before typing anything when it can't (2 = no Accessibility permission, or not built)
-    const child = execFile(typeHelperPath, [], { timeout: 15_000 }, (err) => {
+    // Exits before typing anything when it can't (2 = no Accessibility permission, or not built).
+    // It types ~3ms per character; a timeout mid-text would make the fallback paste it twice.
+    const child = execFile(typeHelperPath, [], { timeout: 5_000 + text.length * 10 }, (err) => {
       if (err) console.warn('[Paste] direct typing unavailable:', err.message);
       resolve(!err);
     });
     child.stdin?.end(text);
+  });
+}
+
+/** Keycode of V in the active keyboard layout, or null when the helper is unavailable. */
+function pasteKeycode(): Promise<number | null> {
+  return new Promise((resolve) => {
+    execFile(typeHelperPath, ['--paste-keycode'], { timeout: 2_000 }, (err, stdout) => {
+      const code = Number.parseInt(stdout, 10);
+      resolve(err || !Number.isInteger(code) ? null : code);
+    });
   });
 }
 
@@ -146,8 +157,10 @@ ipcMain.on('transcript:paste-text', async (e, payload: unknown) => {
   const { text, direct } = payload as { text?: unknown; direct?: unknown };
   if (typeof text !== 'string' || !text) return;
 
-  // A newline would be typed as Enter, which sends the message in chat apps; those go through the clipboard
-  if (process.platform === 'darwin' && direct === true && !text.includes('\n')) {
+  // A newline would be typed as Enter (sends the message in chat apps) and a tab moves focus away;
+  // text with control characters goes through the clipboard
+  // eslint-disable-next-line no-control-regex
+  if (process.platform === 'darwin' && direct === true && !/[\x00-\x1f]/.test(text)) {
     await new Promise((r) => setTimeout(r, 100));
     if (await typeDirectly(text)) return;
   }
@@ -182,9 +195,12 @@ ipcMain.on('transcript:paste-text', async (e, payload: unknown) => {
     restoreTimer = setTimeout(() => restoreClipboard(text), CLIPBOARD_RESTORE_DELAY_MS);
   };
 
-  setTimeout(() => {
+  setTimeout(async () => {
     if (process.platform === 'darwin') {
-      execFile('osascript', ['-e', 'tell application "System Events" to keystroke "v" using command down'], done);
+      // keystroke "v" sends nothing on layouts without a V (Russian, Greek), so press V's keycode
+      const code = await pasteKeycode();
+      const keys = code === null ? 'keystroke "v"' : `key code ${code}`;
+      execFile('osascript', ['-e', `tell application "System Events" to ${keys} using command down`], done);
     } else {
       execFile(
         'powershell',
