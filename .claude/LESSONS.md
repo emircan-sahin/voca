@@ -128,3 +128,13 @@ Mistakes caught during development. Review at the start of every session.
 - **Wrong**: `fetchNextPage().catch((err) => console.warn(...))` in `useTranscription` — the catch was dead code
 - **Right**: Call it plainly; read failures from the query state (`error`, `isFetchNextPageError`). Only `throwOnError` makes it reject
 - **Why**: Assumed it behaves like the raw `queryFn` promise; the observer swallows the rejection into query state
+
+### [Native Input] Multi-character keyboard events get truncated
+- **Wrong**: `voca-type` packed 20 UTF-16 units into one `CGEventKeyboardSetUnicodeString` event — xterm.js terminals and apps reading the DOM `key` kept only the first character of each event (`Bugün toplantıda…` → `Bulmğraöl`)
+- **Right**: One code point per event (surrogate pairs together), and size the helper's timeout to the text length
+- **Why**: TextEdit and plain textareas accept the whole string, so testing only there hides the bug
+
+### [Native Input] `keystroke "v"` depends on the keyboard layout
+- **Wrong**: `osascript ... keystroke "v" using command down` for auto-paste — on a layout with no V (Russian) it sends nothing, reports success, and the clipboard restore then wipes the transcript
+- **Right**: Look up V's keycode in the active layout (ASCII-capable fallback) and press `key code N using command down`; a fixed `key code 9` would be Cmd+C on Turkish F
+- **Why**: Only Latin layouts were ever tested

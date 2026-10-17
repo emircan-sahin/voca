@@ -141,7 +141,9 @@ The app is free: the sidebar plan badge, plan expiry watcher and 402 redirect ar
 
 ## Paste Into the Focused App
 - `transcript:paste-text` IPC (`electron/main/index.ts`): macOS types single-line text directly with the native `voca-type` helper (`native/voca-type.c`, built by `scripts/build-native.mjs` into `resources/bin/`, shipped via mac `extraResources`), so the clipboard is never touched
-- Multi-line text, Windows, a missing helper or no Accessibility permission fall back to clipboard backup → Cmd/Ctrl+V → restore after 1 s
+- `voca-type` posts one code point per keyboard event: xterm.js terminals and apps reading the DOM `key` drop everything after the first character of a multi-character event
+- Text with control characters (newline, tab), Windows, a missing helper or no Accessibility permission fall back to clipboard backup → Cmd/Ctrl+V → restore after 1 s
+- macOS Cmd+V presses V's keycode from `voca-type --paste-keycode` (layout-aware: Turkish F moves V, Russian has none), not `keystroke "v"`
 - Toggle: `directTyping.store.ts` + `DirectTyping.tsx` in Settings (macOS only, default on)
 
 ## Onboarding
