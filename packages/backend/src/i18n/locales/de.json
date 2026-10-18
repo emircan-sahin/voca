@@ -19,7 +19,7 @@
   "user.settingsReset": "Einstellungen auf Standard zurückgesetzt",
 
   "transcript.audioRequired": "Audiodatei erforderlich",
-  "transcript.translationKeyRequired": "Übersetzung erfordert einen xAI-API-Schlüssel. Setzen Sie XAI_API_KEY in Ihrer Umgebung.",
+  "transcript.translationKeyRequired": "Übersetzung erfordert einen DeepSeek-API-Schlüssel. Setzen Sie DEEPSEEK_API_KEY in Ihrer Umgebung.",
   "transcript.noSpeech": "Keine Sprache erkannt, bitte versuchen Sie es erneut.",
   "transcript.insufficientCredits": "Unzureichendes Guthaben",
   "transcript.success": "Transkription erfolgreich",

@@ -19,7 +19,7 @@
   "user.settingsReset": "सेटिंग्स डिफ़ॉल्ट पर रीसेट की गईं",
 
   "transcript.audioRequired": "ऑडियो फ़ाइल आवश्यक है",
-  "transcript.translationKeyRequired": "अनुवाद के लिए xAI API कुंजी आवश्यक है। अपने वातावरण में XAI_API_KEY सेट करें।",
+  "transcript.translationKeyRequired": "अनुवाद के लिए DeepSeek API कुंजी आवश्यक है। अपने वातावरण में DEEPSEEK_API_KEY सेट करें।",
   "transcript.noSpeech": "कोई भाषण नहीं मिला, कृपया पुनः प्रयास करें।",
   "transcript.insufficientCredits": "अपर्याप्त क्रेडिट",
   "transcript.success": "ट्रांसक्रिप्शन सफल",

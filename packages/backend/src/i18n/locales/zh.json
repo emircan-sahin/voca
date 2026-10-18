@@ -19,7 +19,7 @@
   "user.settingsReset": "设置已恢复默认",
 
   "transcript.audioRequired": "需要音频文件",
-  "transcript.translationKeyRequired": "翻译需要 xAI API 密钥。请在环境变量中设置 XAI_API_KEY。",
+  "transcript.translationKeyRequired": "翻译需要 DeepSeek API 密钥。请在环境变量中设置 DEEPSEEK_API_KEY。",
   "transcript.noSpeech": "未检测到语音，请重试。",
   "transcript.insufficientCredits": "积分不足",
   "transcript.success": "转录成功",

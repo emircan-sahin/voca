@@ -19,7 +19,7 @@
   "user.settingsReset": "Ajustes restablecidos a los valores predeterminados",
 
   "transcript.audioRequired": "Se requiere un archivo de audio",
-  "transcript.translationKeyRequired": "La traducción requiere una clave API de xAI. Establezca XAI_API_KEY en su entorno.",
+  "transcript.translationKeyRequired": "La traducción requiere una clave API de DeepSeek. Establezca DEEPSEEK_API_KEY en su entorno.",
   "transcript.noSpeech": "No se detectó voz, intente de nuevo.",
   "transcript.insufficientCredits": "Créditos insuficientes",
   "transcript.success": "Transcripción exitosa",

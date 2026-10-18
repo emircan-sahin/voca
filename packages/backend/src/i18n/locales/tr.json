@@ -19,7 +19,7 @@
   "user.settingsReset": "Ayarlar varsayılanlara sıfırlandı",
 
   "transcript.audioRequired": "Ses dosyası gerekli",
-  "transcript.translationKeyRequired": "Çeviri için xAI API anahtarı gerekli. Ortam değişkenlerinizde XAI_API_KEY ayarlayın.",
+  "transcript.translationKeyRequired": "Çeviri için DeepSeek API anahtarı gerekli. Ortam değişkenlerinizde DEEPSEEK_API_KEY ayarlayın.",
   "transcript.noSpeech": "Konuşma algılanamadı, lütfen tekrar deneyin.",
   "transcript.insufficientCredits": "Yetersiz kredi",
   "transcript.success": "Transkripsiyon başarılı",

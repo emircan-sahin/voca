@@ -5,12 +5,12 @@ import { env } from '~/config/env';
 import { logger } from '~/config/logger';
 
 // 25% markup on API costs
-// xAI grok-4-1-fast-non-reasoning: $0.20/1M input, $0.50/1M output
+// DeepSeek V4.1 Flash at peak rates, cache miss: $0.30/1M input, $1.20/1M output (api-docs.deepseek.com, 2026-10)
 const MARKUP = 1.25;
 
-const XAI_TOKEN_RATES = {
-  input: (0.20 / 1_000_000) * MARKUP,
-  output: (0.50 / 1_000_000) * MARKUP,
+const LLM_TOKEN_RATES = {
+  input: (0.30 / 1_000_000) * MARKUP,
+  output: (1.20 / 1_000_000) * MARKUP,
 } as const;
 
 export function calculateCost(
@@ -19,8 +19,8 @@ export function calculateCost(
 ): number {
   let cost = sttCost * MARKUP;
   if (tokenUsage) {
-    cost += XAI_TOKEN_RATES.input * tokenUsage.inputTokens;
-    cost += XAI_TOKEN_RATES.output * tokenUsage.outputTokens;
+    cost += LLM_TOKEN_RATES.input * tokenUsage.inputTokens;
+    cost += LLM_TOKEN_RATES.output * tokenUsage.outputTokens;
   }
   return Math.round(cost * 10000) / 10000;
 }

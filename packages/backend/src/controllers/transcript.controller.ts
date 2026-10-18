@@ -88,7 +88,7 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
   const { provider, language, translateTo, tone, numeric, planning, vocabulary } = parsed.data;
 
-  if (translateTo && !env.XAI_API_KEY) {
+  if (translateTo && !env.DEEPSEEK_API_KEY) {
     safeUnlink(filePath);
     return sendError(res, req.t('transcript.translationKeyRequired'), 400);
   }
@@ -130,7 +130,7 @@ export const createTranscript = async (req: Request, res: Response) => {
   }
 
   const cost = calculateCost(result.cost, tokenUsage);
-  logger.info('Billing', `stt:$${result.cost.toFixed(6)} xai:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`, { sttCost: result.cost, totalCost: cost, provider });
+  logger.info('Billing', `stt:$${result.cost.toFixed(6)} llm:$${tokenUsage ? (cost - result.cost * 1.25).toFixed(6) : '0'} total:$${cost.toFixed(6)} (incl. 25% markup)`, { sttCost: result.cost, totalCost: cost, provider });
   // Paid plans are disabled: cost is still logged to track spend, but nothing is deducted.
   // The work is already paid for, so the deduction never refuses; requireCredits blocks the next request.
   // await deductCredits(req.user!.id, cost);

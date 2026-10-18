@@ -19,7 +19,7 @@
   "user.settingsReset": "設定がデフォルトにリセットされました",
 
   "transcript.audioRequired": "音声ファイルが必要です",
-  "transcript.translationKeyRequired": "翻訳にはxAI APIキーが必要です。環境変数にXAI_API_KEYを設定してください。",
+  "transcript.translationKeyRequired": "翻訳にはDeepSeek APIキーが必要です。環境変数にDEEPSEEK_API_KEYを設定してください。",
   "transcript.noSpeech": "音声が検出されませんでした。もう一度お試しください。",
   "transcript.insufficientCredits": "クレジットが不足しています",
   "transcript.success": "文字起こしが完了しました",

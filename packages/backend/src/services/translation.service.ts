@@ -1,4 +1,4 @@
-import { createXai } from '@ai-sdk/xai';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 import { generateText } from 'ai';
 import { LANGUAGES, TranslationTone } from '@voca/shared';
 import { env } from '~/config/env';
@@ -9,7 +9,7 @@ const langName = (code: string) =>
 
 const TRANSLATION_TIMEOUT_MS = 30_000;
 
-const xai = createXai({ apiKey: env.XAI_API_KEY });
+const deepseek = createDeepSeek({ apiKey: env.DEEPSEEK_API_KEY });
 
 // Tags make the boundary between our header and the spoken text explicit; a spoken closing tag can't break out.
 const asUserMessage = (src: string, tgt: string, text: string) =>
@@ -101,9 +101,11 @@ Do not add any introductory or concluding remarks — just the numbered list or 
   ];
 
   const { text: translatedText, usage } = await generateText({
-    model: xai('grok-4-1-fast-non-reasoning'),
+    model: deepseek('deepseek-flash'),
     system,
     temperature: 0.1,
+    // Thinking is on by default for V4 models; it adds latency and ignores temperature
+    providerOptions: { deepseek: { thinking: { type: 'disabled' } } },
     maxOutputTokens: 12_000,
     // Fail fast so the raw transcript can still be returned; also covers SDK retries
     timeout: TRANSLATION_TIMEOUT_MS,
