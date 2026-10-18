@@ -17,7 +17,7 @@ const THIRD_PARTIES = [
   { key: 'google', policy: 'https://policies.google.com/privacy' },
   { key: 'groq', policy: 'https://groq.com/privacy-policy/' },
   { key: 'deepgram', policy: 'https://deepgram.com/privacy' },
-  { key: 'xai', policy: 'https://x.ai/legal/privacy-policy' },
+  { key: 'deepseek', policy: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html' },
   { key: 'paddle', policy: 'https://www.paddle.com/legal/privacy' },
   { key: 'hosting', policy: null },
 ] as const;

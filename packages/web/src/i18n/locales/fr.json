@@ -217,7 +217,7 @@
   },
   "privacy": {
     "title": "Politique de Confidentialité",
-    "lastUpdated": "Dernière mise à jour : 10 octobre 2026",
+    "lastUpdated": "Dernière mise à jour : 17 octobre 2026",
     "intro": {
       "heading": "1. Introduction",
       "content": "Cette Politique de Confidentialité explique comment Voca (\"Service\"), exploité par Emircan Sahin (\"nous\", \"notre\"), collecte, utilise et protège vos informations lorsque vous visitez usevoca.dev ou utilisez l'application de bureau Voca."
@@ -246,7 +246,7 @@
     },
     "translation": {
       "heading": "5. Traduction et Ton",
-      "content": "Si vous activez la traduction dans l'application, le texte transcrit est envoyé à <b>xAI (Grok)</b> pour être traduit et pour appliquer le ton et les modules que vous avez choisis. xAI reçoit uniquement du texte, jamais votre audio."
+      "content": "Si vous activez la traduction dans l'application, le texte transcrit est envoyé à <b>DeepSeek</b>, un fournisseur basé en Chine, pour être traduit et pour appliquer le ton et les modules que vous avez choisis. DeepSeek reçoit uniquement du texte, jamais votre audio."
     },
     "transcripts": {
       "heading": "6. Transcriptions et Mode Confidentialité",
@@ -264,7 +264,7 @@
         "google": "<b>Google :</b> connexion à l'application et statistiques du site web. <policy>Politique de Confidentialité</policy>",
         "groq": "<b>Groq :</b> reconnaissance vocale. Reçoit votre audio lorsque Groq est le fournisseur sélectionné. <policy>Politique de Confidentialité</policy>",
         "deepgram": "<b>Deepgram :</b> reconnaissance vocale. Reçoit votre audio lorsque Deepgram est le fournisseur sélectionné. <policy>Politique de Confidentialité</policy>",
-        "xai": "<b>xAI :</b> traduction, ton et modules. Reçoit le texte de vos transcriptions lorsque la traduction est activée. <policy>Politique de Confidentialité</policy>",
+        "deepseek": "<b>DeepSeek :</b> traduction, ton et modules. Basé en Chine. Reçoit le texte de vos transcriptions lorsque la traduction est activée. <policy>Politique de Confidentialité</policy>",
         "paddle": "<b>Paddle :</b> traitement des paiements pour les forfaits payants. Voca est actuellement gratuit : Paddle ne reçoit donc des données que si des forfaits payants sont lancés et que vous choisissez de vous abonner. <policy>Politique de Confidentialité</policy>",
         "hosting": "<b>Hébergeurs et fournisseurs de bases de données :</b> font fonctionner nos serveurs et stockent les données de votre compte et vos transcriptions pour notre compte."
       }

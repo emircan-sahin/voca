@@ -217,7 +217,7 @@
   },
   "privacy": {
     "title": "Gizlilik Politikası",
-    "lastUpdated": "Son güncelleme: 10 Ekim 2026",
+    "lastUpdated": "Son güncelleme: 17 Ekim 2026",
     "intro": {
       "heading": "1. Giriş",
       "content": "Bu Gizlilik Politikası, Emircan Şahin (\"biz\", \"bizim\") tarafından işletilen Voca'nın (\"Hizmet\"), usevoca.dev sitesini ziyaret ettiğinizde ve Voca masaüstü uygulamasını kullandığınızda bilgilerinizi nasıl topladığını, kullandığını ve koruduğunu açıklar."
@@ -246,7 +246,7 @@
     },
     "translation": {
       "heading": "5. Çeviri ve Üslup",
-      "content": "Uygulamada çeviriyi açarsanız, yazıya dökülen metin, çevrilmesi ve seçtiğiniz üslup ile eklentilerin uygulanması için <b>xAI (Grok)</b> hizmetine gönderilir. xAI yalnızca metni alır, sesinizi asla almaz."
+      "content": "Uygulamada çeviriyi açarsanız, yazıya dökülen metin, çevrilmesi ve seçtiğiniz üslup ile eklentilerin uygulanması için Çin merkezli bir sağlayıcı olan <b>DeepSeek</b> hizmetine gönderilir. DeepSeek yalnızca metni alır, sesinizi asla almaz."
     },
     "transcripts": {
       "heading": "6. Transkriptler ve Gizlilik Modu",
@@ -264,7 +264,7 @@
         "google": "<b>Google:</b> uygulamada oturum açma ve web sitesi analitiği. <policy>Gizlilik Politikası</policy>",
         "groq": "<b>Groq:</b> ses tanıma. Sağlayıcı olarak Groq'u seçtiğinizde sesinizi alır. <policy>Gizlilik Politikası</policy>",
         "deepgram": "<b>Deepgram:</b> ses tanıma. Sağlayıcı olarak Deepgram'i seçtiğinizde sesinizi alır. <policy>Gizlilik Politikası</policy>",
-        "xai": "<b>xAI:</b> çeviri, üslup ve eklentiler. Çeviri açıkken transkript metninizi alır. <policy>Gizlilik Politikası</policy>",
+        "deepseek": "<b>DeepSeek:</b> çeviri, üslup ve eklentiler. Çin merkezli. Çeviri açıkken transkript metninizi alır. <policy>Gizlilik Politikası</policy>",
         "paddle": "<b>Paddle:</b> ücretli planlar için ödeme işlemleri. Voca şu anda ücretsiz. Paddle ancak ileride ücretli planlar sunulur ve siz abone olmayı seçerseniz veri alır. <policy>Gizlilik Politikası</policy>",
         "hosting": "<b>Barındırma ve veritabanı sağlayıcıları:</b> sunucularımızı çalıştırır, hesap verilerinizi ve transkriptlerinizi bizim adımıza saklar."
       }

@@ -217,7 +217,7 @@
   },
   "privacy": {
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 10 de outubro de 2026",
+    "lastUpdated": "Última atualização: 17 de outubro de 2026",
     "intro": {
       "heading": "1. Introdução",
       "content": "Esta Política de Privacidade explica como o Voca (\"Serviço\"), operado por Emircan Sahin (\"nós\", \"nosso\"), coleta, usa e protege suas informações quando você visita usevoca.dev ou usa o aplicativo de desktop Voca."
@@ -246,7 +246,7 @@
     },
     "translation": {
       "heading": "5. Tradução e Tom",
-      "content": "Se você ativar a tradução no aplicativo, o texto transcrito é enviado à <b>xAI (Grok)</b> para ser traduzido e para aplicar o tom e os complementos selecionados. A xAI recebe apenas texto, nunca o seu áudio."
+      "content": "Se você ativar a tradução no aplicativo, o texto transcrito é enviado à <b>DeepSeek</b>, provedora sediada na China, para ser traduzido e para aplicar o tom e os complementos selecionados. A DeepSeek recebe apenas texto, nunca o seu áudio."
     },
     "transcripts": {
       "heading": "6. Transcrições e Modo Privacidade",
@@ -264,7 +264,7 @@
         "google": "<b>Google:</b> login no aplicativo e análise de visitas do site. <policy>Política de Privacidade</policy>",
         "groq": "<b>Groq:</b> fala para texto. Recebe seu áudio quando o Groq é o provedor selecionado. <policy>Política de Privacidade</policy>",
         "deepgram": "<b>Deepgram:</b> fala para texto. Recebe seu áudio quando o Deepgram é o provedor selecionado. <policy>Política de Privacidade</policy>",
-        "xai": "<b>xAI:</b> tradução, tom e complementos. Recebe o texto das suas transcrições quando a tradução está ativada. <policy>Política de Privacidade</policy>",
+        "deepseek": "<b>DeepSeek:</b> tradução, tom e complementos. Sediada na China. Recebe o texto das suas transcrições quando a tradução está ativada. <policy>Política de Privacidade</policy>",
         "paddle": "<b>Paddle:</b> processamento de pagamentos dos planos pagos. O Voca é gratuito no momento, então o Paddle só recebe dados se planos pagos forem lançados e você decidir assinar. <policy>Política de Privacidade</policy>",
         "hosting": "<b>Provedores de hospedagem e banco de dados:</b> operam nossos servidores e armazenam os dados da sua conta e suas transcrições em nosso nome."
       }

@@ -15,7 +15,7 @@ The project is fully open source under the MIT license: https://github.com/emirc
 3. Audio is sent to our cloud pipeline
 4. Background noise is removed
 5. Deepgram Nova-3 or Groq Whisper transcribes the audio
-6. xAI Grok corrects and improves the text
+6. DeepSeek corrects and improves the text
 7. The result is auto-pasted where your cursor was
 
 No manual copy-paste. No switching apps. The transcript appears instantly in whatever app you were using.
@@ -47,7 +47,7 @@ No manual copy-paste. No switching apps. The transcript appears instantly in wha
 
 ## Translation
 
-- Powered by xAI Grok
+- Powered by DeepSeek
 - 100+ languages supported
 - Tone options: Casual, Formal, Developer
 - Developer mode keeps code terms in English while translating the rest naturally
@@ -74,7 +74,7 @@ We may add paid features in the future. Changes will be announced in advance and
 ## Privacy and Data
 
 - Audio is recorded only while the shortcut is held or toggled, sent to the chosen STT provider (Groq or Deepgram), and deleted from our server right after transcription
-- If translation is on, the transcript text is sent to xAI (Grok); xAI never receives audio
+- If translation is on, the transcript text is sent to DeepSeek (based in China); DeepSeek never receives audio
 - Transcripts are saved to History by default and can be deleted any time; Privacy Mode never saves them on our servers
 - The desktop app has no analytics; the usevoca.dev website uses Google Analytics for visit statistics
 - No selling data, no ads

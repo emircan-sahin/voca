@@ -217,7 +217,7 @@
   },
   "privacy": {
     "title": "隐私政策",
-    "lastUpdated": "最后更新：2026年10月10日",
+    "lastUpdated": "最后更新：2026年10月17日",
     "intro": {
       "heading": "1. 简介",
       "content": "本隐私政策说明由 Emircan Sahin（\"我们\"）运营的 Voca（\"服务\"）在您访问 usevoca.dev 或使用 Voca 桌面应用时，如何收集、使用和保护您的信息。"
@@ -246,7 +246,7 @@
     },
     "translation": {
       "heading": "5. 翻译与风格",
-      "content": "如果您在应用中开启翻译，转录文本将发送给 <b>xAI（Grok）</b>，用于翻译并应用您选择的风格和插件。xAI 只接收文本，绝不会接收您的音频。"
+      "content": "如果您在应用中开启翻译，转录文本将发送给总部位于中国的服务提供商 <b>DeepSeek</b>，用于翻译并应用您选择的风格和插件。DeepSeek 只接收文本，绝不会接收您的音频。"
     },
     "transcripts": {
       "heading": "6. 转录内容与隐私模式",
@@ -264,7 +264,7 @@
         "google": "<b>Google：</b>应用登录及网站分析。<policy>隐私政策</policy>",
         "groq": "<b>Groq：</b>语音转文字。当您选择 Groq 作为提供商时，接收您的音频。<policy>隐私政策</policy>",
         "deepgram": "<b>Deepgram：</b>语音转文字。当您选择 Deepgram 作为提供商时，接收您的音频。<policy>隐私政策</policy>",
-        "xai": "<b>xAI：</b>翻译、风格和插件。开启翻译时，接收您的转录文本。<policy>隐私政策</policy>",
+        "deepseek": "<b>DeepSeek：</b>翻译、风格和插件。总部位于中国。开启翻译时，接收您的转录文本。<policy>隐私政策</policy>",
         "paddle": "<b>Paddle：</b>付费套餐的支付处理。Voca 目前免费，因此只有在推出付费套餐且您选择订阅时，Paddle 才会接收数据。<policy>隐私政策</policy>",
         "hosting": "<b>托管和数据库提供商：</b>代表我们运行服务器，并存储您的账户数据和转录内容。"
       }

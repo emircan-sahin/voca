@@ -217,7 +217,7 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: October 10, 2026",
+    "lastUpdated": "Last updated: October 17, 2026",
     "intro": {
       "heading": "1. Introduction",
       "content": "This Privacy Policy explains how Voca (\"Service\"), operated by Emircan Sahin (\"we\", \"us\", \"our\"), collects, uses, and protects your information when you visit usevoca.dev or use the Voca desktop app."
@@ -246,7 +246,7 @@
     },
     "translation": {
       "heading": "5. Translation and Tone",
-      "content": "If you turn on translation in the app, the transcribed text is sent to <b>xAI (Grok)</b> to translate it and apply your selected tone and add-ons. xAI only receives text, never your audio."
+      "content": "If you turn on translation in the app, the transcribed text is sent to <b>DeepSeek</b>, a provider based in China, to translate it and apply your selected tone and add-ons. DeepSeek only receives text, never your audio."
     },
     "transcripts": {
       "heading": "6. Transcripts and Privacy Mode",
@@ -264,7 +264,7 @@
         "google": "<b>Google:</b> sign-in for the app and analytics for the website. <policy>Privacy Policy</policy>",
         "groq": "<b>Groq:</b> speech-to-text. Receives your audio when Groq is your selected provider. <policy>Privacy Policy</policy>",
         "deepgram": "<b>Deepgram:</b> speech-to-text. Receives your audio when Deepgram is your selected provider. <policy>Privacy Policy</policy>",
-        "xai": "<b>xAI:</b> translation, tone, and add-ons. Receives your transcript text when translation is on. <policy>Privacy Policy</policy>",
+        "deepseek": "<b>DeepSeek:</b> translation, tone, and add-ons. Based in China. Receives your transcript text when translation is on. <policy>Privacy Policy</policy>",
         "paddle": "<b>Paddle:</b> payment processing for paid plans. Voca is currently free, so Paddle only receives data if paid plans are introduced and you choose to subscribe. <policy>Privacy Policy</policy>",
         "hosting": "<b>Hosting and database providers:</b> run our servers and store your account data and transcripts on our behalf."
       }

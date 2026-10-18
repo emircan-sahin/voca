@@ -217,7 +217,7 @@
   },
   "privacy": {
     "title": "Datenschutzrichtlinie",
-    "lastUpdated": "Zuletzt aktualisiert: 10. Oktober 2026",
+    "lastUpdated": "Zuletzt aktualisiert: 17. Oktober 2026",
     "intro": {
       "heading": "1. Einleitung",
       "content": "Diese Datenschutzrichtlinie erklärt, wie Voca (\"Dienst\"), betrieben von Emircan Sahin (\"wir\", \"uns\", \"unser\"), Ihre Informationen erfasst, verwendet und schützt, wenn Sie usevoca.dev besuchen oder die Voca-Desktop-App nutzen."
@@ -246,7 +246,7 @@
     },
     "translation": {
       "heading": "5. Übersetzung und Schreibstil",
-      "content": "Wenn Sie in der App die Übersetzung aktivieren, wird der transkribierte Text an <b>xAI (Grok)</b> gesendet, um ihn zu übersetzen und den gewählten Schreibstil sowie die Add-ons anzuwenden. xAI erhält nur Text, niemals Ihr Audio."
+      "content": "Wenn Sie in der App die Übersetzung aktivieren, wird der transkribierte Text an <b>DeepSeek</b> gesendet, einen Anbieter mit Sitz in China, um ihn zu übersetzen und den gewählten Schreibstil sowie die Add-ons anzuwenden. DeepSeek erhält nur Text, niemals Ihr Audio."
     },
     "transcripts": {
       "heading": "6. Transkripte und Datenschutzmodus",
@@ -264,7 +264,7 @@
         "google": "<b>Google:</b> Anmeldung in der App und Analysen für die Website. <policy>Datenschutzrichtlinie</policy>",
         "groq": "<b>Groq:</b> Sprache-zu-Text. Erhält Ihr Audio, wenn Groq Ihr gewählter Anbieter ist. <policy>Datenschutzrichtlinie</policy>",
         "deepgram": "<b>Deepgram:</b> Sprache-zu-Text. Erhält Ihr Audio, wenn Deepgram Ihr gewählter Anbieter ist. <policy>Datenschutzrichtlinie</policy>",
-        "xai": "<b>xAI:</b> Übersetzung, Schreibstil und Add-ons. Erhält den Text Ihrer Transkripte, wenn die Übersetzung aktiviert ist. <policy>Datenschutzrichtlinie</policy>",
+        "deepseek": "<b>DeepSeek:</b> Übersetzung, Schreibstil und Add-ons. Anbieter mit Sitz in China. Erhält den Text Ihrer Transkripte, wenn die Übersetzung aktiviert ist. <policy>Datenschutzrichtlinie</policy>",
         "paddle": "<b>Paddle:</b> Zahlungsabwicklung für kostenpflichtige Tarife. Voca ist derzeit kostenlos, daher erhält Paddle nur dann Daten, wenn kostenpflichtige Tarife eingeführt werden und Sie sich für ein Abonnement entscheiden. <policy>Datenschutzrichtlinie</policy>",
         "hosting": "<b>Hosting- und Datenbankanbieter:</b> betreiben unsere Server und speichern Ihre Kontodaten und Transkripte in unserem Auftrag."
       }
