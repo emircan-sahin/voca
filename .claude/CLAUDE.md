@@ -1,7 +1,7 @@
 # Voca — Master Guide
 
 ## Project Overview
-An Electron desktop app that records audio, transcribes it to text via Groq/Deepgram APIs, translates with xAI Grok, and stores transcripts in MongoDB. Users authenticate via Google OAuth. The pnpm monorepo contains four packages:
+An Electron desktop app that records audio, transcribes it to text via Groq/Deepgram APIs, translates with DeepSeek, and stores transcripts in MongoDB. Users authenticate via Google OAuth. The pnpm monorepo contains four packages:
 
 - `@voca/shared` — TypeScript types, Zod schemas, and language constants
 - `@voca/backend` — Express.js API server (port 3100)
@@ -16,7 +16,7 @@ Electron Renderer (React)
   → authenticate middleware (JWT)
   → requireDailyQuota middleware (per-user daily audio cap)
   → Controller
-  → Groq/Deepgram Service (STT) + xAI Grok (translation)
+  → Groq/Deepgram Service (STT) + DeepSeek (translation)
   → MongoDB (Mongoose)
   → Returns ApiResponse<ITranscript>
 ```
