@@ -12,9 +12,11 @@ import { useMicrophoneStore } from '~/stores/microphone.store';
 import { useTranslationStore } from '~/stores/translation.store';
 import { useVocabularyStore } from '~/stores/vocabulary.store';
 import { useDirectTypingStore } from '~/stores/directTyping.store';
+import { useLiveTypingStore } from '~/stores/liveTyping.store';
 import { transcriptService } from '~/services/transcript.service';
 import { ApiError } from '~/lib/axios';
 import { RETRY_TOAST_ID, showRetryToast } from '~/lib/retryToast';
+import { LiveSession, openLiveSession } from '~/lib/liveTranscription';
 import { ApiResponse, ITranscript, TRANSCRIPT_PAGE_SIZE } from '@voca/shared';
 
 export const TRANSCRIPTS_QUERY_KEY = ['transcripts'];
@@ -43,6 +45,9 @@ export const useTranscription = () => {
   // Audio of the last network/5xx failure, memory only. Single slot: replaced by the next failure.
   const failedBlob = useRef<Blob | null>(null);
   const isRetry = useRef(false);
+  // Live dictation in progress; its text was already typed while the user spoke
+  const liveRef = useRef<LiveSession | null>(null);
+  const liveTyped = useRef(false);
   const retryRef = useRef<() => void>(() => {});
   const tRef = useRef(t);
   tRef.current = t;
@@ -82,7 +87,21 @@ export const useTranscription = () => {
     );
 
   const transcribeMutation = useMutation<ApiResponse<ITranscript>, ApiError, Blob>({
-    mutationFn: (blob) => {
+    mutationFn: async (blob) => {
+      const live = liveRef.current;
+      liveRef.current = null;
+      if (live) {
+        try {
+          const { message, transcript } = await live.finish();
+          liveTyped.current = true;
+          return { success: true, message, data: transcript };
+        } catch (err) {
+          // Nothing typed yet and the failure isn't a verdict on the audio: the batch route can still deliver
+          const status = err instanceof ApiError ? err.status : undefined;
+          const retryable = status === undefined || status >= 500 || status === 401;
+          if (live.hasTyped() || !retryable) throw err;
+        }
+      }
       const translateTo = translationEnabled ? targetLanguage : undefined;
       return transcriptService.transcribe(
         blob, provider, language, translateTo,
@@ -107,7 +126,7 @@ export const useTranscription = () => {
         return;
       }
       toast.success(res.message);
-      if (triggeredByShortcut.current && text) {
+      if (triggeredByShortcut.current && text && !liveTyped.current) {
         window.electronAPI.pasteTranscript(text, useDirectTypingStore.getState().enabled);
       }
     },
@@ -125,6 +144,7 @@ export const useTranscription = () => {
     onSettled: () => {
       triggeredByShortcut.current = false;
       isRetry.current = false;
+      liveTyped.current = false;
       setProcessing(false);
       window.electronAPI.hideOverlay();
     },
@@ -151,6 +171,22 @@ export const useTranscription = () => {
     [deleteMutation]
   );
 
+  // Stores are read directly: this runs from a global shortcut, possibly ahead of a re-render.
+  // Translation needs the whole sentence, so it can't be typed out as it is spoken.
+  const canGoLive = () =>
+    triggeredByShortcut.current &&
+    window.electronAPI.platform !== 'linux' &&
+    useLiveTypingStore.getState().enabled &&
+    useProviderStore.getState().provider === 'deepgram' &&
+    !useTranslationStore.getState().enabled;
+
+  const startLive = () =>
+    openLiveSession(
+      { language: useLanguageStore.getState().language, vocabulary: useVocabularyStore.getState().words },
+      // Segments are separate phrases; the space keeps the next one from gluing onto the last word
+      (text, isFirst) => window.electronAPI.pasteTranscript(isFirst ? text : ` ${text}`, useDirectTypingStore.getState().enabled)
+    );
+
   const handleToggle = useCallback(async () => {
     // Read the store directly: the closure's isProcessing can lag a render behind
     if (toggling.current) {
@@ -165,6 +201,8 @@ export const useTranscription = () => {
         const blob = await stop();
         if (!blob) return; // cancelled during the stop tail, cancel already hid the overlay
         if (blob.size < 2000) {
+          liveRef.current?.abort();
+          liveRef.current = null;
           toast.error(t('error.noMic'));
           triggeredByShortcut.current = false;
           window.electronAPI.hideOverlay();
@@ -174,9 +212,13 @@ export const useTranscription = () => {
         window.electronAPI.setOverlayLoading(true);
         transcribeMutation.mutate(blob);
       } else {
-        await start();
+        const live = canGoLive() ? startLive() : null;
+        liveRef.current = live;
+        await start(live?.send);
       }
     } catch (err) {
+      liveRef.current?.abort();
+      liveRef.current = null;
       // getUserMedia denied / device gone, or the recorder failed to stop
       console.warn('[Recorder]', err instanceof Error ? err.message : err);
       toast.error(t('error.noMic'));
@@ -228,6 +270,7 @@ export const useTranscription = () => {
   useEffect(
     () => () => {
       failedBlob.current = null;
+      liveRef.current?.abort();
       toast.dismiss(RETRY_TOAST_ID);
     },
     []
@@ -247,6 +290,8 @@ export const useTranscription = () => {
       pendingStop.current = false;
       if (isRecording) {
         cancel();
+        liveRef.current?.abort();
+        liveRef.current = null;
         triggeredByShortcut.current = false;
         window.electronAPI.hideOverlay();
       }

@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "Starts Voca hidden in the background so your shortcut is always ready.",
   "settings.directTyping": "Type without the clipboard",
   "settings.directTypingDesc": "Text is typed straight into the focused field, so whatever you copied stays put. Multi-line text is pasted through the clipboard, and your clipboard is restored right after.",
+  "settings.liveTyping": "Type while you speak",
+  "settings.liveTypingDesc": "Text appears in the focused field as you talk, instead of after you stop. Turns off translation, because translation needs the full sentence. Works with Deepgram only.",
   "tray.open": "Open Voca",
   "tray.copyLast": "Copy last transcript",
   "tray.quit": "Quit",

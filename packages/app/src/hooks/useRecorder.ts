@@ -5,6 +5,8 @@ import { useEchoCancellationStore } from '~/stores/echoCancellation.store';
 const DEFAULT_MIME = 'audio/webm';
 // People release the shortcut while still finishing the last syllable
 const STOP_TAIL_MS = 300;
+// Live dictation needs audio while it is still being spoken; the chunks also add up to the full blob
+const LIVE_TIMESLICE_MS = 250;
 
 export const useRecorder = (deviceId: string) => {
   const noiseSuppression = useNoiseSuppressionStore((s) => s.enabled);
@@ -16,7 +18,7 @@ export const useRecorder = (deviceId: string) => {
   const pendingStop = useRef<{ timer: ReturnType<typeof setTimeout>; resolve: (blob: Blob | null) => void } | null>(null);
   const unmounted = useRef(false);
 
-  const start = useCallback(async () => {
+  const start = useCallback(async (onChunk?: (chunk: Blob) => void) => {
     // Guard against a second start (double shortcut press) leaking the first stream
     if (mediaRecorder.current && mediaRecorder.current.state !== 'inactive') return;
 
@@ -40,10 +42,12 @@ export const useRecorder = (deviceId: string) => {
     chunks.current = [];
     const recorder = new MediaRecorder(s);
     recorder.ondataavailable = (e) => {
-      if (e.data.size > 0) chunks.current.push(e.data);
+      if (e.data.size === 0) return;
+      chunks.current.push(e.data);
+      onChunk?.(e.data);
     };
     mediaRecorder.current = recorder;
-    recorder.start();
+    recorder.start(onChunk ? LIVE_TIMESLICE_MS : undefined);
     setStream(s);
     setIsRecording(true);
   }, [deviceId, noiseSuppression, echoCancellation]);

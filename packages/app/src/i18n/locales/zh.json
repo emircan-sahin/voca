@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "Voca 会在后台静默启动，快捷键随时可用。",
   "settings.directTyping": "不使用剪贴板输入",
   "settings.directTypingDesc": "文本会直接输入到光标所在的输入框，您复制的内容不会被覆盖。多行文本仍通过剪贴板粘贴，之后会立即恢复剪贴板原有内容。",
+  "settings.liveTyping": "边说边输入",
+  "settings.liveTypingDesc": "文本会在您说话的同时输入到光标所在的输入框，不必等您说完。此功能会关闭翻译，因为翻译需要完整的句子。仅支持 Deepgram。",
   "tray.open": "打开 Voca",
   "tray.copyLast": "复制最近一条转录",
   "tray.quit": "退出",

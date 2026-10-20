@@ -13,6 +13,7 @@ import {
 } from 'poyraz-ui/molecules';
 import { LANGUAGES, TranslationTone } from '@voca/shared';
 import { useTranslationStore } from '~/stores/translation.store';
+import { useLiveTypingStore } from '~/stores/liveTyping.store';
 
 export const TranslationSettings = () => {
   const { t } = useTranslation();
@@ -20,6 +21,12 @@ export const TranslationSettings = () => {
     enabled, targetLanguage, tone, numeric, planning,
     setEnabled, setTargetLanguage, setTone, setNumeric, setPlanning,
   } = useTranslationStore();
+
+  const handleEnabled = (checked: boolean) => {
+    setEnabled(checked);
+    // Live typing can't wait for the whole sentence, so the two can't both run
+    if (checked) useLiveTypingStore.getState().setEnabled(false);
+  };
 
   const TONES: { value: TranslationTone; label: string }[] = [
     { value: 'developer', label: t('settings.toneDeveloper') },
@@ -35,7 +42,7 @@ export const TranslationSettings = () => {
         <Switch
           id="translation-toggle"
           checked={enabled}
-          onCheckedChange={setEnabled}
+          onCheckedChange={handleEnabled}
         />
       </div>
 

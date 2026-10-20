@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "Voca si avvia nascosto in background, così la tua scorciatoia è sempre pronta.",
   "settings.directTyping": "Scrivi senza usare gli appunti",
   "settings.directTypingDesc": "Il testo viene digitato direttamente nel campo attivo, così quello che hai copiato resta dov'è. Il testo su più righe viene incollato tramite gli appunti, che vengono ripristinati subito dopo.",
+  "settings.liveTyping": "Scrivi mentre parli",
+  "settings.liveTypingDesc": "Il testo compare nel campo attivo mentre parli, senza aspettare che tu finisca. Disattiva la traduzione, perché le serve la frase completa. Funziona solo con Deepgram.",
   "tray.open": "Apri Voca",
   "tray.copyLast": "Copia l'ultima trascrizione",
   "tray.quit": "Esci",

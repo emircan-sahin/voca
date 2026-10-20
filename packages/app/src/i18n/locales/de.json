@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "Voca startet unsichtbar im Hintergrund, damit dein Tastenkürzel jederzeit bereit ist.",
   "settings.directTyping": "Ohne Zwischenablage tippen",
   "settings.directTypingDesc": "Der Text wird direkt ins aktive Feld getippt, so bleibt alles, was du kopiert hast, erhalten. Mehrzeiliger Text wird über die Zwischenablage eingefügt, die danach sofort wiederhergestellt wird.",
+  "settings.liveTyping": "Beim Sprechen tippen",
+  "settings.liveTypingDesc": "Der Text erscheint schon während du sprichst im aktiven Feld, nicht erst danach. Die Übersetzung wird dabei ausgeschaltet, weil sie den ganzen Satz braucht. Funktioniert nur mit Deepgram.",
   "tray.open": "Voca öffnen",
   "tray.copyLast": "Letztes Transkript kopieren",
   "tray.quit": "Beenden",

@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "Voca démarre discrètement en arrière-plan pour que votre raccourci soit toujours prêt.",
   "settings.directTyping": "Saisir sans le presse-papiers",
   "settings.directTypingDesc": "Le texte est saisi directement dans le champ actif, et ce que vous avez copié reste intact. Le texte sur plusieurs lignes passe par le presse-papiers, qui est restauré juste après.",
+  "settings.liveTyping": "Écrire pendant que vous parlez",
+  "settings.liveTypingDesc": "Le texte s'affiche dans le champ actif au fil de vos paroles, sans attendre que vous ayez fini. La traduction est désactivée, car elle a besoin de la phrase entière. Fonctionne uniquement avec Deepgram.",
   "tray.open": "Ouvrir Voca",
   "tray.copyLast": "Copier la dernière transcription",
   "tray.quit": "Quitter",

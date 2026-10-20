@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "Voca をバックグラウンドで起動しておくので、いつでもショートカットが使えます。",
   "settings.directTyping": "クリップボードを使わずに入力",
   "settings.directTypingDesc": "選択中の入力欄にテキストを直接入力するので、コピーした内容はそのまま残ります。複数行のテキストはクリップボード経由で貼り付け、直後にクリップボードを元に戻します。",
+  "settings.liveTyping": "話しながら入力",
+  "settings.liveTypingDesc": "話し終わるのを待たず、話している間に選択中の入力欄へテキストが入力されます。翻訳には文全体が必要なため、翻訳はオフになります。Deepgramでのみ利用できます。",
   "tray.open": "Voca を開く",
   "tray.copyLast": "最新の文字起こしをコピー",
   "tray.quit": "終了",

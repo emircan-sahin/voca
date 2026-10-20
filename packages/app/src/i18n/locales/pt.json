@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "O Voca abre oculto em segundo plano, então seu atalho fica sempre pronto.",
   "settings.directTyping": "Digitar sem a área de transferência",
   "settings.directTypingDesc": "O texto é digitado direto no campo ativo, então o que você copiou continua lá. Texto com várias linhas é colado pela área de transferência, que é restaurada logo em seguida.",
+  "settings.liveTyping": "Digitar enquanto fala",
+  "settings.liveTypingDesc": "O texto aparece no campo ativo enquanto você fala, sem esperar você terminar. Desliga a tradução, porque ela precisa da frase completa. Funciona só com o Deepgram.",
   "tray.open": "Abrir o Voca",
   "tray.copyLast": "Copiar última transcrição",
   "tray.quit": "Sair",

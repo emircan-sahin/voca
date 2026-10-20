@@ -152,15 +152,12 @@ function pasteKeycode(): Promise<number | null> {
   });
 }
 
-ipcMain.on('transcript:paste-text', async (e, payload: unknown) => {
-  if (!isFromMainWindow(e) || typeof payload !== 'object' || payload === null) return;
-  const { text, direct } = payload as { text?: unknown; direct?: unknown };
-  if (typeof text !== 'string' || !text) return;
-
+/** Types or pastes one piece of text at the cursor. Resolves once the keystrokes are out. */
+async function insertText(text: string, direct: boolean): Promise<void> {
   // A newline would be typed as Enter (sends the message in chat apps) and a tab moves focus away;
   // text with control characters goes through the clipboard
   // eslint-disable-next-line no-control-regex
-  if (process.platform === 'darwin' && direct === true && !/[\x00-\x1f]/.test(text)) {
+  if (process.platform === 'darwin' && direct && !/[\x00-\x1f]/.test(text)) {
     await new Promise((r) => setTimeout(r, 100));
     if (await typeDirectly(text)) return;
   }
@@ -183,33 +180,49 @@ ipcMain.on('transcript:paste-text', async (e, payload: unknown) => {
   else clipboardBackup = backupClipboard();
   clipboard.writeText(text);
 
-  const done = (err: Error | null) => {
-    if (restoreTimer) clearTimeout(restoreTimer);
-    if (err) {
-      console.warn('[Paste] keystroke failed:', err.message);
-      restoreTimer = null;
-      clipboardBackup = null;
-      notifyPasteFailed();
-      return;
-    }
-    restoreTimer = setTimeout(() => restoreClipboard(text), CLIPBOARD_RESTORE_DELAY_MS);
-  };
+  await new Promise<void>((resolve) => {
+    const done = (err: Error | null) => {
+      if (restoreTimer) clearTimeout(restoreTimer);
+      if (err) {
+        console.warn('[Paste] keystroke failed:', err.message);
+        restoreTimer = null;
+        clipboardBackup = null;
+        notifyPasteFailed();
+      } else {
+        restoreTimer = setTimeout(() => restoreClipboard(text), CLIPBOARD_RESTORE_DELAY_MS);
+      }
+      resolve();
+    };
 
-  setTimeout(async () => {
-    if (process.platform === 'darwin') {
-      // keystroke "v" sends nothing on layouts without a V (Russian, Greek), so press V's keycode
-      const code = await pasteKeycode();
-      const keys = code === null ? 'keystroke "v"' : `key code ${code}`;
-      execFile('osascript', ['-e', `tell application "System Events" to ${keys} using command down`], done);
-    } else {
-      execFile(
-        'powershell',
-        ['-NoProfile', '-NonInteractive', '-Command', "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('^v')"],
-        { windowsHide: true },
-        done
-      );
-    }
-  }, 100);
+    setTimeout(async () => {
+      if (process.platform === 'darwin') {
+        // keystroke "v" sends nothing on layouts without a V (Russian, Greek), so press V's keycode
+        const code = await pasteKeycode();
+        const keys = code === null ? 'keystroke "v"' : `key code ${code}`;
+        execFile('osascript', ['-e', `tell application "System Events" to ${keys} using command down`], done);
+      } else {
+        execFile(
+          'powershell',
+          ['-NoProfile', '-NonInteractive', '-Command', "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('^v')"],
+          { windowsHide: true },
+          done
+        );
+      }
+    }, 100);
+  });
+}
+
+// Live dictation sends one phrase at a time while the user is still talking; they must land in order
+let insertQueue: Promise<void> = Promise.resolve();
+
+ipcMain.on('transcript:paste-text', (e, payload: unknown) => {
+  if (!isFromMainWindow(e) || typeof payload !== 'object' || payload === null) return;
+  const { text, direct } = payload as { text?: unknown; direct?: unknown };
+  if (typeof text !== 'string' || !text) return;
+
+  insertQueue = insertQueue
+    .then(() => insertText(text, direct === true))
+    .catch((err) => console.warn('[Paste]', err instanceof Error ? err.message : err));
 });
 
 // App info

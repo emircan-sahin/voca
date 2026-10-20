@@ -15,6 +15,7 @@ import { EchoCancellation } from '~/components/EchoCancellation';
 import { PrivacyMode } from '~/components/PrivacyMode';
 import { LaunchAtLogin } from '~/components/LaunchAtLogin';
 import { DirectTyping } from '~/components/DirectTyping';
+import { LiveTyping } from '~/components/LiveTyping';
 import { ShortcutSettings } from '~/components/ShortcutSettings';
 import { useShortcutStore } from '~/stores/shortcut.store';
 import { useOnboardingStore } from '~/stores/onboarding.store';
@@ -58,6 +59,7 @@ export const SettingsView = () => {
             <label className="text-xs text-[#737373]">{t('settings.microphone')}</label>
             <MicrophoneSelect />
           </div>
+          <LiveTyping />
         </CardContent>
       </Card>
 

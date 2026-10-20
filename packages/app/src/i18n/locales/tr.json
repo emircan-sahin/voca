@@ -52,6 +52,8 @@
   "settings.launchAtLoginDesc": "Voca arka planda gizli başlar, kısayolunuz her zaman hazır olur.",
   "settings.directTyping": "Panoyu kullanmadan yaz",
   "settings.directTypingDesc": "Metin imlecin olduğu yere doğrudan yazılır, kopyaladıklarınız olduğu gibi kalır. Birden fazla satırlı metinler pano ile yapıştırılır ve panonuz hemen geri yüklenir.",
+  "settings.liveTyping": "Konuşurken yaz",
+  "settings.liveTypingDesc": "Metin, sözünüzü bitirmenizi beklemeden siz konuştukça imlecin olduğu yere yazılır. Çeviri cümlenin tamamını gerektirdiği için kapatılır. Yalnızca Deepgram ile çalışır.",
   "tray.open": "Voca'yı aç",
   "tray.copyLast": "Son transkripti kopyala",
   "tray.quit": "Çık",
