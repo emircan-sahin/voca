@@ -1,24 +1,22 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
-import { Types } from 'mongoose';
-import { TranscriptModel, ITranscriptDocument } from '~/models/transcript.model';
+import { TranscriptModel } from '~/models/transcript.model';
 import { transcribeAudio as groqTranscribe } from '~/services/groq.service';
 import { transcribeAudio as deepgramTranscribe } from '~/services/deepgram.service';
 import { translateText } from '~/services/translation.service';
+import { saveTranscript, toITranscript } from '~/services/transcript.service';
 import { calculateCost /* , deductCredits */ } from '~/services/billing.service';
 import { sendSuccess, sendError } from '~/utils/response';
 import { safeUnlink } from '~/utils/fs';
 import { getErrorMessage } from '~/utils/error';
 import { env } from '~/config/env';
 import {
-  ITranscript,
   LANGUAGE_CODES,
   TONES,
   STT_PROVIDERS,
   vocabularySchema,
   transcriptListQuerySchema,
 } from '@voca/shared';
-import { UserModel } from '~/models/user.model';
 import { logger } from '~/config/logger';
 import { recordAudioUsage } from '~/services/usage.service';
 
@@ -50,25 +48,6 @@ const transcribeQuerySchema = z.object({
 
 // Released clients (<= v0.0.12) send no params and expect the whole history; cap it so their payload stays bounded.
 const UNPAGED_LIST_CAP = 200;
-
-// Hydrated docs, lean docs and privacy-mode results (never saved) all map through this.
-type TranscriptRecord = Pick<
-  ITranscriptDocument,
-  'text' | 'duration' | 'language' | 'createdAt' | 'translatedText' | 'targetLanguage' | 'tokenUsage'
-> & { _id: Types.ObjectId };
-
-function toITranscript(doc: TranscriptRecord): ITranscript {
-  return {
-    id: doc._id.toString(),
-    text: doc.text,
-    duration: doc.duration,
-    language: doc.language,
-    createdAt: doc.createdAt.toISOString(),
-    ...(doc.translatedText && { translatedText: doc.translatedText }),
-    ...(doc.targetLanguage && { targetLanguage: doc.targetLanguage }),
-    ...(doc.tokenUsage && { tokenUsage: doc.tokenUsage }),
-  };
-}
 
 export async function deleteUserTranscripts(userId: string) {
   await TranscriptModel.deleteMany({ userId });
@@ -144,12 +123,7 @@ export const createTranscript = async (req: Request, res: Response) => {
     tokenUsage,
   };
 
-  // Read right before the save (not at request start) so a privacy toggle during STT is honoured.
-  // Privacy mode: never written to the DB; the response is the only copy and the app keeps it in memory.
-  const userDoc = await UserModel.findById(req.user!.id).select('settings.privacyMode').lean();
-  const record: TranscriptRecord = userDoc?.settings?.privacyMode
-    ? { ...fields, _id: new Types.ObjectId(), createdAt: new Date() }
-    : await TranscriptModel.create({ ...fields, userId: req.user!.id });
+  const record = await saveTranscript(req.user!.id, fields);
   // Refund credits if transcript save fails (re-enable together with deductCredits):
   // catch: await UserModel.updateOne({ _id: req.user!.id }, { $inc: { credits: cost } });
 

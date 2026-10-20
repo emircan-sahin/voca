@@ -17,6 +17,8 @@ import { globalLimiter } from '~/middleware/rateLimit.middleware';
 import { redis, clearTranscriptionLocks } from '~/config/redis';
 import { ensureAppConfig, getAppConfig } from '~/models/appConfig.model';
 import { logger } from '~/config/logger';
+import { attachLiveStream } from '~/services/stream.service';
+import { LIVE_STREAM_PATH } from '@voca/shared';
 
 const app = express();
 app.disable('x-powered-by');
@@ -77,8 +79,12 @@ mongoose
       logger.local('Server', `Running on http://localhost:${env.PORT}`);
     });
 
+    const liveStream = attachLiveStream(server, `${api}${LIVE_STREAM_PATH}`);
+
     const shutdown = () => {
       logger.local('Server', 'Shutting down...');
+      // server.close() waits for open sockets, and a dictation can stay open for minutes
+      liveStream.clients.forEach((c) => c.close(1001));
       server.close(() => {
         logger.flush();
         Promise.all([mongoose.disconnect(), redis.quit()]).then(() => {

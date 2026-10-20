@@ -10,6 +10,8 @@ const deepgram = createClient(env.DEEPGRAM_API_KEY);
 // Pay-as-you-go pre-recorded nova-3, $/min (deepgram.com/pricing, checked 2026-10)
 const COST_PER_MIN = 0.0043;
 const KEYTERM_COST_PER_MIN = 0.0013;
+// Streaming nova-3 is billed higher than pre-recorded, $/min
+const LIVE_COST_PER_MIN = 0.0077;
 
 export const transcribeAudio = async (filePath: string, language: string, vocabulary: string[] = []): Promise<TranscriptionResult> => {
   const stat = fs.statSync(filePath);
@@ -56,3 +58,25 @@ export const transcribeAudio = async (filePath: string, language: string, vocabu
     hallucination,
   };
 };
+
+/** Opens a nova-3 live socket. Container audio (webm/opus) is auto-detected, so no encoding is set. */
+export const openLiveConnection = (language: string, vocabulary: string[] = []) => {
+  const keyterms = buildBiasTerms(vocabulary, language, {
+    maxTokens: DEEPGRAM_KEYTERM_TOKEN_BUDGET,
+    maxCount: DEEPGRAM_KEYTERM_MAX_COUNT,
+  });
+
+  const connection = deepgram.listen.live({
+    model: 'nova-3',
+    smart_format: true,
+    language,
+    // Finals only: text already typed into another app can't be taken back
+    interim_results: false,
+    ...(keyterms.length > 0 && { keyterm: keyterms }),
+  });
+
+  return { connection, hasKeyterms: keyterms.length > 0 };
+};
+
+export const liveCost = (durationSeconds: number, hasKeyterms: boolean) =>
+  (durationSeconds / 60) * (LIVE_COST_PER_MIN + (hasKeyterms ? KEYTERM_COST_PER_MIN : 0));

@@ -1,4 +1,5 @@
 import { UserModel } from '~/models/user.model';
+import { env } from '~/config/env';
 import { logger } from '~/config/logger';
 import { getErrorMessage } from '~/utils/error';
 
@@ -23,4 +24,10 @@ export async function recordAudioUsage(userId: string, seconds: number): Promise
   } catch (err) {
     logger.warn('Usage', `Failed to record audio usage: ${getErrorMessage(err)}`, { seconds });
   }
+}
+
+/** True once the user has used up today's audio quota. */
+export async function isOverDailyQuota(userId: string): Promise<boolean> {
+  const user = await UserModel.findById(userId).select('usageDay usageSeconds').lean();
+  return user?.usageDay === utcDay() && user.usageSeconds >= env.DAILY_AUDIO_LIMIT_MINUTES * 60;
 }
