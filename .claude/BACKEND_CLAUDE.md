@@ -120,6 +120,13 @@ const { result } = await deepgram.listen.prerecorded.transcribeFile(buffer, {
 ```
 Model: `nova-3` only. Cost: $0.0043/min, plus $0.0013/min when `keyterm` is sent. Keyterms come from `buildBiasTerms()`: the user's vocabulary first, then `ENGLISH_TECH_TERMS` for non-English speech so code-switched words ("high", "deploy") are recognized.
 
+### Live dictation socket
+`src/services/stream.service.ts`, attached to the HTTP server in `src/index.ts` at `/api/transcripts/stream` (`ws` with `noServer`). Browsers can't set WebSocket headers, so the access token travels in the first `start` message (`liveStartSchema` in `@voca/shared`).
+- Client → server: `start`, binary webm/opus chunks, then `stop` (flush and save) or `cancel` (keep nothing). Server → client: `ready`, `segment` (final text only, `interim_results: false`), `done` (saved transcript), `error` (`status` mirrors the REST codes)
+- Same guards as `POST /transcripts`: access token, daily quota, and the `transcribing:<userId>` Redis lock
+- On `done` it records audio usage and saves through `saveTranscript()` (privacy mode honoured). Every terminal path sends a verdict or closes the socket
+- Streaming cost (`LIVE_COST_PER_MIN` in `deepgram.service.ts`) is logged only
+
 ## Hallucination Detection
 Both services return a `hallucination: boolean` flag. If true, the controller deletes the audio file and returns a 422 error.
 

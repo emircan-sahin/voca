@@ -138,3 +138,8 @@ Mistakes caught during development. Review at the start of every session.
 - **Wrong**: `osascript ... keystroke "v" using command down` for auto-paste — on a layout with no V (Russian) it sends nothing, reports success, and the clipboard restore then wipes the transcript
 - **Right**: Look up V's keycode in the active layout (ASCII-capable fallback) and press `key code N using command down`; a fixed `key code 9` would be Cmd+C on Turkish F
 - **Why**: Only Latin layouts were ever tested
+
+### [WebSocket] Early-return branch left the socket open
+- **Wrong**: The cancelled-session branch in `finalize()` returned after recording usage without closing the socket, so the client waited forever for a verdict
+- **Right**: Every terminal path of a socket session either sends a verdict or calls `ws.close()`
+- **Why**: Success and error paths closed the socket; the new cancel branch was added later and only the smoke test caught it

@@ -145,6 +145,15 @@ The app is free: the sidebar plan badge, plan expiry watcher and 402 redirect ar
 - Text with control characters (newline, tab), Windows, a missing helper or no Accessibility permission fall back to clipboard backup → Cmd/Ctrl+V → restore after 1 s
 - macOS Cmd+V presses V's keycode from `voca-type --paste-keycode` (layout-aware: Turkish F moves V, Russian has none), not `keystroke "v"`
 - Toggle: `directTyping.store.ts` + `DirectTyping.tsx` in Settings (macOS only, default on)
+- Pastes are queued in main (`insertQueue`) so live dictation phrases land in order
+
+## Live Dictation (Deepgram streaming)
+- `liveTyping.store.ts` + `LiveTyping.tsx` in Settings (Deepgram only, hidden on Linux, default off). Enabling it turns translation off and enabling translation turns it off: translation needs the whole sentence
+- `useTranscription` goes live only for shortcut recordings with the toggle on, provider `deepgram` and translation off (`canGoLive`)
+- `useRecorder.start(onChunk)` records in 250 ms slices; `lib/liveTranscription.ts` forwards them over the socket and hands each final `segment` to `pasteTranscript` (leading space after the first)
+- Stop → `finish()` waits for `done` and caches the saved transcript; nothing is pasted again. Cancel → `abort()` sends `cancel` and the server keeps nothing
+- A failure before anything was typed (no status, 5xx, 401) falls back to the normal upload of the full blob; after text was typed it surfaces the error and the retry toast copies the full text
+- CSP `connect-src` allows `ws://localhost:*` and `wss://*.usevoca.dev`
 
 ## Onboarding
 - `OnboardingWizard.tsx` (language, translation, try step) shows for accounts younger than 7 days until `onboarding.store.ts` marks it completed; Settings can replay it

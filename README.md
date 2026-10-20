@@ -67,6 +67,8 @@ Press Right ⌘ (Mac) or Right ⊞ (Win)
 3. **Stop** — Press the shortcut again (or click the stop button on the overlay).
 4. **Done** — The transcript is typed into whatever app you were using. On macOS it is typed directly without touching your clipboard; elsewhere it is pasted and your previous clipboard is restored.
 
+With Deepgram you can switch on **Type while you speak** in Settings. Text then appears in the focused app as you talk instead of after you stop. It turns translation off, because translation needs the full sentence.
+
 All transcripts are also saved locally in MongoDB so you can search and revisit them later.
 
 ## Tech Stack
