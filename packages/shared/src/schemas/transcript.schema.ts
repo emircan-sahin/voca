@@ -40,3 +40,14 @@ export const transcriptSchema = z.object({
   translationFailed: z.boolean().optional(),
 });
 
+
+// Live dictation socket. Browsers can't set headers on a WebSocket, so the token rides in the first message.
+export const LIVE_STREAM_PATH = '/transcripts/stream';
+
+export const liveStartSchema = z.object({
+  type: z.literal('start'),
+  token: z.string().min(1),
+  language: z.enum(LANGUAGE_CODES),
+  vocabulary: vocabularySchema.default([]),
+});
+export type LiveStart = z.infer<typeof liveStartSchema>;

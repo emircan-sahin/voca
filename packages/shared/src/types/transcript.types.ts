@@ -15,3 +15,10 @@ export interface ITranscript {
   tokenUsage?: ITokenUsage;
   translationFailed?: boolean; // only on the create response, never persisted
 }
+
+// Server → client messages on the live dictation socket (client → server: LiveStart, binary audio, { type: 'stop' | 'cancel' })
+export type LiveServerMessage =
+  | { type: 'ready' }
+  | { type: 'segment'; text: string }
+  | { type: 'done'; message: string; transcript: ITranscript }
+  | { type: 'error'; message: string; status: number };
